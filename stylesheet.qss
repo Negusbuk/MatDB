@@ -1,0 +1,54 @@
+QWidget {
+  font-size: 12px;
+}
+
+QMenu {
+  font-size: 12px;
+}
+
+QPushButton {
+  font-size: 12px;
+}
+
+QRadioButton {
+  font-size: 12px;
+}
+
+QToolButton {
+  font-size: 12px;
+}
+
+QLabel {
+  font-size: 12px;
+}
+
+TokenEditItem {
+  font-size: 12px;
+  padding: 2px 2px 2px 2px;
+  qproperty-itemColor: lightblue;
+  color: black;
+}
+
+QHeaderView::section {
+  font-size: 10px;
+}
+
+QTableView {
+  font-size: 10px;
+}
+
+QTableView::item {
+  font-size: 10px;
+}
+
+QTreeView {
+  font-size: 10px;
+}
+
+QToolBox {
+  font-size: 11px;
+}
+
+QToolBox::tab {
+  font-size: 11px;
+}

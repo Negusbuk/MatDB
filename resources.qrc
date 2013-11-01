@@ -1,0 +1,23 @@
+<RCC>
+<qresource prefix="/qss">
+    <file>stylesheet.qss</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBImportXML.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBExportXML.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBExportHTML.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBEditCategories.png</file>
+</qresource>
+<qresource prefix="/pics">
+    <file>MatDBSplashScreen.png</file>
+</qresource>
+<qresource prefix="/pics">
+    <file>MatDBBG.png</file>
+</qresource>
+</RCC>
