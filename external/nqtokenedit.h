@@ -18,17 +18,17 @@
  **
  ****************************************************************************/
 
-#ifndef TOKENEDIT_H
-#define TOKENEDIT_H
+#ifndef NQTOKENEDIT_H
+#define NQTOKENEDIT_H
 
 #include <QString>
 #include <QScrollArea>
 
 #include <flowlayout.h>
 
-class TokenEditItem;
+class NQTokenEditItem;
 
-class TokenEdit : public QScrollArea
+class NQTokenEdit : public QScrollArea
 {
     Q_OBJECT
     Q_PROPERTY(QColor itemColor READ itemColor WRITE setItemColor)
@@ -38,7 +38,7 @@ class TokenEdit : public QScrollArea
     Q_PROPERTY(int verticalSpacing READ verticalSpacing WRITE setVerticalSpacing)
 
 public:
-    explicit TokenEdit(QWidget *parent = 0);
+    explicit NQTokenEdit(QWidget *parent = 0);
 
     const QStringList& tokens() { return tokens_; }
 
@@ -66,7 +66,7 @@ protected:
 
     QStringList tokens_;
     FlowLayout* layout_;
-    QList<TokenEditItem*> itemList_;
+    QList<NQTokenEditItem*> itemList_;
 
     QColor itemColor_;
     int horizontalMargin_;
@@ -74,11 +74,11 @@ protected:
 
 protected slots:
 
-    void itemChanged(TokenEditItem*);
+    void itemChanged(NQTokenEditItem*);
 
 signals:
 
     void tokensChanged(const QStringList&);
 };
 
-#endif // TOKENEDIT_H
+#endif // NQTOKENEDIT_H

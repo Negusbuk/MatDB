@@ -18,13 +18,13 @@
  **
  ****************************************************************************/
 
-#ifndef TOKENEDITITEM_H
-#define TOKENEDITITEM_H
+#ifndef NQTOKENEDITITEM_H
+#define NQTOKENEDITITEM_H
 
 #include <QLabel>
 #include <QTextLayout>
 
-class TokenEditItem : public QLabel
+class NQTokenEditItem : public QLabel
 {
     Q_OBJECT
     Q_PROPERTY(QColor itemColor READ itemColor WRITE setItemColor)
@@ -32,12 +32,12 @@ class TokenEditItem : public QLabel
     Q_PROPERTY(int verticalMargin READ verticalMargin WRITE setVerticalMargin)
 
 public:
-    explicit TokenEditItem(int idx,
-                           const QColor& color, int hmargin, int vmargin,
-                           QWidget *parent = 0);
-    explicit TokenEditItem(QString label, int idx,
-                           const QColor& color, int hmargin, int vmargin,
-                           QWidget *parent = 0);
+    explicit NQTokenEditItem(int idx,
+                             const QColor& color, int hmargin, int vmargin,
+                             QWidget *parent = 0);
+    explicit NQTokenEditItem(QString label, int idx,
+                             const QColor& color, int hmargin, int vmargin,
+                             QWidget *parent = 0);
 
     const QString tokenText() { return layout_.text(); }
     int index() const { return index_; }
@@ -73,7 +73,7 @@ protected:
 
 signals:
 
-    void itemChanged(TokenEditItem*);
+    void itemChanged(NQTokenEditItem*);
 };
 
-#endif // TOKENEDITITEM_H
+#endif // NQTOKENEDITITEM_H

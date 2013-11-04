@@ -21,10 +21,10 @@
 #include <QLineEdit>
 
 #include "flowlayout.h"
-#include "tokenedit.h"
-#include "tokenedititem.h"
+#include "nqtokenedit.h"
+#include "nqtokenedititem.h"
 
-TokenEdit::TokenEdit(QWidget *parent) :
+NQTokenEdit::NQTokenEdit(QWidget *parent) :
     QScrollArea(parent),
     itemColor_(QColor(Qt::lightGray)),
     horizontalMargin_(15),
@@ -43,11 +43,11 @@ TokenEdit::TokenEdit(QWidget *parent) :
     clear();
 }
 
-void TokenEdit::clear()
+void NQTokenEdit::clear()
 {
     tokens_.clear();
 
-    TokenEditItem *item;
+    NQTokenEditItem *item;
     while (!itemList_.isEmpty()) {
         item = itemList_.takeFirst();
         layout_->removeWidget(item);
@@ -55,13 +55,13 @@ void TokenEdit::clear()
     }
 }
 
-void TokenEdit::setTokens(const QStringList& l)
+void NQTokenEdit::setTokens(const QStringList& l)
 {
     clear();
     appendTokens(l);
 }
 
-void TokenEdit::appendTokens(const QStringList& l)
+void NQTokenEdit::appendTokens(const QStringList& l)
 {
     bool tokensDidChange = false;
 
@@ -69,34 +69,34 @@ void TokenEdit::appendTokens(const QStringList& l)
          it!=l.end();
          ++it) {
         tokens_ << *it;
-        TokenEditItem * item = new TokenEditItem(*it, itemList_.size(),
+        NQTokenEditItem * item = new NQTokenEditItem(*it, itemList_.size(),
                                                  itemColor_,
                                                  horizontalMargin_, verticalMargin_,
                                                  this);
         itemList_.append(item);
         layout_->addWidget(item);
-        connect(item, SIGNAL(itemChanged(TokenEditItem*)),
-                this, SLOT(itemChanged(TokenEditItem*)));
+        connect(item, SIGNAL(itemChanged(NQTokenEditItem*)),
+                this, SLOT(itemChanged(NQTokenEditItem*)));
         tokensDidChange = true;
     }
 
     if (tokensDidChange) emit tokensChanged(tokens_);
 }
 
-void TokenEdit::mousePressEvent(QMouseEvent * /* ev */)
+void NQTokenEdit::mousePressEvent(QMouseEvent * /* ev */)
 {
     tokens_ << "";
-    TokenEditItem * item = new TokenEditItem(itemList_.size(),
+    NQTokenEditItem * item = new NQTokenEditItem(itemList_.size(),
                                              itemColor_,
                                              horizontalMargin_, verticalMargin_,
                                              this);
     itemList_.append(item);
     layout_->addWidget(item);
-    connect(item, SIGNAL(itemChanged(TokenEditItem*)),
-            this, SLOT(itemChanged(TokenEditItem*)));
+    connect(item, SIGNAL(itemChanged(NQTokenEditItem*)),
+            this, SLOT(itemChanged(NQTokenEditItem*)));
 }
 
-void TokenEdit::itemChanged(TokenEditItem* item)
+void NQTokenEdit::itemChanged(NQTokenEditItem* item)
 {
     if (!item) return;
 
@@ -116,50 +116,50 @@ void TokenEdit::itemChanged(TokenEditItem* item)
     }
 }
 
-void TokenEdit::setItemColor(const QColor& color)
+void NQTokenEdit::setItemColor(const QColor& color)
 {
     itemColor_ = color;
 
-    for (QList<TokenEditItem*>::Iterator it = itemList_.begin();
+    for (QList<NQTokenEditItem*>::Iterator it = itemList_.begin();
          it!=itemList_.end();
          ++it) {
         (*it)->setItemColor(color);
     }
 }
 
-void TokenEdit::setHorizontalMargin(int margin)
+void NQTokenEdit::setHorizontalMargin(int margin)
 {
     if (margin<15) return;
 
     horizontalMargin_ = margin;
 
-    for (QList<TokenEditItem*>::Iterator it = itemList_.begin();
+    for (QList<NQTokenEditItem*>::Iterator it = itemList_.begin();
          it!=itemList_.end();
          ++it) {
         (*it)->setHorizontalMargin(margin);
     }
 }
 
-void TokenEdit::setVerticalMargin(int margin)
+void NQTokenEdit::setVerticalMargin(int margin)
 {
     if (margin<2) return;
 
     verticalMargin_ = margin;
 
-    for (QList<TokenEditItem*>::Iterator it = itemList_.begin();
+    for (QList<NQTokenEditItem*>::Iterator it = itemList_.begin();
          it!=itemList_.end();
          ++it) {
         (*it)->setVerticalMargin(margin);
     }
 }
 
-void TokenEdit::setHorizontalSpacing(int spacing)
+void NQTokenEdit::setHorizontalSpacing(int spacing)
 {
     if (spacing<-1) return;
     layout_->setHorizontalSpacing(spacing);
 }
 
-void TokenEdit::setVerticalSpacing(int spacing)
+void NQTokenEdit::setVerticalSpacing(int spacing)
 {
     if (spacing<-1) return;
     layout_->setVerticalSpacing(spacing);

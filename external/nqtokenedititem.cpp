@@ -23,36 +23,36 @@
 #include <QStyleOption>
 #include <QLayout>
 
-#include "tokenedititem.h"
+#include "nqtokenedititem.h"
 
-TokenEditItem::TokenEditItem(int idx,
-                             const QColor& color, int hmargin, int vmargin,
-                             QWidget *parent)
-   : QLabel(parent),
-     index_(idx),
-     currentCursorPos_(0),
-     itemColor_(color),
-     horizontalMargin_(hmargin),
-     verticalMargin_(vmargin)
+NQTokenEditItem::NQTokenEditItem(int idx,
+                                 const QColor& color, int hmargin, int vmargin,
+                                 QWidget *parent)
+    : QLabel(parent),
+      index_(idx),
+      currentCursorPos_(0),
+      itemColor_(color),
+      horizontalMargin_(hmargin),
+      verticalMargin_(vmargin)
 {
     setTokenText("");
     setFocus();
 }
 
-TokenEditItem::TokenEditItem(QString label, int idx,
-                             const QColor& color, int hmargin, int vmargin,
-                             QWidget *parent)
-   : QLabel(label, parent),
-     index_(idx),
-     currentCursorPos_(-1),
-     itemColor_(color),
-     horizontalMargin_(hmargin),
-     verticalMargin_(vmargin)
+NQTokenEditItem::NQTokenEditItem(QString label, int idx,
+                                 const QColor& color, int hmargin, int vmargin,
+                                 QWidget *parent)
+    : QLabel(label, parent),
+      index_(idx),
+      currentCursorPos_(-1),
+      itemColor_(color),
+      horizontalMargin_(hmargin),
+      verticalMargin_(vmargin)
 {
     setTokenText(label);
 }
 
-void TokenEditItem::setTokenText(const QString& text)
+void NQTokenEditItem::setTokenText(const QString& text)
 {
     layout_.setText(text);
     layout_.beginLayout();
@@ -65,7 +65,7 @@ void TokenEditItem::setTokenText(const QString& text)
     setFixedHeight(height + verticalMargin_*4);
 }
 
-void TokenEditItem::paintEvent(QPaintEvent *)
+void NQTokenEditItem::paintEvent(QPaintEvent *)
 {
     QStyle *style = QWidget::style();
 
@@ -102,7 +102,7 @@ void TokenEditItem::paintEvent(QPaintEvent *)
     }
 }
 
-void TokenEditItem::mousePressEvent(QMouseEvent *ev)
+void NQTokenEditItem::mousePressEvent(QMouseEvent *ev)
 {
     setFocus();
 
@@ -111,7 +111,7 @@ void TokenEditItem::mousePressEvent(QMouseEvent *ev)
     currentCursorPos_ = line.xToCursor(x - horizontalMargin_);
 }
 
-void TokenEditItem::keyPressEvent(QKeyEvent * ev)
+void NQTokenEditItem::keyPressEvent(QKeyEvent * ev)
 {
     int key = ev->key();
 
@@ -152,14 +152,14 @@ void TokenEditItem::keyPressEvent(QKeyEvent * ev)
     }
 }
 
-void TokenEditItem::focusOutEvent(QFocusEvent * /* ev */)
+void NQTokenEditItem::focusOutEvent(QFocusEvent * /* ev */)
 {
     currentCursorPos_ = -1;
     update();
     emit itemChanged(this);
 }
 
-void TokenEditItem::changeEvent(QEvent * event)
+void NQTokenEditItem::changeEvent(QEvent * event)
 {
     if (event->type()!=QEvent::FontChange) return;
 
@@ -167,20 +167,20 @@ void TokenEditItem::changeEvent(QEvent * event)
     setTokenText(layout_.text());
 }
 
-void TokenEditItem::setItemColor(const QColor& color)
+void NQTokenEditItem::setItemColor(const QColor& color)
 {
     itemColor_ = color;
     repaint();
 }
 
-void TokenEditItem::setHorizontalMargin(int margin)
+void NQTokenEditItem::setHorizontalMargin(int margin)
 {
     horizontalMargin_ = margin;
     setTokenText(layout_.text());
     repaint();
 }
 
-void TokenEditItem::setVerticalMargin(int margin)
+void NQTokenEditItem::setVerticalMargin(int margin)
 {
     verticalMargin_ = margin;
     setTokenText(layout_.text());
