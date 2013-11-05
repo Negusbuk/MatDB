@@ -3,7 +3,7 @@
 MaterialTagsEdit::MaterialTagsEdit(MaterialListModel* listModel,
                                    MaterialSelectionModel* selectionModel,
                                    QWidget *parent) :
-    TokenEdit(parent),
+    NQTokenEdit(parent),
     listModel_(listModel),
     selectionModel_(selectionModel)
 {

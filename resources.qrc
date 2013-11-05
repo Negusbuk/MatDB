@@ -15,9 +15,9 @@
     <file>icons/MatDBEditCategories.png</file>
 </qresource>
 <qresource prefix="/pics">
-    <file>MatDBSplashScreen.png</file>
+    <file>artwork/MatDBSplashScreen.png</file>
 </qresource>
 <qresource prefix="/pics">
-    <file>MatDBBG.png</file>
+    <file>artwork/MatDBBG.png</file>
 </qresource>
 </RCC>

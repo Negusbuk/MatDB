@@ -29,6 +29,9 @@ MaterialCategoryEditDialog::MaterialCategoryEditDialog(QWidget *parent) :
     nameEdit_ = new QLineEdit(widget);
     formLayout->addRow("Name:", nameEdit_);
 
+    colorPicker_ = new NQColorWheel(widget);
+    layout->addWidget(colorPicker_);
+
     widget = new QWidget(this);
     layout->addWidget(widget);
 
@@ -47,9 +50,4 @@ MaterialCategoryEditDialog::MaterialCategoryEditDialog(QWidget *parent) :
             this, SLOT(reject()));
 
     updateGeometry();
-}
-
-void MaterialCategoryEditDialog::closeEvent(QCloseEvent* e)
-{
-    std::cout << "closeEvent" << std::endl;
 }

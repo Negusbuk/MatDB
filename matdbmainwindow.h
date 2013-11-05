@@ -20,6 +20,8 @@
 #include <parameterselectionmodel.h>
 #include <parameterstackview.h>
 
+#include <materialcategorydialog.h>
+
 class MatDBMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -60,6 +62,8 @@ protected:
 
     PropertySelectionModel* PropertySelectionModel_;
     ParameterSelectionModel* ParameterSelectionModel_;
+
+    MaterialCategoryDialog* categoryDialog_;
 };
 
 #endif // MATDBMAINWINDOW_H

@@ -18,13 +18,20 @@ public:
 
 signals:
 
+    void categoryChanged(MaterialCategory*);
+
 public slots:
 
-    void selectionChanged();
     void addCategory();
     void removeCategory();
+    void categoryDoubleClicked(const QModelIndex& index);
+
+    void storeGeometry();
+    void applyGeometry();
 
 protected:
+
+    virtual void closeEvent(QCloseEvent* e);
 
     MaterialCategoryModel* categoryModel_;
     QListView* categories_;
@@ -32,6 +39,9 @@ protected:
     QPushButton* colorButton_;
     QToolButton* addCategoryButton_;
     QToolButton* removeCategoryButton_;
+
+    QPoint positions_;
+    QSize size_;
 };
 
 #endif // MATERIALCATEGORYDIALOG_H

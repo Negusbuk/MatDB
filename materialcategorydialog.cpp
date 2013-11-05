@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QHeaderView>
 
+#include "materialcategoryeditdialog.h"
 #include "materialcategorydialog.h"
 
 MaterialCategoryDialog::MaterialCategoryDialog(MaterialCategoryModel* categoryModel,
@@ -11,6 +12,19 @@ MaterialCategoryDialog::MaterialCategoryDialog(MaterialCategoryModel* categoryMo
     QDialog(parent),
     categoryModel_(categoryModel)
 {
+    Qt::WindowFlags flags = 0;
+    flags |= Qt::CustomizeWindowHint;
+    flags |= Qt::WindowTitleHint;
+    flags |= Qt::WindowCloseButtonHint;
+    flags |= Qt::WindowStaysOnTopHint;
+    flags |= Qt::Tool;
+    setWindowFlags(flags);
+
+    setMinimumWidth(200);
+    setMaximumWidth(300);
+    setMinimumHeight(200);
+    setMaximumHeight(400);
+
     QBoxLayout * layout = new QVBoxLayout();
     layout->setContentsMargins(3,3,3,3);
     setLayout(layout);
@@ -18,31 +32,15 @@ MaterialCategoryDialog::MaterialCategoryDialog(MaterialCategoryModel* categoryMo
     categories_ = new QListView(this);
     layout->addWidget(categories_);
 
-//    categories_->setSelectionBehavior(QAbstractItemView::SelectItems);
-//    categories_->setSelectionMode(QAbstractItemView::SingleSelection);
-//    categories_->horizontalHeader()->setStretchLastSection(true);
-//    categories_->horizontalHeader()->setResizeMode(0, QHeaderView::Fixed);
-////    categories_->setColumnWidth(0, 302);
-//    categories_->horizontalHeader()->hide();
-//    categories_->verticalHeader()->hide();
-
     categories_->setModel(categoryModel_);
     connect(categoryModel_, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
             categories_, SLOT(dataChanged(QModelIndex,QModelIndex)));
 
-//    int row = 0;
-//    for (std::vector<MaterialCategory*>::const_iterator it = categoryModel_->getCategories().begin();
-//         it!=categoryModel_->getCategories().end();
-//         ++it) {
-//        MaterialCategory* category = *it;
+    connect(this, SIGNAL(categoryChanged(MaterialCategory*)),
+            categoryModel_, SLOT(changedCategory(MaterialCategory*)));
 
-//        QTableWidgetItem* item = new QTableWidgetItem(category->getIcon(), "", QTableWidgetItem::UserType+100);
-//        categories_->setItem(row, 0, item);
-//        item = new QTableWidgetItem(category->getName(), QTableWidgetItem::UserType+101);
-//        categories_->setItem(row, 1, item);
-
-//        row++;
-//    }
+    connect(categories_, SIGNAL(doubleClicked(QModelIndex)),
+            this, SLOT(categoryDoubleClicked(QModelIndex)));
 
     QWidget* tools = new QWidget();
     QBoxLayout * hl = new QHBoxLayout();
@@ -64,16 +62,8 @@ MaterialCategoryDialog::MaterialCategoryDialog(MaterialCategoryModel* categoryMo
 
     hl->addStretch(1);
 
-//    connect(categories_, SIGNAL(itemSelectionChanged()),
-//            this, SLOT(selectionChanged()));
-}
-
-void MaterialCategoryDialog::selectionChanged()
-{
-//    QListWidgetItem *item = categories_->currentItem();
-//    MaterialCategory* category = categoryModel_->getCategory(item->text());
-
-//    nameEdit_->setText(category->getName());
+    positions_ = QPoint(100, 100);
+    size_ = sizeHint();
 }
 
 void MaterialCategoryDialog::addCategory()
@@ -89,4 +79,70 @@ void MaterialCategoryDialog::removeCategory()
     QModelIndex mi = sm->currentIndex();
     QVariant data = categories_->model()->data(mi);
     categoryModel_->removeCategory(data.toString());
+}
+
+void MaterialCategoryDialog::categoryDoubleClicked(const QModelIndex& index)
+{
+    QVariant data = categories_->model()->data(index);
+    MaterialCategory* category = categoryModel_->getCategory(data.toString());
+    if (!category) {
+        std::cout << data.toString().toStdString() << std::endl;
+    }
+    if (category->isReadOnly()) return;
+
+    MaterialCategoryEditDialog dialog(this);
+    dialog.setWindowModality(Qt::WindowModal);
+
+    dialog.setName(category->getName());
+
+    QColor c = category->getColor();
+    dialog.setColor(c);
+
+    int result = dialog.exec();
+
+    if (result==1) {
+        bool isChanged = false;
+
+        QString newName = dialog.getName();
+        if (newName!=category->getName()) {
+            MaterialCategory* dummy = categoryModel_->getCategory(newName);
+            if (!dummy) {
+                if (newName!=category->getName()) {
+                    categoryModel_->renameCategory(category, newName);
+                    isChanged = true;
+                }
+            }
+        }
+
+        QColor newColor = dialog.getColor().toHsv();
+
+        if (newColor.hue()!=c.hue() ||
+            newColor.saturation()!=c.saturation() ||
+            newColor.value()!=c.value()) {
+            category->setColor(newColor);
+            isChanged = true;
+        }
+
+        if (isChanged) {
+            categories_->update();
+            emit categoryChanged(category);
+        }
+    }
+}
+
+void MaterialCategoryDialog::closeEvent(QCloseEvent* /* e*/)
+{
+    storeGeometry();
+}
+
+void MaterialCategoryDialog::storeGeometry()
+{
+    positions_ = this->pos();
+    size_ = this->size();
+}
+
+void MaterialCategoryDialog::applyGeometry()
+{
+    this->move(positions_);
+    this->resize(size_);
 }

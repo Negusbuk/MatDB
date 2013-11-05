@@ -16,38 +16,39 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = MatDB
 TEMPLATE = app
 
-ICON = MatDB.icns
+ICON = artwork/MatDB.icns
 
-SOURCES += main.cpp \
-        matdbmainwindow.cpp \
-    material.cpp \
-    materiallistmodel.cpp \
-    materialselectionmodel.cpp \
-    materialpropertyview.cpp \
-    property.cpp \
-    properties/densityproperty.cpp \
-    properties/elasticityproperty.cpp \
-    properties/thermalconductivityproperty.cpp \
-    properties/cteproperty.cpp \
-    properties/resistivityproperty.cpp \
-    properties/specificheatproperty.cpp \
-    parameter.cpp \
-    propertymodel.cpp \
-    parametermodel.cpp \
-    propertytoolbox.cpp \
-    materialparameterview.cpp \
-    materialtableview.cpp \
-    unit.cpp \
-    unitcombobox.cpp \
-    parameterselectionmodel.cpp \
-    propertyselectionmodel.cpp \
-    parameterstackview.cpp \
-    matmlreader.cpp \
+SOURCES += source/main.cpp \
+           matdbmainwindow.cpp \
+           material.cpp \
+           materiallistmodel.cpp \
+           materialselectionmodel.cpp \
+           materialpropertyview.cpp \
+           property.cpp \
+           properties/densityproperty.cpp \
+           properties/elasticityproperty.cpp \
+           properties/thermalconductivityproperty.cpp \
+           properties/cteproperty.cpp \
+           properties/resistivityproperty.cpp \
+           properties/specificheatproperty.cpp \
+           parameter.cpp \
+           propertymodel.cpp \
+           parametermodel.cpp \
+           propertytoolbox.cpp \
+           materialparameterview.cpp \
+           materialtableview.cpp \
+           unit.cpp \
+           unitcombobox.cpp \
+           parameterselectionmodel.cpp \
+           propertyselectionmodel.cpp \
+           parameterstackview.cpp \
+           matmlreader.cpp \
     matmlwriter.cpp \
     materialmetadatawidget.cpp \
     external/flowlayout.cpp \
-    external/tokenedit.cpp \
-    external/tokenedititem.cpp \
+    external/nqtokenedit.cpp \
+    external/nqtokenedititem.cpp \
+    external/nqcolorwheel.cpp \
     materialtableitem.cpp \
     materialxmlexportdialog.cpp \
     materialimportdialog.cpp \
@@ -56,7 +57,8 @@ SOURCES += main.cpp \
     materialcategorymodel.cpp \
     materialtagsedit.cpp \
     materialcategorybox.cpp \
-    materialcategorydialog.cpp
+    materialcategorydialog.cpp \
+    materialcategoryeditdialog.cpp
 
 HEADERS  += matdbmainwindow.h \
     material.h \
@@ -85,8 +87,9 @@ HEADERS  += matdbmainwindow.h \
     matmlwriter.h \
     materialmetadatawidget.h \
     external/flowlayout.h \
-    external/tokenedit.h \
-    external/tokenedititem.h \
+    external/nqtokenedit.h \
+    external/nqtokenedititem.h \
+    external/nqcolorwheel.h \
     materialtableitem.h \
     materialxmlexportdialog.h \
     materialimportdialog.h \
@@ -95,7 +98,8 @@ HEADERS  += matdbmainwindow.h \
     materialcategorymodel.h \
     materialtagsedit.h \
     materialcategorybox.h \
-    materialcategorydialog.h
+    materialcategorydialog.h \
+    materialcategoryeditdialog.h
 
 FORMS    +=
 
@@ -106,5 +110,5 @@ OTHER_FILES += stylesheet.qss \
     icons/MatDBExportXML.png \
     icons/MatDBExportHTML.png \
     icons/MatDBEditCategories.png \
-    MatDBSplashScreen.png \
-    MatDBBG.png
+    artwork/MatDBSplashScreen.png \
+    artwork/MatDBBG.png

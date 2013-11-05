@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <QPainter>
 #include <QResizeEvent>
 #include <QStyleOption>
@@ -36,8 +38,6 @@ QSize NQColorWheel::minimumSizeHint() const
 
 void NQColorWheel::setColor(const QColor &color)
 {
-    if (color==currentColor_) return;
-
     int h = color.hue();
     int s = color.saturation();
     int v = color.value();

@@ -1,12 +1,12 @@
 #ifndef MATERIALTAGSEDIT_H
 #define MATERIALTAGSEDIT_H
 
-#include <tokenedit.h>
+#include <nqtokenedit.h>
 
 #include <materiallistmodel.h>
 #include <materialselectionmodel.h>
 
-class MaterialTagsEdit : public TokenEdit
+class MaterialTagsEdit : public NQTokenEdit
 {
     Q_OBJECT
 public:

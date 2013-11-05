@@ -13,12 +13,20 @@ MaterialCategory::MaterialCategory(const QString& name,
     isReadOnly_(readonly)
 {
     if (emptyIcon_==0) {
-        QPixmap e(32, 32);
+        QPixmap e(8, 8);
         e.fill(QColor(242, 142, 0, 0));
         emptyIcon_ = new QIcon(e);
     }
 
-    QPixmap pm(32, 32);
+    QPixmap pm(8, 8);
+    pm.fill(color_);
+    icon_ = QIcon(pm);
+}
+
+void MaterialCategory::setColor(const QColor& color)
+{
+    color_ = color;
+    QPixmap pm(8, 8);
     pm.fill(color_);
     icon_ = QIcon(pm);
 }

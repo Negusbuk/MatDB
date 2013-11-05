@@ -14,8 +14,8 @@ MaterialCategoryBox::MaterialCategoryBox(MaterialListModel* listModel,
     connect(selectionModel_, SIGNAL(selectionChanged(Material*)),
             this, SLOT(materialChanged(Material*)));
 
-    connect(categoryModel_, SIGNAL(categoriesChanged()),
-            this, SLOT(categoriesChanged()));
+//    connect(categoryModel_, SIGNAL(categoriesChanged()),
+//            this, SLOT(categoriesChanged()));
 
     connect(this, SIGNAL(materialMetadataChanged(Material*)),
             listModel_, SLOT(materialMetadataChanged(Material*)));
@@ -23,7 +23,7 @@ MaterialCategoryBox::MaterialCategoryBox(MaterialListModel* listModel,
     connect(this, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(selectedCategoryChanged(QString)));
 
-    categoriesChanged();
+    setModel(categoryModel_);
 }
 
 void MaterialCategoryBox::materialChanged(Material* material)
@@ -56,21 +56,23 @@ void MaterialCategoryBox::selectedCategoryChanged(QString item)
 
 void MaterialCategoryBox::categoriesChanged()
 {
-    std::cout << "MaterialCategoryBox::categoriesChanged()" << std::endl;
-
+/*
     clear();
     addItem("");
     for (std::vector<MaterialCategory*>::const_iterator it = categoryModel_->getCategories().begin();
          it!=categoryModel_->getCategories().end();
          ++it) {
         addItem((*it)->getName());
+        std::cout << (*it)->getName().toStdString() << std::endl;
     }
 
     Material * material = selectionModel_->getSelection();
     if (material && material->getCategory()) {
         int idx = findText(material->getCategory()->getName());
+        std::cout << material->getCategory()->getName().toStdString() << " " << idx << std::endl;
         setCurrentIndex(idx);
     } else {
         setCurrentIndex(0);
     }
+*/
 }

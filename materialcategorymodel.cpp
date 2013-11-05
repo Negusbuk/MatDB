@@ -3,12 +3,14 @@
 #include <QDomDocument>
 #include <QXmlStreamWriter>
 #include <QTextStream>
+#include <QUuid>
 
 #include "materialcategorymodel.h"
 
 MaterialCategoryModel::MaterialCategoryModel(QObject *parent) :
     QAbstractTableModel(parent)
 {
+    addCategory("No Category", QColor(255, 255, 255, 0), true);
     addCategory("Structural", QColor(100, 0, 0, 255), true);
     addCategory("Glue", QColor(0, 100, 0, 255), true);
 }
@@ -18,7 +20,27 @@ void MaterialCategoryModel::addCategory(const QString& name,
                                         bool readonly)
 {
     MaterialCategory * mc = new MaterialCategory(name, bgColor, readonly);
+    mc->setUUID(QUuid::createUuid().toString());
+
+    categoriesUUIDMap_[mc->getUUID()] = mc;
     categoriesMap_[name] = mc;
+    categories_.push_back(mc);
+
+    emit dataChanged(QModelIndex(), QModelIndex());
+    emit categoriesChanged();
+}
+
+void MaterialCategoryModel::addCategory(const QString& uuid,
+                                        const QString& name,
+                                        const QColor& bgColor,
+                                        bool readonly)
+{
+    MaterialCategory * mc = new MaterialCategory(name, bgColor, readonly);
+    mc->setUUID(uuid);
+    if (uuid.length()==0) mc->setUUID(QUuid::createUuid().toString());
+
+    categoriesMap_[name] = mc;
+    categoriesUUIDMap_[uuid] = mc;
     categories_.push_back(mc);
 
     emit dataChanged(QModelIndex(), QModelIndex());
@@ -28,6 +50,7 @@ void MaterialCategoryModel::addCategory(const QString& name,
 void MaterialCategoryModel::removeCategory(const QString& name)
 {
     MaterialCategory* category;
+    QString uuid;
 
     std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(name);
     if (it!=categoriesMap_.end()) {
@@ -35,6 +58,12 @@ void MaterialCategoryModel::removeCategory(const QString& name)
         if (category->isReadOnly()) return;
 
         categoriesMap_.erase(it);
+
+        uuid = category->getUUID();
+        std::map<QString,MaterialCategory*>::iterator ituuid = categoriesUUIDMap_.find(uuid);
+        if (it!=categoriesMap_.end()) {
+            categoriesUUIDMap_.erase(ituuid);
+        }
 
         for (std::vector<MaterialCategory*>::iterator itv = categories_.begin();
              itv!= categories_.end();
@@ -52,9 +81,37 @@ void MaterialCategoryModel::removeCategory(const QString& name)
     emit categoriesChanged();
 }
 
+void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QString& name)
+{
+    category->setName(name);
+
+    for (std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.begin();
+         it != categoriesMap_.end();
+         ++it) {
+            if (it->second==category) {
+                categoriesMap_.erase(it);
+                break;
+            }
+    }
+
+    categoriesMap_[name] = category;
+}
+
+void MaterialCategoryModel::changedCategory(MaterialCategory* category)
+{
+    emit categoryChanged(category);
+}
+
 MaterialCategory* MaterialCategoryModel::getCategory(const QString& name)
 {
     std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(name);
+    if (it!=categoriesMap_.end()) return it->second;
+    return 0;
+}
+
+MaterialCategory* MaterialCategoryModel::getCategoryByUUID(const QString& uuid)
+{
+    std::map<QString,MaterialCategory*>::iterator it = categoriesUUIDMap_.find(uuid);
     if (it!=categoriesMap_.end()) return it->second;
     return 0;
 }
@@ -79,9 +136,7 @@ Qt::ItemFlags MaterialCategoryModel::flags(const QModelIndex & index) const
 
     MaterialCategory* category = categories_.at(row);
 
-    if (!category->isReadOnly()) return Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled;
-
-    return Qt::NoItemFlags;
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
 QVariant MaterialCategoryModel::data(const QModelIndex & index, int role) const
@@ -110,7 +165,7 @@ bool MaterialCategoryModel::setData(const QModelIndex & index, const QVariant & 
 {
     if (role == Qt::EditRole) {
         MaterialCategory *category = categories_.at(index.row());
-        if (index.column()==0) {
+        //if (index.column()==0) {
             if (!value.canConvert<QString>()) return false;
             QString newName = value.toString();
             if (getCategory(newName)) return false;
@@ -123,7 +178,8 @@ bool MaterialCategoryModel::setData(const QModelIndex & index, const QVariant & 
             category->setName(newName);
 
             emit dataChanged(index, index);
-        }
+            emit categoriesChanged();
+        //}
     }
 
     return true;
@@ -142,10 +198,15 @@ void MaterialCategoryModel::read(QIODevice *source)
     for (int i=0;i<categoryElemList.count();++i) {
         QDomElement catElem = categoryElemList.at(i).toElement();
 
+        QDomElement uuid = catElem.elementsByTagName("UUID").at(0).toElement();
         QDomElement name = catElem.elementsByTagName("Name").at(0).toElement();
 
         MaterialCategory* category = getCategory(name.text());
-        if (category!=NULL) continue;
+        if (category!=NULL) {
+            category->setUUID(uuid.text());
+            if (category->getUUID().length()==0) category->setUUID(QUuid::createUuid().toString());
+            continue;
+        }
 
         QDomElement colorElem = catElem.elementsByTagName("Color").at(0).toElement();
         int red = colorElem.attribute("Red", "255").toInt();
@@ -153,7 +214,7 @@ void MaterialCategoryModel::read(QIODevice *source)
         int blue = colorElem.attribute("Blue", "255").toInt();
         QColor color(red, green, blue);
 
-        addCategory(name.text(), color, false);
+        addCategory(uuid.text(), name.text(), color, false);
     }
 }
 
@@ -170,10 +231,11 @@ void MaterialCategoryModel::write(QIODevice *destination)
          it!=categories_.end();
          ++it) {
         MaterialCategory* category = *it;
-        if (category->isReadOnly()) continue;
+        //if (category->isReadOnly()) continue;
 
         stream.writeStartElement("Category");
 
+        stream.writeTextElement("UUID", category->getUUID());
         stream.writeTextElement("Name", category->getName());
         stream.writeStartElement("Color");
         const QColor &color = category->getColor();

@@ -130,6 +130,8 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
         makeDefaultMaterial();
     }
 
+    categoryDialog_ = 0;
+
     updateGeometry();
 }
 
@@ -268,6 +270,11 @@ void MatDBMainWindow::closeEvent(QCloseEvent *event)
 {
     std::cout << "void MatDBMainWindow::closeEvent(QCloseEvent *event)" << std::endl;
 
+    if (categoryDialog_) {
+        categoryDialog_->hide();
+        delete categoryDialog_;
+    }
+
     QSettings settings;
     QString dbPath = settings.value("dbpath").toString();
     QDir dbDir(dbPath);
@@ -323,6 +330,15 @@ void MatDBMainWindow::aboutDialog()
 
 void MatDBMainWindow::editCategories()
 {
-    MaterialCategoryDialog dialog(MaterialCategoryModel_);
-    int result = dialog.exec();
+    if (categoryDialog_==0) {
+        categoryDialog_ = new MaterialCategoryDialog(MaterialCategoryModel_);
+    }
+
+    if (categoryDialog_->isHidden()) {
+        categoryDialog_->applyGeometry();
+        categoryDialog_->show();
+    } else {
+        categoryDialog_->storeGeometry();
+        categoryDialog_->hide();
+    }
 }

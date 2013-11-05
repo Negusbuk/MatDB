@@ -10,6 +10,8 @@ MaterialListModel::MaterialListModel(MaterialCategoryModel* model,
 {
     connect(CategoryModel_, SIGNAL(categoriesChanged()),
             this, SLOT(categoriesChanged()));
+    connect(CategoryModel_, SIGNAL(categoryChanged(MaterialCategory*)),
+            this, SLOT(categoryChanged(MaterialCategory*)));
 }
 
 size_t MaterialListModel::getMaterialCount() const
@@ -136,5 +138,17 @@ void MaterialListModel::categoriesChanged()
             mat->setCategory(0);
             emit metadataChanged(mat);
         }
+    }
+}
+
+void MaterialListModel::categoryChanged(MaterialCategory* category)
+{
+    for (std::vector<Material*>::iterator it = MaterialList_.begin();
+         it!=MaterialList_.end();
+         ++it) {
+        Material * mat = *it;
+        if (mat->getCategory()==0) continue;
+
+        if (mat->getCategory()==category) emit metadataChanged(mat);
     }
 }
