@@ -19,7 +19,11 @@ MaterialTagsEdit::MaterialTagsEdit(MaterialListModel* listModel,
 
 void MaterialTagsEdit::materialChanged(Material* material)
 {
-    setTokens(material->getTags());
+    if (!material) {
+        setTokens(QStringList());
+    } else {
+        setTokens(material->getTags());
+    }
 }
 
 void MaterialTagsEdit::tagsChanged(const QStringList& tags)

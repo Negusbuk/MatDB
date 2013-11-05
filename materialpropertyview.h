@@ -79,6 +79,7 @@ public slots:
     void materialChanged(Material* material);
     void selectionChanged();
     void parameterModified(Parameter* parameter);
+    void propertyModified(Property* property);
 
 protected slots:
     void displayContextMenu(const QPoint& point);

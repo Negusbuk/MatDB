@@ -61,7 +61,7 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
 
 void MaterialTableView::fillTable(int count)
 {
-    setEnabled(count > 0);
+    setEnabled(count >= 0);
 
     clearContents();
     setRowCount(count+1);

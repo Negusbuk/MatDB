@@ -69,6 +69,9 @@ public:
     bool isReadOnly() const { return ReadOnly_; }
     void setReadOnly(bool ro) { ReadOnly_ = ro; }
 
+    bool isDependent() const { return Dependent_; }
+    void setDependent(bool dependent) { Dependent_ = dependent; }
+
     Property* getProperty() const { return Property_; }
     void setProperty(Property * property) { Property_ = property; }
 
@@ -88,6 +91,7 @@ protected:
     QString Name_;
     ParameterValueVector* Values_;
     bool ReadOnly_;
+    bool Dependent_;
     MaterialPropertyViewParameterItem* viewItem_;
 };
 

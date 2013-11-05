@@ -14,6 +14,8 @@
 #include <parameter.h>
 #include <parametermodel.h>
 
+#include <propertyspecialwidget.h>
+
 struct PropertyDetail {
     QString id;
     QString name;
@@ -110,7 +112,7 @@ public:
 
     virtual bool hasSpecialWidget() { return false; }
     virtual void fillSpecialWidget() { }
-    virtual QWidget * getSpecialWidget(QWidget * /*parent=0*/) { return 0; }
+    virtual PropertySpecialWidget * getSpecialWidget(QWidget * /*parent=0*/) { return 0; }
     virtual void recalculate() { }
 
     virtual Property* clone(ParameterModel* model = 0) = 0;

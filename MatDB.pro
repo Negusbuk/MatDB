@@ -58,7 +58,8 @@ SOURCES += main.cpp \
     materialtagsedit.cpp \
     materialcategorybox.cpp \
     materialcategorydialog.cpp \
-    materialcategoryeditdialog.cpp
+    materialcategoryeditdialog.cpp \
+    propertyspecialwidget.cpp
 
 HEADERS  += matdbmainwindow.h \
     material.h \
@@ -99,7 +100,8 @@ HEADERS  += matdbmainwindow.h \
     materialtagsedit.h \
     materialcategorybox.h \
     materialcategorydialog.h \
-    materialcategoryeditdialog.h
+    materialcategoryeditdialog.h \
+    propertyspecialwidget.h
 
 FORMS    +=
 

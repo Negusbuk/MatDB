@@ -53,6 +53,11 @@ void MaterialMetadataWidget::materialChanged(Material* material)
 {
     std::cout << "void MaterialMetadataWidget::materialChanged()" << std::endl;
 
-    descriptionEdit_->setText(material->getDescription());
-    notesEdit_->setPlainText(material->getNotes());
+    if (material) {
+        descriptionEdit_->setText(material->getDescription());
+        notesEdit_->setPlainText(material->getNotes());
+    } else {
+        descriptionEdit_->setText("");
+        notesEdit_->setPlainText("");
+    }
 }

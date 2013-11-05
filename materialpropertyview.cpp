@@ -49,18 +49,31 @@ int MaterialPropertyViewParameterItem::getNumberOfParameters()
 
 void MaterialPropertyViewParameterItem::update()
 {
-   if (Parameter_->getNumberOfValues()==0) {
+    std::cout << Parameter_->getName().toStdString() << " " << (int)Parameter_->isDependent()
+              << " " << Parameter_ << std::endl;
+
+    if (Parameter_->getNumberOfValues()==0) {
         setText(1, "undefined");
         setText(2, "");
-        setBackground(1, QBrush(Qt::red));
-        setBackground(2, QBrush(Qt::red));
+        if (Parameter_->isDependent()) {
+            setBackground(1, QBrush(Qt::yellow));
+            setBackground(2, QBrush(Qt::yellow));
+        } else {
+            setBackground(1, QBrush(Qt::red));
+            setBackground(2, QBrush(Qt::red));
+        }
     } else if (Parameter_->getNumberOfValues()==1) {
         const ParameterValue value = Parameter_->getValues().front();
         if (value.isValueValid()) {
             setText(1, value.prettyValue());
             setText(2, Parameter_->getValueUnit()->currentUnitAsString());
-            setBackground(1, background(0));
-            setBackground(2, background(0));
+            if (Parameter_->isDependent()) {
+                setBackground(1, QBrush(Qt::yellow));
+                setBackground(2, QBrush(Qt::yellow));
+            } else {
+                setBackground(1, background(0));
+                setBackground(2, background(0));
+            }
         } else {
             setText(1, "undefined");
             setText(2, "");
@@ -88,6 +101,8 @@ MaterialPropertyViewItem::MaterialPropertyViewItem(Material * material,
     for (std::map<QString,Parameter*>::iterator it = map.begin();
          it!=map.end();
          ++it) {
+        std::cout << "prop " << property->getName().toStdString() << std::endl;
+        std::cout << "para " << it->second->getName().toStdString() << " " << (int) it->second->isDependent() << std::endl;
         addChild(new MaterialPropertyViewParameterItem(material, property, it->second, this));
     }
 }
@@ -150,6 +165,9 @@ MaterialPropertyView::MaterialPropertyView(MaterialListModel *listmodel,
     connect(ParameterSelectionModel_, SIGNAL(parameterModified(Parameter*)),
             this, SLOT(parameterModified(Parameter*)));
 
+    connect(PropertySelectionModel_, SIGNAL(propertyModified(Property*)),
+            this, SLOT(propertyModified(Property*)));
+
     connect(this, SIGNAL(itemSelectionChanged()),
             this, SLOT(selectionChanged()));
 
@@ -171,6 +189,8 @@ void MaterialPropertyView::materialChanged(Material* material)
 
     clear();
 
+    if (!material) return;
+
     const std::vector<Property*>& v = material->getSortedProperties();
     for (std::vector<Property*>::const_iterator it = v.begin();
          it!=v.end();
@@ -180,7 +200,7 @@ void MaterialPropertyView::materialChanged(Material* material)
         std::map<QString,Parameter*>& pmap = (*it)->getParameters();
         if (pmap.size()==1) {
             Parameter* parameter = (pmap.begin())->second;
-            std::cout << parameter->getValueUnit()->currentUnitAsString().toStdString() << std::endl;
+            //std::cout << parameter->getValueUnit()->currentUnitAsString().toStdString() << std::endl;
             addTopLevelItem(new MaterialPropertyViewParameterItem(material, *it, parameter, this));
         } else {
             MaterialPropertyViewItem* item = new MaterialPropertyViewItem(material, *it, this);
@@ -206,7 +226,7 @@ void MaterialPropertyView::selectionChanged()
         std::cout << item->type() << std::endl;
         if (item->type()==1002) {
             MaterialPropertyViewParameterItem* pitem = dynamic_cast<MaterialPropertyViewParameterItem*>(item);
-            PropertySelectionModel_->setSelection(NULL);
+            PropertySelectionModel_->setSelection(pitem->getProperty());
             ParameterSelectionModel_->setSelection(pitem->getParameter());
         } else {
             MaterialPropertyViewItem* pitem = dynamic_cast<MaterialPropertyViewItem*>(item);
@@ -222,6 +242,19 @@ void MaterialPropertyView::parameterModified(Parameter* parameter)
     std::cout << "void MaterialPropertyView::parameterModified(Parameter* parameter)" << std::endl;
 
     if (parameter->getViewItem()) parameter->getViewItem()->update();
+}
+
+void MaterialPropertyView::propertyModified(Property* property)
+{
+    if (!property) return;
+    std::cout << "void MaterialPropertyView::propertyModified(Propery* property)" << std::endl;
+
+    std::map<QString,Parameter*>& map = property->getParameters();
+    for (std::map<QString,Parameter*>::iterator it = map.begin();
+         it!=map.end();
+         ++it) {
+        parameterModified(it->second);
+    }
 }
 
 void MaterialPropertyView::dragEnterEvent(QDragEnterEvent *event)
@@ -272,7 +305,7 @@ void MaterialPropertyView::dropEvent(QDropEvent *event)
         return;
     }
 
-    material->addProperty(property);
+    material->addProperty(property->clone(ParameterModel_));
 
     materialChanged(material);
 

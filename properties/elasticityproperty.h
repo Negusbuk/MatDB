@@ -2,10 +2,9 @@
 #define ELASTICITYPROPERTY_H
 
 #include <QString>
-#include <QWidget>
-#include <QGroupBox>
 #include <QButtonGroup>
 
+#include <propertyspecialwidget.h>
 #include <property.h>
 
 class IsotropicElasticityPropertyWidget;
@@ -25,10 +24,10 @@ public:
 
     bool hasSpecialWidget() { return true; }
     void fillSpecialWidget();
-    QWidget * getSpecialWidget(QWidget * parent=0);
+    PropertySpecialWidget * getSpecialWidget(QWidget * parent=0);
 
     CalculationMode getCalculationMode() const { return CalculationMode_; }
-    void setCalculationMode(CalculationMode mode) { CalculationMode_ = mode; }
+    void setCalculationMode(CalculationMode mode);
     void recalculate();
 
     Property* clone(ParameterModel* model = 0);
@@ -47,7 +46,7 @@ protected:
     void recalculateFromPoissonsRatioAndShearModulus();
 };
 
-class IsotropicElasticityPropertyWidget : public QGroupBox
+class IsotropicElasticityPropertyWidget : public PropertySpecialWidget
 {
     Q_OBJECT
 public:
@@ -55,6 +54,9 @@ public:
     IsotropicElasticityProperty* Property_;
 public slots:
     void modeChanged(int id);
+    void updateContents();
+protected:
+    QButtonGroup * buttonGroup_;
 };
 
 class OrthotropicElasticityProperty : public Property

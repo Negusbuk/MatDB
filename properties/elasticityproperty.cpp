@@ -26,9 +26,8 @@ IsotropicElasticityProperty::IsotropicElasticityProperty(ParameterModel* model, 
     addParameter(par->clone());
 
     widget_ = 0;
-    CalculationMode_ = CalcFromYoungsModulusAndPoissonsRatio;
+    setCalculationMode(CalcFromYoungsModulusAndPoissonsRatio);
 }
-
 
 IsotropicElasticityProperty::IsotropicElasticityProperty(const IsotropicElasticityProperty& property) :
     Property(property.getId())
@@ -47,7 +46,7 @@ IsotropicElasticityProperty::IsotropicElasticityProperty(const IsotropicElastici
     addParameter(par4->clone());
 
     widget_ = 0;
-    CalculationMode_ = CalcFromYoungsModulusAndPoissonsRatio;
+    setCalculationMode(CalcFromYoungsModulusAndPoissonsRatio);
 }
 
 Property* IsotropicElasticityProperty::clone(ParameterModel* model)
@@ -58,6 +57,9 @@ Property* IsotropicElasticityProperty::clone(ParameterModel* model)
     } else {
         prop = new IsotropicElasticityProperty(*this);
     }
+
+    prop->widget_ = widget_;
+
     return prop;
 }
 
@@ -162,9 +164,10 @@ void IsotropicElasticityProperty::fillSpecialWidget()
 {
     if (!widget_) return;
     widget_->Property_ = this;
+    widget_->updateContents();
 }
 
-QWidget * IsotropicElasticityProperty::getSpecialWidget(QWidget * parent)
+PropertySpecialWidget * IsotropicElasticityProperty::getSpecialWidget(QWidget * parent)
 {
     if (!widget_) {
         widget_ = new IsotropicElasticityPropertyWidget(parent);
@@ -172,6 +175,32 @@ QWidget * IsotropicElasticityProperty::getSpecialWidget(QWidget * parent)
     widget_->Property_ = this;
 
     return widget_;
+}
+
+void IsotropicElasticityProperty::setCalculationMode(CalculationMode mode)
+{
+    CalculationMode_ = mode;
+
+    Parameter * parE = getParameter("Young's Modulus");
+    Parameter * parNu = getParameter("Poisson's Ratio");
+    Parameter * parG = getParameter("Shear Modulus");
+    Parameter * parK = getParameter("Bulk Modulus");
+
+    parE->setDependent(true);
+    parNu->setDependent(true);
+    parG->setDependent(true);
+    parK->setDependent(true);
+
+    if (CalculationMode_==CalcFromYoungsModulusAndPoissonsRatio) {
+        parE->setDependent(false);
+        parNu->setDependent(false);
+    } else if (CalculationMode_==CalcFromYoungsModulusAndShearModulus) {
+        parE->setDependent(false);
+        parG->setDependent(false);
+    } else if (CalculationMode_==CalcFromPoissonsRatioAndShearModulus) {
+        parNu->setDependent(false);
+        parG->setDependent(false);
+    }
 }
 
 void IsotropicElasticityProperty::recalculate()
@@ -191,29 +220,36 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
 {
     std::cout << "IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()" << std::endl;
 
-    Parameter * parY = getParameter("Young's Modulus");
-    Parameter * parP = getParameter("Poisson's Ratio");
-    Parameter * parS = getParameter("Shear Modulus");
+    Parameter * parE = getParameter("Young's Modulus");
+    Parameter * parNu = getParameter("Poisson's Ratio");
+    Parameter * parG = getParameter("Shear Modulus");
+    Parameter * parK = getParameter("Bulk Modulus");
 
-    if (!(parY && parP && parS)) return;
+    if (!(parE && parNu && parG && parK)) return;
 
-    parS->clear();
+    parG->clear();
+    parK->clear();
 
-    int nY = parY->getNumberOfValues();
-    int nP = parP->getNumberOfValues();
-    for (int i=0;i<nY&&i<nP;i++) {
-        const ParameterValue& pY = parY->getValues().at(i);
-        const ParameterValue& pP = parP->getValues().at(i);
-        double Y = parY->getValueUnit()->convert(pY.getValue(), 0);
-        double P = pP.getValue();
-        double S = Y * P;
+    int nE = parE->getNumberOfValues();
+    int nNu = parNu->getNumberOfValues();
 
-        if (pY.isTemperatureValid() && pP.isTemperatureValid()) {
-            parS->addValue(pY.getTemperature(), S);
+    for (int i=0;i<nE&&i<nNu;i++) {
+        const ParameterValue& pE = parE->getValues().at(i);
+        const ParameterValue& pNu = parNu->getValues().at(i);
+        double E = parE->getValueUnit()->convert(pE.getValue(), 0);
+        double Nu = pNu.getValue();
+        double G = E/2/(1+Nu);
+        double K = E/3/(1-2*Nu);
+
+        if (pE.isTemperatureValid() && pNu.isTemperatureValid()) {
+            parG->addValue(pE.getTemperature(), G);
+            parK->addValue(pE.getTemperature(), K);
         } else {
-            parS->addValue(S);
+            parG->addValue(G);
+            parK->addValue(K);
         }
-        parS->getValueUnit()->setCurrentUnitIndex(0);
+        parG->getValueUnit()->setCurrentUnitIndex(parE->getValueUnit()->currentUnit());
+        parK->getValueUnit()->setCurrentUnitIndex(parE->getValueUnit()->currentUnit());
     }
 }
 
@@ -245,29 +281,29 @@ void IsotropicElasticityProperty::writeXML(QXmlStreamWriter& stream)
 }
 
 IsotropicElasticityPropertyWidget::IsotropicElasticityPropertyWidget(QWidget * parent) :
-    QGroupBox(parent)
+    PropertySpecialWidget(parent)
 {
-    QButtonGroup * bg = new QButtonGroup(this);
+    buttonGroup_ = new QButtonGroup(this);
 
     QVBoxLayout *vbox = new QVBoxLayout(this);
     QRadioButton * rb;
     rb = new QRadioButton("Calculated from Young's Modulus and Poisson Ratio", this);
     vbox->addWidget(rb);
-    bg->addButton(rb, 0);
+    buttonGroup_->addButton(rb, 0);
     rb->setChecked(true);
     rb = new QRadioButton("Calculated from Young's Modulus and Shear Modulus", this);
     vbox->addWidget(rb);
-    bg->addButton(rb, 1);
+    buttonGroup_->addButton(rb, 1);
     rb = new QRadioButton("Calculated from Poisson Ratio and Shear Modulus", this);
     vbox->addWidget(rb);
-    bg->addButton(rb, 2);
+    buttonGroup_->addButton(rb, 2);
 
     vbox->addStretch(1);
 
     setLayout(vbox);
 
-    connect(bg,SIGNAL(buttonClicked(int)),
-            this,SLOT(modeChanged(int)));
+    connect(buttonGroup_, SIGNAL(buttonClicked(int)),
+            this, SLOT(modeChanged(int)));
 }
 
 void IsotropicElasticityPropertyWidget::modeChanged(int id)
@@ -275,6 +311,15 @@ void IsotropicElasticityPropertyWidget::modeChanged(int id)
     std::cout << "clicked " << id << std::endl;
     Property_->setCalculationMode(static_cast<IsotropicElasticityProperty::CalculationMode>(id));
     Property_->recalculate();
+
+    emit modified();
+}
+
+void IsotropicElasticityPropertyWidget::updateContents()
+{
+    std::cout << "void IsotropicElasticityPropertyWidget::updateContents()" << std::endl;
+    int mode = Property_->getCalculationMode();
+    buttonGroup_->button(mode)->setChecked(true);
 }
 
 OrthotropicElasticityProperty::OrthotropicElasticityProperty(ParameterModel* model, int id) :
@@ -314,7 +359,7 @@ OrthotropicElasticityProperty::OrthotropicElasticityProperty(const OrthotropicEl
 
 Property* OrthotropicElasticityProperty::clone(ParameterModel* model)
 {
-    OrthotropicElasticityProperty* prop = new OrthotropicElasticityProperty(model, getId());
+    OrthotropicElasticityProperty* prop;
     if (model) {
         prop = new OrthotropicElasticityProperty(model, getId());
     } else {

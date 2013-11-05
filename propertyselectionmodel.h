@@ -14,9 +14,12 @@ public:
 
 signals:
     void selectionChanged(Property* selection);
+    void propertyModified(Property* selection);
 
 public slots:
     void setSelection(Property* selection);
+    void emitPropertyModified();
+    void emitPropertyModified(Property* property);
 
 protected:
     Property* Selection_;

@@ -15,10 +15,10 @@ Material* MaterialSelectionModel::getSelection()
 
 void MaterialSelectionModel::setSelection(Material* selection)
 {
-    if (!selection) return;
+    //if (!selection) return;
     if (Selection_ != selection) {
         Selection_ = selection;
-        std::cout << "material selection changed: " << selection->getName().toStdString() << std::endl;
+        if (Selection_) std::cout << "material selection changed: " << selection->getName().toStdString() << std::endl;
         emit selectionChanged(Selection_);
     }
 }

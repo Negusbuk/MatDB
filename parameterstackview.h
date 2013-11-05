@@ -15,6 +15,7 @@
 #include <materialparameterview.h>
 #include <propertymodel.h>
 #include <materialcategorymodel.h>
+#include <propertyspecialwidget.h>
 
 class ParameterStackView : public QStackedWidget
 {
@@ -46,7 +47,7 @@ protected:
     QWidget * Empty_;
     MaterialMetadataWidget * MetadataWidget_;
     MaterialParameterView * MaterialParameterView_;
-    std::map<QString,QWidget*> SpecialWidgetMap_;
+    std::map<QString,PropertySpecialWidget*> SpecialWidgetMap_;
 };
 
 #endif // PARAMETERSTACKVIEW_H

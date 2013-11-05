@@ -28,10 +28,12 @@ MaterialCategoryBox::MaterialCategoryBox(MaterialListModel* listModel,
 
 void MaterialCategoryBox::materialChanged(Material* material)
 {
+    setCurrentIndex(0);
+
+    if (!material) return;
+
     MaterialCategory* category = material->getCategory();
-    if (!category) {
-        setCurrentIndex(0);
-    } else {
+    if (category) {
         int idx = findText(category->getName());
         setCurrentIndex(idx);
     }

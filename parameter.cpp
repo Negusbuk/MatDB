@@ -65,7 +65,8 @@ Parameter::Parameter(Unit::VUnit* unit, int id) :
     TemperatureUnit_(new Unit::Temperature()),
     ValueUnit_(unit),
     Values_(0),
-    ReadOnly_(false)
+    ReadOnly_(false),
+    Dependent_(false)
 {
     Values_ = new ParameterValueVector;
 

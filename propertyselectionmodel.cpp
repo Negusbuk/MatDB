@@ -15,13 +15,23 @@ Property * PropertySelectionModel::getSelection()
 
 void PropertySelectionModel::setSelection(Property* selection)
 {
-    if (Selection_ != selection) {
+    if (Selection_!=selection) {
         Selection_ = selection;
         if (Selection_) {
-            std::cout << "property selection changed: " << selection->getName().toStdString() << std::endl;
+            std::cout << "property selection changed: " << selection << std::endl;
         } else {
             std::cout << "property selection changed: 0" << std::endl;
         }
         emit selectionChanged(Selection_);
     }
+}
+
+void PropertySelectionModel::emitPropertyModified()
+{
+    emit propertyModified(Selection_);
+}
+
+void PropertySelectionModel::emitPropertyModified(Property* property)
+{
+    emit propertyModified(property);
 }

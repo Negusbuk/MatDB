@@ -6,6 +6,7 @@
 
 #include <materiallistmodel.h>
 #include <materialselectionmodel.h>
+#include <propertyselectionmodel.h>
 #include <parameterselectionmodel.h>
 #include <unitcombobox.h>
 #include <unit.h>
@@ -28,8 +29,9 @@ class MaterialParameterView : public QWidget
     Q_OBJECT
 public:
     explicit MaterialParameterView(MaterialListModel *listmodel,
-                                   MaterialSelectionModel * selectionmodel,
-                                   ParameterSelectionModel* parameterselectionmodel,
+                                   MaterialSelectionModel *selectionmodel,
+                                   PropertySelectionModel *propertyselectionmodel,
+                                   ParameterSelectionModel *parameterselectionmodel,
                                    QWidget *parent = 0);
     
 signals:
@@ -44,6 +46,7 @@ public slots:
 protected:
     MaterialListModel* ListModel_;
     MaterialSelectionModel * SelectionModel_;
+    PropertySelectionModel* PropertySelectionModel_;
     ParameterSelectionModel* ParameterSelectionModel_;
 
     QTableWidget* unitTable_;

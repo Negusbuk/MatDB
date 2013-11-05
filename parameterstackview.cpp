@@ -28,6 +28,7 @@ ParameterStackView::ParameterStackView(MaterialListModel *listmodel,
 
     MaterialParameterView_ = new MaterialParameterView(MaterialListModel_,
                                                        MaterialSelectionModel_,
+                                                       PropertySelectionModel_,
                                                        ParameterSelectionModel_,
                                                        this);
     addWidget(MaterialParameterView_);
@@ -38,9 +39,12 @@ ParameterStackView::ParameterStackView(MaterialListModel *listmodel,
         QString s = it->first;
         Property * property = it->second;
         if (property->hasSpecialWidget()) {
-            QWidget * w = property->getSpecialWidget(this);
+            PropertySpecialWidget * w = property->getSpecialWidget(this);
             addWidget(w);
             SpecialWidgetMap_[s] = w;
+
+            connect(w, SIGNAL(modified()),
+                    PropertySelectionModel_, SLOT(emitPropertyModified()));
         }
     }
 
@@ -72,12 +76,12 @@ void ParameterStackView::propertySelectionChanged(Property* property)
     QString s = property->getName();
     std::cout << s.toStdString() << std::endl;
 
-    std::map<QString,QWidget*>::iterator it = SpecialWidgetMap_.find(s);
+    std::map<QString,PropertySpecialWidget*>::iterator it = SpecialWidgetMap_.find(s);
     if (it==SpecialWidgetMap_.end()) {
         setCurrentWidget(Empty_);
         return;
     } else {
-        QWidget * w = it->second;
+        PropertySpecialWidget * w = it->second;
         setCurrentWidget(w);
         property->fillSpecialWidget();
     }

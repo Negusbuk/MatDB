@@ -30,11 +30,13 @@ MaterialParameterViewItem::MaterialParameterViewItem(ParameterValue* parameter,
 
 MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
                                              MaterialSelectionModel * selectionmodel,
+                                             PropertySelectionModel* propertyselectionmodel,
                                              ParameterSelectionModel* parameterselectionmodel,
                                              QWidget *parent) :
     QWidget(parent),
     ListModel_(listmodel),
     SelectionModel_(selectionmodel),
+    PropertySelectionModel_(propertyselectionmodel),
     ParameterSelectionModel_(parameterselectionmodel)
 {
     QVBoxLayout * layout = new QVBoxLayout();
@@ -222,6 +224,7 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
     }
 
     ParameterSelectionModel_->emitParameterModified();
+    PropertySelectionModel_->emitPropertyModified(property);
 }
 
 void MaterialParameterView::temperatureUnitChanged(const QString& name)
