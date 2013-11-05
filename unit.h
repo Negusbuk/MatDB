@@ -44,10 +44,13 @@ public:
     int getCurrentUnitIndex() const { return CurrentUnit_; }
     void setCurrentUnitIndex(int index) { CurrentUnit_ = index; }
     void setCurrentUnit(const QString& unit);
+    void setPrefferedUnit() { CurrentUnit_ = PrefferedUnitIndex_; }
 
     double convert(double value, const QString& unit);
     virtual double convert(double value, int unitIndex);
-    virtual double convertToPrefferedUnit(double value);
+    virtual double convertToBase(double value);
+    virtual double convertToPreffered(double value);
+    virtual double convertToCurrent(double value);
     virtual VUnit* clone() const = 0;
     virtual VUnit* cloneWithUnitIndex() const;
 

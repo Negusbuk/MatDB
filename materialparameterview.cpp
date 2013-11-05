@@ -224,6 +224,7 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
     }
 
     ParameterSelectionModel_->emitParameterModified();
+    property->recalculate();
     PropertySelectionModel_->emitPropertyModified(property);
 }
 

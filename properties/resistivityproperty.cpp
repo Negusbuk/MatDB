@@ -99,7 +99,7 @@ void IsotropicResistivityProperty::apply(PropertyData& data,
         double temp = *itt;
         double value = *itv;
         if (value!=undefindedIdentifyer()) {
-            value = param->getValueUnit()->convertToPrefferedUnit(*itv);
+            value = param->getValueUnit()->convertToPreffered(*itv);
             if (temp==undefindedIdentifyer()) {
                 param->addValue(value);
             } else {
@@ -230,7 +230,7 @@ void OrthotropicResistivityProperty::apply(PropertyData& data,
             double temp = *itt;
             double value = *itv;
             if (value!=undefindedIdentifyer()) {
-                value = param[i]->getValueUnit()->convertToPrefferedUnit(*itv);
+                value = param[i]->getValueUnit()->convertToPreffered(*itv);
                 if (temp==undefindedIdentifyer()) {
                     param[i]->addValue(value);
                 } else {

@@ -90,9 +90,23 @@ double VUnit::convert(double value, int unitIndex)
     return newValue;
 }
 
-double VUnit::convertToPrefferedUnit(double value)
+double VUnit::convertToBase(double value)
+{
+    const UnitEntry * unit = getUnitEntry(CurrentUnit_);
+    double newValue = unit->funcToBaseUnit_(value);
+    return newValue;
+}
+
+double VUnit::convertToPreffered(double value)
 {
     return convert(value, PrefferedUnitIndex_);
+}
+
+double VUnit::convertToCurrent(double value)
+{
+    const UnitEntry * unit = getUnitEntry(CurrentUnit_);
+    double newValue = unit->funcFromBaseUnit_(value);
+    return newValue;
 }
 
 VUnit* VUnit::cloneWithUnitIndex() const

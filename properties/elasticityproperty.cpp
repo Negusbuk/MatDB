@@ -147,7 +147,7 @@ void IsotropicElasticityProperty::apply(PropertyData& data,
             double temp = *itt;
             double value = *itv;
             if (value!=undefindedIdentifyer()) {
-                value = param[i]->getValueUnit()->convertToPrefferedUnit(*itv);
+                value = param[i]->getValueUnit()->convertToPreffered(*itv);
                 if (temp==undefindedIdentifyer()) {
                     param[i]->addValue(value);
                 } else {
@@ -236,10 +236,17 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
     for (int i=0;i<nE&&i<nNu;i++) {
         const ParameterValue& pE = parE->getValues().at(i);
         const ParameterValue& pNu = parNu->getValues().at(i);
-        double E = parE->getValueUnit()->convert(pE.getValue(), 0);
-        double Nu = pNu.getValue();
-        double G = E/2/(1+Nu);
-        double K = E/3/(1-2*Nu);
+        double E = parE->getValueUnit()->convertToBase(pE.getValue());
+        double Nu = parNu->getValueUnit()->convertToBase(pNu.getValue());
+
+        std::cout << "E =  " << E << std::endl;
+        std::cout << "Nu = " << Nu << std::endl;
+
+        double G = parG->getValueUnit()->convertToCurrent(E/2/(1+Nu));
+        double K = parK->getValueUnit()->convertToCurrent(E/3/(1-2*Nu));
+
+        std::cout << "G =  " << G << std::endl;
+        std::cout << "K =  " << K << std::endl;
 
         if (pE.isTemperatureValid() && pNu.isTemperatureValid()) {
             parG->addValue(pE.getTemperature(), G);
@@ -248,8 +255,6 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
             parG->addValue(G);
             parK->addValue(K);
         }
-        parG->getValueUnit()->setCurrentUnitIndex(parE->getValueUnit()->currentUnit());
-        parK->getValueUnit()->setCurrentUnitIndex(parE->getValueUnit()->currentUnit());
     }
 }
 
