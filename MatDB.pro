@@ -46,6 +46,7 @@ SOURCES += main.cpp \
     matmlwriter.cpp \
     materialmetadatawidget.cpp \
     external/flowlayout.cpp \
+    external/nqlogger.cpp \
     external/nqtokenedit.cpp \
     external/nqtokenedititem.cpp \
     external/nqcolorwheel.cpp \
@@ -88,6 +89,7 @@ HEADERS  += matdbmainwindow.h \
     matmlwriter.h \
     materialmetadatawidget.h \
     external/flowlayout.h \
+    external/nqlogger.h \
     external/nqtokenedit.h \
     external/nqtokenedititem.h \
     external/nqcolorwheel.h \

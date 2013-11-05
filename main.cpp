@@ -8,6 +8,8 @@
 #include <QSettings>
 #include <QDesktopServices>
 
+#include <nqlogger.h>
+
 #include "matdbmainwindow.h"
 
 //#define SHOWSPLASHSCREEN
@@ -15,6 +17,12 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    NQLogger::instance()->addDestiniation(stdout);
+    QFile * logfile = new QFile(QDesktopServices::storageLocation(QDesktopServices::HomeLocation) + "/Library/Logs/MatDB.log");
+    if (logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        NQLogger::instance()->addDestiniation(logfile);
+    }
 
     QCoreApplication::setOrganizationName("Negusbuk");
     QCoreApplication::setOrganizationDomain("mussgiller.de");
@@ -32,7 +40,7 @@ int main(int argc, char *argv[])
     QString defaultDBPath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
     QString dbPath = settings.value("dbpath").toString();
 
-    std::cout << dbPath.toStdString() << std::endl;
+    NQLog("Main") << "dbPath: " << dbPath;
 
     if (dbPath.length()==0) {
         settings.setValue("dbpath", defaultDBPath);
