@@ -1,6 +1,6 @@
-#include <iostream>
+#include <nqlogger.h>
 
-#include "parameterstackview.h"
+#include <parameterstackview.h>
 
 ParameterStackView::ParameterStackView(MaterialListModel *listmodel,
                                        MaterialSelectionModel * selectionmodel,
@@ -58,14 +58,16 @@ ParameterStackView::ParameterStackView(MaterialListModel *listmodel,
 
 void ParameterStackView::materialSelectionChanged(Material* material)
 {
-    std::cout << "ParameterStackView::materialSelectionChanged(Materal* material) " << material << std::endl;
+    NQLog("ParameterStackView", NQLog::Spam) << "void materialSelectionChanged(Materal* material) "
+                                             << material;
 
     setCurrentWidget(MetadataWidget_);
 }
 
 void ParameterStackView::propertySelectionChanged(Property* property)
 {
-    std::cout << "ParameterStackView::propertySelectionChanged(Property* property) " << property << std::endl;
+    NQLog("ParameterStackView", NQLog::Spam) << "void propertySelectionChanged(Property* property) "
+                                             << property;
 
     if (!property) return;
     if (!property->hasSpecialWidget()) {
@@ -74,7 +76,7 @@ void ParameterStackView::propertySelectionChanged(Property* property)
     }
 
     QString s = property->getName();
-    std::cout << s.toStdString() << std::endl;
+    NQLog("ParameterStackView", NQLog::Spam) << "property " << s;
 
     std::map<QString,PropertySpecialWidget*>::iterator it = SpecialWidgetMap_.find(s);
     if (it==SpecialWidgetMap_.end()) {
@@ -89,7 +91,8 @@ void ParameterStackView::propertySelectionChanged(Property* property)
 
 void ParameterStackView::parameterSelectionChanged(Parameter* parameter)
 {
-    std::cout << "ParameterStackView::parameterSelectionChanged(Parameter* parameter) " << parameter << std::endl;
+    NQLog("ParameterStackView", NQLog::Spam) << "void parameterSelectionChanged(Parameter* parameter) "
+                                             << parameter;
 
     if (parameter) {
         setCurrentWidget(MaterialParameterView_);

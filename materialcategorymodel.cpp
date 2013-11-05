@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QDomDocument>
 #include <QXmlStreamWriter>
 #include <QTextStream>
@@ -161,29 +159,29 @@ QVariant MaterialCategoryModel::data(const QModelIndex & index, int role) const
     return QVariant();
 }
 
-bool MaterialCategoryModel::setData(const QModelIndex & index, const QVariant & value, int role)
-{
-    if (role == Qt::EditRole) {
-        MaterialCategory *category = categories_.at(index.row());
-        //if (index.column()==0) {
-            if (!value.canConvert<QString>()) return false;
-            QString newName = value.toString();
-            if (getCategory(newName)) return false;
+//bool MaterialCategoryModel::setData(const QModelIndex & index, const QVariant & value, int role)
+//{
+//    if (role == Qt::EditRole) {
+//        MaterialCategory *category = categories_.at(index.row());
+//        //if (index.column()==0) {
+//            if (!value.canConvert<QString>()) return false;
+//            QString newName = value.toString();
+//            if (getCategory(newName)) return false;
 
-            std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(category->getName());
-            if (it!=categoriesMap_.end()) {
-                std::swap(categoriesMap_[newName], it->second);
-                categoriesMap_.erase(it);
-            }
-            category->setName(newName);
+//            std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(category->getName());
+//            if (it!=categoriesMap_.end()) {
+//                std::swap(categoriesMap_[newName], it->second);
+//                categoriesMap_.erase(it);
+//            }
+//            category->setName(newName);
 
-            emit dataChanged(index, index);
-            emit categoriesChanged();
-        //}
-    }
+//            emit dataChanged(index, index);
+//            emit categoriesChanged();
+//        //}
+//    }
 
-    return true;
-}
+//    return true;
+//}
 
 void MaterialCategoryModel::read(QIODevice *source)
 {

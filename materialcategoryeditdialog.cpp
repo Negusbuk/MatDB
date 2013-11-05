@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QLayout>
 #include <QFormLayout>
 #include <QPushButton>
@@ -9,12 +7,6 @@
 MaterialCategoryEditDialog::MaterialCategoryEditDialog(QWidget *parent) :
     QDialog(parent)
 {   
-//    Qt::WindowFlags flags = 0;
-//    flags |= Qt::CustomizeWindowHint;
-//    flags |= Qt::WindowTitleHint;
-//    flags |= Qt::Tool;
-//    setWindowFlags(flags);
-
     QVBoxLayout * layout = new QVBoxLayout(this);
     setLayout(layout);
 

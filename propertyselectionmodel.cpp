@@ -1,8 +1,6 @@
-#include <iostream>
+#include <nqlogger.h>
 
-#include <QDebug>
-
-#include "propertyselectionmodel.h"
+#include <propertyselectionmodel.h>
 
 PropertySelectionModel::PropertySelectionModel(QObject *parent) :
     QObject(parent)
@@ -17,14 +15,10 @@ Property * PropertySelectionModel::getSelection()
 
 void PropertySelectionModel::setSelection(Property* selection)
 {
-    qDebug() << "void PropertySelectionModel::setSelection(Property* selection)" << selection;
+    NQLog("PropertySelectionModel", NQLog::Spam) << "void setSelection(Property* selection)"
+                                                 << selection;
 
     Selection_ = selection;
-    if (Selection_) {
-        std::cout << "property selection changed: " << selection << std::endl;
-    } else {
-        std::cout << "property selection changed: 0" << std::endl;
-    }
     emit selectionChanged(Selection_);
 }
 

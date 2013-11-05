@@ -84,7 +84,6 @@ Parameter::~Parameter()
 
 Parameter* Parameter::clone() const
 {
-    //std::cout << "Parameter::clone()" << std::endl;
     Parameter * newParam = new Parameter(ValueUnit_->cloneWithUnitIndex(), getId());
     newParam->setName(getName());
 

@@ -1,9 +1,9 @@
-#include <iostream>
-
 #include <QBoxLayout>
 #include <QHeaderView>
 
-#include "materialparameterview.h"
+#include <nqlogger.h>
+
+#include <materialparameterview.h>
 
 MaterialParameterViewItem::MaterialParameterViewItem(ParameterValue* parameter,
                                                      int column) :
@@ -112,7 +112,7 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
 
 void MaterialParameterView::materialChanged(Material*)
 {
-    //parameterChanged(0);
+
 }
 
 void MaterialParameterView::parameterChanged(Parameter* parameter)
@@ -129,19 +129,11 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
 
     unitTable_->horizontalHeaderItem(1)->setText(parameter->getName());
 
-    //std::cout << "void MaterialParameterView::parameterChanged(Parameter* parameter)" << std::endl;
-    //std::cout << parameter << std::endl;
-    //std::cout << parameter->getName().toStdString() << std::endl;
-    //std::cout << parameter->getProperty()->getName().toStdString() << std::endl;
-
-    //std::cout << "blah" << std::endl;
-    //std::cout << parameter->getNumberOfValues() << std::endl;
     if (!parameter->isDependent()) {
         valueTable_->setRowCount(1+parameter->getNumberOfValues());
     } else {
         valueTable_->setRowCount(parameter->getNumberOfValues());
     }
-    //std::cout << "blah" << std::endl;
 
     int count = 0;
     for (std::vector<ParameterValue>::iterator it=parameter->getValues().begin();
@@ -165,24 +157,19 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
 
         count++;
     }
-    //std::cout << "blah" << std::endl;
 
     if (!parameter->isDependent()) {
         valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem("*"));
         valueTable_->setItem(count, 0, new MaterialParameterViewItem(0, 0));
         valueTable_->setItem(count, 1, new MaterialParameterViewItem(0, 1));
     }
-    //std::cout << "blah" << std::endl;
 
     TempUnitBox_->setUnit(parameter->getTemperatureUnit());
     ValueUnitBox_->setUnit(parameter->getValueUnit());
-    //std::cout << "blah" << std::endl;
 }
 
 void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
 {
-    //std::cout << "void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)" << std::endl;
-
     if (!item) return;
     QList<QTableWidgetItem*> items = valueTable_->selectedItems();
     if (items.count()!=1) return;
@@ -197,7 +184,6 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
 
     int pos;
     QString text = item->text();
-    //std::cout << text.toStdString() << std::endl;
     double value = text.toDouble();
 
     QValidator::State state;
@@ -219,8 +205,6 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
         return;
     }
 
-    //std::cout << "parameter value changed " << value << " " << parameter << std::endl;
-
     if (pvalue) {
         item->setText(QString().setNum(value));
         if (item->column()==0) {
@@ -230,12 +214,10 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
             //property->recalculate();
         }
     } else {
-        //std::cout << "no pvalue" << std::endl;
         if (item->column()==0) {
             parameter->addValue(value, 0);
         } else {
             parameter->addValue(value);
-            //std::cout << "addValue" << std::endl;
         }
         parameterChanged(parameter);
     }
@@ -247,8 +229,6 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
 
 void MaterialParameterView::temperatureUnitChanged(const QString& name)
 {
-    //std::cout << "MaterialParameterView::temperatureUnitChanged() " << name.toStdString() << std::endl;
-
     Parameter* parameter = ParameterSelectionModel_->getSelection();
     if (!parameter) return;
 
@@ -261,13 +241,10 @@ void MaterialParameterView::temperatureUnitChanged(const QString& name)
 
         ParameterValue* pvalue = pitem->getParameterValue();
         if (!pvalue->isTemperatureValid()) continue;
-        //std::cout << "temperatureUnitChanged " << r << " " << pvalue->getTemperature() << std::endl;
 
         double newValue = parameter->getTemperatureUnit()->convert(pvalue->getTemperature(), unitIndex);
         pvalue->setTemperature(newValue);
         item->setText(QString().setNum(newValue));
-
-        //std::cout << newValue << std::endl;
     }
 
     parameter->getTemperatureUnit()->setCurrentUnitIndex(unitIndex);
@@ -275,8 +252,6 @@ void MaterialParameterView::temperatureUnitChanged(const QString& name)
 
 void MaterialParameterView::valueUnitChanged(const QString& name)
 {
-    //std::cout << "MaterialParameterView::valueUnitChanged() " << name.toStdString() << std::endl;
-
     Parameter* parameter = ParameterSelectionModel_->getSelection();
     if (!parameter) return;
 
@@ -289,14 +264,11 @@ void MaterialParameterView::valueUnitChanged(const QString& name)
         MaterialParameterViewItem* pitem = dynamic_cast<MaterialParameterViewItem*>(item);
 
         ParameterValue* pvalue = pitem->getParameterValue();
-        //std::cout << "valueUnitChanged " << r << " " << pvalue->getValue() << std::endl;
         if (!pvalue->isValueValid()) continue;
 
         double newValue = parameter->getValueUnit()->convert(pvalue->getValue(), unitIndex);
         pvalue->setValue(newValue);
         item->setText(QString().setNum(newValue));
-
-        //std::cout << newValue << std::endl;
     }
 
     parameter->getValueUnit()->setCurrentUnitIndex(unitIndex);

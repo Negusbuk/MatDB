@@ -1,7 +1,8 @@
-#include <iostream>
 #include <algorithm>
 
-#include "materiallistmodel.h"
+#include <nqlogger.h>
+
+#include <materiallistmodel.h>
 
 MaterialListModel::MaterialListModel(MaterialCategoryModel* model,
                                      QObject *parent) :
@@ -37,7 +38,7 @@ void MaterialListModel::addMaterial(Material* material)
 
 void MaterialListModel::addMaterials(const std::vector<Material*>& materials)
 {
-    std::cout << materials.size() << std::endl;
+    NQLog("MaterialListModel") << "adding " << materials.size() << " materials";
 
     for (std::vector<Material*>::const_iterator it = materials.begin();
          it!=materials.end();
@@ -64,7 +65,7 @@ Material* MaterialListModel::getMaterial(size_t idx)
     return MaterialList_[idx];
 }
 
-void MaterialListModel::read(const QString& filename)
+void MaterialListModel::read(const QString& /* filename */)
 {
 
 }
@@ -104,7 +105,8 @@ void MaterialListModel::materialMetadataChanged(Material* material)
 
 void MaterialListModel::duplicateMaterial(Material* material)
 {
-    std::cout << "void MaterialSelectionModel::duplicateMaterial() " << material->getName().toStdString() << std::endl;
+    NQLog("MaterialListModel") << "void MaterialSelectionModel::duplicateMaterial() "
+                               << material->getName();
 
     Material* mat = material->clone();
     addMaterial(mat);
@@ -112,7 +114,8 @@ void MaterialListModel::duplicateMaterial(Material* material)
 
 void MaterialListModel::deleteMaterial(Material* material)
 {
-    std::cout << "void MaterialSelectionModel::deleteMaterial() " << material->getName().toStdString() << std::endl;
+    NQLog("MaterialListModel") << "void MaterialSelectionModel::deleteMaterial() "
+                               << material->getName();
 
     for (std::vector<Material*>::iterator it = MaterialList_.begin();
          it!=MaterialList_.end();

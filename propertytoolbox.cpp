@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QWidget>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -12,7 +10,6 @@ PropertyToolBoxItem::PropertyToolBoxItem(const QString &name,
     QLabel(name, parent),
     Property_(property)
 {
-    //setFrameShape(Box);
     setFrameShadow(Plain);
 }
 
@@ -50,13 +47,6 @@ void PropertyToolBox::build()
          it!=categories.end();
          ++it) {
         QString s = *it;
-        //std::cout << s.toStdString() << std::endl;
-
-        //box = new QWidget(this);
-        //QVBoxLayout * layout = new QVBoxLayout(box);
-        //box->setLayout(layout);
-
-        //CategoryWidgetMap_[s] = box;
     }
 
     const std::map<QString,std::vector<Property*> >& m = PropertyModel_->getPropertiesByCategory();
@@ -65,7 +55,6 @@ void PropertyToolBox::build()
          ++itm) {
         const std::vector<Property*>& v = itm->second;
         QString s = itm->first;
-        //std::cout << s.toStdString() << std::endl;
 
         box = new QWidget(this);
         categoryWidgetMap[s] = box;
@@ -75,7 +64,6 @@ void PropertyToolBox::build()
         for (std::vector<Property*>::const_iterator itv = v.begin();
              itv!=v.end();
              ++itv) {
-            //std::cout << (*itv)->getName().toStdString() << std::endl;
             item = new PropertyToolBoxItem((*itv)->getName(), (*itv), box);
             layout->addWidget(item);
         }
@@ -89,7 +77,6 @@ void PropertyToolBox::build()
 
         box = categoryWidgetMap[s];
         if (!box) continue;
-        //std::cout << s.toStdString() << std::endl;
         addItem(box, s);
     }
 }

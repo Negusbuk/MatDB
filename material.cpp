@@ -1,7 +1,9 @@
 #include <iostream>
 #include <algorithm>
 
-#include "material.h"
+#include <nqlogger.h>
+
+#include <material.h>
 
 Material::Material()
     : Description_(""),
@@ -23,7 +25,7 @@ Material::Material(const Material& material)
 
 Material::~Material()
 {
-    std::cout << "Material::~Material()" << std::endl;
+    NQLog("Material", NQLog::Spam) << "Material::~Material()";
 }
 
 void Material::addProperty(Property* property)
@@ -41,8 +43,6 @@ void Material::addProperty(Property* property)
     PropertiesSorted_.push_back(property);
     std::sort(PropertiesSorted_.begin(), PropertiesSorted_.end(),
               [](Property*lhs, Property*rhs) {
-        //std::cout << "#### lhs " << lhs->getSorting() << " " << lhs->getName().toStdString() << std::endl;
-        //std::cout << "#### rhs " << rhs->getSorting() << " " << rhs->getName().toStdString() << std::endl;
         return lhs->getSorting()<rhs->getSorting();
     });
 
@@ -99,7 +99,7 @@ const std::vector<Property*>& Material::getSortedProperties() const
 
 void Material::removeProperty(Property* property)
 {
-    std::cout << "Material::removeProperty(Property* property)" << std::endl;
+    NQLog("Material", NQLog::Spam) << "Material::removeProperty(Property* property)";
 
     for (std::map<QString,Property*>::iterator it = Properties_.begin();
          it!=Properties_.end();
@@ -140,7 +140,6 @@ std::vector<ParameterValue> * Material::getParameterValues(const QString& name)
 {
     std::map<QString,std::vector<ParameterValue> >::iterator it = ParameterValues_.find(name);
     if (it!=ParameterValues_.end()) return &(it->second);
-    //std::cout << name.toStdString() << " not found" << std::endl;
     return NULL;
 }
 

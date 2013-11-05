@@ -1,9 +1,9 @@
-#include <iostream>
-
 #include <QHeaderView>
 
-#include "materialcategory.h"
-#include "materialtableview.h"
+#include <nqlogger.h>
+
+#include <materialcategory.h>
+#include <materialtableview.h>
 
 MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
                                      MaterialSelectionModel * selectionmodel,
@@ -102,9 +102,10 @@ void MaterialTableView::setSelection(Material *selection)
 
 void MaterialTableView::metadataChanged(Material* material)
 {
-    std::cout << "MaterialTableView::metadataChanged()" << std::endl;
-
     if (!material) return;
+
+    NQLog("MaterialTableView", NQLog::Spam) << "void metadataChanged(Material* material) "
+                                            << material->getName();
 
     MaterialMap::iterator it = indexMap_.find(material);
     if (it!=indexMap_.end()) {
@@ -119,8 +120,6 @@ void MaterialTableView::metadataChanged(Material* material)
 
 void MaterialTableView::selectionChanged()
 {
-    //std::cout << "MaterialTableView::selectionChanged()" << std::endl;
-
     QList<QTableWidgetItem*> items = selectedItems();
     if (items.count()==1) {
         MaterialTableItem* item = dynamic_cast<MaterialTableItem*>(items.first());
@@ -134,14 +133,11 @@ void MaterialTableView::selectionChanged()
 
 void MaterialTableView::dragEnterEvent(QDragEnterEvent *event)
 {
-    //std::cout << "dragEnterEvent" << std::endl;
     event->acceptProposedAction();
 }
 
 void MaterialTableView::dragMoveEvent(QDragMoveEvent *event)
 {
-    //std::cout << "dragMoveEvent" << std::endl;
-
     QTableWidgetItem * item = itemAt(event->pos());
     if (!item || item->type()!=QTableWidgetItem::UserType+100) {
         event->ignore();
@@ -162,8 +158,6 @@ void MaterialTableView::dragMoveEvent(QDragMoveEvent *event)
 
 void MaterialTableView::dropEvent(QDropEvent *event)
 {
-    //std::cout << "dropEvent" << std::endl;
-
     QTableWidgetItem * item = itemAt(event->pos());
     if (!item) {
         event->ignore();
@@ -200,8 +194,6 @@ void MaterialTableView::itemEdited(QTableWidgetItem * item)
 {
     if (!item || item->text().isEmpty()) return;
 
-    //std::cout << "MaterialTableView::itemEdited(QTableWidgetItem * item) " << item->text().toStdString() << std::endl;
-
     MaterialTableItem * matitem = dynamic_cast<MaterialTableItem*>(item);
     Material * material = dynamic_cast<Material*>(matitem->getMaterial());
 
@@ -211,8 +203,6 @@ void MaterialTableView::itemEdited(QTableWidgetItem * item)
             fillTable(ListModel_->getMaterialCount());
         }
     } else {
-
-        //std::cout << "new Material " << item->type() << std::endl;
 
         if (item->type()==QTableWidgetItem::UserType+101) {
             material = new Material();
@@ -224,7 +214,5 @@ void MaterialTableView::itemEdited(QTableWidgetItem * item)
 
 void MaterialTableView::displayContextMenu(const QPoint& point)
 {
-    std::cout << "context" << std::endl;
-
     ContextMenu_->exec(mapToGlobal(point));
 }

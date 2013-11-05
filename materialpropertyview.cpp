@@ -1,8 +1,8 @@
-#include <iostream>
-
 #include <QHeaderView>
 
-#include "materialpropertyview.h"
+#include <nqlogger.h>
+
+#include <materialpropertyview.h>
 
 MaterialPropertyViewParameterItem::MaterialPropertyViewParameterItem(Material * material,
                                                                      Property * property,
@@ -49,8 +49,9 @@ int MaterialPropertyViewParameterItem::getNumberOfParameters()
 
 void MaterialPropertyViewParameterItem::update()
 {
-    std::cout << Parameter_->getName().toStdString() << " " << (int)Parameter_->isDependent()
-              << " " << Parameter_ << std::endl;
+    NQLog("MaterialPropertyViewParameterItem", NQLog::Spam) << "update() "
+                                                            << (int)Parameter_->isDependent()
+                                                            << " " << Parameter_;
 
     if (Parameter_->getNumberOfValues()==0) {
         setText(1, "undefined");
@@ -101,8 +102,6 @@ MaterialPropertyViewItem::MaterialPropertyViewItem(Material * material,
     for (std::map<QString,Parameter*>::iterator it = map.begin();
          it!=map.end();
          ++it) {
-        std::cout << "prop " << property->getName().toStdString() << std::endl;
-        std::cout << "para " << it->second->getName().toStdString() << " " << (int) it->second->isDependent() << std::endl;
         addChild(new MaterialPropertyViewParameterItem(material, property, it->second, this));
     }
 }
@@ -185,7 +184,7 @@ MaterialPropertyView::MaterialPropertyView(MaterialListModel *listmodel,
 
 void MaterialPropertyView::materialChanged(Material* material)
 {
-    std::cout << "void MaterialPropertyView::materialChanged()" << std::endl;
+    NQLog("MaterialPropertyView", NQLog::Spam) << "void materialChanged()";
 
     clear();
 
@@ -195,12 +194,10 @@ void MaterialPropertyView::materialChanged(Material* material)
     for (std::vector<Property*>::const_iterator it = v.begin();
          it!=v.end();
          ++it) {
-        //std::cout << it->first.toStdString() << std::endl;
 
         std::map<QString,Parameter*>& pmap = (*it)->getParameters();
         if (pmap.size()==1) {
             Parameter* parameter = (pmap.begin())->second;
-            //std::cout << parameter->getValueUnit()->currentUnitAsString().toStdString() << std::endl;
             addTopLevelItem(new MaterialPropertyViewParameterItem(material, *it, parameter, this));
         } else {
             MaterialPropertyViewItem* item = new MaterialPropertyViewItem(material, *it, this);
@@ -218,12 +215,11 @@ void MaterialPropertyView::materialChanged(Material* material)
 
 void MaterialPropertyView::selectionChanged()
 {
-    std::cout << "MaterialPropertyView::selectionChanged()" << std::endl;
+    NQLog("MaterialPropertyView", NQLog::Spam) << "void selectionChanged()";
 
     QList<QTreeWidgetItem*> items = selectedItems();
     if (items.count()==1) {
         QTreeWidgetItem* item = items.first();
-        std::cout << item->type() << std::endl;
         if (item->type()==1002) {
             MaterialPropertyViewParameterItem* pitem = dynamic_cast<MaterialPropertyViewParameterItem*>(item);
             PropertySelectionModel_->setSelection(pitem->getProperty());
@@ -239,15 +235,16 @@ void MaterialPropertyView::selectionChanged()
 
 void MaterialPropertyView::parameterModified(Parameter* parameter)
 {
-    std::cout << "void MaterialPropertyView::parameterModified(Parameter* parameter)" << std::endl;
+    NQLog("MaterialPropertyView", NQLog::Spam) << "void parameterModified(Parameter* parameter)";
 
     if (parameter->getViewItem()) parameter->getViewItem()->update();
 }
 
 void MaterialPropertyView::propertyModified(Property* property)
 {
+    NQLog("MaterialPropertyView", NQLog::Spam) << "void propertyModified(Propery* property)";
+
     if (!property) return;
-    std::cout << "void MaterialPropertyView::propertyModified(Propery* property)" << std::endl;
 
     std::map<QString,Parameter*>& map = property->getParameters();
     for (std::map<QString,Parameter*>::iterator it = map.begin();
@@ -259,14 +256,11 @@ void MaterialPropertyView::propertyModified(Property* property)
 
 void MaterialPropertyView::dragEnterEvent(QDragEnterEvent *event)
 {
-    //std::cout << "dragEnterEvent" << std::endl;
     event->acceptProposedAction();
 }
 
 void MaterialPropertyView::dragMoveEvent(QDragMoveEvent *event)
 {
-    //std::cout << "dragMoveEvent" << std::endl;
-
     if (SelectionModel_->getSelection()==NULL) {
         event->ignore();
         return;
@@ -285,8 +279,6 @@ void MaterialPropertyView::dragMoveEvent(QDragMoveEvent *event)
 
 void MaterialPropertyView::dropEvent(QDropEvent *event)
 {
-    //std::cout << "dropEvent" << std::endl;
-
     if (SelectionModel_->getSelection()==NULL) {
         event->ignore();
         return;
@@ -314,7 +306,7 @@ void MaterialPropertyView::dropEvent(QDropEvent *event)
 
 void MaterialPropertyView::deleteProperty()
 {
-    std::cout << "delete" << std::endl;
+    NQLog("MaterialPropertyView", NQLog::Spam) << "void deleteProperty()";
 
     Property * property = 0;
     Material * material = 0;
@@ -347,7 +339,7 @@ void MaterialPropertyView::deleteProperty()
 
 void MaterialPropertyView::displayContextMenu(const QPoint& point)
 {
-    std::cout << "context" << std::endl;
+    NQLog("MaterialPropertyView", NQLog::Spam) << "void displayContextMenu(const QPoint& point)";
 
     QList<QTreeWidgetItem*> items = selectedItems();
     if (items.count()==1) {

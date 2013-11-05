@@ -18,10 +18,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    NQLogger::instance()->addDestiniation(stdout);
+    NQLogger::instance()->addDestiniation(stdout, NQLog::Spam);
     QFile * logfile = new QFile(QDesktopServices::storageLocation(QDesktopServices::HomeLocation) + "/Library/Logs/MatDB.log");
     if (logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-        NQLogger::instance()->addDestiniation(logfile);
+        NQLogger::instance()->addDestiniation(logfile, NQLog::Message);
     }
 
     QCoreApplication::setOrganizationName("Negusbuk");

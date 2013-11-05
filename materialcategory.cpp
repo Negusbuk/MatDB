@@ -1,7 +1,7 @@
 #include <QPixmap>
 #include <QPainter>
 
-#include "materialcategory.h"
+#include <materialcategory.h>
 
 QIcon* MaterialCategory::emptyIcon_ = 0;
 

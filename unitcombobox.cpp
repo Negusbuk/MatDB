@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 
 #include "unitcombobox.h"
@@ -22,6 +21,5 @@ void UnitComboBox::setUnit(Unit::VUnit *unit)
         addItem(*it);
     }
 
-    //std::cout << "current Unit: " << unit->currentUnit() << std::endl;
     setCurrentIndex(unit->currentUnit());
 }

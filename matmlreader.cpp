@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "matmlreader.h"
 
 MATMLReader::MATMLReader(MaterialListModel *model,
@@ -25,7 +23,6 @@ void MATMLReader::findMatMLDocElement(QDomElement& parent, QDomElement& element,
     }
 
     QDomNodeList list = parent.childNodes();
-    //std::cout << list.count() << std::endl;
     for (int n=0;n<list.count();++n) {
         QDomElement e = list.at(n).toElement();
         if(!e.isNull()) {
@@ -126,10 +123,6 @@ void MATMLReader::processMaterial(QDomElement& matElem, Material* mat)
 
         PropertyData data = processPropertyData(e);
         PropertyDetail propDetail = PropertyDetailMap_[data.property];
-        //std::cout << "x" << propDetail.name.toStdString() << "x" << std::endl;
-        //std::cout << "x" << propDetail.unit.toStdString() << "x" << std::endl;
-        //std::cout << data.pvalues.size() << std::endl;
-        //std::cout << data.dataformat.toStdString() << std::endl;
 
         QString propName = "";
 
@@ -139,8 +132,6 @@ void MATMLReader::processMaterial(QDomElement& matElem, Material* mat)
             propName += " ";
         }
         propName += propDetail.name;
-
-        //std::cout << "XXXX " << propName.toStdString() << std::endl;
 
         Property * prop = propmodel_->getProperty(propName);
         if (!prop) continue;
@@ -158,7 +149,6 @@ void MATMLReader::read(QIODevice *source)
     QDomElement matmlElem;
     bool found = false;
     findMatMLDocElement(docElem, matmlElem, found);
-    std::cout << "found:" << (int)found << std::endl;
     if (!found) return;
 
     QDomNodeList materialsElemList = matmlElem.elementsByTagName("Material");
@@ -184,7 +174,6 @@ void MATMLReader::read(QIODevice *source)
         QDomElement e = materialsElemList.at(i).toElement();
         QDomElement bulk = e.elementsByTagName("BulkDetails").at(0).toElement();
         QDomElement name = bulk.elementsByTagName("Name").at(0).toElement();
-        //std::cout << name.text().toStdString() << std::endl;
 
         Material * mat = new Material();
         mat->setName(name.text());
@@ -200,7 +189,6 @@ void MATMLReader::read(QIODevice *source)
             for (int i=0;i<tagList.size();++i) {
                 QDomElement tagElement = tagList.at(i).toElement();
                 tags << tagElement.text();
-                std::cout << tagElement.text().toStdString() << std::endl;
             }
         }
         mat->setTags(tags);
@@ -208,7 +196,6 @@ void MATMLReader::read(QIODevice *source)
         if (!bulk.elementsByTagName("Description").isEmpty()) {
             QDomElement description = bulk.elementsByTagName("Description").at(0).toElement();
             mat->setDescription(description.text());
-            //std::cout << mat->getDescription().toStdString() << std::endl;
         }
 
         QString notes;

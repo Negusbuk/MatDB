@@ -1,10 +1,10 @@
-#include <iostream>
-
 #include <QHeaderView>
 
-#include "materialcategorybox.h"
-#include "materialtagsedit.h"
-#include "materialmetadatawidget.h"
+#include <nqlogger.h>
+
+#include <materialcategorybox.h>
+#include <materialtagsedit.h>
+#include <materialmetadatawidget.h>
 
 MaterialMetadataWidget::MaterialMetadataWidget(MaterialListModel* listModel,
                                                MaterialSelectionModel* selectionModel,
@@ -51,7 +51,7 @@ MaterialMetadataWidget::MaterialMetadataWidget(MaterialListModel* listModel,
 
 void MaterialMetadataWidget::materialChanged(Material* material)
 {
-    std::cout << "void MaterialMetadataWidget::materialChanged()" << std::endl;
+    NQLog("MaterialMetadataWidget", NQLog::Spam) << "void materialChanged()";
 
     if (material) {
         descriptionEdit_->setText(material->getDescription());

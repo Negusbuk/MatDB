@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QHeaderView>
 #include <QLayout>
 #include <QButtonGroup>

@@ -20,12 +20,12 @@ public:
     bool isCategoryValid(MaterialCategory*) const;
     const std::vector<MaterialCategory*>& getCategories() const { return categories_; }
 
-    virtual int	columnCount(const QModelIndex & parent = QModelIndex()) const { return 1; }
-    virtual int	rowCount(const QModelIndex & parent = QModelIndex()) const { return categories_.size(); }
+    virtual int	columnCount(const QModelIndex & /* parent = QModelIndex() */) const { return 1; }
+    virtual int	rowCount(const QModelIndex & /* parent = QModelIndex() */) const { return categories_.size(); }
 
     virtual Qt::ItemFlags flags(const QModelIndex & index) const;
     virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
-    virtual bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+    //virtual bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
 
     void read(QIODevice *source);
     void write(QIODevice *destination);

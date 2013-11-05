@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QXmlStreamWriter>
 #include <QTextStream>
 
@@ -61,8 +59,6 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
         Property* property = it->second;
         property->writeXML(stream);
     }
-
-    //std::cout << document.toString(2).toStdString() << std::endl;
 
     stream.writeEndElement(); // Metadata
 

@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QToolButton>
 #include <QMenuBar>
 #include <QSettings>
@@ -8,6 +6,8 @@
 #include <QFileDialog>
 #include <QDockWidget>
 #include <QHeaderView>
+
+#include <nqlogger.h>
 
 #include "materialxmlexportdialog.h"
 #include "materialimportdialog.h"
@@ -168,7 +168,7 @@ void MatDBMainWindow::makeDefaultMaterial()
 
 void MatDBMainWindow::exportMaterialsXML()
 {
-    std::cout << "void MatDBMainWindow::exportMaterialsXML()" << std::endl;
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void exportMaterialsXML()";
 
     MaterialXMLExportDialog dialog(MaterialListModel_, this);
 
@@ -196,7 +196,7 @@ void MatDBMainWindow::exportMaterialsXML()
 
 void MatDBMainWindow::exportMaterialsHTML()
 {
-    std::cout << "void MatDBMainWindow::exportMaterialsHTML()" << std::endl;
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void exportMaterialsHTML()";
 
     MaterialXMLExportDialog dialog(MaterialListModel_, this);
 
@@ -206,8 +206,8 @@ void MatDBMainWindow::exportMaterialsHTML()
     QString filename = QFileDialog::getOpenFileName(this,
                                                     "Export Materials",
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
-                                                    "*.xml");
-    if (filename.isEmpty() || !filename.endsWith(".xml")) return;
+                                                    "*.html");
+    if (filename.isEmpty() || !filename.endsWith(".html")) return;
 
     QFile file(filename);
     if (file.open(QIODevice::WriteOnly)) {
@@ -223,7 +223,7 @@ void MatDBMainWindow::exportMaterialsHTML()
 
 void MatDBMainWindow::importMaterials()
 {
-    std::cout << "void MatDBMainWindow::importMaterials()" << std::endl;
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void importMaterials()";
 
     QString formats;
     formats += "All supported formats (*.xml);;";
@@ -266,9 +266,9 @@ void MatDBMainWindow::importMaterials()
     MaterialListModel_->addMaterials(dialog.getSelectedMaterials());
 }
 
-void MatDBMainWindow::closeEvent(QCloseEvent *event)
+void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
 {
-    std::cout << "void MatDBMainWindow::closeEvent(QCloseEvent *event)" << std::endl;
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void closeEvent(QCloseEvent *event)";
 
     if (categoryDialog_) {
         categoryDialog_->hide();
@@ -323,7 +323,8 @@ void MatDBMainWindow::closeEvent(QCloseEvent *event)
 
 void MatDBMainWindow::aboutDialog()
 {
-    std::cout << "about" << std::endl;
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void aboutDialog()";
+
     MatDBAboutDialog dialog;
          dialog.exec();
 }

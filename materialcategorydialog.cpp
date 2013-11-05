@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QBoxLayout>
 #include <QLabel>
 #include <QHeaderView>
@@ -85,9 +83,6 @@ void MaterialCategoryDialog::categoryDoubleClicked(const QModelIndex& index)
 {
     QVariant data = categories_->model()->data(index);
     MaterialCategory* category = categoryModel_->getCategory(data.toString());
-    if (!category) {
-        std::cout << data.toString().toStdString() << std::endl;
-    }
     if (category->isReadOnly()) return;
 
     MaterialCategoryEditDialog dialog(this);

@@ -24,7 +24,6 @@ public slots:
 
     void materialChanged(Material* material);
     void selectedCategoryChanged(QString);
-    void categoriesChanged();
 
 protected:
 
