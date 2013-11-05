@@ -18,7 +18,7 @@ TEMPLATE = app
 
 ICON = artwork/MatDB.icns
 
-SOURCES += source/main.cpp \
+SOURCES += main.cpp \
            matdbmainwindow.cpp \
            material.cpp \
            materiallistmodel.cpp \
