@@ -96,5 +96,4 @@ void ParameterStackView::parameterSelectionChanged(Parameter* parameter)
     } else {
         //setCurrentWidget(Empty_);
     }
-
 }

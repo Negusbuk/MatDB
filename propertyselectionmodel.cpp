@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <QDebug>
+
 #include "propertyselectionmodel.h"
 
 PropertySelectionModel::PropertySelectionModel(QObject *parent) :
@@ -15,15 +17,15 @@ Property * PropertySelectionModel::getSelection()
 
 void PropertySelectionModel::setSelection(Property* selection)
 {
-    if (Selection_!=selection) {
-        Selection_ = selection;
-        if (Selection_) {
-            std::cout << "property selection changed: " << selection << std::endl;
-        } else {
-            std::cout << "property selection changed: 0" << std::endl;
-        }
-        emit selectionChanged(Selection_);
+    qDebug() << "void PropertySelectionModel::setSelection(Property* selection)" << selection;
+
+    Selection_ = selection;
+    if (Selection_) {
+        std::cout << "property selection changed: " << selection << std::endl;
+    } else {
+        std::cout << "property selection changed: 0" << std::endl;
     }
+    emit selectionChanged(Selection_);
 }
 
 void PropertySelectionModel::emitPropertyModified()

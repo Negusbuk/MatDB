@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 
+#include <QDebug>
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include <QGroupBox>
@@ -218,7 +219,7 @@ void IsotropicElasticityProperty::recalculate()
 
 void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
 {
-    std::cout << "IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()" << std::endl;
+    qDebug() << "IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()";
 
     Parameter * parE = getParameter("Young's Modulus");
     Parameter * parNu = getParameter("Poisson's Ratio");
@@ -239,14 +240,14 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
         double E = parE->getValueUnit()->convertToBase(pE.getValue());
         double Nu = parNu->getValueUnit()->convertToBase(pNu.getValue());
 
-        std::cout << "E =  " << E << std::endl;
-        std::cout << "Nu = " << Nu << std::endl;
+        qDebug() << "E =  " << E;
+        qDebug() << "Nu = " << Nu;
 
         double G = parG->getValueUnit()->convertToCurrent(E/2/(1+Nu));
         double K = parK->getValueUnit()->convertToCurrent(E/3/(1-2*Nu));
 
-        std::cout << "G =  " << G << std::endl;
-        std::cout << "K =  " << K << std::endl;
+        qDebug() << "G =  " << G;
+        qDebug() << "K =  " << K;
 
         if (pE.isTemperatureValid() && pNu.isTemperatureValid()) {
             parG->addValue(pE.getTemperature(), G);
@@ -260,20 +261,86 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
 
 void IsotropicElasticityProperty::recalculateFromYoungsModulusAndShearModulus()
 {
-    std::cout << "IsotropicElasticityProperty::recalculateFromYoungsModulusAndShearModulus()" << std::endl;
+    qDebug() << "IsotropicElasticityProperty::recalculateFromYoungsModulusAndShearModulus()";
 
-    Parameter * parY = getParameter("Young's Modulus");
-    Parameter * parP = getParameter("Poisson's Ratio");
-    Parameter * parS = getParameter("Shear Modulus");
+    Parameter * parE = getParameter("Young's Modulus");
+    Parameter * parNu = getParameter("Poisson's Ratio");
+    Parameter * parG = getParameter("Shear Modulus");
+    Parameter * parK = getParameter("Bulk Modulus");
+
+    if (!(parE && parNu && parG && parK)) return;
+
+    parNu->clear();
+    parK->clear();
+
+    int nE = parE->getNumberOfValues();
+    int nG = parG->getNumberOfValues();
+
+    for (int i=0;i<nE&&i<nG;i++) {
+        const ParameterValue& pE = parE->getValues().at(i);
+        const ParameterValue& pG = parG->getValues().at(i);
+        double E = parE->getValueUnit()->convertToBase(pE.getValue());
+        double G = parG->getValueUnit()->convertToBase(pG.getValue());
+
+        qDebug() << "E =  " << E;
+        qDebug() << "G =  " << G;
+
+        double Nu = parNu->getValueUnit()->convertToCurrent(E/(2*G)-1);
+        double K = parK->getValueUnit()->convertToCurrent(E*G/(3*(3*G-E)));
+
+        qDebug() << "Nu = " << Nu;
+        qDebug() << "K =  " << K;
+
+        if (pE.isTemperatureValid() && pG.isTemperatureValid()) {
+            parNu->addValue(pE.getTemperature(), Nu);
+            parK->addValue(pE.getTemperature(), K);
+        } else {
+            parNu->addValue(Nu);
+            parK->addValue(K);
+        }
+    }
 }
 
 void IsotropicElasticityProperty::recalculateFromPoissonsRatioAndShearModulus()
 {
-    std::cout << "IsotropicElasticityProperty::recalculateFromPoissonRatioAndShearModulus()" << std::endl;
+    qDebug() << "IsotropicElasticityProperty::recalculateFromPoissonRatioAndShearModulus()";
 
-    Parameter * parY = getParameter("Young's Modulus");
-    Parameter * parP = getParameter("Poisson's Ratio");
-    Parameter * parS = getParameter("Shear Modulus");
+    Parameter * parE = getParameter("Young's Modulus");
+    Parameter * parNu = getParameter("Poisson's Ratio");
+    Parameter * parG = getParameter("Shear Modulus");
+    Parameter * parK = getParameter("Bulk Modulus");
+
+    if (!(parE && parNu && parG && parK)) return;
+
+    parE->clear();
+    parK->clear();
+
+    int nNu = parNu->getNumberOfValues();
+    int nG = parG->getNumberOfValues();
+
+    for (int i=0;i<nNu&&i<nG;i++) {
+        const ParameterValue& pNu = parNu->getValues().at(i);
+        const ParameterValue& pG = parG->getValues().at(i);
+        double Nu = parNu->getValueUnit()->convertToBase(pNu.getValue());
+        double G = parG->getValueUnit()->convertToBase(pG.getValue());
+
+        qDebug() << "Nu = " << Nu;
+        qDebug() << "G =  " << G;
+
+        double E = parE->getValueUnit()->convertToCurrent(2*G*(1+Nu));
+        double K = parK->getValueUnit()->convertToCurrent(2*G*(1+Nu)/(3*(1-2*Nu)));
+
+        qDebug() << "E =  " << E;
+        qDebug() << "K =  " << K;
+
+        if (pNu.isTemperatureValid() && pG.isTemperatureValid()) {
+            parE->addValue(pNu.getTemperature(), E);
+            parK->addValue(pNu.getTemperature(), K);
+        } else {
+            parE->addValue(E);
+            parK->addValue(K);
+        }
+    }
 }
 
 void IsotropicElasticityProperty::writeXML(QXmlStreamWriter& stream)
@@ -313,7 +380,6 @@ IsotropicElasticityPropertyWidget::IsotropicElasticityPropertyWidget(QWidget * p
 
 void IsotropicElasticityPropertyWidget::modeChanged(int id)
 {
-    std::cout << "clicked " << id << std::endl;
     Property_->setCalculationMode(static_cast<IsotropicElasticityProperty::CalculationMode>(id));
     Property_->recalculate();
 
@@ -322,7 +388,6 @@ void IsotropicElasticityPropertyWidget::modeChanged(int id)
 
 void IsotropicElasticityPropertyWidget::updateContents()
 {
-    std::cout << "void IsotropicElasticityPropertyWidget::updateContents()" << std::endl;
     int mode = Property_->getCalculationMode();
     buttonGroup_->button(mode)->setChecked(true);
 }

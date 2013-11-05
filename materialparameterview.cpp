@@ -136,7 +136,11 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
 
     //std::cout << "blah" << std::endl;
     //std::cout << parameter->getNumberOfValues() << std::endl;
-    valueTable_->setRowCount(1+parameter->getNumberOfValues());
+    if (!parameter->isDependent()) {
+        valueTable_->setRowCount(1+parameter->getNumberOfValues());
+    } else {
+        valueTable_->setRowCount(parameter->getNumberOfValues());
+    }
     //std::cout << "blah" << std::endl;
 
     int count = 0;
@@ -144,17 +148,30 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
          it!=parameter->getValues().end();
          ++it) {
 
-        valueTable_->setItem(count, 0, new MaterialParameterViewItem(&(*it), 0));
-        valueTable_->setItem(count, 1, new MaterialParameterViewItem(&(*it), 1));
+        MaterialParameterViewItem * item0 = new MaterialParameterViewItem(&(*it), 0);
+        MaterialParameterViewItem * item1 = new MaterialParameterViewItem(&(*it), 1);
+
+        if (parameter->isDependent()) {
+            item0->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+            item0->setBackground(QBrush(Qt::yellow));
+            item1->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+            item1->setBackground(QBrush(Qt::yellow));
+        }
+
+        valueTable_->setItem(count, 0, item0);
+        valueTable_->setItem(count, 1, item1);
+
         valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem(QString().setNum(count+1)));
 
         count++;
     }
     //std::cout << "blah" << std::endl;
 
-    valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem("*"));
-    valueTable_->setItem(count, 0, new MaterialParameterViewItem(0, 0));
-    valueTable_->setItem(count, 1, new MaterialParameterViewItem(0, 1));
+    if (!parameter->isDependent()) {
+        valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem("*"));
+        valueTable_->setItem(count, 0, new MaterialParameterViewItem(0, 0));
+        valueTable_->setItem(count, 1, new MaterialParameterViewItem(0, 1));
+    }
     //std::cout << "blah" << std::endl;
 
     TempUnitBox_->setUnit(parameter->getTemperatureUnit());
