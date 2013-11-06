@@ -4,6 +4,7 @@
 #include "cteproperty.h"
 #include "resistivityproperty.h"
 #include "specificheatproperty.h"
+#include "viscosityproperty.h"
 
 #include "propertymodel.h"
 
@@ -62,10 +63,13 @@ void PropertyModel::build()
 
     addProperty(new SpecificHeatProperty(ParameterModel_, id++));
 
+    addProperty(new ViscosityProperty(ParameterModel_, id++));
+
     Categories_.push_back("Physical Properties");
     Categories_.push_back("Linear Elastic Properties");
     Categories_.push_back("Thermal Properties");
     Categories_.push_back("Electrical Properties");
+    Categories_.push_back("Fluid Properties");
 }
 
 int PropertyModel::getPropertySorting(Property* property) const
