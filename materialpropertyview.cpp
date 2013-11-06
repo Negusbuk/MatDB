@@ -98,11 +98,11 @@ MaterialPropertyViewItem::MaterialPropertyViewItem(Material * material,
     setText(1, "");
     setText(2, "");
 
-    std::map<QString,Parameter*>& map = Property_->getParameters();
-    for (std::map<QString,Parameter*>::iterator it = map.begin();
-         it!=map.end();
+    std::vector<Parameter*>& vec = Property_->getOrderedParameters();
+    for (std::vector<Parameter*>::iterator it = vec.begin();
+         it!=vec.end();
          ++it) {
-        addChild(new MaterialPropertyViewParameterItem(material, property, it->second, this));
+        addChild(new MaterialPropertyViewParameterItem(material, property, *it, this));
     }
 }
 

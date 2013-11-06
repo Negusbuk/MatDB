@@ -112,6 +112,7 @@ void Property::addParameter(Parameter* parameter)
     if (it!=Parameters_.end()) prop = it->second;
 
     Parameters_[parameter->getName()] = parameter;
+    OrderedParameters_.push_back(parameter);
 
     parameter->setProperty(this);
 
@@ -135,6 +136,11 @@ const Parameter* Property::getParameter(const QString& name) const
 std::map<QString,Parameter*>& Property::getParameters()
 {
     return Parameters_;
+}
+
+std::vector<Parameter*>& Property::getOrderedParameters()
+{
+    return OrderedParameters_;
 }
 
 void Property::writeXML(QXmlStreamWriter& stream)

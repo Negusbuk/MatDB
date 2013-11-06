@@ -109,6 +109,7 @@ public:
     Parameter* getParameter(const QString& name);
     const Parameter* getParameter(const QString& name) const;
     std::map<QString,Parameter*>& getParameters();
+    std::vector<Parameter*>& getOrderedParameters();
 
     virtual bool hasSpecialWidget() { return false; }
     virtual void fillSpecialWidget() { }
@@ -139,6 +140,7 @@ protected:
     Behavior Behavior_;
     Definition Definition_;
     std::map<QString,Parameter*> Parameters_;
+    std::vector<Parameter*> OrderedParameters_;
     int sorting_;
 };
 
