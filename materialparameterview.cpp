@@ -1,5 +1,7 @@
 #include <QBoxLayout>
 #include <QHeaderView>
+#include <QFileDialog>
+#include <QDesktopServices>
 
 #include <nqlogger.h>
 
@@ -51,7 +53,7 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
             this, SLOT(displayContextMenu(const QPoint&)));
 
     ContextMenu_ = new QMenu();
-    ContextMenu_->addAction("Import", selectionmodel, SLOT(import()));
+    ContextMenu_->addAction("Import", this, SLOT(import()));
     ContextMenu_->addSeparator();
     DeleteAction_ = ContextMenu_->addAction("Delete", this, SLOT(deleteParameterRow()));
 
@@ -334,7 +336,24 @@ void MaterialParameterView::displayContextMenu(const QPoint& point)
 
 void MaterialParameterView::import()
 {
+    NQLog("MaterialParameterView", NQLog::Spam) << "void import()";
 
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Import Data",
+                                                    QDesktopServices::storageLocation(QDesktopServices::DesktopLocation),
+                                                    "*.csv");
+    if (filename.isEmpty()) return;
+
+    Parameter* parameter = ParameterSelectionModel_->getSelection();
+    parameter->importValues(filename);
+
+    Property* property = parameter->getProperty();
+
+    ParameterSelectionModel_->emitParameterModified();
+    property->recalculate();
+    PropertySelectionModel_->emitPropertyModified(property);
+
+    parameterChanged(parameter);
 }
 
 void MaterialParameterView::deleteParameterRow()
