@@ -55,7 +55,8 @@ public:
         PhysicalProperty          = 1,
         LinearElasticProperty     = 2,
         ThermalProperty           = 3,
-        ElectricalProperty        = 4
+        ElectricalProperty        = 4,
+        FluidProperty             = 5
     };
 
     enum Type {
@@ -63,7 +64,6 @@ public:
 
         Density                          =  1001,
         CoefficientOfThermalExpansion    =  1002,
-        Viscosity                        =  1003,
 
         Elasticity                       =  2001,
 
@@ -71,6 +71,8 @@ public:
         SpecificHeat                     =  3003,
 
         Resistivity                      =  4001,
+
+        Viscosity                        =  5001,
     };
 
     enum Behavior {

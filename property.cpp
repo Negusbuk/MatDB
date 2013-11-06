@@ -45,6 +45,9 @@ QString Property::getCategoryName() const
     case ElectricalProperty:
         return QString("Electrical Properties");
         break;
+    case FluidProperty:
+        return QString("Fluid Properties");
+        break;
     default:
         break;
     }
@@ -71,6 +74,9 @@ QString Property::getTypeName() const
         break;
     case SpecificHeat:
         return QString("Specific Heat");
+        break;
+    case Viscosity:
+        return QString("Viscosity");
         break;
     default:
         break;
