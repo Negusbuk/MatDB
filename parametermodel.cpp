@@ -47,6 +47,11 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Viscosity(), -1);
+    par->setName("Viscosity");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Young's Modulus");
     par->setPrefferedValueUnit();
