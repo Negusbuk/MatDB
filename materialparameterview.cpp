@@ -56,6 +56,7 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
     ContextMenu_->addAction("Import", this, SLOT(import()));
     ContextMenu_->addSeparator();
     DeleteAction_ = ContextMenu_->addAction("Delete", this, SLOT(deleteParameterRow()));
+    DeleteTempAction_ = ContextMenu_->addAction("Delete Temperature", this, SLOT(deleteTemperature()));
 
     QVBoxLayout * layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
@@ -226,9 +227,22 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
     ParameterValue* pvalue = 0;
     if (pitem) pvalue = pitem->getParameterValue();
 
+    int row = valueTable_->currentRow();
+
     int pos;
+    bool ok;
     QString text = item->text();
-    double value = text.toDouble();
+    double value = text.toDouble(&ok);
+
+    if (text.isEmpty()) {
+        valueTable_->setCurrentItem(0);
+        if (item->column()==1) {
+            deleteParameterRow(row);
+        } else {
+            deleteTemperature(row);
+        }
+        return;
+    }
 
     QValidator::State state;
     if (item->column()==0) {
@@ -263,8 +277,11 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
         } else {
             parameter->addValue(value);
         }
-        parameterChanged(parameter);
     }
+
+    valueTable_->setCurrentItem(0);
+    parameter->sort();
+    parameterChanged(parameter);
 
     ParameterSelectionModel_->emitParameterModified();
     property->recalculate();
@@ -334,6 +351,16 @@ void MaterialParameterView::displayContextMenu(const QPoint& point)
         DeleteAction_->setEnabled(true);
     }
 
+    DeleteTempAction_->setEnabled(true);
+
+    MaterialParameterViewItem* pitem = dynamic_cast<MaterialParameterViewItem*>(valueTable_->currentItem());
+    if (pitem) {
+        ParameterValue* pvalue = pitem->getParameterValue();
+        if (!pvalue->isTemperatureValid()) {
+            DeleteTempAction_->setEnabled(false);
+        }
+    }
+
     ContextMenu_->exec(mapToGlobal(point));
 }
 
@@ -359,7 +386,7 @@ void MaterialParameterView::import()
     parameterChanged(parameter);
 }
 
-void MaterialParameterView::deleteParameterRow()
+void MaterialParameterView::deleteParameterRow(int row)
 {
     NQLog("MaterialParameterView", NQLog::Spam) << "void deleteParameterRow()";
 
@@ -367,9 +394,24 @@ void MaterialParameterView::deleteParameterRow()
     if (!parameter) return;
     Property* property = parameter->getProperty();
 
-    int row = valueTable_->currentRow();
-
     parameter->deleteValue(row);
+
+    ParameterSelectionModel_->emitParameterModified();
+    property->recalculate();
+    PropertySelectionModel_->emitPropertyModified(property);
+
+    this->parameterChanged(parameter);
+}
+
+void MaterialParameterView::deleteTemperature(int row)
+{
+    NQLog("MaterialParameterView", NQLog::Spam) << "void deleteTemperature()";
+
+    Parameter* parameter = ParameterSelectionModel_->getSelection();
+    if (!parameter) return;
+    Property* property = parameter->getProperty();
+
+    parameter->deleteTemperature(row);
 
     ParameterSelectionModel_->emitParameterModified();
     property->recalculate();

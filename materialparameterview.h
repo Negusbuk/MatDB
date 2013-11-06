@@ -49,7 +49,8 @@ public slots:
 protected slots:
     void displayContextMenu(const QPoint& point);
     void import();
-    void deleteParameterRow();
+    void deleteParameterRow(int row);
+    void deleteTemperature(int row);
 
 protected:
     MaterialListModel* ListModel_;
@@ -65,6 +66,7 @@ protected:
 
     QMenu* ContextMenu_;
     QAction* DeleteAction_;
+    QAction* DeleteTempAction_;
 };
 
 #endif // MATERIALPARAMETERVIEW_H
