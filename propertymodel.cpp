@@ -30,10 +30,11 @@ void PropertyModel::addProperty(Property* property)
 
     Properties_[property->getName()] = property;
     PropertiesById_[property->getId()] = property;
-    property->setSorting((int)PropertiesSorting_.size());
-    PropertiesSorting_[property] = (int)PropertiesSorting_.size();
     PropertiesByCategory_[property->getCategoryName()].push_back(property);
     PropertiesByType_[property->getTypeName()].push_back(property);
+
+    property->setSorting((int)PropertiesSorting_.size());
+    PropertiesSorting_[property] = (int)PropertiesSorting_.size();
 
     if (prop) delete prop;
 }
@@ -44,14 +45,14 @@ void PropertyModel::build()
 
     addProperty(new DensityProperty(ParameterModel_, id++));
 
+    addProperty(new IsotropicCoefficientOfThermalExpansionProperty(ParameterModel_, id));
+    addProperty(new OrthotropicCoefficientOfThermalExpansionProperty(ParameterModel_, id++));
+
     addProperty(new IsotropicElasticityProperty(ParameterModel_, id));
     addProperty(new OrthotropicElasticityProperty(ParameterModel_, id++));
 
     addProperty(new IsotropicThermalConductivityProperty(ParameterModel_, id));
     addProperty(new OrthotropicThermalConductivityProperty(ParameterModel_, id++));
-
-    addProperty(new IsotropicCoefficientOfThermalExpansionProperty(ParameterModel_, id));
-    addProperty(new OrthotropicCoefficientOfThermalExpansionProperty(ParameterModel_, id++));
 
     addProperty(new IsotropicResistivityProperty(ParameterModel_, id));
     addProperty(new OrthotropicResistivityProperty(ParameterModel_, id++));
