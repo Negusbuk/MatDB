@@ -64,6 +64,10 @@ public:
     std::vector<ParameterValue>& getValues();
     const std::vector<ParameterValue>& getValues() const;
     void deleteValue(int idx);
+    void deleteTemperature(int idx);
+    void importValues(const QString& filename);
+
+    void sort();
 
     Parameter* clone() const;
 

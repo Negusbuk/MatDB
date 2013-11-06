@@ -145,14 +145,13 @@ void Parameter::addValue(double temperature, double value)
 void Parameter::addValue(const ParameterValue& value)
 {
     if (!Values_) Values_ = new ParameterValueVector;
-    if (Values_)
-        Values_->push_back(ParameterValue(value));
+
+    Values_->push_back(ParameterValue(value));
 }
 
 int Parameter::getNumberOfValues() const
 {
-    if (Values_)
-        return Values_->size();
+    if (Values_) return Values_->size();
     return 0;
 }
 
@@ -181,6 +180,18 @@ void Parameter::deleteValue(int idx)
     Values_->erase(Values_->begin() + idx);
 }
 
+void Parameter::deleteTemperature(int idx)
+{
+    if (!Values_) return;
+
+    if (idx<0 || idx>=Values_->size()) return;
+
+    ParameterValue& pvalue = Values_->at(idx);
+    pvalue.setTemperature(0);
+    pvalue.resetTemperature();
+
+    sort();
+}
 
 void Parameter::importValues(const QString& filename)
 {
@@ -225,6 +236,24 @@ void Parameter::importValues(const QString& filename)
 
     sort();
 }
+
+void Parameter::sort()
+{
+    if (!Values_) return;
+
+    std::sort(Values_->begin(), Values_->end(),
+              [](ParameterValue& lhs,ParameterValue& rhs) {
+        if (lhs.getTemperature()<rhs.getTemperature()) {
+            return true;
+        } else if(lhs.getTemperature()>rhs.getTemperature()) {
+            return false;
+        } else if(lhs.getValue()<rhs.getValue()) {
+            return true;
+        }
+        return false;
+    });
+}
+
 void Parameter::writeXML(QXmlStreamWriter& stream)
 {
     if (getId()==-1) return;
