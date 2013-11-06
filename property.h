@@ -81,6 +81,7 @@ public:
 
     enum Definition {
         Instantaneous = 0x0001,
+        Secant        = 0x0002,
         UnknownDefinition
     };
 

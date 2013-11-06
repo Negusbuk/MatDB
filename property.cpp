@@ -99,6 +99,9 @@ QString Property::getDefinitionAsString() const
     case Instantaneous:
         return QString("Instantaneous");
         break;
+    case Secant:
+        return QString("Definition");
+        break;
     default:
         break;
     }
