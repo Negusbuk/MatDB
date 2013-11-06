@@ -24,7 +24,7 @@ IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExp
 IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExpansionProperty(const IsotropicCoefficientOfThermalExpansionProperty& property) :
     Property(property.getId())
 {
-    setName("Isotropic Coefficient of Thermal Expansion");
+    setName("Isotropic Instantaneous Coefficient of Thermal Expansion");
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
@@ -147,7 +147,7 @@ OrthotropicCoefficientOfThermalExpansionProperty::OrthotropicCoefficientOfTherma
 OrthotropicCoefficientOfThermalExpansionProperty::OrthotropicCoefficientOfThermalExpansionProperty(const OrthotropicCoefficientOfThermalExpansionProperty& property) :
     Property(property.getId())
 {
-    setName("Orthotropic Coefficient of Thermal Expansion");
+    setName("Orthotropic Instantaneous Coefficient of Thermal Expansion");
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);
