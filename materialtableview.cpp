@@ -158,6 +158,8 @@ void MaterialTableView::dragMoveEvent(QDragMoveEvent *event)
 
 void MaterialTableView::dropEvent(QDropEvent *event)
 {
+    NQLog("MaterialTableView", NQLog::Spam) << "void MaterialTableView::dropEvent(QDropEvent *event)";
+
     QTableWidgetItem * item = itemAt(event->pos());
     if (!item) {
         event->ignore();
