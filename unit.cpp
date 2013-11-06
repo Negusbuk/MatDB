@@ -481,8 +481,34 @@ SpecificHeat::SpecificHeat() :
                return 1.e+3*value;
             });
 }
+
+Viscosity::Viscosity() :
+    VUnit()
+{
+    addUnit("Pa s", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return value;
+            },
+            [&] (double value) {
+               return value;
             },
             true);
+
+    addUnit("kg m^-1 s^-1", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return value;
+            },
+            [&] (double value) {
+               return value;
+            });
+
+    addUnit("g cm^-1 s^-1", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return 0.1*value;
+            },
+            [&] (double value) {
+               return 10.0*value;
+            });
 }
 
 };

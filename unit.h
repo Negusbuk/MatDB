@@ -125,6 +125,13 @@ public:
     VUnit* clone() const { return new SpecificHeat(); }
 };
 
+class Viscosity : public VUnit
+{
+public:
+    Viscosity();
+    VUnit* clone() const { return new Viscosity(); }
+};
+
 };
 
 #endif // UNIT_H
