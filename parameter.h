@@ -63,6 +63,7 @@ public:
     int getNumberOfValues() const;
     std::vector<ParameterValue>& getValues();
     const std::vector<ParameterValue>& getValues() const;
+    void deleteValue(int idx);
 
     Parameter* clone() const;
 

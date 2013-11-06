@@ -165,6 +165,15 @@ void Parameter::clear()
         Values_->clear();
 }
 
+void Parameter::deleteValue(int idx)
+{
+    if (!Values_) return;
+
+    if (idx<0 || idx>=Values_->size()) return;
+
+    Values_->erase(Values_->begin() + idx);
+}
+
 void Parameter::writeXML(QXmlStreamWriter& stream)
 {
     if (getId()==-1) return;
