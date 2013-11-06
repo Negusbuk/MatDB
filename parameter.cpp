@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 
+#include <nqlogger.h>
+
 #include "parameter.h"
 
 ParameterValue::ParameterValue() :
