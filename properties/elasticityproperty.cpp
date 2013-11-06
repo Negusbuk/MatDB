@@ -62,6 +62,8 @@ Property* IsotropicElasticityProperty::clone(ParameterModel* model)
 
     prop->widget_ = widget_;
 
+    prop->setSorting(getSorting());
+
     return prop;
 }
 
@@ -436,7 +438,9 @@ Property* OrthotropicElasticityProperty::clone(ParameterModel* model)
     } else {
         prop = new OrthotropicElasticityProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 
