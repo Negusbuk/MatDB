@@ -1,3 +1,5 @@
+#include <nqlogger.h>
+
 #include "matmlreader.h"
 
 MATMLReader::MATMLReader(MaterialListModel *model,
@@ -116,6 +118,8 @@ PropertyData MATMLReader::processPropertyData(QDomElement& element)
 
 void MATMLReader::processMaterial(QDomElement& matElem, Material* mat)
 {
+    NQLog("MATMLReader", NQLog::Message) << "  process material " << mat->getName();
+
     QDomNodeList propertyList = matElem.elementsByTagName("PropertyData");
     for (int i=0;i<propertyList.count();++i) {
         QDomElement e = propertyList.at(i).toElement();
@@ -133,6 +137,8 @@ void MATMLReader::processMaterial(QDomElement& matElem, Material* mat)
         }
         propName += propDetail.name;
 
+        NQLog("MATMLReader", NQLog::Message) << "    property " << propName;
+
         Property * prop = propmodel_->getProperty(propName);
         if (!prop) continue;
         Property * clonedProp = prop->clone(paramodel_);
@@ -144,6 +150,8 @@ void MATMLReader::processMaterial(QDomElement& matElem, Material* mat)
 void MATMLReader::read(QIODevice *source)
 {
     if (!document_.setContent(source)) return;
+
+    NQLog("MATMLReader", NQLog::Message) << "void read(QIODevice *destination)";
 
     QDomElement docElem = document_.documentElement();
     QDomElement matmlElem;
