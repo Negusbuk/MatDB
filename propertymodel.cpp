@@ -48,6 +48,9 @@ void PropertyModel::build()
     addProperty(new IsotropicCoefficientOfThermalExpansionProperty(ParameterModel_, id));
     addProperty(new OrthotropicCoefficientOfThermalExpansionProperty(ParameterModel_, id++));
 
+    addProperty(new IsotropicSecantCoefficientOfThermalExpansionProperty(ParameterModel_, id));
+    addProperty(new OrthotropicSecantCoefficientOfThermalExpansionProperty(ParameterModel_, id++));
+
     addProperty(new IsotropicElasticityProperty(ParameterModel_, id));
     addProperty(new OrthotropicElasticityProperty(ParameterModel_, id++));
 

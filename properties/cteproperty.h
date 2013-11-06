@@ -33,4 +33,34 @@ public:
     virtual void writeXML(QXmlStreamWriter& stream);
 };
 
+class IsotropicSecantCoefficientOfThermalExpansionProperty : public Property
+{
+public:
+    IsotropicSecantCoefficientOfThermalExpansionProperty(ParameterModel* model, int id);
+    IsotropicSecantCoefficientOfThermalExpansionProperty(const IsotropicSecantCoefficientOfThermalExpansionProperty&);
+
+    Property* clone(ParameterModel* model = 0);
+
+    virtual void apply(PropertyData& data,
+                       PropertyDetail& detail,
+                       std::map<QString,ParameterDetail> paramMap);
+
+    virtual void writeXML(QXmlStreamWriter& stream);
+};
+
+class OrthotropicSecantCoefficientOfThermalExpansionProperty : public Property
+{
+public:
+    OrthotropicSecantCoefficientOfThermalExpansionProperty(ParameterModel* model, int id);
+    OrthotropicSecantCoefficientOfThermalExpansionProperty(const OrthotropicSecantCoefficientOfThermalExpansionProperty&);
+
+    Property* clone(ParameterModel* model);
+
+    virtual void apply(PropertyData& data,
+                       PropertyDetail& detail,
+                       std::map<QString,ParameterDetail> paramMap);
+
+    virtual void writeXML(QXmlStreamWriter& stream);
+};
+
 #endif // CTEPROPERTY_H

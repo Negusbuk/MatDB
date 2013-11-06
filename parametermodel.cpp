@@ -37,6 +37,11 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Temperature(), id++);
+    par->setName("Reference Temperature");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Density(), -1);
     par->setName("Density");
     par->setPrefferedValueUnit();
