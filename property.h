@@ -62,11 +62,12 @@ public:
         InvalidType                      =     0,
 
         Density                          =  1001,
+        CoefficientOfThermalExpansion    =  1002,
+        Viscosity                        =  1003,
 
         Elasticity                       =  2001,
 
         ThermalConductivity              =  3001,
-        CoefficientOfThermalExpansion    =  3002,
         SpecificHeat                     =  3003,
 
         Resistivity                      =  4001,
