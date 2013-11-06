@@ -26,6 +26,7 @@ SOURCES += main.cpp \
            materialpropertyview.cpp \
            property.cpp \
            properties/densityproperty.cpp \
+           properties/viscosityproperty.cpp \
            properties/elasticityproperty.cpp \
            properties/thermalconductivityproperty.cpp \
            properties/cteproperty.cpp \
@@ -62,13 +63,14 @@ SOURCES += main.cpp \
     materialcategoryeditdialog.cpp \
     propertyspecialwidget.cpp
 
-HEADERS  += matdbmainwindow.h \
+HEADERS += matdbmainwindow.h \
     material.h \
     materiallistmodel.h \
     materialselectionmodel.h \
     materialpropertyview.h \
     property.h \
     properties/densityproperty.h \
+           properties/viscosityproperty.h \
     properties/elasticityproperty.h \
     properties/thermalconductivityproperty.h \
     properties/cteproperty.h \
