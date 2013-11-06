@@ -60,13 +60,14 @@ const QString ParameterValue::prettyFormat(double value) const
     return s;
 }
 
-Parameter::Parameter(Unit::VUnit* unit, int id) :
+Parameter::Parameter(Unit::VUnit* unit, int id, bool tempDependent) :
     Property_(0),
     TemperatureUnit_(new Unit::Temperature()),
     ValueUnit_(unit),
     Values_(0),
     ReadOnly_(false),
-    Dependent_(false)
+    Dependent_(false),
+    TemperatureDependent_(tempDependent)
 {
     Values_ = new ParameterValueVector;
 
@@ -84,7 +85,9 @@ Parameter::~Parameter()
 
 Parameter* Parameter::clone() const
 {
-    Parameter * newParam = new Parameter(ValueUnit_->cloneWithUnitIndex(), getId());
+    Parameter * newParam = new Parameter(ValueUnit_->cloneWithUnitIndex(),
+                                         getId(),
+                                         TemperatureDependent_);
     newParam->setName(getName());
 
     for (std::vector<ParameterValue>::const_iterator it=getValues().begin();

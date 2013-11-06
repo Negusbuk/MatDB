@@ -42,7 +42,7 @@ class MaterialPropertyViewParameterItem;
 class Parameter
 {
 public:
-    Parameter(Unit::VUnit* unit, int id);
+    Parameter(Unit::VUnit* unit, int id, bool tempDependent = true);
     virtual ~Parameter();
 
     Unit::VUnit* getTemperatureUnit() const { return TemperatureUnit_; }
@@ -72,6 +72,8 @@ public:
     bool isDependent() const { return Dependent_; }
     void setDependent(bool dependent) { Dependent_ = dependent; }
 
+    bool isTemperatureDependent() const { return TemperatureDependent_; }
+
     Property* getProperty() const { return Property_; }
     void setProperty(Property * property) { Property_ = property; }
 
@@ -92,6 +94,7 @@ protected:
     ParameterValueVector* Values_;
     bool ReadOnly_;
     bool Dependent_;
+    bool TemperatureDependent_;
     MaterialPropertyViewParameterItem* viewItem_;
 };
 

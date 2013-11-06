@@ -136,6 +136,15 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
     } else {
         valueTable_->setRowCount(parameter->getNumberOfValues());
     }
+    if (!parameter->isTemperatureDependent()) {
+        valueTable_->setRowCount(1);
+    }
+
+    if (!parameter->isTemperatureDependent()) {
+        TempUnitBox_->setEnabled(false);
+    } else {
+        TempUnitBox_->setEnabled(true);
+    }
 
     int count = 0;
     for (std::vector<ParameterValue>::iterator it=parameter->getValues().begin();
@@ -152,6 +161,10 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
             item1->setBackground(QBrush(Qt::yellow));
         }
 
+        if (!parameter->isTemperatureDependent()) {
+            item0->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        }
+
         valueTable_->setItem(count, 0, item0);
         valueTable_->setItem(count, 1, item1);
 
@@ -160,10 +173,14 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
         count++;
     }
 
-    if (!parameter->isDependent()) {
-        valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem("*"));
-        valueTable_->setItem(count, 0, new MaterialParameterViewItem(0, 0));
-        valueTable_->setItem(count, 1, new MaterialParameterViewItem(0, 1));
+    if (parameter->isTemperatureDependent() || count==0) {
+        if (!parameter->isDependent()) {
+            valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem("*"));
+            MaterialParameterViewItem * item0 = new MaterialParameterViewItem(0, 0);
+            item0->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+            valueTable_->setItem(count, 0, item0);
+            valueTable_->setItem(count, 1, new MaterialParameterViewItem(0, 1));
+        }
     }
 
     TempUnitBox_->setUnit(parameter->getTemperatureUnit());
