@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cmath>
 
-#include <QDebug>
 #include <QRadioButton>
 #include <QVBoxLayout>
 #include <QGroupBox>
@@ -219,7 +218,7 @@ void IsotropicElasticityProperty::recalculate()
 
 void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
 {
-    qDebug() << "IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()";
+    NQLog("IsotropicElasticityProperty", NQLog::Spam) << "void recalculateFromYoungsModulusAndPoissonsRatio()";
 
     Parameter * parE = getParameter("Young's Modulus");
     Parameter * parNu = getParameter("Poisson's Ratio");
@@ -240,14 +239,14 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
         double E = parE->getValueUnit()->convertToBase(pE.getValue());
         double Nu = parNu->getValueUnit()->convertToBase(pNu.getValue());
 
-        qDebug() << "E =  " << E;
-        qDebug() << "Nu = " << Nu;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "E =  " << E;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "Nu = " << Nu;
 
         double G = parG->getValueUnit()->convertToCurrent(E/2/(1+Nu));
         double K = parK->getValueUnit()->convertToCurrent(E/3/(1-2*Nu));
 
-        qDebug() << "G =  " << G;
-        qDebug() << "K =  " << K;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "G =  " << G;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "K =  " << K;
 
         if (pE.isTemperatureValid() && pNu.isTemperatureValid()) {
             parG->addValue(pE.getTemperature(), G);
@@ -261,7 +260,7 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndPoissonsRatio()
 
 void IsotropicElasticityProperty::recalculateFromYoungsModulusAndShearModulus()
 {
-    qDebug() << "IsotropicElasticityProperty::recalculateFromYoungsModulusAndShearModulus()";
+    NQLog("IsotropicElasticityProperty", NQLog::Spam) << "void recalculateFromYoungsModulusAndShearModulus()";
 
     Parameter * parE = getParameter("Young's Modulus");
     Parameter * parNu = getParameter("Poisson's Ratio");
@@ -282,14 +281,14 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndShearModulus()
         double E = parE->getValueUnit()->convertToBase(pE.getValue());
         double G = parG->getValueUnit()->convertToBase(pG.getValue());
 
-        qDebug() << "E =  " << E;
-        qDebug() << "G =  " << G;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "E =  " << E;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "G =  " << G;
 
         double Nu = parNu->getValueUnit()->convertToCurrent(E/(2*G)-1);
         double K = parK->getValueUnit()->convertToCurrent(E*G/(3*(3*G-E)));
 
-        qDebug() << "Nu = " << Nu;
-        qDebug() << "K =  " << K;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "Nu = " << Nu;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "K =  " << K;
 
         if (pE.isTemperatureValid() && pG.isTemperatureValid()) {
             parNu->addValue(pE.getTemperature(), Nu);
@@ -303,7 +302,7 @@ void IsotropicElasticityProperty::recalculateFromYoungsModulusAndShearModulus()
 
 void IsotropicElasticityProperty::recalculateFromPoissonsRatioAndShearModulus()
 {
-    qDebug() << "IsotropicElasticityProperty::recalculateFromPoissonRatioAndShearModulus()";
+    NQLog("IsotropicElasticityProperty", NQLog::Spam) << "void recalculateFromPoissonRatioAndShearModulus()";
 
     Parameter * parE = getParameter("Young's Modulus");
     Parameter * parNu = getParameter("Poisson's Ratio");
@@ -324,14 +323,14 @@ void IsotropicElasticityProperty::recalculateFromPoissonsRatioAndShearModulus()
         double Nu = parNu->getValueUnit()->convertToBase(pNu.getValue());
         double G = parG->getValueUnit()->convertToBase(pG.getValue());
 
-        qDebug() << "Nu = " << Nu;
-        qDebug() << "G =  " << G;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "Nu = " << Nu;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "G =  " << G;
 
         double E = parE->getValueUnit()->convertToCurrent(2*G*(1+Nu));
         double K = parK->getValueUnit()->convertToCurrent(2*G*(1+Nu)/(3*(1-2*Nu)));
 
-        qDebug() << "E =  " << E;
-        qDebug() << "K =  " << K;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "E =  " << E;
+        NQLog("IsotropicElasticityProperty", NQLog::Spam) << "K =  " << K;
 
         if (pNu.isTemperatureValid() && pG.isTemperatureValid()) {
             parE->addValue(pNu.getTemperature(), E);
