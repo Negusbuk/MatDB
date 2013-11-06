@@ -40,11 +40,21 @@ void Material::addProperty(Property* property)
     Properties_[property->getName()] = property;
     PropertiesByType_[property->getType()] = property;
 
+    NQLog("Material", NQLog::Spam) << "sorted properties for material " << getName();
     PropertiesSorted_.push_back(property);
     std::sort(PropertiesSorted_.begin(), PropertiesSorted_.end(),
               [](Property*lhs, Property*rhs) {
+        NQLog("Material", NQLog::Spam) << "lhs " << lhs->getName() << " " << lhs->getSorting();
+        NQLog("Material", NQLog::Spam) << "rhs " << rhs->getName() << " " << rhs->getSorting();
         return lhs->getSorting()<rhs->getSorting();
     });
+
+    const std::vector<Property*>& v = getSortedProperties();
+    for (std::vector<Property*>::const_iterator it = v.begin();
+         it!=v.end();
+         ++it) {
+        NQLog("Material", NQLog::Spam) << "   " << (*it)->getName();
+    }
 
     std::map<QString,Parameter*>& pmap = property->getParameters();
     for (std::map<QString,Parameter*>::iterator itP = pmap.begin();
