@@ -7,6 +7,8 @@
 #include <QButtonGroup>
 
 #include "elasticityproperty.h"
+#include <nqlogger.h>
+
 
 IsotropicElasticityProperty::IsotropicElasticityProperty(ParameterModel* model, int id) :
     Property(id)
