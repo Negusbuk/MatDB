@@ -1,6 +1,8 @@
 #include <QXmlStreamWriter>
 #include <QTextStream>
 
+#include <nqlogger.h>
+
 #include "matmlwriter.h"
 
 MATMLWriter::MATMLWriter(const std::vector<Material*>& materials,
@@ -17,6 +19,8 @@ MATMLWriter::MATMLWriter(const std::vector<Material*>& materials,
 
 void MATMLWriter::write(QIODevice *destination, ExportMode mode)
 {
+    NQLog("MATMLWriter", NQLog::Message) << "void write(QIODevice *destination, ExportMode mode)";
+
     if (mode==Unknown) return;
 
     QXmlStreamWriter stream(destination);
@@ -39,6 +43,7 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
          it!=materials_.end();
          ++it) {
         Material* material = *it;
+        NQLog("MATMLWriter", NQLog::Message) << "XML write material " << material->getName();
         material->writeXML(stream);
     }
 
@@ -49,6 +54,9 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
          ++it) {
 
         Parameter* parameter = it->second;
+        if (parameter->getId()<0) continue;
+        NQLog("MATMLWriter", NQLog::Spam) << "XML write parameter " << parameter->getName()
+                                          << " (" << parameter->getIdString().toStdString() << ")";
         parameter->writeXML(stream);
     }
 
@@ -57,6 +65,8 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
          ++it) {
 
         Property* property = it->second;
+        NQLog("MATMLWriter", NQLog::Spam) << "XML write property " << property->getName()
+                                          << " (" << property->getIdString().toStdString() << ")";
         property->writeXML(stream);
     }
 

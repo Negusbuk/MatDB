@@ -6,6 +6,8 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 
+#include <nqlogger.h>
+
 #include "densityproperty.h"
 
 DensityProperty::DensityProperty(ParameterModel* model, int id) :
@@ -121,6 +123,9 @@ void DensityProperty::writeXML(QXmlStreamWriter& stream)
 
 void DensityProperty::writeXMLData(QXmlStreamWriter& stream)
 {
+    NQLog("DensityProperty", NQLog::Spam) << "  XML write data for property " << getName()
+                                          << " (" << getIdString().toStdString() << ")";
+
     stream.writeStartElement("PropertyData");
     stream.writeAttribute("property", getIdString());
 

@@ -6,6 +6,8 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 
+#include <nqlogger.h>
+
 #include "property.h"
 
 Property::Property(int id)
@@ -159,6 +161,9 @@ void Property::writeXML(QXmlStreamWriter& stream)
 
 void Property::writeXMLData(QXmlStreamWriter& stream)
 {
+    NQLog("Property", NQLog::Spam) << "  XML write data for property " << getName()
+                                   << " (" << getIdString().toStdString() << ")";
+
     stream.writeStartElement("PropertyData");
     stream.writeAttribute("property", getIdString());
 
