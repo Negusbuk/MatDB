@@ -117,6 +117,8 @@ void MaterialParameterView::materialChanged(Material*)
 
 void MaterialParameterView::parameterChanged(Parameter* parameter)
 {
+    NQLog("MaterialParameterView", NQLog::Spam) << "void parameterChanged(Parameter* parameter)";
+
     if (parameter==0) {
         if (TempUnitBox_) TempUnitBox_->setUnit(0);
         if (ValueUnitBox_) ValueUnitBox_->setUnit(0);
