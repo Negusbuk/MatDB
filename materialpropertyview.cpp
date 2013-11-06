@@ -106,7 +106,6 @@ MaterialPropertyViewItem::MaterialPropertyViewItem(Material * material,
     }
 }
 
-
 void MaterialPropertyViewItem::update()
 {
 
