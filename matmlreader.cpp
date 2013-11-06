@@ -130,9 +130,14 @@ void MATMLReader::processMaterial(QDomElement& matElem, Material* mat)
 
         QString propName = "";
 
-        std::map<QString,QString>::iterator itFind = data.qualifiers.find("Behavior");
-        if (itFind!=data.qualifiers.end()) {
-            propName += itFind->second;
+        std::map<QString,QString>::iterator itFindB = data.qualifiers.find("Behavior");
+        if (itFindB!=data.qualifiers.end()) {
+            propName += itFindB->second;
+            propName += " ";
+        }
+        std::map<QString,QString>::iterator itFindD = data.qualifiers.find("Definition");
+        if (itFindD!=data.qualifiers.end()) {
+            propName += itFindD->second;
             propName += " ";
         }
         propName += propDetail.name;
