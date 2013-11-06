@@ -12,7 +12,7 @@ IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExp
                                                                                                int id) :
     Property(id)
 {
-    setName("Isotropic Coefficient of Thermal Expansion");
+    setName("Isotropic Instantaneous Coefficient of Thermal Expansion");
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
@@ -130,7 +130,7 @@ OrthotropicCoefficientOfThermalExpansionProperty::OrthotropicCoefficientOfTherma
                                                                                                    int id) :
     Property(id)
 {
-    setName("Orthotropic Coefficient of Thermal Expansion");
+    setName("Orthotropic Instantaneous Coefficient of Thermal Expansion");
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);
