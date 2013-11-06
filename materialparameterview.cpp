@@ -107,6 +107,9 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
     unitTable_->setVerticalHeaderItem(0, new QTableWidgetItem(""));
     valueTable_->setVerticalHeaderItem(0, new QTableWidgetItem("*"));
 
+    valueTable_->setSelectionMode(QAbstractItemView::SingleSelection);
+    valueTable_->setEditTriggers(QAbstractItemView::AllEditTriggers);
+
     connect(SelectionModel_, SIGNAL(selectionChanged(Material*)),
             this, SLOT(materialChanged(Material*)));
 
