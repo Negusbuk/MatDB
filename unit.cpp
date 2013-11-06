@@ -471,8 +471,7 @@ SpecificHeat::SpecificHeat() :
             },
             [&] (double value) {
                return 1.e+3*value;
-            },
-            true);
+            });
 
     addUnit("J g^-1 K^-1", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -480,6 +479,8 @@ SpecificHeat::SpecificHeat() :
             },
             [&] (double value) {
                return 1.e+3*value;
+            });
+}
             },
             true);
 }
