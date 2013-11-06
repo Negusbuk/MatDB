@@ -47,12 +47,54 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Pressure(), id++);
+    par->setName("Young's Modulus X direction");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++);
+    par->setName("Young's Modulus Y direction");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++);
+    par->setName("Young's Modulus Z direction");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Unitless(), id++);
     par->setName("Poisson's Ratio");
     addParameter(par);
 
+    par = new Parameter(new Unit::Unitless(), id++);
+    par->setName("Poisson's Ratio XY");
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++);
+    par->setName("Poisson's Ratio YZ");
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++);
+    par->setName("Poisson's Ratio XZ");
+    addParameter(par);
+
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Shear Modulus");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++);
+    par->setName("Shear Modulus XY");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++);
+    par->setName("Shear Modulus YZ");
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++);
+    par->setName("Shear Modulus XZ");
     par->setPrefferedValueUnit();
     addParameter(par);
 
