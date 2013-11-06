@@ -30,11 +30,13 @@ Material::~Material()
 
 void Material::addProperty(Property* property)
 {
+    NQLog("Material", NQLog::Spam) << "void addProperty(Property* property)";
+
     std::map<Property::Type,Property*>::iterator it = PropertiesByType_.find(property->getType());
     if (it!=PropertiesByType_.end()) {
         Property * oldproperty = it->second;
-        Properties_.erase(oldproperty->getName());
-        delete oldproperty;
+        NQLog("Material", NQLog::Spam) << "remove old property " << oldproperty->getName();
+        this->removeProperty(oldproperty);
     }
 
     Properties_[property->getName()] = property;
