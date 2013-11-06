@@ -403,13 +403,23 @@ OrthotropicElasticityProperty::OrthotropicElasticityProperty(ParameterModel* mod
     setType(Elasticity);
     setBehavior(Orthotropic);
     Parameter *par;
-    par = model->getParameter("Young's Modulus");
+    par = model->getParameter("Young's Modulus X direction");
     addParameter(par->clone());
-    par = model->getParameter("Poisson's Ratio");
+    par = model->getParameter("Young's Modulus Y direction");
     addParameter(par->clone());
-    par = model->getParameter("Shear Modulus");
+    par = model->getParameter("Young's Modulus Z direction");
     addParameter(par->clone());
-    par = model->getParameter("Bulk Modulus");
+    par = model->getParameter("Poisson's Ratio XY");
+    addParameter(par->clone());
+    par = model->getParameter("Poisson's Ratio YZ");
+    addParameter(par->clone());
+    par = model->getParameter("Poisson's Ratio XZ");
+    addParameter(par->clone());
+    par = model->getParameter("Shear Modulus XY");
+    addParameter(par->clone());
+    par = model->getParameter("Shear Modulus YZ");
+    addParameter(par->clone());
+    par = model->getParameter("Shear Modulus XZ");
     addParameter(par->clone());
 }
 
@@ -420,14 +430,24 @@ OrthotropicElasticityProperty::OrthotropicElasticityProperty(const OrthotropicEl
     setCategory(LinearElasticProperty);
     setType(Elasticity);
     setBehavior(Orthotropic);
-    const Parameter *par1 = property.getParameter("Young's Modulus");
-    addParameter(par1->clone());
-    const Parameter *par2 = property.getParameter("Poisson's Ratio");
-    addParameter(par2->clone());
-    const Parameter *par3 = property.getParameter("Shear Modulus");
-    addParameter(par3->clone());
-    const Parameter *par4 = property.getParameter("Bulk Modulus");
-    addParameter(par4->clone());
+    const Parameter *par1x = property.getParameter("Young's Modulus X direction");
+    addParameter(par1x->clone());
+    const Parameter *par1y = property.getParameter("Young's Modulus Y direction");
+    addParameter(par1y->clone());
+    const Parameter *par1z = property.getParameter("Young's Modulus Z direction");
+    addParameter(par1z->clone());
+    const Parameter *par2xy = property.getParameter("Poisson's Ratio XY");
+    addParameter(par2xy->clone());
+    const Parameter *par2yz = property.getParameter("Poisson's Ratio YZ");
+    addParameter(par2yz->clone());
+    const Parameter *par2xz = property.getParameter("Poisson's Ratio XZ");
+    addParameter(par2xz->clone());
+    const Parameter *par3xy = property.getParameter("Shear Modulus XY");
+    addParameter(par3xy->clone());
+    const Parameter *par3yz = property.getParameter("Shear Modulus YZ");
+    addParameter(par3yz->clone());
+    const Parameter *par3xz = property.getParameter("Shear Modulus XZ");
+    addParameter(par3xz->clone());
 }
 
 Property* OrthotropicElasticityProperty::clone(ParameterModel* model)
