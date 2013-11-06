@@ -38,7 +38,9 @@ Property* IsotropicThermalConductivityProperty::clone(ParameterModel* model)
     } else {
         prop = new IsotropicThermalConductivityProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 
@@ -159,7 +161,9 @@ Property* OrthotropicThermalConductivityProperty::clone(ParameterModel* model)
     } else {
         prop = new OrthotropicThermalConductivityProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 

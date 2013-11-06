@@ -41,7 +41,9 @@ Property* IsotropicCoefficientOfThermalExpansionProperty::clone(ParameterModel* 
     } else {
         prop = new IsotropicCoefficientOfThermalExpansionProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 
@@ -166,7 +168,9 @@ Property* OrthotropicCoefficientOfThermalExpansionProperty::clone(ParameterModel
     } else {
         prop = new OrthotropicCoefficientOfThermalExpansionProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 

@@ -38,7 +38,9 @@ Property* SpecificHeatProperty::clone(ParameterModel* model)
     } else {
         prop = new SpecificHeatProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 

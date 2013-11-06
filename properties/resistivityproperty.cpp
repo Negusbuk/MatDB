@@ -38,7 +38,9 @@ Property* IsotropicResistivityProperty::clone(ParameterModel* model)
     } else {
         prop = new IsotropicResistivityProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 
@@ -159,7 +161,9 @@ Property* OrthotropicResistivityProperty::clone(ParameterModel* model)
     } else {
         prop = new OrthotropicResistivityProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 

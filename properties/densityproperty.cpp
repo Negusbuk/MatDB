@@ -38,7 +38,9 @@ Property* DensityProperty::clone(ParameterModel* model)
     } else {
         prop = new DensityProperty(*this);
     }
+
     prop->setSorting(getSorting());
+
     return prop;
 }
 
