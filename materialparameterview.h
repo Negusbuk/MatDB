@@ -3,6 +3,8 @@
 
 #include <QTableWidget>
 #include <QComboBox>
+#include <QMenu>
+#include <QAction>
 
 #include <materiallistmodel.h>
 #include <materialselectionmodel.h>
@@ -18,6 +20,7 @@ public:
                                        int column);
     ParameterValue* getParameterValue() { return ParameterValue_; }
     int getColumn() const { return Column_; }
+    void update();
 
 protected:
     ParameterValue* ParameterValue_;
@@ -43,6 +46,11 @@ public slots:
     void temperatureUnitChanged(const QString& name);
     void valueUnitChanged(const QString& name);
 
+protected slots:
+    void displayContextMenu(const QPoint& point);
+    void import();
+    void deleteParameterRow();
+
 protected:
     MaterialListModel* ListModel_;
     MaterialSelectionModel * SelectionModel_;
@@ -54,6 +62,9 @@ protected:
 
     UnitComboBox* TempUnitBox_;
     UnitComboBox* ValueUnitBox_;
+
+    QMenu* ContextMenu_;
+    QAction* DeleteAction_;
 };
 
 #endif // MATERIALPARAMETERVIEW_H

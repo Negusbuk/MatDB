@@ -10,16 +10,21 @@ MaterialParameterViewItem::MaterialParameterViewItem(ParameterValue* parameter,
     ParameterValue_(parameter),
     Column_(column)
 {
+    update();
+}
+
+void MaterialParameterViewItem::update()
+{
     if (ParameterValue_!=0) {
         QString t;
         if (Column_==0) {
-            if (parameter->isTemperatureValid()) {
+            if (ParameterValue_->isTemperatureValid()) {
                 setText(ParameterValue_->prettyTemperature());
             } else {
                 setText("");
             }
         } else {
-            if (parameter->isValueValid()) {
+            if (ParameterValue_->isValueValid()) {
                 setText(ParameterValue_->prettyValue());
             } else {
                 setText("");
@@ -39,6 +44,17 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
     PropertySelectionModel_(propertyselectionmodel),
     ParameterSelectionModel_(parameterselectionmodel)
 {
+    setAttribute(Qt::WA_MacShowFocusRect, 0);
+
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
+            this, SLOT(displayContextMenu(const QPoint&)));
+
+    ContextMenu_ = new QMenu();
+    ContextMenu_->addAction("Import", selectionmodel, SLOT(import()));
+    ContextMenu_->addSeparator();
+    DeleteAction_ = ContextMenu_->addAction("Delete", this, SLOT(deleteParameterRow()));
+
     QVBoxLayout * layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
@@ -177,7 +193,11 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
         if (!parameter->isDependent()) {
             valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem("*"));
             MaterialParameterViewItem * item0 = new MaterialParameterViewItem(0, 0);
-            item0->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+            if (!parameter->isTemperatureDependent()) {
+                item0->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+            }
+
             valueTable_->setItem(count, 0, item0);
             valueTable_->setItem(count, 1, new MaterialParameterViewItem(0, 1));
         }
@@ -225,12 +245,12 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
     }
 
     if (pvalue) {
-        item->setText(QString().setNum(value));
         if (item->column()==0) {
             pvalue->setTemperature(value);
+            item->setText(pvalue->prettyTemperature());
         } else {
             pvalue->setValue(value);
-            //property->recalculate();
+            item->setText(pvalue->prettyValue());
         }
     } else {
         if (item->column()==0) {
@@ -293,4 +313,45 @@ void MaterialParameterView::valueUnitChanged(const QString& name)
     parameter->getValueUnit()->setCurrentUnitIndex(unitIndex);
 
     ParameterSelectionModel_->emitParameterModified();
+}
+
+void MaterialParameterView::displayContextMenu(const QPoint& point)
+{
+    NQLog("MaterialParameterView", NQLog::Spam) << "void displayContextMenu(const QPoint& point)";
+
+    int row = valueTable_->currentRow();
+
+    NQLog("MaterialParameterView", NQLog::Spam) << "row " << row << " " << valueTable_->rowCount();
+
+    if (row+1==valueTable_->rowCount()) {
+        DeleteAction_->setEnabled(false);
+    } else {
+        DeleteAction_->setEnabled(true);
+    }
+
+    ContextMenu_->exec(mapToGlobal(point));
+}
+
+void MaterialParameterView::import()
+{
+
+}
+
+void MaterialParameterView::deleteParameterRow()
+{
+    NQLog("MaterialParameterView", NQLog::Spam) << "void deleteParameterRow()";
+
+    Parameter* parameter = ParameterSelectionModel_->getSelection();
+    if (!parameter) return;
+    Property* property = parameter->getProperty();
+
+    int row = valueTable_->currentRow();
+
+    parameter->deleteValue(row);
+
+    ParameterSelectionModel_->emitParameterModified();
+    property->recalculate();
+    PropertySelectionModel_->emitPropertyModified(property);
+
+    this->parameterChanged(parameter);
 }
