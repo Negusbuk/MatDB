@@ -274,7 +274,7 @@ IsotropicSecantCoefficientOfThermalExpansionProperty::IsotropicSecantCoefficient
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
-    setDefinition(Instantaneous);
+    setDefinition(Secant);
     Parameter *par;
     par = model->getParameter("Coefficient of Thermal Expansion");
     addParameter(par->clone());
@@ -289,7 +289,7 @@ IsotropicSecantCoefficientOfThermalExpansionProperty::IsotropicSecantCoefficient
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
-    setDefinition(Instantaneous);
+    setDefinition(Secant);
     const Parameter *par1 = property.getParameter("Coefficient of Thermal Expansion");
     addParameter(par1->clone());
     const Parameter *par2 = property.getParameter("Reference Temperature");
@@ -397,7 +397,7 @@ OrthotropicSecantCoefficientOfThermalExpansionProperty::OrthotropicSecantCoeffic
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);
-    setDefinition(Instantaneous);
+    setDefinition(Secant);
     Parameter *par;
     par = model->getParameter("Coefficient of Thermal Expansion X direction");
     addParameter(par->clone());
@@ -416,7 +416,7 @@ OrthotropicSecantCoefficientOfThermalExpansionProperty::OrthotropicSecantCoeffic
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);
-    setDefinition(Instantaneous);
+    setDefinition(Secant);
     const Parameter *par1 = property.getParameter("Coefficient of Thermal Expansion X direction");
     addParameter(par1->clone());
     const Parameter *par2 = property.getParameter("Coefficient of Thermal Expansion Y direction");
