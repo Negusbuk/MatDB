@@ -1,6 +1,11 @@
 #include <iostream>
 #include <cmath>
 
+#include <QFile>
+#include <QTextStream>
+#include <QRegExp>
+#include <QStringList>
+
 #include <nqlogger.h>
 
 #include "parameter.h"
@@ -176,6 +181,50 @@ void Parameter::deleteValue(int idx)
     Values_->erase(Values_->begin() + idx);
 }
 
+
+void Parameter::importValues(const QString& filename)
+{
+    QFile file(filename);
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream in(&file);
+
+        clear();
+
+        QRegExp rx("(?:^|,)(?:\\s*)\"(.*)\"(?:\\s*)(?:,|$)|(?:^|,)(?:\\s*)([^\"]*)(?:\\s*)(?:,|$)",
+                   Qt::CaseSensitive,
+                   QRegExp::RegExp2);
+        rx.setMinimal(true);
+
+        double t, v;
+        QString line;
+        do {
+            line = in.readLine();
+
+            QStringList list;
+            int pos = 0;
+
+            while ((pos = rx.indexIn(line, pos)) != -1) {
+                list << (rx.cap(1).isEmpty() ? rx.cap(2) : rx.cap(1));
+                pos += rx.matchedLength()-1;
+            }
+
+            NQLog("MaterialParameterView", NQLog::Spam) << line << " " << list.size();
+
+            if (list.size()!=2) continue;
+
+            bool ok;
+            t = list.at(0).toDouble(&ok);
+            if (!ok) continue;
+            v = list.at(1).toDouble(&ok);
+            if (!ok) continue;
+
+            addValue(t, v);
+
+       } while (!line.isNull());
+    }
+
+    sort();
+}
 void Parameter::writeXML(QXmlStreamWriter& stream)
 {
     if (getId()==-1) return;
