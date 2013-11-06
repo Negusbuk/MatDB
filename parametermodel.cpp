@@ -31,23 +31,24 @@ void ParameterModel::build()
 {
     Parameter * par;
     int id = 0;
+    int mid = -1;
 
     par = new Parameter(new Unit::Temperature(), id++);
     par->setName("Temperature");
     par->setPrefferedValueUnit();
     addParameter(par);
 
-    par = new Parameter(new Unit::Temperature(), id++);
+    par = new Parameter(new Unit::Temperature(), id++, false);
     par->setName("Reference Temperature");
     par->setPrefferedValueUnit();
     addParameter(par);
 
-    par = new Parameter(new Unit::Density(), -1);
+    par = new Parameter(new Unit::Density(), mid--);
     par->setName("Density");
     par->setPrefferedValueUnit();
     addParameter(par);
 
-    par = new Parameter(new Unit::Viscosity(), -1);
+    par = new Parameter(new Unit::Viscosity(), mid--);
     par->setName("Viscosity");
     par->setPrefferedValueUnit();
     addParameter(par);
