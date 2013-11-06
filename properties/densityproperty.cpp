@@ -54,8 +54,6 @@ void DensityProperty::apply(PropertyData& data,
                             PropertyDetail& detail,
                             std::map<QString,ParameterDetail> paramMap)
 {
-    // std::cout << "DensityProperty::apply" << std::endl;
-
     PValue pt = data.pvalues.front();
     std::vector<double> values;
     std::vector<double> temperatures;
