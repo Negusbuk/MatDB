@@ -3,28 +3,18 @@
 #include <QHeaderView>
 
 #include "materialcategoryeditdialog.h"
-#include "materialcategorydialog.h"
+#include "materialcategorywidget.h"
 
-MaterialCategoryDialog::MaterialCategoryDialog(MaterialCategoryModel* categoryModel,
+MaterialCategoryWidget::MaterialCategoryWidget(MaterialCategoryModel* categoryModel,
                                                QWidget *parent) :
-    QDialog(parent),
+    QWidget(parent),
     categoryModel_(categoryModel)
 {
-    Qt::WindowFlags flags = 0;
-    flags |= Qt::CustomizeWindowHint;
-    flags |= Qt::WindowTitleHint;
-    flags |= Qt::WindowCloseButtonHint;
-    flags |= Qt::WindowStaysOnTopHint;
-    flags |= Qt::Tool;
-    setWindowFlags(flags);
-
     setMinimumWidth(200);
-    setMaximumWidth(300);
     setMinimumHeight(200);
-    setMaximumHeight(400);
 
     QBoxLayout * layout = new QVBoxLayout();
-    layout->setContentsMargins(3,3,3,3);
+    layout->setContentsMargins(0,0,0,0);
     setLayout(layout);
 
     categories_ = new QListView(this);
@@ -40,38 +30,36 @@ MaterialCategoryDialog::MaterialCategoryDialog(MaterialCategoryModel* categoryMo
     connect(categories_, SIGNAL(doubleClicked(QModelIndex)),
             this, SLOT(categoryDoubleClicked(QModelIndex)));
 
-    QWidget* tools = new QWidget();
+    QWidget* tools = new QWidget(this);
     QBoxLayout * hl = new QHBoxLayout();
     hl->setContentsMargins(0,0,0,0);
     tools->setLayout(hl);
     layout->addWidget(tools);
 
-    addCategoryButton_ = new QToolButton();
+    addCategoryButton_ = new QToolButton(tools);
     addCategoryButton_->setText("+");
     hl->addWidget(addCategoryButton_);
     connect(addCategoryButton_, SIGNAL(clicked()),
             this, SLOT(addCategory()));
 
-    removeCategoryButton_ = new QToolButton();
+    removeCategoryButton_ = new QToolButton(tools);
     removeCategoryButton_->setText("-");
     hl->addWidget(removeCategoryButton_);
     connect(removeCategoryButton_, SIGNAL(clicked()),
             this, SLOT(removeCategory()));
 
     hl->addStretch(1);
-
-    positions_ = QPoint(100, 100);
-    size_ = sizeHint();
 }
 
-void MaterialCategoryDialog::addCategory()
+
+void MaterialCategoryWidget::addCategory()
 {
     if (categoryModel_->getCategory("New Category")!=NULL) return;
     categoryModel_->addCategory("New Category", QColor(242, 142, 0), false);
     categories_->update();
 }
 
-void MaterialCategoryDialog::removeCategory()
+void MaterialCategoryWidget::removeCategory()
 {
     QItemSelectionModel *sm =  categories_->selectionModel();
     QModelIndex mi = sm->currentIndex();
@@ -79,7 +67,7 @@ void MaterialCategoryDialog::removeCategory()
     categoryModel_->removeCategory(data.toString());
 }
 
-void MaterialCategoryDialog::categoryDoubleClicked(const QModelIndex& index)
+void MaterialCategoryWidget::categoryDoubleClicked(const QModelIndex& index)
 {
     QVariant data = categories_->model()->data(index);
     MaterialCategory* category = categoryModel_->getCategory(data.toString());
@@ -123,21 +111,4 @@ void MaterialCategoryDialog::categoryDoubleClicked(const QModelIndex& index)
             emit categoryChanged(category);
         }
     }
-}
-
-void MaterialCategoryDialog::closeEvent(QCloseEvent* /* e*/)
-{
-    storeGeometry();
-}
-
-void MaterialCategoryDialog::storeGeometry()
-{
-    positions_ = this->pos();
-    size_ = this->size();
-}
-
-void MaterialCategoryDialog::applyGeometry()
-{
-    this->move(positions_);
-    this->resize(size_);
 }

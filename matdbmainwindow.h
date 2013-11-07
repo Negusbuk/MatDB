@@ -5,6 +5,8 @@
 #include <QListView>
 #include <QSplitter>
 #include <QToolBar>
+#include <QAction>
+#include <QDockWidget>
 
 #include <parametermodel.h>
 #include <propertymodel.h>
@@ -20,8 +22,6 @@
 #include <parameterselectionmodel.h>
 #include <parameterstackview.h>
 
-#include <materialcategorydialog.h>
-
 class MatDBMainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -35,7 +35,7 @@ public slots:
     void importMaterials();
     void exportMaterialsXML();
     void exportMaterialsHTML();
-    void editCategories();
+    void toggleCategoryDockWidget();
     void aboutDialog();
 
 protected:
@@ -53,6 +53,9 @@ protected:
     MaterialParameterView* MaterialParameterView_;
     PropertyToolBox* PropertyToolBox_;
 
+    QAction* toggleCategoryDockWidgetAction_;
+    QDockWidget* categoryDockWidget_;
+
     MaterialListModel* MaterialListModel_;
     MaterialCategoryModel* MaterialCategoryModel_;
     MaterialSelectionModel* MaterialSelectionModel_;
@@ -62,8 +65,6 @@ protected:
 
     PropertySelectionModel* PropertySelectionModel_;
     ParameterSelectionModel* ParameterSelectionModel_;
-
-    MaterialCategoryDialog* categoryDialog_;
 };
 
 #endif // MATDBMAINWINDOW_H

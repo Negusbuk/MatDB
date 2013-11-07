@@ -4,8 +4,8 @@
 #include <QDir>
 #include <QDesktopServices>
 #include <QFileDialog>
-#include <QDockWidget>
 #include <QHeaderView>
+#include <QLayout>
 
 #include <nqlogger.h>
 
@@ -16,7 +16,8 @@
 #include "matmlwriter.h"
 
 #include "matdbaboutdialog.h"
-#include "materialcategorydialog.h"
+#include "materialcategorywidget.h"
+
 #include "matdbmainwindow.h"
 
 MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
@@ -48,7 +49,12 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
-    ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"), "Edit Categories", this, SLOT(editCategories()));
+    toggleCategoryDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
+                                                          "Hide Categories",
+                                                          this,
+                                                          SLOT(toggleCategoryDockWidget()));
+    toggleCategoryDockWidgetAction_->setCheckable(true);
+    toggleCategoryDockWidgetAction_->setChecked(true);
     ToolBar_->addSeparator();
     ToolBar_->addAction(QIcon(":/icons/MatDBExportXML.png"), "Export XML", this, SLOT(exportMaterialsXML()));
     ToolBar_->addAction(QIcon(":/icons/MatDBExportHTML.png"), "Export HTML", this, SLOT(exportMaterialsHTML()));
@@ -129,8 +135,6 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     } else {
         makeDefaultMaterial();
     }
-
-    categoryDialog_ = 0;
 
     updateGeometry();
 }
@@ -270,11 +274,6 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
 {
     NQLog("MatDBMainWindow", NQLog::Spam) << "void closeEvent(QCloseEvent *event)";
 
-    if (categoryDialog_) {
-        categoryDialog_->hide();
-        delete categoryDialog_;
-    }
-
     QSettings settings;
     QString dbPath = settings.value("dbpath").toString();
     QDir dbDir(dbPath);
@@ -329,17 +328,16 @@ void MatDBMainWindow::aboutDialog()
          dialog.exec();
 }
 
-void MatDBMainWindow::editCategories()
 {
-    if (categoryDialog_==0) {
-        categoryDialog_ = new MaterialCategoryDialog(MaterialCategoryModel_);
     }
 
-    if (categoryDialog_->isHidden()) {
-        categoryDialog_->applyGeometry();
-        categoryDialog_->show();
+void MatDBMainWindow::toggleCategoryDockWidget()
+{
+    if (toggleCategoryDockWidgetAction_->isChecked()) {
+        categoryDockWidget_->show();
+        toggleCategoryDockWidgetAction_->setText("Hide Categories");
     } else {
-        categoryDialog_->storeGeometry();
-        categoryDialog_->hide();
+        categoryDockWidget_->hide();
+        toggleCategoryDockWidgetAction_->setText("Show Categories");
     }
 }

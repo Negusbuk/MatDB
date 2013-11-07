@@ -1,7 +1,7 @@
-#ifndef MATERIALCATEGORYDIALOG_H
-#define MATERIALCATEGORYDIALOG_H
+#ifndef MATERIALCATEGORYWIDGET_H
+#define MATERIALCATEGORYWIDGET_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QListView>
 #include <QLineEdit>
 #include <QPushButton>
@@ -9,11 +9,11 @@
 
 #include <materialcategorymodel.h>
 
-class MaterialCategoryDialog : public QDialog
+class MaterialCategoryWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MaterialCategoryDialog(MaterialCategoryModel* categoryModel,
+    explicit MaterialCategoryWidget(MaterialCategoryModel* categoryModel,
                                     QWidget *parent = 0);
 
 signals:
@@ -26,12 +26,7 @@ public slots:
     void removeCategory();
     void categoryDoubleClicked(const QModelIndex& index);
 
-    void storeGeometry();
-    void applyGeometry();
-
 protected:
-
-    virtual void closeEvent(QCloseEvent* e);
 
     MaterialCategoryModel* categoryModel_;
     QListView* categories_;
@@ -39,9 +34,6 @@ protected:
     QPushButton* colorButton_;
     QToolButton* addCategoryButton_;
     QToolButton* removeCategoryButton_;
-
-    QPoint positions_;
-    QSize size_;
 };
 
-#endif // MATERIALCATEGORYDIALOG_H
+#endif // MATERIALCATEGORYWIDGET_H
