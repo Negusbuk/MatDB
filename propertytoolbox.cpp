@@ -33,7 +33,8 @@ PropertyToolBox::PropertyToolBox(PropertyModel *model,
 {
     build();
 
-    setMinimumWidth(300);
+    setMinimumWidth(350);
+    setMaximumWidth(500);
     setMinimumHeight(300);
 }
 

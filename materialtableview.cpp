@@ -50,8 +50,8 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
 
     horizontalHeader()->setStretchLastSection(true);
 
-    setMinimumWidth(400);
-    setMinimumHeight(300);
+    setMinimumWidth(350);
+    setMinimumHeight(200);
 
     ContextMenu_ = new QMenu();
     ContextMenu_->addAction("Delete", selectionmodel, SLOT(deleteMaterial()));

@@ -135,8 +135,7 @@ MaterialPropertyView::MaterialPropertyView(MaterialListModel *listmodel,
     ContextMenu_ = new QMenu();
     ContextMenu_->addAction("Delete", this, SLOT(deleteProperty()));
 
-    setMinimumWidth(500);
-    setMaximumWidth(550);
+    setMinimumWidth(400);
     setMinimumHeight(200);
 
     setColumnCount(3);

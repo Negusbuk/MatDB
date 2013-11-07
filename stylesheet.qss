@@ -19,7 +19,7 @@ QToolButton {
 }
 
 QLabel {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 TokenEditItem {
@@ -46,9 +46,5 @@ QTreeView {
 }
 
 QToolBox {
-  font-size: 11px;
-}
-
-QToolBox::tab {
-  font-size: 11px;
+  font-size: 12px;
 }
