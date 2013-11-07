@@ -49,7 +49,9 @@ public slots:
 protected slots:
     void displayContextMenu(const QPoint& point);
     void import();
+    void deleteParameterRow();
     void deleteParameterRow(int row);
+    void deleteTemperature();
     void deleteTemperature(int row);
 
 protected:

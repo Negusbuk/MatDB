@@ -386,9 +386,17 @@ void MaterialParameterView::import()
     parameterChanged(parameter);
 }
 
-void MaterialParameterView::deleteParameterRow(int row)
+void MaterialParameterView::deleteParameterRow()
 {
     NQLog("MaterialParameterView", NQLog::Spam) << "void deleteParameterRow()";
+
+    int row = valueTable_->currentRow();
+    deleteParameterRow(row);
+}
+
+void MaterialParameterView::deleteParameterRow(int row)
+{
+    NQLog("MaterialParameterView", NQLog::Spam) << "void deleteParameterRow(int row) " << row;
 
     Parameter* parameter = ParameterSelectionModel_->getSelection();
     if (!parameter) return;
@@ -403,9 +411,17 @@ void MaterialParameterView::deleteParameterRow(int row)
     this->parameterChanged(parameter);
 }
 
-void MaterialParameterView::deleteTemperature(int row)
+void MaterialParameterView::deleteTemperature()
 {
     NQLog("MaterialParameterView", NQLog::Spam) << "void deleteTemperature()";
+
+    int row = valueTable_->currentRow();
+    deleteTemperature(row);
+}
+
+void MaterialParameterView::deleteTemperature(int row)
+{
+    NQLog("MaterialParameterView", NQLog::Spam) << "void deleteTemperature(int row) " << row;
 
     Parameter* parameter = ParameterSelectionModel_->getSelection();
     if (!parameter) return;
