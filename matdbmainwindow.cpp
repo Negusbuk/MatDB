@@ -74,10 +74,6 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     ToolBar_->setMovable(false);
     ToolBar_->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
-//    QWidget * central = new QWidget(this);
-//    QVBoxLayout * clayout = new QVBoxLayout(central);
-//    central->setLayout(clayout);
-
     MaterialTableView_ = new MaterialTableView(MaterialListModel_,
                                                MaterialSelectionModel_,
                                                PropertyModel_,
@@ -87,18 +83,6 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     setCentralWidget(MaterialTableView_);
 
     QDockWidget *dock;
-
-//    dock = new QDockWidget("Materials", this);
-//    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::TopDockWidgetArea);
-//    dock->setFeatures(QDockWidget::DockWidgetVerticalTitleBar);
-//    MaterialTableView_ = new MaterialTableView(MaterialListModel_,
-//                                               MaterialSelectionModel_,
-//                                               PropertyModel_,
-//                                               ParameterModel_,
-//                                               dock);
-//    MaterialTableView_->horizontalHeader()->hide();
-//    dock->setWidget(MaterialTableView_);
-//    addDockWidget(Qt::LeftDockWidgetArea, dock);
 
     filterDockWidget_ = new QDockWidget(tr("Filter"), this);
     filterDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
@@ -161,7 +145,6 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     }
 
     QFile file(dbDir.absoluteFilePath("Materials.xml"));
-    //QFile file("/Users/mussgill/Desktop/Transfer/MaterialsX.xml");
     if (file.open(QIODevice::ReadOnly)) {
         MATMLReader reader(MaterialListModel_,
                            PropertyModel_,
