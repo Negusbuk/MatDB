@@ -49,6 +49,12 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
+    toggleFilterDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
+                                                        "Hide Filter",
+                                                        this,
+                                                        SLOT(toggleFilterDockWidget()));
+    toggleFilterDockWidgetAction_->setCheckable(true);
+    toggleFilterDockWidgetAction_->setChecked(true);
     togglePropertyToolBoxDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
                                                                  "Hide Toolbox",
                                                                  this,
@@ -68,31 +74,57 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     ToolBar_->setMovable(false);
     ToolBar_->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
-    QDockWidget *dock;
-    //QWidget * central = new QWidget(this);
-    //setCentralWidget(central);
+//    QWidget * central = new QWidget(this);
+//    QVBoxLayout * clayout = new QVBoxLayout(central);
+//    central->setLayout(clayout);
 
-    dock = new QDockWidget("Materials", this);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::TopDockWidgetArea);
-    dock->setFeatures(QDockWidget::DockWidgetVerticalTitleBar);
     MaterialTableView_ = new MaterialTableView(MaterialListModel_,
                                                MaterialSelectionModel_,
                                                PropertyModel_,
                                                ParameterModel_,
-                                               dock);
+                                               this);
     MaterialTableView_->horizontalHeader()->hide();
-    dock->setWidget(MaterialTableView_);
-    addDockWidget(Qt::LeftDockWidgetArea, dock);
+    setCentralWidget(MaterialTableView_);
 
-    dock= new QDockWidget(tr("Property Collection"), this);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::BottomDockWidgetArea);
-    dock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
+    QDockWidget *dock;
+
+//    dock = new QDockWidget("Materials", this);
+//    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::TopDockWidgetArea);
+//    dock->setFeatures(QDockWidget::DockWidgetVerticalTitleBar);
+//    MaterialTableView_ = new MaterialTableView(MaterialListModel_,
+//                                               MaterialSelectionModel_,
+//                                               PropertyModel_,
+//                                               ParameterModel_,
+//                                               dock);
+//    MaterialTableView_->horizontalHeader()->hide();
+//    dock->setWidget(MaterialTableView_);
+//    addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+    filterDockWidget_ = new QDockWidget(tr("Filter"), this);
+    filterDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
+    filterDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
+    filterWidget_ = new MaterialFilterWidget(filterDockWidget_);
+    filterDockWidget_->setWidget(filterWidget_);
+    addDockWidget(Qt::LeftDockWidgetArea, filterDockWidget_);
+
+    propertyToolBoxDockWidget_ = new QDockWidget(tr("Property Collection"), this);
+    propertyToolBoxDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
+    propertyToolBoxDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
     PropertyToolBox_ = new PropertyToolBox(PropertyModel_,
-                                           dock);
-    dock->setWidget(PropertyToolBox_);
-    addDockWidget(Qt::LeftDockWidgetArea, dock);
+                                           propertyToolBoxDockWidget_);
+    propertyToolBoxDockWidget_->setWidget(PropertyToolBox_);
+    addDockWidget(Qt::LeftDockWidgetArea, propertyToolBoxDockWidget_);
 
-    dock= new QDockWidget(tr("Properties"), this);
+
+    categoryDockWidget_ = new QDockWidget(tr("Categories"), this);
+    categoryDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
+    categoryDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
+    MaterialCategoryWidget * categoryWidget = new MaterialCategoryWidget(MaterialCategoryModel_,
+                                                                         categoryDockWidget_);
+    categoryDockWidget_->setWidget(categoryWidget);
+    addDockWidget(Qt::LeftDockWidgetArea, categoryDockWidget_);
+
+    dock = new QDockWidget(tr("Properties"), this);
     dock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::TopDockWidgetArea);
     dock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
     MaterialPropertyView_ = new MaterialPropertyView(MaterialListModel_,
@@ -105,7 +137,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     dock->setWidget(MaterialPropertyView_);
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
-    dock= new QDockWidget(tr("Parameter"), this);
+    dock = new QDockWidget(tr("Parameter"), this);
     dock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::BottomDockWidgetArea);
     dock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
     ParameterStackView_ = new ParameterStackView(MaterialListModel_,
@@ -334,8 +366,17 @@ void MatDBMainWindow::aboutDialog()
          dialog.exec();
 }
 
+void MatDBMainWindow::toggleFilterDockWidget()
 {
+    if (toggleFilterDockWidgetAction_->isChecked()) {
+        filterDockWidget_->show();
+        toggleFilterDockWidgetAction_->setText("Hide Filter");
+    } else {
+        filterDockWidget_->hide();
+        toggleFilterDockWidgetAction_->setText("Show Filter");
     }
+}
+
 void MatDBMainWindow::togglePropertyToolBoxDockWidget()
 {
     if (togglePropertyToolBoxDockWidgetAction_->isChecked()) {

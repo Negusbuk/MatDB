@@ -17,6 +17,7 @@
 #include <materialtableview.h>
 #include <materialpropertyview.h>
 #include <materialparameterview.h>
+#include <materialfilterwidget.h>
 #include <propertytoolbox.h>
 #include <propertyselectionmodel.h>
 #include <parameterselectionmodel.h>
@@ -35,6 +36,7 @@ public slots:
     void importMaterials();
     void exportMaterialsXML();
     void exportMaterialsHTML();
+    void toggleFilterDockWidget();
     void togglePropertyToolBoxDockWidget();
     void toggleCategoryDockWidget();
     void aboutDialog();
@@ -53,7 +55,10 @@ protected:
     ParameterStackView* ParameterStackView_;
     MaterialParameterView* MaterialParameterView_;
     PropertyToolBox* PropertyToolBox_;
+    MaterialFilterWidget* filterWidget_;
 
+    QAction* toggleFilterDockWidgetAction_;
+    QDockWidget* filterDockWidget_;
     QAction* togglePropertyToolBoxDockWidgetAction_;
     QDockWidget* propertyToolBoxDockWidget_;
     QAction* toggleCategoryDockWidgetAction_;

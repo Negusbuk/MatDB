@@ -61,6 +61,7 @@ SOURCES += main.cpp \
     materialcategorybox.cpp \
     materialcategoryeditdialog.cpp \
     propertyspecialwidget.cpp \
+    materialfilterwidget.cpp \
     materialcategorywidget.cpp
 
 HEADERS += matdbmainwindow.h \
@@ -105,6 +106,7 @@ HEADERS += matdbmainwindow.h \
     materialcategorybox.h \
     materialcategoryeditdialog.h \
     propertyspecialwidget.h \
+    materialfilterwidget.h \
     materialcategorywidget.h
 
 FORMS    +=
