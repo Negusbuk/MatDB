@@ -9,6 +9,7 @@
 #include <QXmlStreamWriter>
 
 #include <materialcategory.h>
+#include <propertymodel.h>
 #include <property.h>
 #include <parameter.h>
 
@@ -47,7 +48,7 @@ public:
 
     Material* clone();
 
-    static Material* makeDefaultMaterial();
+    static Material* makeDefaultMaterial(PropertyModel* propertyModel);
 
 protected:
 

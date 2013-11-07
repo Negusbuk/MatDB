@@ -167,28 +167,7 @@ MatDBMainWindow::~MatDBMainWindow()
 
 void MatDBMainWindow::makeDefaultMaterial()
 {
-    Material * mat;
-    Property * prop;
-
-    mat = new Material();
-    mat->setName("material 1");
-    prop = PropertyModel_->getProperty("Density");
-    mat->addProperty(prop);
-    prop = PropertyModel_->getProperty("Orthotropic Thermal Conductivity");
-    mat->addProperty(prop);
-    prop = PropertyModel_->getProperty("Isotropic Coefficient of Thermal Expansion");
-    mat->addProperty(prop);
-    prop = PropertyModel_->getProperty("Isotropic Elasticity");
-    mat->addProperty(prop);
-    MaterialListModel_->addMaterial(mat);
-
-    prop = mat->getProperty("Density");
-    prop->getParameter("Density")->addValue(ParameterValue(20.85, 23));
-    prop->getParameter("Density")->addValue(ParameterValue(28.85, 25));
-
-    prop = mat->getProperty("Isotropic Elasticity");
-    prop->getParameter("Young's Modulus")->addValue(ParameterValue(20.85, 900));
-    prop->getParameter("Shear Modulus")->addValue(ParameterValue(20.85, 80));
+    MaterialListModel_->addMaterial(Material::makeDefaultMaterial(PropertyModel_));
 }
 
 void MatDBMainWindow::exportMaterialsXML()
