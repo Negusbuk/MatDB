@@ -9,6 +9,8 @@ MaterialListModel::MaterialListModel(MaterialCategoryModel* model,
     QObject(parent),
     CategoryModel_(model)
 {
+    MaterialIndexer_ = new MaterialIndexer(this);
+
     connect(CategoryModel_, SIGNAL(categoriesChanged()),
             this, SLOT(categoriesChanged()));
     connect(CategoryModel_, SIGNAL(categoryChanged(MaterialCategory*)),

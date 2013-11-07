@@ -7,6 +7,7 @@
 
 #include <material.h>
 #include <materialcategorymodel.h>
+#include <materialindexer.h>
 
 class MaterialListModel : public QObject
 {
@@ -42,6 +43,7 @@ public slots:
 protected:
 
     MaterialCategoryModel* CategoryModel_;
+    MaterialIndexer* MaterialIndexer_;
     std::vector<Material*> MaterialList_;
 };
 
