@@ -49,6 +49,12 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
+    togglePropertyToolBoxDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
+                                                                 "Hide Toolbox",
+                                                                 this,
+                                                                 SLOT(togglePropertyToolBoxDockWidget()));
+    togglePropertyToolBoxDockWidgetAction_->setCheckable(true);
+    togglePropertyToolBoxDockWidgetAction_->setChecked(true);
     toggleCategoryDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
                                                           "Hide Categories",
                                                           this,
@@ -330,6 +336,16 @@ void MatDBMainWindow::aboutDialog()
 
 {
     }
+void MatDBMainWindow::togglePropertyToolBoxDockWidget()
+{
+    if (togglePropertyToolBoxDockWidgetAction_->isChecked()) {
+        propertyToolBoxDockWidget_->show();
+        togglePropertyToolBoxDockWidgetAction_->setText("Hide Toolbox");
+    } else {
+        propertyToolBoxDockWidget_->hide();
+        togglePropertyToolBoxDockWidgetAction_->setText("Show Toolbox");
+    }
+}
 
 void MatDBMainWindow::toggleCategoryDockWidget()
 {

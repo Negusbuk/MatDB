@@ -35,6 +35,7 @@ public slots:
     void importMaterials();
     void exportMaterialsXML();
     void exportMaterialsHTML();
+    void togglePropertyToolBoxDockWidget();
     void toggleCategoryDockWidget();
     void aboutDialog();
 
@@ -53,6 +54,8 @@ protected:
     MaterialParameterView* MaterialParameterView_;
     PropertyToolBox* PropertyToolBox_;
 
+    QAction* togglePropertyToolBoxDockWidgetAction_;
+    QDockWidget* propertyToolBoxDockWidget_;
     QAction* toggleCategoryDockWidgetAction_;
     QDockWidget* categoryDockWidget_;
 
