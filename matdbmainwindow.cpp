@@ -17,6 +17,7 @@
 
 #include "matdbaboutdialog.h"
 #include "materialcategorywidget.h"
+#include <materialfilterwidget.h>
 
 #include "matdbmainwindow.h"
 
@@ -49,12 +50,6 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
-    toggleFilterDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
-                                                        "Hide Filter",
-                                                        this,
-                                                        SLOT(toggleFilterDockWidget()));
-    toggleFilterDockWidgetAction_->setCheckable(true);
-    toggleFilterDockWidgetAction_->setChecked(true);
     togglePropertyToolBoxDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
                                                                  "Hide Toolbox",
                                                                  this,
@@ -74,22 +69,24 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     ToolBar_->setMovable(false);
     ToolBar_->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
+    QWidget* central = new QWidget(this);
+    QVBoxLayout* clayout = new QVBoxLayout(central);
+    clayout->setContentsMargins(0, 0, 0, 0);
+    central->setLayout(clayout);
+
+    MaterialFilterWidget* filterWidget = new MaterialFilterWidget(central);
+    clayout->addWidget(filterWidget);
+
     MaterialTableView_ = new MaterialTableView(MaterialListModel_,
                                                MaterialSelectionModel_,
                                                PropertyModel_,
                                                ParameterModel_,
-                                               this);
+                                               central);
     MaterialTableView_->horizontalHeader()->hide();
-    setCentralWidget(MaterialTableView_);
+    clayout->addWidget(MaterialTableView_);
+    setCentralWidget(central);
 
     QDockWidget *dock;
-
-    filterDockWidget_ = new QDockWidget(tr("Filter"), this);
-    filterDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
-    filterDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
-    filterWidget_ = new MaterialFilterWidget(filterDockWidget_);
-    filterDockWidget_->setWidget(filterWidget_);
-    addDockWidget(Qt::LeftDockWidgetArea, filterDockWidget_);
 
     propertyToolBoxDockWidget_ = new QDockWidget(tr("Property Collection"), this);
     propertyToolBoxDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
@@ -326,17 +323,6 @@ void MatDBMainWindow::aboutDialog()
 
     MatDBAboutDialog dialog;
          dialog.exec();
-}
-
-void MatDBMainWindow::toggleFilterDockWidget()
-{
-    if (toggleFilterDockWidgetAction_->isChecked()) {
-        filterDockWidget_->show();
-        toggleFilterDockWidgetAction_->setText("Hide Filter");
-    } else {
-        filterDockWidget_->hide();
-        toggleFilterDockWidgetAction_->setText("Show Filter");
-    }
 }
 
 void MatDBMainWindow::togglePropertyToolBoxDockWidget()
