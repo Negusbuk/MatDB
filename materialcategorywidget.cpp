@@ -18,6 +18,7 @@ MaterialCategoryWidget::MaterialCategoryWidget(MaterialCategoryModel* categoryMo
     setLayout(layout);
 
     categories_ = new QListView(this);
+    categories_->setAttribute(Qt::WA_MacShowFocusRect, 0);
     layout->addWidget(categories_);
 
     categories_->setModel(categoryModel_);
