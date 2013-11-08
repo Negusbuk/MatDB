@@ -19,13 +19,15 @@ public:
     size_t getMaterialCount() const;
     void addMaterial(Material* material);
     void addMaterials(const std::vector<Material*>& materials);
-    const std::vector<Material*>& getMaterials() const { return MaterialList_; }
+    const std::vector<Material*>& getAllMaterials() const { return MaterialList_; }
+    const std::vector<Material*>& getMaterials() const;
     Material* getMaterial(size_t idx);
     Material* findMaterial(const QString& name);
     void removeMaterial(Material* material);
 
     void read(const QString& filename);
     void sort();
+    void sortFiltered();
 
 signals:
 
@@ -39,12 +41,16 @@ public slots:
     void deleteMaterial(Material* selection);
     void categoriesChanged();
     void categoryChanged(MaterialCategory*);
+    void filterChanged(const QString& filter);
 
 protected:
 
     MaterialCategoryModel* CategoryModel_;
     MaterialIndexer* MaterialIndexer_;
     std::vector<Material*> MaterialList_;
+    bool isFiltered_;
+    QString currentFilter_;
+    std::vector<Material*> FilteredMaterialList_;
 };
 
 #endif // MATERIALLISTMODEL_H

@@ -75,7 +75,8 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     clayout->setSpacing(0);
     central->setLayout(clayout);
 
-    MaterialFilterWidget* filterWidget = new MaterialFilterWidget(central);
+    MaterialFilterWidget* filterWidget = new MaterialFilterWidget(MaterialListModel_,
+                                                                  central);
     clayout->addWidget(filterWidget);
 
     MaterialTableView_ = new MaterialTableView(MaterialListModel_,
@@ -281,7 +282,7 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
 
     QFile ofile(dbDir.absoluteFilePath("Materials.xml"));
     if (ofile.open(QIODevice::WriteOnly)) {
-        MATMLWriter writer(MaterialListModel_->getMaterials(),
+        MATMLWriter writer(MaterialListModel_->getAllMaterials(),
                            PropertyModel_,
                            ParameterModel_,
                            this);

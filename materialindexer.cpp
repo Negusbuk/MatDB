@@ -20,18 +20,26 @@ MaterialIndexer::MaterialIndexer(MaterialListModel *listmodel,
     materialMap_.clear();
 }
 
-void MaterialIndexer::filter(const QString& key, std::vector<Material*>& materials)
+void MaterialIndexer::filter(const QString& filter, std::vector<Material*>& materials)
 {
+    NQLog("MaterialIndexer", NQLog::Spam) << "void filter(const QString& key, std::vector<Material*>& materials) "
+                                          << filter;
+
     std::unordered_set<Material*> temp;
 
-    QRegExp rx(key);
+    QString key;
+    QRegExp rx(filter);
     rx.setPatternSyntax(QRegExp::Wildcard);
 
     for (auto it = keyMap_.begin();
          it!=keyMap_.end();
          ++it) {
 
-        if (rx.exactMatch(it->first.c_str())) {
+        key = QString::fromStdString(it->first);
+
+        NQLog("MaterialIndexer", NQLog::Spam) << "  " << it->first;
+
+        if (rx.exactMatch(key) || key.startsWith(filter)) {
             for (auto itM = it->second.begin();
                  itM!=it->second.end();
                  ++itM) {
