@@ -23,6 +23,8 @@
 <qresource prefix="/">
     <file>icons/MatDBRemoveCategory.png</file>
 </qresource>
+<qresource prefix="/">
+    <file>icons/MatDBResetFilter.png</file>
 </qresource>
 <qresource prefix="/pics">
     <file>artwork/MatDBSplashScreen.png</file>
