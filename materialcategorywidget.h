@@ -3,9 +3,7 @@
 
 #include <QWidget>
 #include <QListView>
-#include <QLineEdit>
 #include <QPushButton>
-#include <QToolButton>
 
 #include <materialcategorymodel.h>
 
@@ -30,10 +28,8 @@ protected:
 
     MaterialCategoryModel* categoryModel_;
     QListView* categories_;
-    QLineEdit* nameEdit_;
-    QPushButton* colorButton_;
-    QToolButton* addCategoryButton_;
-    QToolButton* removeCategoryButton_;
+    QPushButton* addCategoryButton_;
+    QPushButton* removeCategoryButton_;
 };
 
 #endif // MATERIALCATEGORYWIDGET_H

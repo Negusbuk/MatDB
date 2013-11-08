@@ -50,13 +50,13 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
-    togglePropertyToolBoxDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
+    togglePropertyToolBoxDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBPropertyToolBox.png"),
                                                                  "Hide Toolbox",
                                                                  this,
                                                                  SLOT(togglePropertyToolBoxDockWidget()));
     togglePropertyToolBoxDockWidgetAction_->setCheckable(true);
     togglePropertyToolBoxDockWidgetAction_->setChecked(true);
-    toggleCategoryDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBEditCategories.png"),
+    toggleCategoryDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBCategories.png"),
                                                           "Hide Categories",
                                                           this,
                                                           SLOT(toggleCategoryDockWidget()));
@@ -72,6 +72,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QWidget* central = new QWidget(this);
     QVBoxLayout* clayout = new QVBoxLayout(central);
     clayout->setContentsMargins(0, 0, 0, 0);
+    clayout->setSpacing(0);
     central->setLayout(clayout);
 
     MaterialFilterWidget* filterWidget = new MaterialFilterWidget(central);

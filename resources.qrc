@@ -12,7 +12,17 @@
     <file>icons/MatDBExportHTML.png</file>
 </qresource>
 <qresource prefix="/">
-    <file>icons/MatDBEditCategories.png</file>
+    <file>icons/MatDBPropertyToolBox.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBCategories.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBAddCategory.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBRemoveCategory.png</file>
+</qresource>
 </qresource>
 <qresource prefix="/pics">
     <file>artwork/MatDBSplashScreen.png</file>

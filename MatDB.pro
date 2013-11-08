@@ -119,6 +119,9 @@ OTHER_FILES += stylesheet.qss \
     icons/MatDBImportXML.png \
     icons/MatDBExportXML.png \
     icons/MatDBExportHTML.png \
-    icons/MatDBEditCategories.png \
+    icons/MatDBPropertiesToolBox.png \
+    icons/MatDBCategories.png \
+    icons/MatDBAddCategory.png \
+    icons/MatDBRemoveCategory.png \
     artwork/MatDBSplashScreen.png \
     artwork/MatDBBG.png

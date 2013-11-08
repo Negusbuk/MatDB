@@ -15,6 +15,7 @@ MaterialCategoryWidget::MaterialCategoryWidget(MaterialCategoryModel* categoryMo
 
     QBoxLayout * layout = new QVBoxLayout();
     layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(0);
     setLayout(layout);
 
     categories_ = new QListView(this);
@@ -34,17 +35,22 @@ MaterialCategoryWidget::MaterialCategoryWidget(MaterialCategoryModel* categoryMo
     QWidget* tools = new QWidget(this);
     QBoxLayout * hl = new QHBoxLayout();
     hl->setContentsMargins(0,0,0,0);
+    hl->setSpacing(0);
     tools->setLayout(hl);
     layout->addWidget(tools);
 
-    addCategoryButton_ = new QToolButton(tools);
-    addCategoryButton_->setText("+");
+    addCategoryButton_ = new QPushButton(QIcon(":/icons/MatDBAddCategory.png"), "", this);
+    addCategoryButton_->setFlat(true);
+    addCategoryButton_->setIconSize(QSize(24,24));
+    addCategoryButton_->setFixedSize(26, 26);
     hl->addWidget(addCategoryButton_);
     connect(addCategoryButton_, SIGNAL(clicked()),
             this, SLOT(addCategory()));
 
-    removeCategoryButton_ = new QToolButton(tools);
-    removeCategoryButton_->setText("-");
+    removeCategoryButton_ = new QPushButton(QIcon(":/icons/MatDBRemoveCategory.png"), "", this);
+    removeCategoryButton_->setFlat(true);
+    removeCategoryButton_->setIconSize(QSize(24,24));
+    removeCategoryButton_->setFixedSize(26, 26);
     hl->addWidget(removeCategoryButton_);
     connect(removeCategoryButton_, SIGNAL(clicked()),
             this, SLOT(removeCategory()));
