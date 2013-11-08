@@ -40,7 +40,7 @@ MaterialFilterWidget::MaterialFilterWidget(MaterialListModel *listmodel,
 
     resetButton_ = new QPushButton(QIcon(":/icons/MatDBResetFilter.png"), "", this);
     resetButton_->setFlat(true);
-    resetButton_->setIconSize(QSize(24,24));
+    resetButton_->setIconSize(QSize(22,22));
     resetButton_->setFixedSize(26, 26);
     layout->addWidget(resetButton_);
 }
