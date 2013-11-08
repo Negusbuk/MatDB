@@ -123,5 +123,6 @@ OTHER_FILES += stylesheet.qss \
     icons/MatDBCategories.png \
     icons/MatDBAddCategory.png \
     icons/MatDBRemoveCategory.png \
+    icons/MatDBResetFilter.png \
     artwork/MatDBSplashScreen.png \
     artwork/MatDBBG.png
