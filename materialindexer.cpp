@@ -11,7 +11,7 @@ MaterialIndexer::MaterialIndexer(MaterialListModel *listmodel,
     QObject(parent),
     ListModel_(listmodel)
 {
-    connect(ListModel_, SIGNAL(materialCountChanged(int)),
+    connect(ListModel_, SIGNAL(materialListChanged(int)),
             this, SLOT(materialCountChanged(int)));
     connect(ListModel_, SIGNAL(metadataChanged(Material*)),
             this, SLOT(materialMetadataChanged(Material*)));

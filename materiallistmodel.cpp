@@ -38,6 +38,8 @@ void MaterialListModel::addMaterial(Material* material)
 
     sort();
 
+    emit materialListChanged(MaterialList_.size());
+
     if (isFiltered_) {
         filterChanged(currentFilter_);
     } else {
@@ -65,6 +67,8 @@ void MaterialListModel::addMaterials(const std::vector<Material*>& materials)
     }
 
     sort();
+
+    emit materialListChanged(MaterialList_.size());
 
     if (isFiltered_) {
         filterChanged(currentFilter_);
@@ -154,7 +158,10 @@ void MaterialListModel::deleteMaterial(Material* material)
         Material * mat = *it;
         if (mat==material) {
             MaterialList_.erase(it);
+
+            emit materialListChanged(MaterialList_.size());
             materialCountChanged(MaterialList_.size());
+
             break;
         }
     }
@@ -190,17 +197,15 @@ void MaterialListModel::categoryChanged(MaterialCategory* category)
 void MaterialListModel::filterChanged(const QString& filter)
 {
     NQLog("MaterialListModel", NQLog::Spam) << "void filterChanged(const QString& filter) "
-                                            << filter;
+                                            << filter << " " << currentFilter_;
+
+    if (currentFilter_!=filter) {
+        MaterialIndexer_->filter(filter, FilteredMaterialList_);
+        sortFiltered();
+        isFiltered_ = (filter.length()!=0);
+        emit materialCountChanged(getMaterialCount());
+    }
 
     currentFilter_ = filter;
     isFiltered_ = (filter.length()!=0);
-    if (!isFiltered_) return;
-
-    MaterialIndexer_->filter(filter, FilteredMaterialList_);
-
-    NQLog("MaterialListModel", NQLog::Spam) << FilteredMaterialList_.size();
-
-    sortFiltered();
-
-    emit materialCountChanged(getMaterialCount());
 }

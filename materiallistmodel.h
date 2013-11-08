@@ -32,6 +32,7 @@ public:
 signals:
 
     void materialCountChanged(int count);
+    void materialListChanged(int count);
     void metadataChanged(Material*);
 
 public slots:
