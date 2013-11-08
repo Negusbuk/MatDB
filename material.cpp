@@ -232,10 +232,84 @@ Material* Material::clone()
     return mat;
 }
 
-Material* Material::makeDefaultMaterial(PropertyModel* propertyModel)
+Material* Material::makeDefaultIsotropicMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setName("Structural Steel");
+
+    Property * prop;
+
+    prop = propertyModel->getProperty("Density")->clone();
+    prop->getParameter("Density")->addValue(7.85);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Elasticity")->clone();
+    prop->getParameter("Young's Modulus")->addValue(200);
+    prop->getParameter("Poisson's Ratio")->addValue(0.3);
+    prop->recalculate();
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Secant Coefficient of Thermal Expansion")->clone();
+    prop->getParameter("Coefficient of Thermal Expansion")->addValue(12);
+    prop->getParameter("Reference Temperature")->addValue(22);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
+    prop->getParameter("Thermal Conductivity")->addValue(60.5);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Specific Heat")->clone();
+    prop->getParameter("Specific Heat")->addValue(434);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Resistivity")->clone();
+    prop->getParameter("Resistivity")->addValue(1.7e-7);
+    mat->addProperty(prop);
+
+    return mat;
+}
+
+Material* Material::makeDefaultOrthotropicMaterial(PropertyModel* propertyModel)
+{
+    Material * mat = new Material();
+    mat->setName("Orthotropic Structural Steel");
+
+    Property * prop;
+
+    prop = propertyModel->getProperty("Density")->clone();
+    prop->getParameter("Density")->addValue(7.85);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Elasticity")->clone();
+    prop->getParameter("Young's Modulus")->addValue(200);
+    prop->getParameter("Poisson's Ratio")->addValue(0.3);
+    prop->recalculate();
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Secant Coefficient of Thermal Expansion")->clone();
+    prop->getParameter("Coefficient of Thermal Expansion")->addValue(12);
+    prop->getParameter("Reference Temperature")->addValue(22);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
+    prop->getParameter("Thermal Conductivity")->addValue(60.5);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Specific Heat")->clone();
+    prop->getParameter("Specific Heat")->addValue(434);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Resistivity")->clone();
+    prop->getParameter("Resistivity")->addValue(1.7e-7);
+    mat->addProperty(prop);
+
+    return mat;
+}
+
+Material* Material::makeDefaultFluidMaterial(PropertyModel* propertyModel)
+{
+    Material * mat = new Material();
+    mat->setName("Water");
 
     Property * prop;
 

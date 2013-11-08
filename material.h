@@ -68,7 +68,9 @@ public:
 
     Material* clone();
 
-    static Material* makeDefaultMaterial(PropertyModel* propertyModel);
+    static Material* makeDefaultIsotropicMaterial(PropertyModel* propertyModel);
+    static Material* makeDefaultOrthotropicMaterial(PropertyModel* propertyModel);
+    static Material* makeDefaultFluidMaterial(PropertyModel* propertyModel);
 
 protected:
 
