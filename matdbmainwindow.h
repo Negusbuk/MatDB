@@ -59,10 +59,14 @@ public slots:
     void toggleCategoryDockWidget();
     void aboutDialog();
 
+    void addDefaultIsotropicMaterial();
+    void addDefaultOrthotropicMaterial();
+    void addDefaultFluidMaterial();
+
 protected:
 
     void closeEvent(QCloseEvent *event);
-    void makeDefaultMaterial();
+    void makeDefaultMaterials();
 
     QToolBar* ToolBar_;
     QSplitter* HSplitter_;

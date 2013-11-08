@@ -66,7 +66,23 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     ParameterSelectionModel_ = new ParameterSelectionModel(this);
 
     ToolBar_ = addToolBar("ToolBar");
-    ToolBar_->addAction(QIcon(":/icons/MatDBImportXML.png"), "Import XML", this, SLOT(importMaterials()));
+    ToolBar_->addAction(QIcon(":/icons/MatDBImportXML.png"),
+                        "Import XML",
+                        this,
+                        SLOT(importMaterials()));
+    ToolBar_->addSeparator();
+    ToolBar_->addAction(QIcon(":/icons/MatDBAddIsotropicMaterial.png"),
+                        "Add Isotropic Material",
+                        this,
+                        SLOT(addDefaultIsotropicMaterial()));
+    ToolBar_->addAction(QIcon(":/icons/MatDBAddOrthotropicMaterial.png"),
+                        "Add Orthotropic Material",
+                        this,
+                        SLOT(addDefaultOrthotropicMaterial()));
+    ToolBar_->addAction(QIcon(":/icons/MatDBAddFluidMaterial.png"),
+                        "Add Fluid",
+                        this,
+                        SLOT(addDefaultFluidMaterial()));
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
@@ -173,7 +189,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
         reader.read(&file);
         file.close();
     } else {
-        makeDefaultMaterial();
+        makeDefaultMaterials();
     }
 
     updateGeometry();
@@ -184,9 +200,26 @@ MatDBMainWindow::~MatDBMainWindow()
 
 }
 
-void MatDBMainWindow::makeDefaultMaterial()
+void MatDBMainWindow::addDefaultIsotropicMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultMaterial(PropertyModel_));
+    MaterialListModel_->addMaterial(Material::makeDefaultIsotropicMaterial(PropertyModel_));
+}
+
+void MatDBMainWindow::addDefaultOrthotropicMaterial()
+{
+    MaterialListModel_->addMaterial(Material::makeDefaultOrthotropicMaterial(PropertyModel_));
+}
+
+void MatDBMainWindow::addDefaultFluidMaterial()
+{
+    MaterialListModel_->addMaterial(Material::makeDefaultFluidMaterial(PropertyModel_));
+}
+
+void MatDBMainWindow::makeDefaultMaterials()
+{
+    addDefaultIsotropicMaterial();
+    addDefaultOrthotropicMaterial();
+    addDefaultFluidMaterial();
 }
 
 void MatDBMainWindow::exportMaterialsXML()
