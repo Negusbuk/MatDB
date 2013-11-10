@@ -18,6 +18,15 @@
     <file>icons/MatDBCategories.png</file>
 </qresource>
 <qresource prefix="/">
+    <file>icons/MatDBAddIsotropicMaterial.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBAddOrthotropicMaterial.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBAddFluidMaterial.png</file>
+</qresource>
+<qresource prefix="/">
     <file>icons/MatDBAddCategory.png</file>
 </qresource>
 <qresource prefix="/">
