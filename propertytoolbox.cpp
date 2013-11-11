@@ -21,6 +21,8 @@
 #include <QWidget>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QDrag>
+#include <QMimeData>
 
 #include "propertytoolbox.h"
 

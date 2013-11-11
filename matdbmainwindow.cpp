@@ -22,7 +22,11 @@
 #include <QMenuBar>
 #include <QSettings>
 #include <QDir>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QDesktopServices>
+#else
+#include <QStandardPaths>
+#endif
 #include <QFileDialog>
 #include <QHeaderView>
 #include <QLayout>
@@ -231,10 +235,17 @@ void MatDBMainWindow::exportMaterialsXML()
     int result = dialog.exec();
     if (result==0) return;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString filename = QFileDialog::getOpenFileName(this,
                                                     "Export Materials",
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
                                                     "*.xml");
+#else
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Export Materials",
+                                                    QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+                                                    "*.xml");
+#endif
     if (filename.isEmpty() || !filename.endsWith(".xml")) return;
 
     QFile file(filename);
@@ -259,10 +270,17 @@ void MatDBMainWindow::exportMaterialsHTML()
     int result = dialog.exec();
     if (result==0) return;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString filename = QFileDialog::getOpenFileName(this,
                                                     "Export Materials",
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
                                                     "*.html");
+#else
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Export Materials",
+                                                    QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+                                                    "*.html");
+#endif
     if (filename.isEmpty() || !filename.endsWith(".html")) return;
 
     QFile file(filename);
@@ -288,11 +306,19 @@ void MatDBMainWindow::importMaterials()
 
     QString selectedFormat;
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString filename = QFileDialog::getOpenFileName(this,
                                                     "Import Materials",
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
                                                     formats,
                                                     &selectedFormat);
+#else
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Import Materials",
+                                                    QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+                                                    formats,
+                                                    &selectedFormat);
+#endif
     if (filename.isEmpty()) return;
 
     MaterialListModel listModel(MaterialCategoryModel_);

@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include <QHeaderView>
+#include <QMimeData>
 
 #include <nqlogger.h>
 

@@ -26,7 +26,11 @@
 #include <QPixmap>
 #include <QSplashScreen>
 #include <QSettings>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QDesktopServices>
+#else
+#include <QStandardPaths>
+#endif
 
 #include <nqlogger.h>
 
@@ -39,7 +43,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     NQLogger::instance()->addDestiniation(stdout, NQLog::Spam);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QFile * logfile = new QFile(QDesktopServices::storageLocation(QDesktopServices::HomeLocation) + "/Library/Logs/MatDB.log");
+#else
+    QFile * logfile = new QFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Library/Logs/MatDB.log");
+#endif
     if (logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
         NQLogger::instance()->addDestiniation(logfile, NQLog::Message);
     }
@@ -57,7 +65,11 @@ int main(int argc, char *argv[])
 #endif
 
     QSettings settings;
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString defaultDBPath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#else
+    QString defaultDBPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+#endif
     QString dbPath = settings.value("dbpath").toString();
 
     NQLog("Main") << "dbPath: " << dbPath;

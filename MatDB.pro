@@ -6,12 +6,17 @@
 
 QMAKE_CXXFLAGS += -stdlib=libc++ -std=c++11
 QMAKE_LFLAGS += -stdlib=libc++ -std=c++11
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
 
 QT       += core gui xml
 
 INCLUDEPATH += ./properties ./external
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+greaterThan(QT_MAJOR_VERSION, 4){
+  cache()
+}
 
 TARGET = MatDB
 TEMPLATE = app
@@ -121,6 +126,9 @@ OTHER_FILES += stylesheet.qss \
     icons/MatDBExportHTML.png \
     icons/MatDBPropertiesToolBox.png \
     icons/MatDBCategories.png \
+    icons/MatDBAddIsotropicMaterial.png \
+    icons/MatDBAddOrthotropicMaterial.png \
+    icons/MatDBAddFluidMaterial.png \
     icons/MatDBAddCategory.png \
     icons/MatDBRemoveCategory.png \
     icons/MatDBResetFilter.png \

@@ -21,7 +21,11 @@
 #include <QBoxLayout>
 #include <QHeaderView>
 #include <QFileDialog>
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #include <QDesktopServices>
+#else
+#include <QStandardPaths>
+#endif
 
 #include <nqlogger.h>
 
@@ -106,13 +110,21 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
     QHeaderView* hv;
     hv = unitTable_->horizontalHeader();
     hv->setStretchLastSection(true);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     hv->setResizeMode(0, QHeaderView::Fixed);
+#else
+    hv->setSectionResizeMode(0, QHeaderView::Fixed);
+#endif
     unitTable_->setColumnWidth(1, 150);
     hv->resizeSection(1, 150);
 
     hv = valueTable_->horizontalHeader();
     hv->setStretchLastSection(true);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     hv->setResizeMode(0, QHeaderView::Fixed);
+#else
+    hv->setSectionResizeMode(0, QHeaderView::Fixed);
+#endif
     valueTable_->setColumnWidth(1, 150);
     hv->resizeSection(1, 150);
 
@@ -388,10 +400,17 @@ void MaterialParameterView::import()
 {
     NQLog("MaterialParameterView", NQLog::Spam) << "void import()";
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString filename = QFileDialog::getOpenFileName(this,
                                                     "Import Data",
                                                     QDesktopServices::storageLocation(QDesktopServices::DesktopLocation),
                                                     "*.csv");
+#else
+    QString filename = QFileDialog::getOpenFileName(this,
+                                                    "Import Data",
+                                                    QStandardPaths::writableLocation(QStandardPaths::DesktopLocation),
+                                                    "*.csv");
+#endif
     if (filename.isEmpty()) return;
 
     Parameter* parameter = ParameterSelectionModel_->getSelection();

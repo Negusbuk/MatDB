@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include <QHeaderView>
+#include <QMimeData>
 
 #include <nqlogger.h>
 
@@ -168,11 +169,20 @@ MaterialPropertyView::MaterialPropertyView(MaterialListModel *listmodel,
 
     QHeaderView* hv = header();
     hv->setStretchLastSection(false);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     hv->setResizeMode(0, QHeaderView::Stretch);
     hv->setResizeMode(1, QHeaderView::Fixed);
+#else
+    hv->setSectionResizeMode(0, QHeaderView::Stretch);
+    hv->setSectionResizeMode(1, QHeaderView::Fixed);
+#endif
     setColumnWidth(1, 100);
     hv->resizeSection(1, 100);
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     hv->setResizeMode(2, QHeaderView::Fixed);
+#else
+    hv->setSectionResizeMode(2, QHeaderView::Fixed);
+#endif
     setColumnWidth(2, 100);
     hv->resizeSection(2, 100);
 
@@ -226,7 +236,7 @@ void MaterialPropertyView::materialChanged(Material* material)
 
     expandAll();
 
-    resetInputContext();
+    //resetInputContext();
 
     ParameterSelectionModel_->setSelection(NULL);
 }
