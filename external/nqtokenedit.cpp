@@ -70,9 +70,9 @@ void NQTokenEdit::appendTokens(const QStringList& l)
          ++it) {
         tokens_ << *it;
         NQTokenEditItem * item = new NQTokenEditItem(*it, itemList_.size(),
-                                                 itemColor_,
-                                                 horizontalMargin_, verticalMargin_,
-                                                 this);
+                                                     itemColor_,
+                                                     horizontalMargin_, verticalMargin_,
+                                                     this);
         itemList_.append(item);
         layout_->addWidget(item);
         connect(item, SIGNAL(itemChanged(NQTokenEditItem*)),
