@@ -21,6 +21,7 @@
 #include <QLineEdit>
 
 #include "flowlayout.h"
+
 #include "nqtokenedit.h"
 #include "nqtokenedititem.h"
 
