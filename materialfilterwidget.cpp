@@ -43,4 +43,12 @@ MaterialFilterWidget::MaterialFilterWidget(MaterialListModel *listmodel,
     resetButton_->setIconSize(QSize(22,22));
     resetButton_->setFixedSize(26, 26);
     layout->addWidget(resetButton_);
+    connect(resetButton_, SIGNAL(clicked()),
+            this, SLOT(resetFilter()));
+}
+
+void MaterialFilterWidget::resetFilter()
+{
+    tokenEdit_->setTokens(QStringList());
+    lineEdit_->setText("");
 }

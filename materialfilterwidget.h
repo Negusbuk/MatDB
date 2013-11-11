@@ -38,6 +38,10 @@ signals:
 
 public slots:
 
+protected slots:
+
+    void resetFilter();
+
 protected:
 
     MaterialListModel* ListModel_;
