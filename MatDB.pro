@@ -4,9 +4,14 @@
 #
 #-------------------------------------------------
 
-QMAKE_CXXFLAGS += -stdlib=libc++ -std=c++11
-QMAKE_LFLAGS += -stdlib=libc++ -std=c++11
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+macx {
+  QMAKE_CXXFLAGS += -stdlib=libc++ -std=c++11
+  QMAKE_LFLAGS += -stdlib=libc++ -std=c++11
+  QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+} else {
+  QMAKE_CXXFLAGS += -std=c++11
+  QMAKE_LFLAGS += -std=c++11
+}
 
 QT       += core gui xml
 
