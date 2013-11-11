@@ -22,8 +22,10 @@
 #define MATERIALFILTERWIDGET_H
 
 #include <QWidget>
-#include <QLineEdit>
 #include <QPushButton>
+#include <QButtonGroup>
+
+#include <nqtokenedit.h>
 
 #include <materiallistmodel.h>
 
@@ -36,16 +38,21 @@ public:
 
 signals:
 
+    void filterChanged(QStringList,bool);
+
 public slots:
 
 protected slots:
 
     void resetFilter();
+    void tokensChanged(const QStringList&);
+    void logicChanged(int id);
 
 protected:
 
     MaterialListModel* ListModel_;
-    QLineEdit* lineEdit_;
+    NQTokenEdit* tokenEdit_;
+    QButtonGroup* filterLogicGroup_;
     QPushButton* resetButton_;
 };
 

@@ -38,7 +38,8 @@ public:
     explicit MaterialIndexer(MaterialListModel *listmodel,
                              QObject *parent = 0);
 
-    void filter(const QString& key, std::vector<Material*>& materials);
+    void filter(const QString& filter, std::vector<Material*>& materials);
+    void filter(const QStringList& filters, bool logic, std::vector<Material*>& materials);
 
 signals:
 
@@ -57,6 +58,7 @@ protected:
     materialMapType materialMap_;
 
     void processKey(const std::string& key, Material*material);
+    bool checkKey(const std::string& key, const QStringList& list, bool logic);
 };
 
 #endif // MATERIALINDEXER_H

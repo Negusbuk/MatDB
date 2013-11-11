@@ -62,7 +62,7 @@ public slots:
     void deleteMaterial(Material* selection);
     void categoriesChanged();
     void categoryChanged(MaterialCategory*);
-    void filterChanged(const QString& filter);
+    void filterChanged(const QStringList& filters,bool logic);
 
 protected:
 
@@ -70,7 +70,8 @@ protected:
     MaterialIndexer* MaterialIndexer_;
     std::vector<Material*> MaterialList_;
     bool isFiltered_;
-    QString currentFilter_;
+    bool currentFilterLogic_;
+    QStringList currentFilters_;
     std::vector<Material*> FilteredMaterialList_;
 };
 

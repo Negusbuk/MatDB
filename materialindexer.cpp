@@ -42,7 +42,7 @@ MaterialIndexer::MaterialIndexer(MaterialListModel *listmodel,
 
 void MaterialIndexer::filter(const QString& filter, std::vector<Material*>& materials)
 {
-    NQLog("MaterialIndexer", NQLog::Spam) << "void filter(const QString& key, std::vector<Material*>& materials) "
+    NQLog("MaterialIndexer", NQLog::Spam) << "void filter(const QString& filter, std::vector<Material*>& materials) "
                                           << filter;
 
     std::unordered_set<Material*> temp;
@@ -60,6 +60,75 @@ void MaterialIndexer::filter(const QString& filter, std::vector<Material*>& mate
         NQLog("MaterialIndexer", NQLog::Spam) << "  " << it->first;
 
         if (rx.exactMatch(key) || key.startsWith(filter)) {
+            for (auto itM = it->second.begin();
+                 itM!=it->second.end();
+                 ++itM) {
+                NQLog("MaterialIndexer", NQLog::Spam) << (*itM)->getName();
+                temp.emplace(*itM);
+            }
+        }
+    }
+
+    materials.clear();
+    for (auto it = temp.begin();
+         it!=temp.end();
+         ++it) {
+        materials.push_back(*it);
+    }
+}
+
+bool MaterialIndexer::checkKey(const std::string& key, const QStringList& list, bool logic)
+{
+    QString thisKey = QString::fromStdString(key);
+
+    bool returnValue;
+
+    if (logic==true) {  // AND
+        returnValue = true;
+
+        for (QStringList::ConstIterator it = list.begin();
+             it != list.end();
+             ++it) {
+            QRegExp rx(*it);
+            rx.setPatternSyntax(QRegExp::Wildcard);
+
+            returnValue &= (rx.exactMatch(thisKey) || thisKey.startsWith(*it));
+        }
+
+    } else { // OR
+
+        returnValue = false;
+
+        for (QStringList::ConstIterator it = list.begin();
+             it != list.end();
+             ++it) {
+            QRegExp rx(*it);
+            rx.setPatternSyntax(QRegExp::Wildcard);
+
+            returnValue |= (rx.exactMatch(thisKey) || thisKey.startsWith(*it));
+
+            if (returnValue) break;
+        }
+
+    }
+
+    return returnValue;
+}
+
+void MaterialIndexer::filter(const QStringList& filters, bool logic, std::vector<Material*>& materials)
+{
+    NQLog("MaterialIndexer", NQLog::Spam) << "void filter(const QStringList& filters, std::vector<Material*>& materials) "
+                                          << filters.size();
+
+    std::unordered_set<Material*> temp;
+
+    for (auto it = keyMap_.begin();
+         it!=keyMap_.end();
+         ++it) {
+
+        NQLog("MaterialIndexer", NQLog::Spam) << "  " << it->first;
+
+        if (checkKey(it->first, filters, logic)) {
             for (auto itM = it->second.begin();
                  itM!=it->second.end();
                  ++itM) {

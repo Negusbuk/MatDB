@@ -30,6 +30,9 @@ MaterialListModel::MaterialListModel(MaterialCategoryModel* model,
     CategoryModel_(model),
     isFiltered_(false)
 {
+    currentFilterLogic_ = true;
+    currentFilters_ = QStringList();
+
     MaterialIndexer_ = new MaterialIndexer(this);
 
     connect(CategoryModel_, SIGNAL(categoriesChanged()),
@@ -61,7 +64,7 @@ void MaterialListModel::addMaterial(Material* material)
     emit materialListChanged(MaterialList_.size());
 
     if (isFiltered_) {
-        filterChanged(currentFilter_);
+        filterChanged(currentFilters_, currentFilterLogic_);
     } else {
         emit materialCountChanged(getMaterialCount());
     }
@@ -91,7 +94,7 @@ void MaterialListModel::addMaterials(const std::vector<Material*>& materials)
     emit materialListChanged(MaterialList_.size());
 
     if (isFiltered_) {
-        filterChanged(currentFilter_);
+        filterChanged(currentFilters_, currentFilterLogic_);
     } else {
         emit materialCountChanged(getMaterialCount());
     }
@@ -221,18 +224,19 @@ void MaterialListModel::categoryChanged(MaterialCategory* category)
     }
 }
 
-void MaterialListModel::filterChanged(const QString& filter)
+void MaterialListModel::filterChanged(const QStringList& filters, bool logic)
 {
-    NQLog("MaterialListModel", NQLog::Spam) << "void filterChanged(const QString& filter) "
-                                            << filter << " " << currentFilter_;
+    NQLog("MaterialListModel", NQLog::Spam) << "void filterChanged(const QStringList& filters) "
+                                            << filters.size() << " " << currentFilters_.size();
 
-    if (currentFilter_!=filter) {
-        MaterialIndexer_->filter(filter, FilteredMaterialList_);
+    if (currentFilters_!=filters || currentFilterLogic_!=logic) {
+        MaterialIndexer_->filter(filters, logic, FilteredMaterialList_);
         sortFiltered();
-        isFiltered_ = (filter.length()!=0);
+        isFiltered_ = (filters.size()!=0);
         emit materialCountChanged(getMaterialCount());
     }
 
-    currentFilter_ = filter;
-    isFiltered_ = (filter.length()!=0);
+    currentFilterLogic_ = logic;
+    currentFilters_ = filters;
+    isFiltered_ = (filters.size()!=0);
 }
