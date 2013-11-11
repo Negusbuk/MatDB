@@ -105,8 +105,15 @@ const std::vector<Material*>& MaterialListModel::getMaterials() const
 
 Material* MaterialListModel::getMaterial(size_t idx)
 {
-    if (idx>=MaterialList_.size()) return 0;
-    return MaterialList_[idx];
+    NQLog("MaterialListModel", NQLog::Spam) << "void getMaterial(size_t idx) " << idx;
+
+    if (isFiltered_) {
+        if (idx>=FilteredMaterialList_.size()) return 0;
+        return FilteredMaterialList_[idx];
+    } else {
+        if (idx>=MaterialList_.size()) return 0;
+        return MaterialList_[idx];
+    }
 }
 
 void MaterialListModel::read(const QString& /* filename */)
