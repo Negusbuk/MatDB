@@ -58,8 +58,10 @@ void NQTokenEdit::clear()
 
 void NQTokenEdit::setTokens(const QStringList& l)
 {
+    bool tokensDidChange = (tokens_!=l);
     clear();
     appendTokens(l);
+    if (tokensDidChange) emit tokensChanged(tokens_);
 }
 
 void NQTokenEdit::appendTokens(const QStringList& l)
