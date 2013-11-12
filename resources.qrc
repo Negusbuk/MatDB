@@ -24,7 +24,10 @@
     <file>icons/MatDBAddOrthotropicMaterial.png</file>
 </qresource>
 <qresource prefix="/">
-    <file>icons/MatDBAddFluidMaterial.png</file>
+    <file>icons/MatDBAddLiquidMaterial.png</file>
+</qresource>
+<qresource prefix="/">
+    <file>icons/MatDBAddGaseousMaterial.png</file>
 </qresource>
 <qresource prefix="/">
     <file>icons/MatDBAddCategory.png</file>

@@ -139,7 +139,8 @@ OTHER_FILES += stylesheet.qss \
     icons/MatDBCategories.png \
     icons/MatDBAddIsotropicMaterial.png \
     icons/MatDBAddOrthotropicMaterial.png \
-    icons/MatDBAddFluidMaterial.png \
+    icons/MatDBAddLiquidMaterial.png \
+    icons/MatDBAddGaseousMaterial.png \
     icons/MatDBAddCategory.png \
     icons/MatDBRemoveCategory.png \
     icons/MatDBResetFilter.png \
