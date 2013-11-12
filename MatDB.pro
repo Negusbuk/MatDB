@@ -13,6 +13,10 @@ macx {
   QMAKE_LFLAGS += -std=c++11
 }
 
+win32-g++ {
+  DEFINES += WIN32GPP
+}
+
 QT       += core gui xml
 
 INCLUDEPATH += ./properties ./external

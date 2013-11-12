@@ -261,6 +261,19 @@ void Parameter::sort()
 {
     if (!Values_) return;
 
+#ifdef WIN32GPP
+    std::sort(Values_->begin(), Values_->end(),
+              [](ParameterValue lhs,ParameterValue rhs) {
+        if (lhs.getTemperature()<rhs.getTemperature()) {
+            return true;
+        } else if(lhs.getTemperature()>rhs.getTemperature()) {
+            return false;
+        } else if(lhs.getValue()<rhs.getValue()) {
+            return true;
+        }
+        return false;
+    });
+#else
     std::sort(Values_->begin(), Values_->end(),
               [](ParameterValue& lhs,ParameterValue& rhs) {
         if (lhs.getTemperature()<rhs.getTemperature()) {
@@ -272,6 +285,7 @@ void Parameter::sort()
         }
         return false;
     });
+#endif
 }
 
 void Parameter::writeXML(QXmlStreamWriter& stream)
