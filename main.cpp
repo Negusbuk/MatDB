@@ -23,6 +23,7 @@
 
 #include <QApplication>
 #include <QFile>
+#include <QDir>
 #include <QPixmap>
 #include <QSplashScreen>
 #include <QSettings>
@@ -43,11 +44,19 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     NQLogger::instance()->addDestiniation(stdout, NQLog::Spam);
+
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    QFile * logfile = new QFile(QDesktopServices::storageLocation(QDesktopServices::HomeLocation) + "/Library/Logs/MatDB.log");
+    QString logdir = QDesktopServices::storageLocation(QDesktopServices::CacheLocation);
 #else
-    QFile * logfile = new QFile(QStandardPaths::writableLocation(QStandardPaths::HomeLocation) + "/Library/Logs/MatDB.log");
+    QString logdir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
 #endif
+    QDir dir(logdir);
+    if (!dir.exists()) dir.mkpath(".");
+    QString logfilename = logdir + "/MatDB.log";
+
+    NQLog("Main") << "using " << logfilename << " for logging";
+
+    QFile * logfile = new QFile(logfilename);
     if (logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
         NQLogger::instance()->addDestiniation(logfile, NQLog::Message);
     }
