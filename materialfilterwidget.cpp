@@ -28,7 +28,7 @@ MaterialFilterWidget::MaterialFilterWidget(MaterialListModel *listmodel,
     QWidget(parent),
     ListModel_(listmodel)
 {
-    setMaximumHeight(80);
+    setMaximumHeight(90);
 
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->setContentsMargins(4, 2, 2, 2);
