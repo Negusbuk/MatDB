@@ -33,6 +33,9 @@ TEMPLATE = app
 macx {
   ICON = artwork/MatDB.icns
 }
+win32-g++ {
+  RC_FILE = artwork/MatDB.rc
+}
 
 SOURCES += main.cpp \
            matdbmainwindow.cpp \
