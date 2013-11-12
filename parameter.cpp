@@ -57,9 +57,7 @@ ParameterValue::ParameterValue(const ParameterValue& other) :
 const QString ParameterValue::prettyFormat(double value) const
 {
     QString s;
-    bool negative = false;
     if (value<0) {
-        negative = true;
         value *= -1.;
         s = "-";
     }
@@ -191,20 +189,20 @@ void Parameter::clear()
         Values_->clear();
 }
 
-void Parameter::deleteValue(int idx)
+void Parameter::deleteValue(size_t idx)
 {
     if (!Values_) return;
 
-    if (idx<0 || idx>=Values_->size()) return;
+    if (idx>=Values_->size()) return;
 
     Values_->erase(Values_->begin() + idx);
 }
 
-void Parameter::deleteTemperature(int idx)
+void Parameter::deleteTemperature(size_t idx)
 {
     if (!Values_) return;
 
-    if (idx<0 || idx>=Values_->size()) return;
+    if (idx>=Values_->size()) return;
 
     ParameterValue& pvalue = Values_->at(idx);
     pvalue.setTemperature(0);

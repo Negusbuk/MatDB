@@ -76,7 +76,7 @@ Property* ViscosityProperty::clone(ParameterModel* model)
 //</PropertyData>
 void ViscosityProperty::apply(PropertyData& data,
                             PropertyDetail& detail,
-                            std::map<QString,ParameterDetail> paramMap)
+                            std::map<QString,ParameterDetail> /* paramMap */)
 {
     PValue pt = data.pvalues.front();
     std::vector<double> values;

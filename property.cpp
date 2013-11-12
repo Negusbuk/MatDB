@@ -174,7 +174,7 @@ std::vector<Parameter*>& Property::getOrderedParameters()
     return OrderedParameters_;
 }
 
-void Property::writeXML(QXmlStreamWriter& stream)
+void Property::writeXML(QXmlStreamWriter& /* stream */)
 {
 
 }

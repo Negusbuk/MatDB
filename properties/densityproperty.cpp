@@ -76,7 +76,7 @@ Property* DensityProperty::clone(ParameterModel* model)
 //</PropertyData>
 void DensityProperty::apply(PropertyData& data,
                             PropertyDetail& detail,
-                            std::map<QString,ParameterDetail> paramMap)
+                            std::map<QString,ParameterDetail> /* paramMap */)
 {
     PValue pt = data.pvalues.front();
     std::vector<double> values;

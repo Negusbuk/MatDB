@@ -43,7 +43,7 @@ signals:
 public slots:
 
     void materialChanged(Material* material);
-    void selectedCategoryChanged(QString);
+    void selectedCategoryChanged(const QString&);
 
 protected:
 

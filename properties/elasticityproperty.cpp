@@ -113,7 +113,7 @@ Property* IsotropicElasticityProperty::clone(ParameterModel* model)
 //  </ParameterValue>
 //</PropertyData>
 void IsotropicElasticityProperty::apply(PropertyData& data,
-                                        PropertyDetail& detail,
+                                        PropertyDetail& /* detail */,
                                         std::map<QString,ParameterDetail> paramMap)
 {
     // std::cout << "IsotropicElasticityProperty::apply" << std::endl;

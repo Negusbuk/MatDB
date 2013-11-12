@@ -73,8 +73,8 @@ Property* SpecificHeatProperty::clone(ParameterModel* model)
 //  </ParameterValue>
 //</PropertyData>
 void SpecificHeatProperty::apply(PropertyData& data,
-                            PropertyDetail& detail,
-                            std::map<QString,ParameterDetail> paramMap)
+                                 PropertyDetail& detail,
+                                 std::map<QString,ParameterDetail> /* paramMap */)
 {
     std::cout << "SpecificHeatProperty::apply" << std::endl;
 

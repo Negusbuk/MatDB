@@ -77,7 +77,7 @@ Property* IsotropicThermalConductivityProperty::clone(ParameterModel* model)
 //  </ParameterValue>
 //</PropertyData>
 void IsotropicThermalConductivityProperty::apply(PropertyData& data,
-                                                 PropertyDetail& detail,
+                                                 PropertyDetail& /* detail */,
                                                  std::map<QString,ParameterDetail> paramMap)
 {
     //std::cout << "IsotropicThermalConductivityProperty::apply" << std::endl;
@@ -208,7 +208,7 @@ Property* OrthotropicThermalConductivityProperty::clone(ParameterModel* model)
 //  </ParameterValue>
 //</PropertyData>
 void OrthotropicThermalConductivityProperty::apply(PropertyData& data,
-                                                   PropertyDetail& detail,
+                                                   PropertyDetail& /* detail */,
                                                    std::map<QString,ParameterDetail> paramMap)
 {
     // std::cout << "OrthotropicThermalConductivityProperty::apply" << std::endl;

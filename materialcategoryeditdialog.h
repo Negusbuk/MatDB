@@ -32,7 +32,7 @@ class MaterialCategoryEditDialog : public QDialog
 public:
     explicit MaterialCategoryEditDialog(QWidget *parent = 0);
 
-    const QString& getName() const { return nameEdit_->text(); }
+    const QString getName() const { return nameEdit_->text(); }
     const QColor& getColor() const { return colorPicker_->color(); }
 
 signals:

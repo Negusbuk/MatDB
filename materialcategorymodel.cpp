@@ -67,7 +67,6 @@ void MaterialCategoryModel::addCategory(const QString& uuid,
 
 void MaterialCategoryModel::removeCategory(const QString& name)
 {
-    MaterialCategory* category;
     QString uuid;
 
     std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(name);
@@ -147,22 +146,19 @@ bool MaterialCategoryModel::isCategoryValid(MaterialCategory* category) const
 
 Qt::ItemFlags MaterialCategoryModel::flags(const QModelIndex & index) const
 {
-    int row = index.row();
-    int column = index.column();
+    size_t row = index.row();
 
-    if (row<0 && row>=categories_.size()) return Qt::NoItemFlags;
-
-    MaterialCategory* category = categories_.at(row);
+    if (row>=categories_.size()) return Qt::NoItemFlags;
 
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
 QVariant MaterialCategoryModel::data(const QModelIndex & index, int role) const
 {
-    int row = index.row();
-    int column = index.column();
+    size_t row = index.row();
+    size_t column = index.column();
 
-    if (row<0 && row>=categories_.size()) return QVariant();
+    if (row>=categories_.size()) return QVariant();
 
     MaterialCategory* category = categories_.at(row);
 

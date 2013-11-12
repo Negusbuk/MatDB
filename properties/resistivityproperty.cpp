@@ -77,7 +77,7 @@ Property* IsotropicResistivityProperty::clone(ParameterModel* model)
 //  </ParameterValue>
 //</PropertyData>
 void IsotropicResistivityProperty::apply(PropertyData& data,
-                                         PropertyDetail& detail,
+                                         PropertyDetail& /* detail */,
                                          std::map<QString,ParameterDetail> paramMap)
 {
     //std::cout << "IsotropicResistivityProperty::apply" << std::endl;
@@ -208,8 +208,8 @@ Property* OrthotropicResistivityProperty::clone(ParameterModel* model)
 //  </ParameterValue>
 //</PropertyData>
 void OrthotropicResistivityProperty::apply(PropertyData& data,
-                                                   PropertyDetail& detail,
-                                                   std::map<QString,ParameterDetail> paramMap)
+                                           PropertyDetail& /* detail */,
+                                           std::map<QString,ParameterDetail> paramMap)
 {
     // std::cout << "OrthotropicResistivityProperty::apply" << std::endl;
 

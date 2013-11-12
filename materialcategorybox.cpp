@@ -35,8 +35,8 @@ MaterialCategoryBox::MaterialCategoryBox(MaterialListModel* listModel,
     connect(this, SIGNAL(materialMetadataChanged(Material*)),
             listModel_, SLOT(materialMetadataChanged(Material*)));
 
-    connect(this, SIGNAL(currentIndexChanged(QString)),
-            this, SLOT(selectedCategoryChanged(QString)));
+    connect(this, SIGNAL(currentIndexChanged(const QString&)),
+            this, SLOT(selectedCategoryChanged(const QString&)));
 
     setModel(categoryModel_);
 }
@@ -54,7 +54,7 @@ void MaterialCategoryBox::materialChanged(Material* material)
     }
 }
 
-void MaterialCategoryBox::selectedCategoryChanged(QString item)
+void MaterialCategoryBox::selectedCategoryChanged(const QString& /* item */)
 {
     Material * material = selectionModel_->getSelection();
     if (!material) {

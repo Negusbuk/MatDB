@@ -28,9 +28,9 @@ QIcon* MaterialCategory::emptyIcon_ = 0;
 MaterialCategory::MaterialCategory(const QString& name,
                                    const QColor& color,
                                    bool readonly):
+    isReadOnly_(readonly),
     name_(name),
-    color_(color),
-    isReadOnly_(readonly)
+    color_(color)
 {
     if (emptyIcon_==0) {
         QPixmap e(8, 8);

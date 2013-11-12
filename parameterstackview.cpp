@@ -34,8 +34,8 @@ ParameterStackView::ParameterStackView(MaterialListModel *listmodel,
     MaterialSelectionModel_(selectionmodel),
     PropertySelectionModel_(propertyselectionmodel),
     ParameterSelectionModel_(parameterselectionmodel),
-    MaterialCategoryModel_(categoryModel),
-    PropertyModel_(propertymodel)
+    PropertyModel_(propertymodel),
+    MaterialCategoryModel_(categoryModel)
 {
     Empty_ = new QWidget(this);
     addWidget(Empty_);
