@@ -70,7 +70,8 @@ public:
 
     static Material* makeDefaultIsotropicMaterial(PropertyModel* propertyModel);
     static Material* makeDefaultOrthotropicMaterial(PropertyModel* propertyModel);
-    static Material* makeDefaultFluidMaterial(PropertyModel* propertyModel);
+    static Material* makeDefaultLiquidMaterial(PropertyModel* propertyModel);
+    static Material* makeDefaultGaseousMaterial(PropertyModel* propertyModel);
 
 protected:
 

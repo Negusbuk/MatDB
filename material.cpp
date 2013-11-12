@@ -280,64 +280,96 @@ Material* Material::makeDefaultOrthotropicMaterial(PropertyModel* propertyModel)
     prop->getParameter("Density")->addValue(7.85);
     mat->addProperty(prop);
 
-    prop = propertyModel->getProperty("Isotropic Elasticity")->clone();
-    prop->getParameter("Young's Modulus")->addValue(200);
-    prop->getParameter("Poisson's Ratio")->addValue(0.3);
-    prop->recalculate();
+    prop = propertyModel->getProperty("Orthotropic Elasticity")->clone();
+    prop->getParameter("Young's Modulus X direction")->addValue(200);
+    prop->getParameter("Young's Modulus Y direction")->addValue(200);
+    prop->getParameter("Young's Modulus Z direction")->addValue(200);
+    prop->getParameter("Poisson's Ratio XY")->addValue(0.3);
+    prop->getParameter("Poisson's Ratio YZ")->addValue(0.3);
+    prop->getParameter("Poisson's Ratio XZ")->addValue(0.3);
+    prop->getParameter("Shear Modulus XY")->addValue(76.923);
+    prop->getParameter("Shear Modulus YZ")->addValue(76.923);
+    prop->getParameter("Shear Modulus XZ")->addValue(76.923);
     mat->addProperty(prop);
 
-    prop = propertyModel->getProperty("Isotropic Secant Coefficient of Thermal Expansion")->clone();
-    prop->getParameter("Coefficient of Thermal Expansion")->addValue(12);
+    prop = propertyModel->getProperty("Orthotropic Secant Coefficient of Thermal Expansion")->clone();
+    prop->getParameter("Coefficient of Thermal Expansion X direction")->addValue(12);
+    prop->getParameter("Coefficient of Thermal Expansion Y direction")->addValue(12);
+    prop->getParameter("Coefficient of Thermal Expansion Z direction")->addValue(12);
     prop->getParameter("Reference Temperature")->addValue(22);
     mat->addProperty(prop);
 
-    prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
-    prop->getParameter("Thermal Conductivity")->addValue(60.5);
+    prop = propertyModel->getProperty("Orthotropic Thermal Conductivity")->clone();
+    prop->getParameter("Thermal Conductivity X direction")->addValue(60.5);
+    prop->getParameter("Thermal Conductivity Y direction")->addValue(60.5);
+    prop->getParameter("Thermal Conductivity Z direction")->addValue(60.5);
     mat->addProperty(prop);
 
     prop = propertyModel->getProperty("Specific Heat")->clone();
     prop->getParameter("Specific Heat")->addValue(434);
     mat->addProperty(prop);
 
-    prop = propertyModel->getProperty("Isotropic Resistivity")->clone();
-    prop->getParameter("Resistivity")->addValue(1.7e-7);
+    prop = propertyModel->getProperty("Orthotropic Resistivity")->clone();
+    prop->getParameter("Resistivity X direction")->addValue(1.7e-7);
+    prop->getParameter("Resistivity Y direction")->addValue(1.7e-7);
+    prop->getParameter("Resistivity Z direction")->addValue(1.7e-7);
     mat->addProperty(prop);
 
     return mat;
 }
 
-Material* Material::makeDefaultFluidMaterial(PropertyModel* propertyModel)
+Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setName("Water");
 
     Property * prop;
 
+    // boiling point 373K
+
     prop = propertyModel->getProperty("Density")->clone();
-    prop->getParameter("Density")->addValue(7.85);
-    mat->addProperty(prop);
-
-    prop = propertyModel->getProperty("Isotropic Elasticity")->clone();
-    prop->getParameter("Young's Modulus")->addValue(200);
-    prop->getParameter("Poisson's Ratio")->addValue(0.3);
-    prop->recalculate();
-    mat->addProperty(prop);
-
-    prop = propertyModel->getProperty("Isotropic Secant Coefficient of Thermal Expansion")->clone();
-    prop->getParameter("Coefficient of Thermal Expansion")->addValue(12);
-    prop->getParameter("Reference Temperature")->addValue(22);
-    mat->addProperty(prop);
-
-    prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
-    prop->getParameter("Thermal Conductivity")->addValue(60.5);
+    prop->getParameter("Density")->addValue(0.9982);
     mat->addProperty(prop);
 
     prop = propertyModel->getProperty("Specific Heat")->clone();
-    prop->getParameter("Specific Heat")->addValue(434);
+    prop->getParameter("Specific Heat")->addValue(4182);
     mat->addProperty(prop);
 
-    prop = propertyModel->getProperty("Isotropic Resistivity")->clone();
-    prop->getParameter("Resistivity")->addValue(1.7e-7);
+    prop = propertyModel->getProperty("Viscosity")->clone();
+    prop->getParameter("Viscosity")->addValue(0.001003);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
+    prop->getParameter("Thermal Conductivity")->addValue(0.6);
+    mat->addProperty(prop);
+
+    return mat;
+}
+
+Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
+{
+    Material * mat = new Material();
+    mat->setName("Air");
+
+    Property * prop;
+
+    // critical temperature 132.3 K
+    // critical pressure 3.758 MPa
+
+    prop = propertyModel->getProperty("Density")->clone();
+    prop->getParameter("Density")->addValue(0.001225);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Specific Heat")->clone();
+    prop->getParameter("Specific Heat")->addValue(1006.4);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Viscosity")->clone();
+    prop->getParameter("Viscosity")->addValue(1.7894e-5);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
+    prop->getParameter("Thermal Conductivity")->addValue(0.0242);
     mat->addProperty(prop);
 
     return mat;
