@@ -26,7 +26,9 @@ greaterThan(QT_MAJOR_VERSION, 4){
 TARGET = MatDB
 TEMPLATE = app
 
-ICON = artwork/MatDB.icns
+macx {
+  ICON = artwork/MatDB.icns
+}
 
 SOURCES += main.cpp \
            matdbmainwindow.cpp \
