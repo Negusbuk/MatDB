@@ -61,7 +61,8 @@ public slots:
 
     void addDefaultIsotropicMaterial();
     void addDefaultOrthotropicMaterial();
-    void addDefaultFluidMaterial();
+    void addDefaultLiquidMaterial();
+    void addDefaultGaseousMaterial();
 
 protected:
 

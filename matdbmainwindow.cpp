@@ -83,10 +83,14 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
                         "Add Orthotropic Material",
                         this,
                         SLOT(addDefaultOrthotropicMaterial()));
-    ToolBar_->addAction(QIcon(":/icons/MatDBAddFluidMaterial.png"),
-                        "Add Fluid",
+    ToolBar_->addAction(QIcon(":/icons/MatDBAddLiquidMaterial.png"),
+                        "Add Liquid Material",
                         this,
-                        SLOT(addDefaultFluidMaterial()));
+                        SLOT(addDefaultLiquidMaterial()));
+    ToolBar_->addAction(QIcon(":/icons/MatDBAddGaseousMaterial.png"),
+                        "Add Gaseous Material",
+                        this,
+                        SLOT(addDefaultGaseousMaterial()));
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
@@ -214,16 +218,22 @@ void MatDBMainWindow::addDefaultOrthotropicMaterial()
     MaterialListModel_->addMaterial(Material::makeDefaultOrthotropicMaterial(PropertyModel_));
 }
 
-void MatDBMainWindow::addDefaultFluidMaterial()
+void MatDBMainWindow::addDefaultLiquidMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultFluidMaterial(PropertyModel_));
+    MaterialListModel_->addMaterial(Material::makeDefaultLiquidMaterial(PropertyModel_));
+}
+
+void MatDBMainWindow::addDefaultGaseousMaterial()
+{
+    MaterialListModel_->addMaterial(Material::makeDefaultGaseousMaterial(PropertyModel_));
 }
 
 void MatDBMainWindow::makeDefaultMaterials()
 {
     addDefaultIsotropicMaterial();
     addDefaultOrthotropicMaterial();
-    addDefaultFluidMaterial();
+    addDefaultLiquidMaterial();
+    addDefaultGaseousMaterial();
 }
 
 void MatDBMainWindow::exportMaterialsXML()
