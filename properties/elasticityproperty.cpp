@@ -18,7 +18,6 @@
  **
  ****************************************************************************/
 
-#include <iostream>
 #include <cmath>
 
 #include <QRadioButton>
@@ -229,7 +228,7 @@ void IsotropicElasticityProperty::setCalculationMode(CalculationMode mode)
 
 void IsotropicElasticityProperty::recalculate()
 {
-    std::cout << "IsotropicElasticityProperty::recalculate()" << std::endl;
+    NQLog("Property", NQLog::Message) << "IsotropicElasticityProperty::recalculate()";
 
     if (CalculationMode_==CalcFromYoungsModulusAndPoissonsRatio) {
         recalculateFromYoungsModulusAndPoissonsRatio();
