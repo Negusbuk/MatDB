@@ -107,6 +107,7 @@ public:
 
     void clear();
 
+    virtual void write(QXmlStreamWriter& stream);
     virtual void writeXML(QXmlStreamWriter& stream);
 
 protected:

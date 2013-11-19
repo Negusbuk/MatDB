@@ -187,6 +187,46 @@ void Material::setTags(const QStringList& t)
     Tags_ = t;
 }
 
+void Material::write(QIODevice* device)
+{
+    QXmlStreamWriter stream(device);
+
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    stream.writeStartElement("Material");
+
+    stream.writeTextElement("Name", getName());
+    stream.writeTextElement("UUID", getUUID());
+    stream.writeTextElement("Description", getDescription());
+    stream.writeTextElement("Notes", getNotes());
+    stream.writeTextElement("Category", getCategory()!=0 ? getCategory()->getUUID() : "");
+
+    stream.writeStartElement("Tags");
+    for (QStringList::ConstIterator itT = getTags().begin();
+         itT!=getTags().end();
+         ++itT) {
+         stream.writeTextElement("Tag", *itT);
+    }
+    stream.writeEndElement();
+
+    for (std::vector<Property*>::iterator it = PropertiesSorted_.begin();
+         it!=PropertiesSorted_.end();
+         ++it) {
+        Property* property = *it;
+        stream.writeStartElement("Property");
+        property->write(stream);
+        stream.writeEndElement();
+    }
+
+    stream.writeEndElement();
+    stream.writeEndDocument();
+}
+
+void Material::read(QIODevice* device)
+{
+
+}
+
 void Material::writeXML(QXmlStreamWriter& stream)
 {
     stream.writeStartElement("Material");
@@ -220,8 +260,11 @@ void Material::writeXML(QXmlStreamWriter& stream)
     for (std::vector<Property*>::const_iterator it = PropertiesSorted_.begin();
          it!=PropertiesSorted_.end();
          ++it) {
-        Property * property = *it;
+        Property *property = *it;
+
+        NQLog("Material", NQLog::Message) << "blah";
         property->writeXMLData(stream);
+        NQLog("Material", NQLog::Message) << "blah";
     }
 
     stream.writeEndElement();

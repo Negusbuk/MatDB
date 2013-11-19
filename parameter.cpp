@@ -286,6 +286,12 @@ void Parameter::sort()
 #endif
 }
 
+void Parameter::write(QXmlStreamWriter& stream)
+{
+    stream.writeTextElement("Name", getName());
+    getValueUnit()->writeXML(stream);
+}
+
 void Parameter::writeXML(QXmlStreamWriter& stream)
 {
     if (getId()==-1) return;

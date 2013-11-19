@@ -174,6 +174,19 @@ std::vector<Parameter*>& Property::getOrderedParameters()
     return OrderedParameters_;
 }
 
+void Property::write(QXmlStreamWriter& stream)
+{
+    stream.writeTextElement("Name", getName());
+    for (std::vector<Parameter*>::iterator it = OrderedParameters_.begin();
+         it!=OrderedParameters_.end();
+         ++it) {
+        Parameter * parameter = *it;
+        stream.writeStartElement("Parameter");
+        parameter->write(stream);
+        stream.writeEndElement();
+    }
+}
+
 void Property::writeXML(QXmlStreamWriter& /* stream */)
 {
 

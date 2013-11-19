@@ -149,6 +149,8 @@ public:
     void setSorting(int sorting) { sorting_ = sorting; }
     int getSorting() const { return sorting_; }
 
+    virtual void write(QXmlStreamWriter& stream);
+
     virtual void writeXML(QXmlStreamWriter& stream);
     virtual void writeXMLData(QXmlStreamWriter& stream);
 

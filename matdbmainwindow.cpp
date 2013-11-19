@@ -202,6 +202,10 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
         makeDefaultMaterials();
     }
 
+//    MaterialListModel_->read(dbDir,
+//                             PropertyModel_,
+//                             ParameterModel_);
+
     updateGeometry();
 }
 
@@ -400,6 +404,8 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
         ofile2.close();
     }
     */
+
+    MaterialListModel_->write(dbDir);
 
     QFile ofileCat(dbDir.absoluteFilePath("Categories.xml"));
     if (ofileCat.open(QIODevice::WriteOnly)) {

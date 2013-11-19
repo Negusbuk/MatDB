@@ -149,6 +149,11 @@ void MaterialIndexer::materialCountChanged(int count)
 {
     NQLog("MaterialIndexer", NQLog::Spam) << "void materialCountChanged(int count) " << count;
 
+    if (count<materialMap_.size()) {
+        materialMap_.clear();
+        keyMap_.clear();
+    }
+
     std::string key;
     Material * material;
     for (int i=0;i<count;++i) {

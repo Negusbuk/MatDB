@@ -26,6 +26,7 @@
 #include <string>
 
 #include <QString>
+#include <QIODevice>
 #include <QXmlStreamWriter>
 
 #include <materialcategory.h>
@@ -63,6 +64,9 @@ public:
     const QString& getNotes() const { return Notes_; }
 
     std::vector<ParameterValue> * getParameterValues(const QString& name);
+
+    virtual void write(QIODevice* device);
+    virtual void read(QIODevice* device);
 
     virtual void writeXML(QXmlStreamWriter& stream);
 

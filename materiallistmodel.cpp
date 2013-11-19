@@ -20,6 +20,10 @@
 
 #include <algorithm>
 
+#include <QSettings>
+#include <QXmlStreamWriter>
+#include <QDomDocument>
+
 #include <nqlogger.h>
 
 #include <materiallistmodel.h>
@@ -119,9 +123,95 @@ Material* MaterialListModel::getMaterial(size_t idx)
     }
 }
 
-void MaterialListModel::read(const QString& /* filename */)
+void MaterialListModel::read(const QDir& dbDir,
+                             PropertyModel *propmodel,
+                             ParameterModel *paramodel)
 {
+    NQLog("MaterialListModel", NQLog::Message) << "void read(const QDir& dbDir,...)";
+    NQLog("MaterialListModel", NQLog::Message) << dbDir.absolutePath();
 
+    QFile ifile(dbDir.absoluteFilePath("MaterialList.xml"));
+    if (ifile.open(QIODevice::ReadOnly)) {
+
+        QDomDocument document;
+        if (!document.setContent(&ifile)) {
+            ifile.close();
+            return;
+        }
+
+        QDomElement docElem = document.documentElement();
+        QDomNodeList matElemList = docElem.elementsByTagName("Material");
+
+        if (matElemList.count()==0) {
+            ifile.close();
+            return;
+        }
+
+        for (int i=0;i<matElemList.count();++i) {
+            QDomElement matElem = matElemList.at(i).toElement();
+
+            QDomElement uuidElem = matElem.elementsByTagName("UUID").at(0).toElement();
+            QDomElement nameElem = matElem.elementsByTagName("Name").at(0).toElement();
+
+            Material * mat = new Material();
+            mat->setName(nameElem.text());
+            QString uuid = uuidElem.text();
+            mat->setUUID(uuid);
+
+            uuid.remove(0, 1);
+            uuid.remove(uuid.length()-1, 1);
+            uuid += "_mat.xml";
+            QFile ifile2(dbDir.absoluteFilePath(uuid));
+            if (ifile2.open(QIODevice::ReadOnly)) {
+                mat->read(&ifile2);
+                ifile2.close();
+            }
+            this->addMaterial(mat);
+        }
+        ifile.close();
+    }
+}
+
+void MaterialListModel::write(const QDir& dbDir)
+{
+    NQLog("MaterialListModel", NQLog::Message) << "void write(const QDir& dbDir)";
+    NQLog("MaterialListModel", NQLog::Message) << dbDir.absolutePath();
+
+    QFile ofile(dbDir.absoluteFilePath("MaterialList.xml"));
+    if (ofile.open(QIODevice::WriteOnly)) {
+
+        QXmlStreamWriter stream(&ofile);
+
+        stream.setAutoFormatting(true);
+        stream.writeStartDocument();
+        stream.writeStartElement("Materials");
+
+        for (std::vector<Material*>::iterator it = MaterialList_.begin();
+             it!=MaterialList_.end();
+             ++it) {
+            Material * mat = *it;
+
+            stream.writeStartElement("Material");
+            stream.writeTextElement("Name", mat->getName());
+            stream.writeTextElement("UUID", mat->getUUID());
+            stream.writeEndElement();
+
+            QString uuid = mat->getUUID();
+            uuid.remove(0, 1);
+            uuid.remove(uuid.length()-1, 1);
+            uuid += "_mat.xml";
+            QFile ofile2(dbDir.absoluteFilePath(uuid));
+            if (ofile2.open(QIODevice::WriteOnly)) {
+                mat->write(&ofile2);
+                ofile2.close();
+            }
+        }
+
+        stream.writeEndElement();
+        stream.writeEndDocument();
+
+        ofile.close();
+    }
 }
 
 void MaterialListModel::sort()
@@ -188,6 +278,20 @@ void MaterialListModel::deleteMaterial(Material* material)
         Material * mat = *it;
         if (mat==material) {
             MaterialList_.erase(it);
+
+            QSettings settings;
+            QString dbPath = settings.value("dbpath").toString();
+            QDir dbDir(dbPath);
+            if (!dbDir.exists()) {
+                dbDir.mkpath(".");
+            }
+            QString uuid = mat->getUUID();
+            uuid.remove(0, 1);
+            uuid.remove(uuid.length()-1, 1);
+            uuid += "_mat.xml";
+            dbDir.remove(uuid);
+
+            delete mat;
 
             emit materialListChanged(MaterialList_.size());
             materialCountChanged(MaterialList_.size());

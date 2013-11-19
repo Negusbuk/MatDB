@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <QObject>
+#include <QDir>
 
 #include <material.h>
 #include <materialcategorymodel.h>
@@ -48,6 +49,11 @@ public:
     void read(const QString& filename);
     void sort();
     void sortFiltered();
+
+    void read(const QDir& dbDir,
+              PropertyModel *propmodel,
+              ParameterModel *paramodel);
+    void write(const QDir& dbDir);
 
 signals:
 
