@@ -25,10 +25,11 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 
-#include "cteproperty.h"
 #include <nqlogger.h>
 
-IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExpansionProperty(ParameterModel* model,
+#include <cteproperty.h>
+
+IsotropicInstantaneousCoefficientOfThermalExpansion::IsotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel* model,
                                                                                                int id) :
     Property(id)
 {
@@ -41,7 +42,7 @@ IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExp
     addParameter(par->clone());
 }
 
-IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExpansionProperty(const IsotropicCoefficientOfThermalExpansionProperty& property) :
+IsotropicInstantaneousCoefficientOfThermalExpansion::IsotropicInstantaneousCoefficientOfThermalExpansion(const IsotropicInstantaneousCoefficientOfThermalExpansion& property) :
     Property(property.getId())
 {
     setName("Isotropic Instantaneous Coefficient of Thermal Expansion");
@@ -53,13 +54,13 @@ IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExp
     addParameter(par->clone());
 }
 
-Property* IsotropicCoefficientOfThermalExpansionProperty::clone(ParameterModel* model)
+Property* IsotropicInstantaneousCoefficientOfThermalExpansion::clone(ParameterModel* model)
 {
-    IsotropicCoefficientOfThermalExpansionProperty* prop;
+    IsotropicInstantaneousCoefficientOfThermalExpansion* prop;
     if (model) {
-        prop = new IsotropicCoefficientOfThermalExpansionProperty(model, getId());
+        prop = new IsotropicInstantaneousCoefficientOfThermalExpansion(model, getId());
     } else {
-        prop = new IsotropicCoefficientOfThermalExpansionProperty(*this);
+        prop = new IsotropicInstantaneousCoefficientOfThermalExpansion(*this);
     }
 
     prop->setSorting(getSorting());
@@ -80,7 +81,7 @@ Property* IsotropicCoefficientOfThermalExpansionProperty::clone(ParameterModel* 
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void IsotropicCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
+void IsotropicInstantaneousCoefficientOfThermalExpansion::apply(PropertyData& data,
                                                            PropertyDetail& /* detail */,
                                                            std::map<QString,ParameterDetail> paramMap)
 {
@@ -135,7 +136,7 @@ void IsotropicCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
     param->setPrefferedValueUnit();
 }
 
-void IsotropicCoefficientOfThermalExpansionProperty::writeXML(QXmlStreamWriter& stream)
+void IsotropicInstantaneousCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& stream)
 {
     stream.writeStartElement("PropertyDetails");
     stream.writeAttribute("id", getIdString());
@@ -144,7 +145,7 @@ void IsotropicCoefficientOfThermalExpansionProperty::writeXML(QXmlStreamWriter& 
     stream.writeEndElement();
 }
 
-OrthotropicCoefficientOfThermalExpansionProperty::OrthotropicCoefficientOfThermalExpansionProperty(ParameterModel* model,
+OrthotropicInstantaneousCoefficientOfThermalExpansion::OrthotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel* model,
                                                                                                    int id) :
     Property(id)
 {
@@ -162,7 +163,7 @@ OrthotropicCoefficientOfThermalExpansionProperty::OrthotropicCoefficientOfTherma
     addParameter(par->clone());
 }
 
-OrthotropicCoefficientOfThermalExpansionProperty::OrthotropicCoefficientOfThermalExpansionProperty(const OrthotropicCoefficientOfThermalExpansionProperty& property) :
+OrthotropicInstantaneousCoefficientOfThermalExpansion::OrthotropicInstantaneousCoefficientOfThermalExpansion(const OrthotropicInstantaneousCoefficientOfThermalExpansion& property) :
     Property(property.getId())
 {
     setName("Orthotropic Instantaneous Coefficient of Thermal Expansion");
@@ -178,13 +179,13 @@ OrthotropicCoefficientOfThermalExpansionProperty::OrthotropicCoefficientOfTherma
     addParameter(par3->clone());
 }
 
-Property* OrthotropicCoefficientOfThermalExpansionProperty::clone(ParameterModel* model)
+Property* OrthotropicInstantaneousCoefficientOfThermalExpansion::clone(ParameterModel* model)
 {
-    OrthotropicCoefficientOfThermalExpansionProperty* prop;
+    OrthotropicInstantaneousCoefficientOfThermalExpansion* prop;
     if (model) {
-        prop = new OrthotropicCoefficientOfThermalExpansionProperty(model, getId());
+        prop = new OrthotropicInstantaneousCoefficientOfThermalExpansion(model, getId());
     } else {
-        prop = new OrthotropicCoefficientOfThermalExpansionProperty(*this);
+        prop = new OrthotropicInstantaneousCoefficientOfThermalExpansion(*this);
     }
 
     prop->setSorting(getSorting());
@@ -213,7 +214,7 @@ Property* OrthotropicCoefficientOfThermalExpansionProperty::clone(ParameterModel
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void OrthotropicCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
+void OrthotropicInstantaneousCoefficientOfThermalExpansion::apply(PropertyData& data,
                                                              PropertyDetail& /* detail */,
                                                              std::map<QString,ParameterDetail> paramMap)
 {
@@ -273,7 +274,7 @@ void OrthotropicCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
 
 }
 
-void OrthotropicCoefficientOfThermalExpansionProperty::writeXML(QXmlStreamWriter& stream)
+void OrthotropicInstantaneousCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& stream)
 {
     stream.writeStartElement("PropertyDetails");
     stream.writeAttribute("id", getIdString());
@@ -282,7 +283,7 @@ void OrthotropicCoefficientOfThermalExpansionProperty::writeXML(QXmlStreamWriter
     stream.writeEndElement();
 }
 
-IsotropicSecantCoefficientOfThermalExpansionProperty::IsotropicSecantCoefficientOfThermalExpansionProperty(ParameterModel* model,
+IsotropicSecantCoefficientOfThermalExpansion::IsotropicSecantCoefficientOfThermalExpansion(ParameterModel* model,
                                                                                                int id) :
     Property(id)
 {
@@ -298,7 +299,7 @@ IsotropicSecantCoefficientOfThermalExpansionProperty::IsotropicSecantCoefficient
     addParameter(par->clone());
 }
 
-IsotropicSecantCoefficientOfThermalExpansionProperty::IsotropicSecantCoefficientOfThermalExpansionProperty(const IsotropicSecantCoefficientOfThermalExpansionProperty& property) :
+IsotropicSecantCoefficientOfThermalExpansion::IsotropicSecantCoefficientOfThermalExpansion(const IsotropicSecantCoefficientOfThermalExpansion& property) :
     Property(property.getId())
 {
     setName("Isotropic Secant Coefficient of Thermal Expansion");
@@ -312,13 +313,13 @@ IsotropicSecantCoefficientOfThermalExpansionProperty::IsotropicSecantCoefficient
     addParameter(par2->clone());
 }
 
-Property* IsotropicSecantCoefficientOfThermalExpansionProperty::clone(ParameterModel* model)
+Property* IsotropicSecantCoefficientOfThermalExpansion::clone(ParameterModel* model)
 {
-    IsotropicSecantCoefficientOfThermalExpansionProperty* prop;
+    IsotropicSecantCoefficientOfThermalExpansion* prop;
     if (model) {
-        prop = new IsotropicSecantCoefficientOfThermalExpansionProperty(model, getId());
+        prop = new IsotropicSecantCoefficientOfThermalExpansion(model, getId());
     } else {
-        prop = new IsotropicSecantCoefficientOfThermalExpansionProperty(*this);
+        prop = new IsotropicSecantCoefficientOfThermalExpansion(*this);
     }
 
     prop->setSorting(getSorting());
@@ -339,7 +340,7 @@ Property* IsotropicSecantCoefficientOfThermalExpansionProperty::clone(ParameterM
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void IsotropicSecantCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
+void IsotropicSecantCoefficientOfThermalExpansion::apply(PropertyData& data,
                                                                  PropertyDetail& /* detail */,
                                                                  std::map<QString,ParameterDetail> paramMap)
 {
@@ -394,7 +395,7 @@ void IsotropicSecantCoefficientOfThermalExpansionProperty::apply(PropertyData& d
     param->setPrefferedValueUnit();
 }
 
-void IsotropicSecantCoefficientOfThermalExpansionProperty::writeXML(QXmlStreamWriter& stream)
+void IsotropicSecantCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& stream)
 {
     stream.writeStartElement("PropertyDetails");
     stream.writeAttribute("id", getIdString());
@@ -403,7 +404,7 @@ void IsotropicSecantCoefficientOfThermalExpansionProperty::writeXML(QXmlStreamWr
     stream.writeEndElement();
 }
 
-OrthotropicSecantCoefficientOfThermalExpansionProperty::OrthotropicSecantCoefficientOfThermalExpansionProperty(ParameterModel* model,
+OrthotropicSecantCoefficientOfThermalExpansion::OrthotropicSecantCoefficientOfThermalExpansion(ParameterModel* model,
                                                                                                    int id) :
     Property(id)
 {
@@ -423,7 +424,7 @@ OrthotropicSecantCoefficientOfThermalExpansionProperty::OrthotropicSecantCoeffic
     addParameter(par->clone());
 }
 
-OrthotropicSecantCoefficientOfThermalExpansionProperty::OrthotropicSecantCoefficientOfThermalExpansionProperty(const OrthotropicSecantCoefficientOfThermalExpansionProperty& property) :
+OrthotropicSecantCoefficientOfThermalExpansion::OrthotropicSecantCoefficientOfThermalExpansion(const OrthotropicSecantCoefficientOfThermalExpansion& property) :
     Property(property.getId())
 {
     setName("Orthotropic Secant Coefficient of Thermal Expansion");
@@ -441,13 +442,13 @@ OrthotropicSecantCoefficientOfThermalExpansionProperty::OrthotropicSecantCoeffic
     addParameter(par4->clone());
 }
 
-Property* OrthotropicSecantCoefficientOfThermalExpansionProperty::clone(ParameterModel* model)
+Property* OrthotropicSecantCoefficientOfThermalExpansion::clone(ParameterModel* model)
 {
-    OrthotropicSecantCoefficientOfThermalExpansionProperty* prop;
+    OrthotropicSecantCoefficientOfThermalExpansion* prop;
     if (model) {
-        prop = new OrthotropicSecantCoefficientOfThermalExpansionProperty(model, getId());
+        prop = new OrthotropicSecantCoefficientOfThermalExpansion(model, getId());
     } else {
-        prop = new OrthotropicSecantCoefficientOfThermalExpansionProperty(*this);
+        prop = new OrthotropicSecantCoefficientOfThermalExpansion(*this);
     }
 
     prop->setSorting(getSorting());
@@ -476,7 +477,7 @@ Property* OrthotropicSecantCoefficientOfThermalExpansionProperty::clone(Paramete
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void OrthotropicSecantCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
+void OrthotropicSecantCoefficientOfThermalExpansion::apply(PropertyData& data,
                                                                    PropertyDetail& /* detail */,
                                                                    std::map<QString,ParameterDetail> paramMap)
 {
@@ -536,7 +537,7 @@ void OrthotropicSecantCoefficientOfThermalExpansionProperty::apply(PropertyData&
 
 }
 
-void OrthotropicSecantCoefficientOfThermalExpansionProperty::writeXML(QXmlStreamWriter& stream)
+void OrthotropicSecantCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& stream)
 {
     stream.writeStartElement("PropertyDetails");
     stream.writeAttribute("id", getIdString());
