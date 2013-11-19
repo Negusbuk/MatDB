@@ -21,6 +21,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include <QUuid>
+
 #include <nqlogger.h>
 
 #include <material.h>
@@ -229,12 +231,14 @@ void Material::writeXML(QXmlStreamWriter& stream)
 Material* Material::clone()
 {
     Material* mat = new Material(*this);
+    mat->setUUID(QUuid::createUuid().toString());
     return mat;
 }
 
 Material* Material::makeDefaultIsotropicMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
+    mat->setUUID(QUuid::createUuid().toString());
     mat->setName("Structural Steel");
 
     Property * prop;
@@ -272,6 +276,7 @@ Material* Material::makeDefaultIsotropicMaterial(PropertyModel* propertyModel)
 Material* Material::makeDefaultOrthotropicMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
+    mat->setUUID(QUuid::createUuid().toString());
     mat->setName("Orthotropic Structural Steel");
 
     Property * prop;
@@ -321,6 +326,7 @@ Material* Material::makeDefaultOrthotropicMaterial(PropertyModel* propertyModel)
 Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
+    mat->setUUID(QUuid::createUuid().toString());
     mat->setName("Water");
 
     Property * prop;
@@ -349,6 +355,7 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
+    mat->setUUID(QUuid::createUuid().toString());
     mat->setName("Air");
 
     Property * prop;

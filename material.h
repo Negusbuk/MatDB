@@ -40,8 +40,8 @@ public:
     Material(const Material& material);
     virtual ~Material();
 
+    const QString& getUUID() const { return uuid_; }
     const QString& getName() const { return Name_; }
-    void setName(const QString& name) { Name_ = name; }
 
     void addProperty(Property* property);
     void setProperties(const std::vector<Property*>&);
@@ -73,8 +73,14 @@ public:
     static Material* makeDefaultLiquidMaterial(PropertyModel* propertyModel);
     static Material* makeDefaultGaseousMaterial(PropertyModel* propertyModel);
 
+public slots:
+
+    void setUUID(const QString& uuid) { uuid_ = uuid; }
+    void setName(const QString& name) { Name_ = name; }
+
 protected:
 
+    QString uuid_;
     QString Name_;
     std::map<QString,Property*> Properties_;
     std::map<Property::Type,Property*> PropertiesByType_;
