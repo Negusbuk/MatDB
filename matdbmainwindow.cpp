@@ -34,10 +34,12 @@
 #include <nqlogger.h>
 
 #include "materialxmlexportdialog.h"
+#include "materialselectiondialog.h"
 #include "materialimportdialog.h"
 
 #include "matmlreader.h"
 #include "matmlwriter.h"
+#include "htmlwriter.h"
 
 #include "matdbaboutdialog.h"
 #include "materialcategorywidget.h"
@@ -275,34 +277,32 @@ void MatDBMainWindow::exportMaterialsHTML()
 {
     NQLog("MatDBMainWindow", NQLog::Spam) << "void exportMaterialsHTML()";
 
-    MaterialXMLExportDialog dialog(MaterialListModel_, this);
+    MaterialSelectionDialog dialog("Export", MaterialListModel_, this);
 
     int result = dialog.exec();
     if (result==0) return;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    QString filename = QFileDialog::getOpenFileName(this,
+    QString dirname = QFileDialog::getExistingDirectory(this,
                                                     "Export Materials",
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
-                                                    "*.html");
+                                                    QFileDialog::ShowDirsOnly);
 #else
-    QString filename = QFileDialog::getOpenFileName(this,
+    QString dirname = QFileDialog::getExistingDirectory(this,
                                                     "Export Materials",
                                                     QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
-                                                    "*.html");
+                                                    QFileDialog::ShowDirsOnly);
 #endif
-    if (filename.isEmpty() || !filename.endsWith(".html")) return;
+    if (dirname.isEmpty()) return;
 
-    QFile file(filename);
-    if (file.open(QIODevice::WriteOnly)) {
-        const std::vector<Material*>& selection = dialog.getSelectedMaterials();
-        MATMLWriter writer(selection,
+    QDir destination(dirname);
+
+    const std::vector<Material*>& selection = dialog.getSelectedMaterials();
+    HTMLWriter writer(selection,
                            PropertyModel_,
                            ParameterModel_,
                            this);
-        writer.write(&file, static_cast<MATMLWriter::ExportMode>(dialog.getExportMode()));
-        file.close();
-    }
+        writer.write(destination);
 }
 
 void MatDBMainWindow::importMaterials()
