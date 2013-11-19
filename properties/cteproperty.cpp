@@ -18,7 +18,6 @@
  **
  ****************************************************************************/
 
-#include <iostream>
 #include <cmath>
 
 #include <QRadioButton>
@@ -27,6 +26,7 @@
 #include <QButtonGroup>
 
 #include "cteproperty.h"
+#include <nqlogger.h>
 
 IsotropicCoefficientOfThermalExpansionProperty::IsotropicCoefficientOfThermalExpansionProperty(ParameterModel* model,
                                                                                                int id) :
@@ -84,8 +84,6 @@ void IsotropicCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
                                                            PropertyDetail& /* detail */,
                                                            std::map<QString,ParameterDetail> paramMap)
 {
-    //std::cout << "IsotropicCoefficientOfThermalExpansionProperty::apply" << std::endl;
-
     PValue pv = data.pvalues.front();
     std::vector<double> values;
     PValue pt = data.pvalues.back();
@@ -219,8 +217,6 @@ void OrthotropicCoefficientOfThermalExpansionProperty::apply(PropertyData& data,
                                                              PropertyDetail& /* detail */,
                                                              std::map<QString,ParameterDetail> paramMap)
 {
-    //std::cout << "OrthotropicCoefficientOfThermalExpansionProperty::apply" << std::endl;
-
     ParameterDetail details[4];
     Parameter *param[4];
     std::vector<double> values[4];
@@ -347,8 +343,6 @@ void IsotropicSecantCoefficientOfThermalExpansionProperty::apply(PropertyData& d
                                                                  PropertyDetail& /* detail */,
                                                                  std::map<QString,ParameterDetail> paramMap)
 {
-    //std::cout << "IsotropicSecantCoefficientOfThermalExpansionProperty::apply" << std::endl;
-
     PValue pv = data.pvalues.front();
     std::vector<double> values;
     PValue pt = data.pvalues.back();
@@ -486,8 +480,6 @@ void OrthotropicSecantCoefficientOfThermalExpansionProperty::apply(PropertyData&
                                                                    PropertyDetail& /* detail */,
                                                                    std::map<QString,ParameterDetail> paramMap)
 {
-    //std::cout << "OrthotropicSecantCoefficientOfThermalExpansionProperty::apply" << std::endl;
-
     ParameterDetail details[4];
     Parameter *param[4];
     std::vector<double> values[4];
