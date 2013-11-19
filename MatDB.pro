@@ -82,7 +82,9 @@ SOURCES += main.cpp \
     propertyspecialwidget.cpp \
     materialfilterwidget.cpp \
     materialcategorywidget.cpp \
-    materialindexer.cpp
+    materialindexer.cpp \
+    htmlwriter.cpp \
+    materialselectiondialog.cpp
 
 HEADERS += matdbmainwindow.h \
     material.h \
@@ -128,7 +130,9 @@ HEADERS += matdbmainwindow.h \
     propertyspecialwidget.h \
     materialfilterwidget.h \
     materialcategorywidget.h \
-    materialindexer.h
+    materialindexer.h \
+    htmlwriter.h \
+    materialselectiondialog.h
 
 FORMS    +=
 
