@@ -37,29 +37,8 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
     exportMode_(ANSYS)
 {
     QVBoxLayout * layout = new QVBoxLayout(this);
-    layout->setContentsMargins(1,1,1,1);
+    layout->setContentsMargins(1, 1, 1, 1);
     setLayout(layout);
-
-    QWidget *buttons = new QWidget(this);
-    QHBoxLayout *buttonLayout = new QHBoxLayout(buttons);
-    buttonLayout->setContentsMargins(1,1,1,1);
-    buttons->setLayout(buttonLayout);
-    QButtonGroup* group = new QButtonGroup(buttons);
-    connect(group, SIGNAL(buttonClicked(QAbstractButton*)),
-            this, SLOT(modeChanged(QAbstractButton*)));
-
-    buttonLayout->addWidget(new QLabel("Export Mode:", buttons));
-
-    modeANSYSbutton_ = new QRadioButton("ANSYS", buttons);
-    modeANSYSbutton_->setChecked(true);
-    group->addButton(modeANSYSbutton_);
-    buttonLayout->addWidget(modeANSYSbutton_);
-
-    modeMATMLbutton_ = new QRadioButton("MatML", buttons);
-    group->addButton(modeMATMLbutton_);
-    buttonLayout->addWidget(modeMATMLbutton_);
-
-    layout->addWidget(buttons);
 
     materialView_ = new QTableWidget(model_->getMaterialCount(), 2, this);
     materialView_->setHorizontalHeaderItem(0, new QTableWidgetItem("Material"));
@@ -91,16 +70,40 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
         item = new MaterialTableItem(mat, QTableWidgetItem::UserType+100);
         item->setText(mat->getName());
         item->setCheckState(Qt::Checked);
+        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
         materialView_->setItem(row, 0, item);
 
-        if (!mat->getDescription().isNull() && mat->getDescription()!="") {
-            item = new QTableWidgetItem(mat->getDescription());
-            materialView_->setItem(row, 1, item);
-        }
+        item = new QTableWidgetItem(mat->getDescription());
+        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        materialView_->setItem(row, 1, item);
+
         row++;
     }
 
     layout->addWidget(materialView_);
+
+    QWidget *buttons = new QWidget(this);
+    QHBoxLayout *buttonLayout = new QHBoxLayout(buttons);
+    buttonLayout->setContentsMargins(1, 1, 1, 1);
+    buttons->setLayout(buttonLayout);
+
+    buttonLayout->addWidget(new QLabel("Export Mode:", buttons));
+
+    QButtonGroup* group = new QButtonGroup(buttons);
+    connect(group, SIGNAL(buttonClicked(QAbstractButton*)),
+            this, SLOT(modeChanged(QAbstractButton*)));
+
+    modeANSYSbutton_ = new QRadioButton("ANSYS", buttons);
+    modeANSYSbutton_->setMinimumHeight(1.2*modeANSYSbutton_->minimumSizeHint().height());
+    //group->addButton(modeANSYSbutton_, 0);
+    buttonLayout->addWidget(modeANSYSbutton_);
+
+    modeMATMLbutton_ = new QRadioButton("MatML", buttons);
+    modeMATMLbutton_->setMinimumHeight(1.2*modeMATMLbutton_->minimumSizeHint().height());
+    //group->addButton(modeMATMLbutton_, 1);
+    buttonLayout->addWidget(modeMATMLbutton_);
+
+    layout->addWidget(buttons);
 
     buttons = new QWidget(this);
     buttonLayout = new QHBoxLayout(buttons);
@@ -110,20 +113,22 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
     QPushButton *button;
 
     button = new QPushButton("Export", buttons);
-    button->setFlat(true);
+    //button->setFlat(true);
     button->setDefault(false);
     connect(button, SIGNAL(clicked()),
             this, SLOT(exportMaterials()));
     buttonLayout->addWidget(button);
 
     button = new QPushButton("Cancel", buttons);
-    button->setFlat(true);
-    button->setDefault(false);
+    //button->setFlat(true);
+    button->setDefault(true);
     connect(button, SIGNAL(clicked()),
             this, SLOT(reject()));
     buttonLayout->addWidget(button);
 
     layout->addWidget(buttons);
+
+    updateGeometry();
 }
 
 void MaterialXMLExportDialog::exportMaterials()
