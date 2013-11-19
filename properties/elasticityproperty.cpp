@@ -487,7 +487,61 @@ void OrthotropicElasticityProperty::apply(PropertyData& data,
                                           PropertyDetail& detail,
                                           std::map<QString,ParameterDetail> paramMap)
 {
+    // std::cout << "IsotropicElasticityProperty::apply" << std::endl;
 
+    ParameterDetail details[10];
+    Parameter *param[10];
+    std::vector<double> values[10];
+    std::vector<double> vtt;
+
+    int i=0;
+    for (std::vector<PValue>::iterator it = data.pvalues.begin();
+         it!=data.pvalues.end();
+         ++it) {
+        details[i] = paramMap[it->parameter];
+        param[i] = getParameter(details[i].name);
+
+        //param[i]->setId(details[i].id);
+
+        if (it->data.contains(',')) {
+            QStringList l = it->data.split(',');
+            for (QStringList::Iterator itl = l.begin();
+                 itl!=l.end();
+                 ++itl) {
+                values[i].push_back((*itl).toDouble());
+            }
+        } else {
+            values[i].push_back(it->data.toDouble());
+        }
+
+        if (param[i]==0) vtt = values[i];
+
+        ++i;
+    }
+
+    for (i=0;i<10;++i) {
+        if (!param[i]) continue;
+
+        param[i]->setValueUnit(details[i].unit);
+
+        std::vector<double>::iterator itt = vtt.begin();
+        for (std::vector<double>::iterator itv = values[i].begin();
+             itv!=values[i].end() && itt!=vtt.end();
+             ++itv,++itt) {
+            double temp = *itt;
+            double value = *itv;
+            if (value!=undefindedIdentifyer()) {
+                value = param[i]->getValueUnit()->convertToPreffered(*itv);
+                if (temp==undefindedIdentifyer()) {
+                    param[i]->addValue(value);
+                } else {
+                    param[i]->addValue(temp, value);
+                }
+            }
+        }
+
+        param[i]->setPrefferedValueUnit();
+    }
 }
 
 void OrthotropicElasticityProperty::writeXML(QXmlStreamWriter& stream)
