@@ -43,6 +43,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    NQLogger::instance()->addActiveModule("*");
+
     NQLogger::instance()->addDestiniation(stdout, NQLog::Spam);
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
