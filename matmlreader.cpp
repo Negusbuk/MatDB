@@ -18,6 +18,8 @@
  **
  ****************************************************************************/
 
+#include <QUuid>
+
 #include <nqlogger.h>
 
 #include "matmlreader.h"
@@ -210,6 +212,13 @@ void MATMLReader::read(QIODevice *source)
 
         Material * mat = new Material();
         mat->setName(name.text());
+
+        if (!bulk.elementsByTagName("UUID").isEmpty()) {
+            QDomElement uuid = bulk.elementsByTagName("UUID").at(0).toElement();
+            mat->setUUID(uuid.text());
+        } else {
+            mat->setUUID(QUuid::createUuid().toString());
+        }
 
         if (!bulk.elementsByTagName("Category").isEmpty()) {
             QDomElement category = bulk.elementsByTagName("Category").at(0).toElement();

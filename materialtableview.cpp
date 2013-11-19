@@ -20,6 +20,7 @@
 
 #include <QHeaderView>
 #include <QMimeData>
+#include <QUuid>
 
 #include <nqlogger.h>
 
@@ -229,6 +230,7 @@ void MaterialTableView::itemEdited(QTableWidgetItem * item)
 
         if (item->type()==QTableWidgetItem::UserType+101) {
             material = new Material();
+            material->setUUID(QUuid::createUuid().toString());
             material->setName(item->text());
             ListModel_->addMaterial(material);
         }
