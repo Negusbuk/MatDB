@@ -110,6 +110,9 @@ public:
 
     void clear();
 
+    void setModified(bool modified) { modified_ = modified; }
+    bool isModified() const;
+
     virtual void write(QXmlStreamWriter& stream);
     virtual void read(const QDomElement& element);
     virtual void writeXML(QXmlStreamWriter& stream);
@@ -126,6 +129,7 @@ protected:
     bool Dependent_;
     bool TemperatureDependent_;
     MaterialPropertyViewParameterItem* viewItem_;
+    bool modified_;
 };
 
 #endif // PARAMETER_H

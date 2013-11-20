@@ -31,12 +31,14 @@
 Material::Material()
     : Description_(""),
       Notes_(""),
-      Category_(0)
+      Category_(0),
+      modified_(false)
 {
 
 }
 
 Material::Material(const Material& material)
+    : modified_(false)
 {
     setName(material.getName());
     setProperties(material.getSortedProperties());
@@ -90,6 +92,8 @@ Property *Material::addProperty(Property* property)
         ParameterValues_[QString(itP->second->getName())] = std::vector<ParameterValue>();
     }
 
+    modified_ = true;
+
     return property;
 }
 
@@ -106,6 +110,8 @@ void Material::setProperties(const std::vector<Property*>& properties)
         Property * property = *it;
         addProperty(property->clone());
     }
+
+    modified_ = true;
 }
 
 Property* Material::getProperty(const QString& name)
@@ -173,6 +179,8 @@ void Material::removeProperty(Property* property)
     }
 
     delete property;
+
+    modified_ = true;
 }
 
 std::vector<ParameterValue> * Material::getParameterValues(const QString& name)
@@ -186,11 +194,13 @@ void Material::setCategory(MaterialCategory* c)
 {
     // NQLog("Material", NQLog::Spam) << "setCategory " << c;
 
+    modified_ = true;
     Category_ = c;
 }
 
 void Material::setTags(const QStringList& t)
 {
+    modified_ = true;
     Tags_ = t;
 }
 
@@ -227,6 +237,8 @@ void Material::write(QIODevice* device)
 
     stream.writeEndElement();
     stream.writeEndDocument();
+
+    modified_ = false;
 }
 
 bool Material::read(QIODevice* device,
@@ -485,4 +497,11 @@ Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
     mat->addProperty(prop);
 
     return mat;
+}
+
+bool Material::isModified() const
+{
+    if (modified_) return modified_;
+
+    return false;
 }

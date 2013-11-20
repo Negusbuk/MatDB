@@ -67,6 +67,9 @@ public:
 
     std::vector<ParameterValue> * getParameterValues(const QString& name);
 
+    void setModified() { modified_ = true; }
+    bool isModified() const;
+
     virtual void write(QIODevice* device);
     virtual bool read(QIODevice* device,
                       PropertyModel *propmodel,
@@ -99,6 +102,7 @@ protected:
     QString Notes_;
     MaterialCategory* Category_;
     QStringList Tags_;
+    bool modified_;
 };
 
 #endif // MATERIAL_H

@@ -28,7 +28,8 @@
 #include "materialcategorymodel.h"
 
 MaterialCategoryModel::MaterialCategoryModel(QObject *parent) :
-    QAbstractTableModel(parent)
+    QAbstractTableModel(parent),
+    modified_(false)
 {
     addCategory("No Category", QColor(255, 255, 255, 0), true);
     addCategory("Structural", QColor(100, 0, 0, 255), true);
@@ -57,6 +58,8 @@ void MaterialCategoryModel::addCategory(const QString& uuid,
     categoriesMap_[name] = mc;
     categoriesUUIDMap_[uuid] = mc;
     categories_.push_back(mc);
+
+    modified_ = true;
 
     emit dataChanged(QModelIndex(), QModelIndex());
     emit categoriesChanged();
@@ -91,6 +94,8 @@ void MaterialCategoryModel::removeCategory(const QString& name)
         delete category;
     }
 
+    modified_ = true;
+
     emit dataChanged(QModelIndex(), QModelIndex());
     emit categoriesChanged();
 }
@@ -101,6 +106,8 @@ void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QSt
     if(it != categoriesMap_.end()) {
         categoriesMap_.erase(it);
     }
+
+    modified_ = true;
 
     category->setName(name);
     categoriesMap_[name] = category;
@@ -203,6 +210,8 @@ void MaterialCategoryModel::changedCategoryUUID(MaterialCategory* category, cons
     }
     category->setUUID(uuid);
     categoriesUUIDMap_[uuid] = category;
+
+    modified_ = true;
 }
 
 void MaterialCategoryModel::read(QIODevice *source)
@@ -241,6 +250,8 @@ void MaterialCategoryModel::read(QIODevice *source)
 
         addCategory(uuid.text(), name.text(), color, false);
     }
+
+    modified_ = false;
 }
 
 void MaterialCategoryModel::write(QIODevice *destination)
@@ -277,4 +288,6 @@ void MaterialCategoryModel::write(QIODevice *destination)
     stream.writeEndElement();
 
     stream.writeEndDocument();
+
+    modified_ = false;
 }

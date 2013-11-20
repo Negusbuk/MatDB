@@ -93,7 +93,8 @@ Parameter::Parameter(Unit::VUnit* unit, int id, bool tempDependent) :
     Values_(0),
     ReadOnly_(false),
     Dependent_(false),
-    TemperatureDependent_(tempDependent)
+    TemperatureDependent_(tempDependent),
+    modified_(false)
 {
     Values_ = new ParameterValueVector;
 
@@ -138,21 +139,25 @@ void Parameter::setName(const QString& name)
 
 void Parameter::setValueUnit(const QString& unit)
 {
+    modified_ = true;
     ValueUnit_->setCurrentUnit(unit);
 }
 
 void Parameter::setTemperatureUnit(const QString& unit)
 {
+    modified_ = true;
     TemperatureUnit_->setCurrentUnit(unit);
 }
 
 void Parameter::setPrefferedValueUnit()
 {
+    modified_ = true;
     ValueUnit_->setCurrentUnitIndex(ValueUnit_->getPrefferedUnitIndex());
 }
 
 void Parameter::setPrefferedTemperatureUnit()
 {
+    modified_ = true;
     TemperatureUnit_->setCurrentUnitIndex(TemperatureUnit_->getPrefferedUnitIndex());
 }
 
@@ -176,6 +181,7 @@ void Parameter::addValue(const ParameterValue& value)
     if (!Values_) Values_ = new ParameterValueVector;
 
     Values_->push_back(ParameterValue(value));
+    modified_ = true;
 }
 
 int Parameter::getNumberOfValues() const
@@ -198,6 +204,8 @@ void Parameter::clear()
 {
     if (Values_)
         Values_->clear();
+
+    modified_ = true;
 }
 
 void Parameter::deleteValue(size_t idx)
@@ -207,6 +215,8 @@ void Parameter::deleteValue(size_t idx)
     if (idx>=Values_->size()) return;
 
     Values_->erase(Values_->begin() + idx);
+
+    modified_ = true;
 }
 
 void Parameter::deleteTemperature(size_t idx)
@@ -220,6 +230,8 @@ void Parameter::deleteTemperature(size_t idx)
     pvalue.resetTemperature();
 
     sort();
+
+    modified_ = true;
 }
 
 void Parameter::importValues(const QString& filename)
@@ -323,13 +335,15 @@ void Parameter::write(QXmlStreamWriter& stream)
             }
 
             if (pv.isValueValid()) {
-                stream.writeCharacters(QString::number(pv.getValue(), 'e', 6));
+                stream.writeCharacters(QString::number(pv.getValue(), 'e', 12));
             } else {
                 stream.writeCharacters(Property::undefindedIdentifyerAsString());
             }
             stream.writeEndElement();
         }
     }
+
+    modified_ = false;
 }
 
 void Parameter::read(const QDomElement &element)
@@ -392,6 +406,8 @@ void Parameter::read(const QDomElement &element)
             }
         }
     }
+
+    modified_ = false;
 }
 
 void Parameter::writeXML(QXmlStreamWriter& stream)
@@ -406,4 +422,11 @@ void Parameter::writeXML(QXmlStreamWriter& stream)
     stream.writeTextElement("Name", getName());
 
     stream.writeEndElement(); // ParameterDetails
+}
+
+bool Parameter::isModified() const
+{
+    if (modified_) return modified_;
+
+    return false;
 }

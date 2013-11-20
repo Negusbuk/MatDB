@@ -150,6 +150,9 @@ public:
     void setSorting(int sorting) { sorting_ = sorting; }
     int getSorting() const { return sorting_; }
 
+    void setModified() { modified_ = true; }
+    bool isModified() const;
+
     virtual void write(QXmlStreamWriter& stream);
     virtual void read(const QDomElement& element);
 
@@ -171,6 +174,7 @@ protected:
     ParameterSet ParameterSet_;
     std::vector<Parameter*> OrderedParameters_;
     int sorting_;
+    bool modified_;
 };
 
 #endif // PROPERTY_H

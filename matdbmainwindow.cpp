@@ -190,6 +190,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     }
 
     MaterialListModel_->read(dbDir, PropertyModel_);
+    MaterialListModel_->setModified(false);
     if (MaterialListModel_->getMaterialCount()==0) makeDefaultMaterials();
 
     autoSaveTimer_ = new QTimer(this);
@@ -207,22 +208,30 @@ MatDBMainWindow::~MatDBMainWindow()
 
 void MatDBMainWindow::addDefaultIsotropicMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultIsotropicMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultIsotropicMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::addDefaultOrthotropicMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultOrthotropicMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultOrthotropicMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::addDefaultLiquidMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultLiquidMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultLiquidMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::addDefaultGaseousMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultGaseousMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultGaseousMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::makeDefaultMaterials()
@@ -366,10 +375,12 @@ void MatDBMainWindow::saveData()
 
     MaterialListModel_->write(dbDir);
 
-    QFile ofileCat(dbDir.absoluteFilePath("Categories.xml"));
-    if (ofileCat.open(QIODevice::WriteOnly)) {
-        MaterialCategoryModel_->write(&ofileCat);
-        ofileCat.close();
+    if (MaterialCategoryModel_->isModified()) {
+        QFile ofileCat(dbDir.absoluteFilePath("Categories.xml"));
+        if (ofileCat.open(QIODevice::WriteOnly)) {
+            MaterialCategoryModel_->write(&ofileCat);
+            ofileCat.close();
+        }
     }
 }
 

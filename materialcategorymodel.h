@@ -47,6 +47,8 @@ public:
     virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
     //virtual bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
 
+    bool isModified() const { return modified_; }
+
     void read(QIODevice *source);
     void write(QIODevice *destination);
 
@@ -75,6 +77,7 @@ protected:
     std::map<QString,MaterialCategory*> categoriesUUIDMap_;
     std::map<QString,MaterialCategory*> categoriesMap_;
     std::vector<MaterialCategory*> categories_;
+    bool modified_;
 };
 
 #endif // MATERIALCATEGORYMODEL_H
