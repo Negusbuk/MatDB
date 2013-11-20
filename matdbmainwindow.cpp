@@ -281,32 +281,42 @@ void MatDBMainWindow::exportMaterialsHTML()
 {
     NQLog("MatDBMainWindow", NQLog::Spam) << "void exportMaterialsHTML()";
 
-    MaterialSelectionDialog dialog("Export", MaterialListModel_, this);
+    QDir destination("/Users/mussgill/Desktop/");
 
-    int result = dialog.exec();
-    if (result==0) return;
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    QString dirname = QFileDialog::getExistingDirectory(this,
-                                                    "Export Materials",
-                                                    QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
-                                                    QFileDialog::ShowDirsOnly);
-#else
-    QString dirname = QFileDialog::getExistingDirectory(this,
-                                                    "Export Materials",
-                                                    QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
-                                                    QFileDialog::ShowDirsOnly);
-#endif
-    if (dirname.isEmpty()) return;
-
-    QDir destination(dirname);
-
-    const std::vector<Material*>& selection = dialog.getSelectedMaterials();
+    const std::vector<Material*>& selection = MaterialListModel_->getMaterials();
     HTMLWriter writer(selection,
-                           PropertyModel_,
-                           ParameterModel_,
-                           this);
-        writer.write(destination);
+                      PropertyModel_,
+                      ParameterModel_,
+                      MaterialCategoryModel_,
+                      this);
+    writer.write(destination);
+
+//    MaterialSelectionDialog dialog("Export", MaterialListModel_, this);
+
+//    int result = dialog.exec();
+//    if (result==0) return;
+
+//#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+//    QString dirname = QFileDialog::getExistingDirectory(this,
+//                                                    "Export Materials",
+//                                                    QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
+//                                                    QFileDialog::ShowDirsOnly);
+//#else
+//    QString dirname = QFileDialog::getExistingDirectory(this,
+//                                                    "Export Materials",
+//                                                    QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+//                                                    QFileDialog::ShowDirsOnly);
+//#endif
+//    if (dirname.isEmpty()) return;
+
+//    QDir destination(dirname);
+
+//    const std::vector<Material*>& selection = dialog.getSelectedMaterials();
+//    HTMLWriter writer(selection,
+//                      PropertyModel_,
+//                      ParameterModel_,
+//                      this);
+//    writer.write(destination);
 }
 
 void MatDBMainWindow::importMaterials()
