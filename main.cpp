@@ -92,6 +92,7 @@ int main(int argc, char *argv[])
     QFile file(":/qss/stylesheet.qss");
     file.open(QFile::ReadOnly);
     QString stylesheet(file.readAll());
+    file.close();
     a.setStyleSheet(stylesheet);
     a.setStyle("macintosh");
 
