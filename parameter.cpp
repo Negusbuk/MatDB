@@ -29,6 +29,7 @@
 #include <nqlogger.h>
 
 #include "parameter.h"
+#include "property.h"
 
 ParameterValue::ParameterValue() :
     Temperature_(0.0),
@@ -92,7 +93,8 @@ Parameter::Parameter(Unit::VUnit* unit, int id, bool tempDependent) :
     Values_(0),
     ReadOnly_(false),
     Dependent_(false),
-    TemperatureDependent_(tempDependent)
+    TemperatureDependent_(tempDependent),
+    modified_(false)
 {
     Values_ = new ParameterValueVector;
 
@@ -137,12 +139,26 @@ void Parameter::setName(const QString& name)
 
 void Parameter::setValueUnit(const QString& unit)
 {
+    modified_ = true;
     ValueUnit_->setCurrentUnit(unit);
+}
+
+void Parameter::setTemperatureUnit(const QString& unit)
+{
+    modified_ = true;
+    TemperatureUnit_->setCurrentUnit(unit);
 }
 
 void Parameter::setPrefferedValueUnit()
 {
+    modified_ = true;
     ValueUnit_->setCurrentUnitIndex(ValueUnit_->getPrefferedUnitIndex());
+}
+
+void Parameter::setPrefferedTemperatureUnit()
+{
+    modified_ = true;
+    TemperatureUnit_->setCurrentUnitIndex(TemperatureUnit_->getPrefferedUnitIndex());
 }
 
 void Parameter::addValue(double value)
@@ -165,6 +181,7 @@ void Parameter::addValue(const ParameterValue& value)
     if (!Values_) Values_ = new ParameterValueVector;
 
     Values_->push_back(ParameterValue(value));
+    modified_ = true;
 }
 
 int Parameter::getNumberOfValues() const
@@ -187,6 +204,8 @@ void Parameter::clear()
 {
     if (Values_)
         Values_->clear();
+
+    modified_ = true;
 }
 
 void Parameter::deleteValue(size_t idx)
@@ -196,6 +215,8 @@ void Parameter::deleteValue(size_t idx)
     if (idx>=Values_->size()) return;
 
     Values_->erase(Values_->begin() + idx);
+
+    modified_ = true;
 }
 
 void Parameter::deleteTemperature(size_t idx)
@@ -209,6 +230,8 @@ void Parameter::deleteTemperature(size_t idx)
     pvalue.resetTemperature();
 
     sort();
+
+    modified_ = true;
 }
 
 void Parameter::importValues(const QString& filename)
@@ -237,7 +260,7 @@ void Parameter::importValues(const QString& filename)
                 pos += rx.matchedLength()-1;
             }
 
-            NQLog("MaterialParameterView", NQLog::Spam) << line << " " << list.size();
+            // NQLog("Parameter", NQLog::Spam) << line << " " << list.size();
 
             if (list.size()!=2) continue;
 
@@ -289,7 +312,102 @@ void Parameter::sort()
 void Parameter::write(QXmlStreamWriter& stream)
 {
     stream.writeTextElement("Name", getName());
+
+    stream.writeStartElement("ValueUnit");
     getValueUnit()->writeXML(stream);
+    stream.writeEndElement();
+
+    stream.writeStartElement("TemperatureUnit");
+    getTemperatureUnit()->writeXML(stream);
+    stream.writeEndElement();
+
+    if (Values_) {
+        for (std::vector<ParameterValue>::const_iterator it=getValues().begin();
+             it!=getValues().end();
+             ++it) {
+            const ParameterValue& pv = *it;
+            stream.writeStartElement("Value");
+
+            if (pv.isTemperatureValid()) {
+                stream.writeAttribute("Temperature", QString::number(pv.getTemperature(), 'e', 6));
+            } else {
+                stream.writeAttribute("Temperature", Property::undefindedIdentifyerAsString());
+            }
+
+            if (pv.isValueValid()) {
+                stream.writeCharacters(QString::number(pv.getValue(), 'e', 12));
+            } else {
+                stream.writeCharacters(Property::undefindedIdentifyerAsString());
+            }
+            stream.writeEndElement();
+        }
+    }
+
+    modified_ = false;
+}
+
+void Parameter::read(const QDomElement &element)
+{
+    QDomNodeList unitsElemList = element.elementsByTagName("ValueUnit");
+    if (unitsElemList.count()==1) {
+        QDomElement unitsElem = unitsElemList.at(0).toElement();
+
+        QDomNodeList unitElemList = unitsElem.elementsByTagName("Unit");
+        QString unit;
+        for (int i=0;i<unitElemList.size();++i) {
+            QDomElement unitElem = unitElemList.at(i).toElement();
+
+            QDomElement name = unitElem.elementsByTagName("Name").at(0).toElement();
+            if (i!=0) unit += " ";
+
+            unit += name.text();
+            if (unitElem.hasAttribute("power")) {
+                unit += "^";
+                unit += unitElem.attribute("power", "1");
+            }
+        }
+
+        // NQLog("Parameter", NQLog::Spam) << "unit: " << unit;
+
+        setValueUnit(unit);
+    }
+
+    unitsElemList = element.elementsByTagName("TemperatureUnit");
+    if (unitsElemList.count()==1) {
+        QDomElement unitsElem = unitsElemList.at(0).toElement();
+
+        QDomNodeList unitElemList = unitsElem.elementsByTagName("Unit");
+        QString unit;
+        for (int i=0;i<unitElemList.size();++i) {
+            QDomElement unitElem = unitElemList.at(i).toElement();
+
+            QDomElement name = unitElem.elementsByTagName("Name").at(0).toElement();
+            if (i!=0) unit += " ";
+
+            unit += name.text();
+            unit += name.attribute("power", "");
+        }
+
+        setTemperatureUnit(unit);
+    }
+
+    QDomNodeList valueElemList = element.elementsByTagName("Value");
+    for (int i=0;i<valueElemList.size();++i) {
+        QDomElement valueElem = valueElemList.at(i).toElement();
+
+        QString svalue = valueElem.text();
+        QString stemperature = valueElem.attribute("Temperature", Property::undefindedIdentifyerAsString());
+
+        if (svalue!=Property::undefindedIdentifyerAsString()) {
+            if (stemperature!=Property::undefindedIdentifyerAsString()) {
+                addValue(stemperature.toDouble(), svalue.toDouble());
+            } else {
+                addValue(svalue.toDouble());
+            }
+        }
+    }
+
+    modified_ = false;
 }
 
 void Parameter::writeXML(QXmlStreamWriter& stream)
@@ -304,4 +422,11 @@ void Parameter::writeXML(QXmlStreamWriter& stream)
     stream.writeTextElement("Name", getName());
 
     stream.writeEndElement(); // ParameterDetails
+}
+
+bool Parameter::isModified() const
+{
+    if (modified_) return modified_;
+
+    return false;
 }

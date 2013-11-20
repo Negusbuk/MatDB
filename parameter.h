@@ -25,6 +25,7 @@
 
 #include <QString>
 #include <QXmlStreamWriter>
+#include <QDomElement>
 
 #include <unit.h>
 
@@ -68,7 +69,9 @@ public:
     Unit::VUnit* getTemperatureUnit() const { return TemperatureUnit_; }
     Unit::VUnit* getValueUnit() const { return ValueUnit_; }
     void setValueUnit(const QString& unit);
+    void setTemperatureUnit(const QString& unit);
     void setPrefferedValueUnit();
+    void setPrefferedTemperatureUnit();
 
     int getId() const { return Id_; }
     const QString& getIdString() const { return IdString_; }
@@ -107,7 +110,11 @@ public:
 
     void clear();
 
+    void setModified(bool modified) { modified_ = modified; }
+    bool isModified() const;
+
     virtual void write(QXmlStreamWriter& stream);
+    virtual void read(const QDomElement& element);
     virtual void writeXML(QXmlStreamWriter& stream);
 
 protected:
@@ -122,6 +129,7 @@ protected:
     bool Dependent_;
     bool TemperatureDependent_;
     MaterialPropertyViewParameterItem* viewItem_;
+    bool modified_;
 };
 
 #endif // PARAMETER_H

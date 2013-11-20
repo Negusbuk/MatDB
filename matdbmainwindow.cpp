@@ -189,18 +189,14 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
         fileCat.close();
     }
 
-    QFile file(dbDir.absoluteFilePath("Materials.xml"));
-    if (file.open(QIODevice::ReadOnly)) {
-        MATMLReader reader(MaterialListModel_,
-                           PropertyModel_,
-                           ParameterModel_,
-                           MaterialCategoryModel_,
-                           this);
-        reader.read(&file);
-        file.close();
-    } else {
-        makeDefaultMaterials();
-    }
+    MaterialListModel_->read(dbDir, PropertyModel_);
+    MaterialListModel_->setModified(false);
+    if (MaterialListModel_->getMaterialCount()==0) makeDefaultMaterials();
+
+    autoSaveTimer_ = new QTimer(this);
+    connect(autoSaveTimer_, SIGNAL(timeout()),
+            this, SLOT(saveData()));
+    autoSaveTimer_->start(1000*30);
 
     updateGeometry();
 }
@@ -212,22 +208,30 @@ MatDBMainWindow::~MatDBMainWindow()
 
 void MatDBMainWindow::addDefaultIsotropicMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultIsotropicMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultIsotropicMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::addDefaultOrthotropicMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultOrthotropicMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultOrthotropicMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::addDefaultLiquidMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultLiquidMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultLiquidMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::addDefaultGaseousMaterial()
 {
-    MaterialListModel_->addMaterial(Material::makeDefaultGaseousMaterial(PropertyModel_));
+    Material* mat = Material::makeDefaultGaseousMaterial(PropertyModel_);
+    mat->setModified();
+    MaterialListModel_->addMaterial(mat);
 }
 
 void MatDBMainWindow::makeDefaultMaterials()
@@ -358,9 +362,9 @@ void MatDBMainWindow::importMaterials()
     MaterialListModel_->addMaterials(dialog.getSelectedMaterials());
 }
 
-void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
+void MatDBMainWindow::saveData()
 {
-    NQLog("MatDBMainWindow", NQLog::Spam) << "void closeEvent(QCloseEvent *event)";
+    NQLog("MatDBMainWindow", NQLog::Message) << "saving database";
 
     QSettings settings;
     QString dbPath = settings.value("dbpath").toString();
@@ -369,43 +373,22 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
         dbDir.mkpath(".");
     }
 
-    QFile ofile(dbDir.absoluteFilePath("Materials.xml"));
-    if (ofile.open(QIODevice::WriteOnly)) {
-        MATMLWriter writer(MaterialListModel_->getAllMaterials(),
-                           PropertyModel_,
-                           ParameterModel_,
-                           this);
-        writer.write(&ofile, MATMLWriter::ANSYS);
-        ofile.close();
-    }
+    MaterialListModel_->write(dbDir);
 
-    /*
-    QFile ofile1(dbDir.absoluteFilePath("Materials2_MatML.xml"));
-    if (ofile1.open(QIODevice::WriteOnly)) {
-        MATMLWriter writer(MaterialListModel_->getMaterials(),
-                           PropertyModel_,
-                           ParameterModel_,
-                           this);
-        writer.write(&ofile1, MATMLWriter::MatML);
-        ofile1.close();
+    if (MaterialCategoryModel_->isModified()) {
+        QFile ofileCat(dbDir.absoluteFilePath("Categories.xml"));
+        if (ofileCat.open(QIODevice::WriteOnly)) {
+            MaterialCategoryModel_->write(&ofileCat);
+            ofileCat.close();
+        }
     }
+}
 
-    QFile ofile2(dbDir.absoluteFilePath("Materials2_ANSYS.xml"));
-    if (ofile2.open(QIODevice::WriteOnly)) {
-        MATMLWriter writer(MaterialListModel_->getMaterials(),
-                           PropertyModel_,
-                           ParameterModel_,
-                           this);
-        writer.write(&ofile2, MATMLWriter::ANSYS);
-        ofile2.close();
-    }
-    */
+void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
+{
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void closeEvent(QCloseEvent *event)";
 
-    QFile ofileCat(dbDir.absoluteFilePath("Categories.xml"));
-    if (ofileCat.open(QIODevice::WriteOnly)) {
-        MaterialCategoryModel_->write(&ofileCat);
-        ofileCat.close();
-    }
+    saveData();
 }
 
 void MatDBMainWindow::aboutDialog()

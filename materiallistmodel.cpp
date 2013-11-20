@@ -32,7 +32,8 @@ MaterialListModel::MaterialListModel(MaterialCategoryModel* model,
                                      QObject *parent) :
     QObject(parent),
     CategoryModel_(model),
-    isFiltered_(false)
+    isFiltered_(false),
+    modified_(false)
 {
     currentFilterLogic_ = true;
     currentFilters_ = QStringList();
@@ -65,6 +66,8 @@ void MaterialListModel::addMaterial(Material* material)
 
     sort();
 
+    modified_ = true;
+
     emit materialListChanged(MaterialList_.size());
 
     if (isFiltered_) {
@@ -95,6 +98,8 @@ void MaterialListModel::addMaterials(const std::vector<Material*>& materials)
 
     sort();
 
+    modified_ = true;
+
     emit materialListChanged(MaterialList_.size());
 
     if (isFiltered_) {
@@ -124,8 +129,7 @@ Material* MaterialListModel::getMaterial(size_t idx)
 }
 
 void MaterialListModel::read(const QDir& dbDir,
-                             PropertyModel *propmodel,
-                             ParameterModel *paramodel)
+                             PropertyModel *propmodel)
 {
     NQLog("MaterialListModel", NQLog::Message) << "void read(const QDir& dbDir,...)";
     NQLog("MaterialListModel", NQLog::Message) << dbDir.absolutePath();
@@ -153,6 +157,8 @@ void MaterialListModel::read(const QDir& dbDir,
             QDomElement uuidElem = matElem.elementsByTagName("UUID").at(0).toElement();
             QDomElement nameElem = matElem.elementsByTagName("Name").at(0).toElement();
 
+            NQLog("MaterialListModel", NQLog::Spam) << nameElem.text();
+
             Material * mat = new Material();
             mat->setName(nameElem.text());
             QString uuid = uuidElem.text();
@@ -163,10 +169,15 @@ void MaterialListModel::read(const QDir& dbDir,
             uuid += "_mat.xml";
             QFile ifile2(dbDir.absoluteFilePath(uuid));
             if (ifile2.open(QIODevice::ReadOnly)) {
-                mat->read(&ifile2);
+                if (mat->read(&ifile2,
+                              propmodel,
+                              CategoryModel_)) {
+                    this->addMaterial(mat);
+                } else {
+                    delete mat;
+                }
                 ifile2.close();
             }
-            this->addMaterial(mat);
         }
         ifile.close();
     }
@@ -174,44 +185,55 @@ void MaterialListModel::read(const QDir& dbDir,
 
 void MaterialListModel::write(const QDir& dbDir)
 {
-    NQLog("MaterialListModel", NQLog::Message) << "void write(const QDir& dbDir)";
-    NQLog("MaterialListModel", NQLog::Message) << dbDir.absolutePath();
+    if (modified_) {
+        NQLog("MaterialListModel", NQLog::Message) << "void write(const QDir& dbDir)";
+        NQLog("MaterialListModel", NQLog::Message) << dbDir.absolutePath();
 
-    QFile ofile(dbDir.absoluteFilePath("MaterialList.xml"));
-    if (ofile.open(QIODevice::WriteOnly)) {
+        QFile ofile(dbDir.absoluteFilePath("MaterialList.xml"));
+        if (ofile.open(QIODevice::WriteOnly)) {
 
-        QXmlStreamWriter stream(&ofile);
+            QXmlStreamWriter stream(&ofile);
 
-        stream.setAutoFormatting(true);
-        stream.writeStartDocument();
-        stream.writeStartElement("Materials");
+            stream.setAutoFormatting(true);
+            stream.writeStartDocument();
+            stream.writeStartElement("Materials");
 
-        for (std::vector<Material*>::iterator it = MaterialList_.begin();
-             it!=MaterialList_.end();
-             ++it) {
-            Material * mat = *it;
+            for (std::vector<Material*>::iterator it = MaterialList_.begin();
+                 it!=MaterialList_.end();
+                 ++it) {
+                Material * mat = *it;
 
-            stream.writeStartElement("Material");
-            stream.writeTextElement("Name", mat->getName());
-            stream.writeTextElement("UUID", mat->getUUID());
-            stream.writeEndElement();
-
-            QString uuid = mat->getUUID();
-            uuid.remove(0, 1);
-            uuid.remove(uuid.length()-1, 1);
-            uuid += "_mat.xml";
-            QFile ofile2(dbDir.absoluteFilePath(uuid));
-            if (ofile2.open(QIODevice::WriteOnly)) {
-                mat->write(&ofile2);
-                ofile2.close();
+                stream.writeStartElement("Material");
+                stream.writeTextElement("Name", mat->getName());
+                stream.writeTextElement("UUID", mat->getUUID());
+                stream.writeEndElement();
             }
+
+            stream.writeEndElement();
+            stream.writeEndDocument();
+
+            ofile.close();
         }
-
-        stream.writeEndElement();
-        stream.writeEndDocument();
-
-        ofile.close();
     }
+
+    for (std::vector<Material*>::iterator it = MaterialList_.begin();
+         it!=MaterialList_.end();
+         ++it) {
+        Material * mat = *it;
+        if (!mat->isModified()) continue;
+
+        QString uuid = mat->getUUID();
+        uuid.remove(0, 1);
+        uuid.remove(uuid.length()-1, 1);
+        uuid += "_mat.xml";
+        QFile ofile2(dbDir.absoluteFilePath(uuid));
+        if (ofile2.open(QIODevice::WriteOnly)) {
+            mat->write(&ofile2);
+            ofile2.close();
+        }
+    }
+
+    modified_ = false;
 }
 
 void MaterialListModel::sort()
@@ -292,6 +314,8 @@ void MaterialListModel::deleteMaterial(Material* material)
             dbDir.remove(uuid);
 
             delete mat;
+
+            modified_ = true;
 
             emit materialListChanged(MaterialList_.size());
             materialCountChanged(MaterialList_.size());

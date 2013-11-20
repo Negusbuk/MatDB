@@ -18,6 +18,8 @@
  **
  ****************************************************************************/
 
+#include <nqlogger.h>
+
 #include <materialcategorybox.h>
 
 MaterialCategoryBox::MaterialCategoryBox(MaterialListModel* listModel,
@@ -43,9 +45,10 @@ MaterialCategoryBox::MaterialCategoryBox(MaterialListModel* listModel,
 
 void MaterialCategoryBox::materialChanged(Material* material)
 {
-    setCurrentIndex(0);
-
-    if (!material) return;
+    if (!material) {
+        setCurrentIndex(0);
+        return;
+    }
 
     MaterialCategory* category = material->getCategory();
     if (category) {

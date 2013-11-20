@@ -47,6 +47,8 @@ MaterialMetadataWidget::MaterialMetadataWidget(MaterialListModel* listModel,
     descriptionEdit_ = new QLineEdit(content_);
     descriptionEdit_->setAttribute(Qt::WA_MacShowFocusRect, 0);
     layout_->addRow("Description:", descriptionEdit_);
+    connect(descriptionEdit_, SIGNAL(textChanged(QString)),
+            this, SLOT(descriptionChanged(QString)));
 
     MaterialCategoryBox * categoryBox;
     categoryBox = new MaterialCategoryBox(listModel_, selectionModel_,
@@ -62,9 +64,14 @@ MaterialMetadataWidget::MaterialMetadataWidget(MaterialListModel* listModel,
     notesEdit_ = new QPlainTextEdit(content_);
     notesEdit_->setFixedHeight(60);
     layout_->addRow("Notes:", notesEdit_);
+    connect(notesEdit_, SIGNAL(textChanged()),
+            this, SLOT(notesChanged()));
 
     connect(selectionModel_, SIGNAL(selectionChanged(Material*)),
             this, SLOT(materialChanged(Material*)));
+
+    connect(this, SIGNAL(materialMetadataChanged(Material*)),
+            listModel_, SLOT(materialMetadataChanged(Material*)));
 
     updateGeometry();
 }
@@ -81,3 +88,25 @@ void MaterialMetadataWidget::materialChanged(Material* material)
         notesEdit_->setPlainText("");
     }
 }
+
+void MaterialMetadataWidget::descriptionChanged(const QString& text)
+{
+    NQLog("MaterialMetadataWidget", NQLog::Spam) << "descriptionChanged: " << text;
+
+    Material * material = selectionModel_->getSelection();
+    if (material) {
+        material->setDescription(text);
+        emit materialMetadataChanged(material);
+    }
+}
+
+void MaterialMetadataWidget::notesChanged()
+{
+    Material * material = selectionModel_->getSelection();
+    if (material) {
+        QString text = notesEdit_->toPlainText();
+        material->setNotes(text);
+        emit materialMetadataChanged(material);
+    }
+}
+

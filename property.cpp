@@ -33,7 +33,8 @@
 Property::Property(int id)
     : Behavior_(UnknownBehavior),
       Definition_(UnknownDefinition),
-      sorting_(0)
+      sorting_(0),
+      modified_(false)
 {
     Id_ = id;
     IdString_ = "pr";
@@ -185,6 +186,23 @@ void Property::write(QXmlStreamWriter& stream)
         parameter->write(stream);
         stream.writeEndElement();
     }
+
+    modified_ = false;
+}
+
+void Property::read(const QDomElement &element)
+{
+    QDomNodeList parameterElemList = element.elementsByTagName("Parameter");
+    for (int i=0;i<parameterElemList.size();++i) {
+        QDomElement parameterElem = parameterElemList.at(i).toElement();
+
+        QDomElement name = parameterElem.elementsByTagName("Name").at(0).toElement();
+
+        // NQLog("Property", NQLog::Spam) << "Parameter: " << name.text();
+
+        Parameter * parameter = getParameter(name.text());
+        if (parameter) parameter->read(parameterElem);
+    }
 }
 
 void Property::writeXML(QXmlStreamWriter& /* stream */)
@@ -281,4 +299,18 @@ void Property::writeXMLData(QXmlStreamWriter& stream)
     stream.writeEndElement(); // ParameterValue
 
     stream.writeEndElement(); // PropertyData
+}
+
+bool Property::isModified() const
+{
+    if (modified_) return modified_;
+
+    for (std::map<QString,Parameter*>::const_iterator it = Parameters_.begin();
+         it!=Parameters_.end();
+         ++it) {
+        Parameter * parameter = it->second;
+        if (parameter->isModified()) return true;
+    }
+
+    return false;
 }

@@ -40,10 +40,14 @@ public:
                                     QWidget *parent = 0);
     
 signals:
-    
+
+    void materialMetadataChanged(Material*);
+
 public slots:
     
     void materialChanged(Material* material);
+    void descriptionChanged(const QString& text);
+    void notesChanged();
 
 protected:
 

@@ -22,6 +22,7 @@
 #include <algorithm>
 
 #include <QUuid>
+#include <QDomDocument>
 
 #include <nqlogger.h>
 
@@ -30,12 +31,14 @@
 Material::Material()
     : Description_(""),
       Notes_(""),
-      Category_(0)
+      Category_(0),
+      modified_(false)
 {
 
 }
 
 Material::Material(const Material& material)
+    : modified_(false)
 {
     setName(material.getName());
     setProperties(material.getSortedProperties());
@@ -50,14 +53,14 @@ Material::~Material()
     NQLog("Material", NQLog::Spam) << "Material::~Material()";
 }
 
-void Material::addProperty(Property* property)
+Property *Material::addProperty(Property* property)
 {
-    NQLog("Material", NQLog::Spam) << "void addProperty(Property* property)";
+    // NQLog("Material", NQLog::Spam) << "void addProperty(Property* property)";
 
     std::map<Property::Type,Property*>::iterator it = PropertiesByType_.find(property->getType());
     if (it!=PropertiesByType_.end()) {
         Property * oldproperty = it->second;
-        NQLog("Material", NQLog::Spam) << "remove old property " << oldproperty->getName();
+        // NQLog("Material", NQLog::Spam) << "remove old property " << oldproperty->getName();
         this->removeProperty(oldproperty);
     }
 
@@ -68,8 +71,10 @@ void Material::addProperty(Property* property)
     PropertiesSorted_.push_back(property);
     std::sort(PropertiesSorted_.begin(), PropertiesSorted_.end(),
               [](Property*lhs, Property*rhs) {
-        NQLog("Material", NQLog::Spam) << "lhs " << lhs->getName() << " " << lhs->getSorting();
-        NQLog("Material", NQLog::Spam) << "rhs " << rhs->getName() << " " << rhs->getSorting();
+
+        // NQLog("Material", NQLog::Spam) << "lhs " << lhs->getName() << " " << lhs->getSorting();
+        // NQLog("Material", NQLog::Spam) << "rhs " << rhs->getName() << " " << rhs->getSorting();
+
         return lhs->getSorting()<rhs->getSorting();
     });
 
@@ -86,6 +91,10 @@ void Material::addProperty(Property* property)
          ++itP) {
         ParameterValues_[QString(itP->second->getName())] = std::vector<ParameterValue>();
     }
+
+    modified_ = true;
+
+    return property;
 }
 
 void Material::setProperties(const std::vector<Property*>& properties)
@@ -101,6 +110,8 @@ void Material::setProperties(const std::vector<Property*>& properties)
         Property * property = *it;
         addProperty(property->clone());
     }
+
+    modified_ = true;
 }
 
 Property* Material::getProperty(const QString& name)
@@ -133,7 +144,7 @@ const std::vector<Property*>& Material::getSortedProperties() const
 
 void Material::removeProperty(Property* property)
 {
-    NQLog("Material", NQLog::Spam) << "Material::removeProperty(Property* property)";
+    // NQLog("Material", NQLog::Spam) << "Material::removeProperty(Property* property)";
 
     for (std::map<QString,Property*>::iterator it = Properties_.begin();
          it!=Properties_.end();
@@ -168,6 +179,8 @@ void Material::removeProperty(Property* property)
     }
 
     delete property;
+
+    modified_ = true;
 }
 
 std::vector<ParameterValue> * Material::getParameterValues(const QString& name)
@@ -179,11 +192,15 @@ std::vector<ParameterValue> * Material::getParameterValues(const QString& name)
 
 void Material::setCategory(MaterialCategory* c)
 {
+    // NQLog("Material", NQLog::Spam) << "setCategory " << c;
+
+    modified_ = true;
     Category_ = c;
 }
 
 void Material::setTags(const QStringList& t)
 {
+    modified_ = true;
     Tags_ = t;
 }
 
@@ -199,15 +216,15 @@ void Material::write(QIODevice* device)
     stream.writeTextElement("UUID", getUUID());
     stream.writeTextElement("Description", getDescription());
     stream.writeTextElement("Notes", getNotes());
-    stream.writeTextElement("Category", getCategory()!=0 ? getCategory()->getUUID() : "");
 
-    stream.writeStartElement("Tags");
+    if (getCategory())
+        stream.writeTextElement("Category", getCategory()->getUUID());
+
     for (QStringList::ConstIterator itT = getTags().begin();
          itT!=getTags().end();
          ++itT) {
          stream.writeTextElement("Tag", *itT);
     }
-    stream.writeEndElement();
 
     for (std::vector<Property*>::iterator it = PropertiesSorted_.begin();
          it!=PropertiesSorted_.end();
@@ -220,11 +237,68 @@ void Material::write(QIODevice* device)
 
     stream.writeEndElement();
     stream.writeEndDocument();
+
+    modified_ = false;
 }
 
-void Material::read(QIODevice* device)
+bool Material::read(QIODevice* device,
+                    PropertyModel *propmodel,
+                    MaterialCategoryModel *categorymodel)
 {
+    QDomDocument document;
+    if (!document.setContent(device)) return false;
 
+    QDomElement docElem = document.documentElement();
+    QDomNodeList matElemList = docElem.elementsByTagName("Material");
+    QDomElement matElem = matElemList.at(0).toElement();
+
+    QDomNodeList descriptionElemList = docElem.elementsByTagName("Description");
+    if (descriptionElemList.count()==1) {
+        setDescription(descriptionElemList.at(0).toElement().text());
+    }
+
+    QDomNodeList notesElemList = docElem.elementsByTagName("Notes");
+    if (notesElemList.count()==1) {
+        setNotes(notesElemList.at(0).toElement().text());
+    }
+
+    QDomNodeList categoryElemList = docElem.elementsByTagName("Category");
+    if (categoryElemList.count()==1) {
+        NQLog("Material", NQLog::Spam) << "Cat: " << categoryElemList.at(0).toElement().text();
+        MaterialCategory* category = categorymodel->getCategoryByUUID(categoryElemList.at(0).toElement().text());
+        NQLog("Material", NQLog::Spam) << "Cat: " << category;
+        NQLog("Material", NQLog::Spam) << "Cat: " << category->getName();
+        setCategory(category);
+    }
+
+    QDomNodeList tagElemList = docElem.elementsByTagName("Tag");
+    QStringList tags;
+    for (int i=0;i<tagElemList.size();++i) {
+        tags << tagElemList.at(i).toElement().text();
+    }
+    setTags(tags);
+
+    QDomNodeList propElemList = docElem.elementsByTagName("Property");
+    for (int i=0;i<propElemList.size();++i) {
+        QDomElement propElem = propElemList.at(i).toElement();
+
+        QDomElement name = propElem.elementsByTagName("Name").at(0).toElement();
+
+        NQLog("Material", NQLog::Spam) << "Prop: " << name.text();
+
+        Property* property = propmodel->getProperty(name.text());
+        if (!property) continue;
+        property = property->clone();
+
+        // NQLog("Material", NQLog::Spam) << "Prop: " << property;
+        // NQLog("Material", NQLog::Spam) << "Prop: " << property->getName();
+
+        property->read(propElem);
+
+        addProperty(property);
+    }
+
+    return true;
 }
 
 void Material::writeXML(QXmlStreamWriter& stream)
@@ -423,4 +497,11 @@ Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
     mat->addProperty(prop);
 
     return mat;
+}
+
+bool Material::isModified() const
+{
+    if (modified_) return modified_;
+
+    return false;
 }

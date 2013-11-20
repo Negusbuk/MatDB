@@ -50,9 +50,10 @@ public:
     void sort();
     void sortFiltered();
 
-    void read(const QDir& dbDir,
-              PropertyModel *propmodel,
-              ParameterModel *paramodel);
+    void setModified(bool modified) { modified_ = modified; }
+    bool isModified() const { return modified_; }
+
+    void read(const QDir& dbDir, PropertyModel *propmodel);
     void write(const QDir& dbDir);
 
 signals:
@@ -79,6 +80,7 @@ protected:
     bool currentFilterLogic_;
     QStringList currentFilters_;
     std::vector<Material*> FilteredMaterialList_;
+    bool modified_;
 };
 
 #endif // MATERIALLISTMODEL_H
