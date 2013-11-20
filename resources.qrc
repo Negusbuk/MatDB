@@ -1,47 +1,24 @@
 <RCC>
-<qresource prefix="/qss">
-    <file>stylesheet.qss</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBImportXML.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBExportXML.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBExportHTML.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBPropertyToolBox.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBCategories.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBAddIsotropicMaterial.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBAddOrthotropicMaterial.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBAddLiquidMaterial.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBAddGaseousMaterial.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBAddCategory.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBRemoveCategory.png</file>
-</qresource>
-<qresource prefix="/">
-    <file>icons/MatDBResetFilter.png</file>
-</qresource>
-<qresource prefix="/pics">
-    <file>artwork/MatDBSplashScreen.png</file>
-</qresource>
-<qresource prefix="/pics">
-    <file>artwork/MatDBBG.png</file>
-</qresource>
+    <qresource prefix="/qss">
+        <file>stylesheet.qss</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>icons/MatDBImportXML.png</file>
+        <file>icons/MatDBExportXML.png</file>
+        <file>icons/MatDBExportHTML.png</file>
+        <file>icons/MatDBPropertyToolBox.png</file>
+        <file>icons/MatDBCategories.png</file>
+        <file>icons/MatDBAddIsotropicMaterial.png</file>
+        <file>icons/MatDBAddOrthotropicMaterial.png</file>
+        <file>icons/MatDBAddLiquidMaterial.png</file>
+        <file>icons/MatDBAddGaseousMaterial.png</file>
+        <file>icons/MatDBAddCategory.png</file>
+        <file>icons/MatDBRemoveCategory.png</file>
+        <file>icons/MatDBResetFilter.png</file>
+        <file>html/header.html</file>
+    </qresource>
+    <qresource prefix="/pics">
+        <file>artwork/MatDBSplashScreen.png</file>
+        <file>artwork/MatDBBG.png</file>
+    </qresource>
 </RCC>
