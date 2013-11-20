@@ -50,9 +50,7 @@ public:
     void sort();
     void sortFiltered();
 
-    void read(const QDir& dbDir,
-              PropertyModel *propmodel,
-              ParameterModel *paramodel);
+    void read(const QDir& dbDir, PropertyModel *propmodel);
     void write(const QDir& dbDir);
 
 signals:

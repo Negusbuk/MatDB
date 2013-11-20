@@ -187,6 +187,21 @@ void Property::write(QXmlStreamWriter& stream)
     }
 }
 
+void Property::read(const QDomElement &element)
+{
+    QDomNodeList parameterElemList = element.elementsByTagName("Parameter");
+    for (int i=0;i<parameterElemList.size();++i) {
+        QDomElement parameterElem = parameterElemList.at(i).toElement();
+
+        QDomElement name = parameterElem.elementsByTagName("Name").at(0).toElement();
+
+        // NQLog("Property", NQLog::Spam) << "Parameter: " << name.text();
+
+        Parameter * parameter = getParameter(name.text());
+        if (parameter) parameter->read(parameterElem);
+    }
+}
+
 void Property::writeXML(QXmlStreamWriter& /* stream */)
 {
 

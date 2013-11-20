@@ -124,8 +124,7 @@ Material* MaterialListModel::getMaterial(size_t idx)
 }
 
 void MaterialListModel::read(const QDir& dbDir,
-                             PropertyModel *propmodel,
-                             ParameterModel *paramodel)
+                             PropertyModel *propmodel)
 {
     NQLog("MaterialListModel", NQLog::Message) << "void read(const QDir& dbDir,...)";
     NQLog("MaterialListModel", NQLog::Message) << dbDir.absolutePath();
@@ -153,6 +152,8 @@ void MaterialListModel::read(const QDir& dbDir,
             QDomElement uuidElem = matElem.elementsByTagName("UUID").at(0).toElement();
             QDomElement nameElem = matElem.elementsByTagName("Name").at(0).toElement();
 
+            NQLog("MaterialListModel", NQLog::Spam) << nameElem.text();
+
             Material * mat = new Material();
             mat->setName(nameElem.text());
             QString uuid = uuidElem.text();
@@ -163,10 +164,15 @@ void MaterialListModel::read(const QDir& dbDir,
             uuid += "_mat.xml";
             QFile ifile2(dbDir.absoluteFilePath(uuid));
             if (ifile2.open(QIODevice::ReadOnly)) {
-                mat->read(&ifile2);
+                if (mat->read(&ifile2,
+                              propmodel,
+                              CategoryModel_)) {
+                    this->addMaterial(mat);
+                } else {
+                    delete mat;
+                }
                 ifile2.close();
             }
-            this->addMaterial(mat);
         }
         ifile.close();
     }

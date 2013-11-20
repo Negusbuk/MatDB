@@ -31,6 +31,8 @@
 
 #include <materialcategory.h>
 #include <propertymodel.h>
+#include <parametermodel.h>
+#include <materialcategorymodel.h>
 #include <property.h>
 #include <parameter.h>
 
@@ -44,7 +46,7 @@ public:
     const QString& getUUID() const { return uuid_; }
     const QString& getName() const { return Name_; }
 
-    void addProperty(Property* property);
+    Property* addProperty(Property* property);
     void setProperties(const std::vector<Property*>&);
     Property* getProperty(const QString& name);
     std::map<QString,Property*>& getProperties();
@@ -66,7 +68,9 @@ public:
     std::vector<ParameterValue> * getParameterValues(const QString& name);
 
     virtual void write(QIODevice* device);
-    virtual void read(QIODevice* device);
+    virtual bool read(QIODevice* device,
+                      PropertyModel *propmodel,
+                      MaterialCategoryModel *categorymodel);
 
     virtual void writeXML(QXmlStreamWriter& stream);
 

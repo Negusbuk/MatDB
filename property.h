@@ -151,6 +151,7 @@ public:
     int getSorting() const { return sorting_; }
 
     virtual void write(QXmlStreamWriter& stream);
+    virtual void read(const QDomElement& element);
 
     virtual void writeXML(QXmlStreamWriter& stream);
     virtual void writeXMLData(QXmlStreamWriter& stream);
