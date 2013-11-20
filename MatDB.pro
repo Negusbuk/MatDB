@@ -155,4 +155,5 @@ OTHER_FILES += stylesheet.qss \
     icons/MatDBResetFilter.png \
     artwork/MatDBSplashScreen.png \
     artwork/MatDBBG.png \
-    html/header.html
+    html/header.html \
+    html/footer.html
