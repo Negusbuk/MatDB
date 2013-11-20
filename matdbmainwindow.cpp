@@ -196,7 +196,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     autoSaveTimer_ = new QTimer(this);
     connect(autoSaveTimer_, SIGNAL(timeout()),
             this, SLOT(saveData()));
-    autoSaveTimer_->start(1000*5);
+    autoSaveTimer_->start(1000*30);
 
     updateGeometry();
 }
