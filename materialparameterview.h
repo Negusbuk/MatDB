@@ -36,15 +36,22 @@
 class MaterialParameterViewItem : public QTableWidgetItem
 {
 public:
-    explicit MaterialParameterViewItem(ParameterValue* parameter,
+    explicit MaterialParameterViewItem(Parameter *parameter,
+                                       ParameterValue* pv,
                                        int column);
     ParameterValue* getParameterValue() { return ParameterValue_; }
     int getColumn() const { return Column_; }
     void update();
+    void setData(int role, const QVariant & value);
+
+    bool isEditing() const { return isEditing_; }
+    void setEditing(bool edit) { isEditing_ = edit; }
 
 protected:
+    Parameter* Parameter_;
     ParameterValue* ParameterValue_;
     int Column_;
+    bool isEditing_;
 };
 
 class MaterialParameterView : public QWidget
@@ -63,6 +70,7 @@ public slots:
     void materialChanged(Material*);
     void parameterChanged(Parameter*);
     void parameterValueChanged(QTableWidgetItem*);
+    void parameterValueSelected(QTableWidgetItem*);
     void temperatureUnitChanged(const QString& name);
     void valueUnitChanged(const QString& name);
 

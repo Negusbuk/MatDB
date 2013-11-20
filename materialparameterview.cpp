@@ -31,10 +31,13 @@
 
 #include <materialparameterview.h>
 
-MaterialParameterViewItem::MaterialParameterViewItem(ParameterValue* parameter,
+MaterialParameterViewItem::MaterialParameterViewItem(Parameter* parameter,
+                                                     ParameterValue* pv,
                                                      int column) :
-    ParameterValue_(parameter),
-    Column_(column)
+    Parameter_(parameter),
+    ParameterValue_(pv),
+    Column_(column),
+    isEditing_(false)
 {
     update();
 }
@@ -56,6 +59,47 @@ void MaterialParameterViewItem::update()
                 setText("");
             }
         }
+    }
+}
+
+void MaterialParameterViewItem::setData(int role, const QVariant & value)
+{
+    // NQLog("MaterialParameterViewItem", NQLog::Spam) << "setData: " << role << " " << value.toString();
+
+    QString text = value.toString();
+
+    if (role==2) setEditing(false);
+
+    if (role==2 && ParameterValue_!=0 && !text.isEmpty()) {
+
+        int pos;
+        QValidator::State state;
+        if (Column_==0) {
+            state = Parameter_->getTemperatureUnit()->validate(text, pos);
+        } else {
+            state = Parameter_->getValueUnit()->validate(text, pos);
+        }
+
+        if (state==QValidator::Acceptable) {
+            if (Column_==0) {
+                if (ParameterValue_->getTemperature()!=value.toDouble()) Parameter_->setModified(true);
+                ParameterValue_->setTemperature(value.toDouble());
+                setText(ParameterValue_->prettyTemperature());
+            } else {
+                if (ParameterValue_->getValue()!=value.toDouble()) Parameter_->setModified(true);
+                ParameterValue_->setValue(value.toDouble());
+                setText(ParameterValue_->prettyValue());
+            }
+        } else {
+            if (Column_==0) {
+                setText(ParameterValue_->prettyTemperature());
+            } else {
+                setText(ParameterValue_->prettyValue());
+            }
+        }
+
+    } else {
+        QTableWidgetItem::setData(role, value);
     }
 }
 
@@ -141,7 +185,8 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
     valueTable_->setVerticalHeaderItem(0, new QTableWidgetItem("*"));
 
     valueTable_->setSelectionMode(QAbstractItemView::SingleSelection);
-    valueTable_->setEditTriggers(QAbstractItemView::AllEditTriggers);
+    //valueTable_->setEditTriggers(QAbstractItemView::AllEditTriggers);
+    valueTable_->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     connect(SelectionModel_, SIGNAL(selectionChanged(Material*)),
             this, SLOT(materialChanged(Material*)));
@@ -151,6 +196,9 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
 
     connect(valueTable_, SIGNAL(itemChanged(QTableWidgetItem*)),
             this, SLOT(parameterValueChanged(QTableWidgetItem*)));
+
+    connect(valueTable_, SIGNAL(itemClicked(QTableWidgetItem*)),
+            this, SLOT(parameterValueSelected(QTableWidgetItem*)));
 
     connect(TempUnitBox_,SIGNAL(activated(const QString&)),
             this, SLOT(temperatureUnitChanged(const QString&)));
@@ -205,8 +253,8 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
          it!=parameter->getValues().end();
          ++it) {
 
-        MaterialParameterViewItem * item0 = new MaterialParameterViewItem(&(*it), 0);
-        MaterialParameterViewItem * item1 = new MaterialParameterViewItem(&(*it), 1);
+        MaterialParameterViewItem * item0 = new MaterialParameterViewItem(parameter, &(*it), 0);
+        MaterialParameterViewItem * item1 = new MaterialParameterViewItem(parameter, &(*it), 1);
 
         if (parameter->isDependent()) {
             item0->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -230,19 +278,42 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
     if (parameter->isTemperatureDependent() || count==0) {
         if (!parameter->isDependent()) {
             valueTable_->setVerticalHeaderItem(count, new QTableWidgetItem("*"));
-            MaterialParameterViewItem * item0 = new MaterialParameterViewItem(0, 0);
+            MaterialParameterViewItem * item0 = new MaterialParameterViewItem(parameter, 0, 0);
 
             if (!parameter->isTemperatureDependent()) {
                 item0->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
             }
 
             valueTable_->setItem(count, 0, item0);
-            valueTable_->setItem(count, 1, new MaterialParameterViewItem(0, 1));
+            valueTable_->setItem(count, 1, new MaterialParameterViewItem(parameter, 0, 1));
         }
     }
 
     TempUnitBox_->setUnit(parameter->getTemperatureUnit());
     ValueUnitBox_->setUnit(parameter->getValueUnit());
+}
+
+void MaterialParameterView::parameterValueSelected(QTableWidgetItem* item)
+{
+    // NQLog("MaterialParameterView", NQLog::Spam) << "void parameterValueSelected(QTableWidgetItem* item)";
+
+    MaterialParameterViewItem* pitem = dynamic_cast<MaterialParameterViewItem*>(item);
+    int column = pitem->getColumn();
+
+    pitem->setEditing(true);
+
+    if (pitem->getParameterValue()) {
+        double value;
+        if (column==0) {
+            value = pitem->getParameterValue()->getTemperature();
+            pitem->setText(QString::number(value, 'f', 3));
+        } else {
+            value = pitem->getParameterValue()->getValue();
+            pitem->setText(QString::number(value, 'e', 12));
+        }
+    }
+
+    valueTable_->editItem(item);
 }
 
 void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
@@ -253,6 +324,10 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
     if (items.first()!=item) return;
 
     MaterialParameterViewItem* pitem = dynamic_cast<MaterialParameterViewItem*>(item);
+    if (pitem->isEditing()) return;
+
+    // NQLog("MaterialParameterView", NQLog::Spam) << "void parameterValueChanged(QTableWidgetItem* item)";
+
     Parameter* parameter = ParameterSelectionModel_->getSelection();
     if (!parameter) return;
     Property* property = parameter->getProperty();
@@ -261,11 +336,7 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
 
     int row = valueTable_->currentRow();
 
-    int pos;
-    bool ok;
     QString text = item->text();
-    double value = text.toDouble(&ok);
-
     if (text.isEmpty()) {
         valueTable_->setCurrentItem(0);
         if (item->column()==1) {
@@ -276,35 +347,10 @@ void MaterialParameterView::parameterValueChanged(QTableWidgetItem* item)
         return;
     }
 
-    QValidator::State state;
-    if (item->column()==0) {
-        state = parameter->getTemperatureUnit()->validate(text, pos);
-    } else {
-        state = parameter->getValueUnit()->validate(text, pos);
-    }
-
-    if (state!=QValidator::Acceptable) {
-        if (pvalue) {
-            if (item->column()==0) {
-                pvalue->resetTemperature();
-            } else {
-                pvalue->resetValue();
-            }
-        }
-        item->setText("");
-        return;
-    }
-
-    if (pvalue) {
-        if (item->column()==0) {
-            pvalue->setTemperature(value);
-            item->setText(pvalue->prettyTemperature());
-        } else {
-            pvalue->setValue(value);
-            item->setText(pvalue->prettyValue());
-        }
-    } else {
-        if (item->column()==0) {
+    bool ok;
+    double value = text.toDouble(&ok);
+    if (!pvalue && ok) {
+         if (item->column()==0) {
             parameter->addValue(value, 0);
         } else {
             parameter->addValue(value);
