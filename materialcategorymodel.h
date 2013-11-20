@@ -70,6 +70,8 @@ public slots:
 
 protected:
 
+    void changedCategoryUUID(MaterialCategory* category, const QString& uuid);
+
     std::map<QString,MaterialCategory*> categoriesUUIDMap_;
     std::map<QString,MaterialCategory*> categoriesMap_;
     std::vector<MaterialCategory*> categories_;

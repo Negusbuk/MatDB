@@ -23,6 +23,8 @@
 #include <QTextStream>
 #include <QUuid>
 
+#include <nqlogger.h>
+
 #include "materialcategorymodel.h"
 
 MaterialCategoryModel::MaterialCategoryModel(QObject *parent) :
@@ -37,15 +39,7 @@ void MaterialCategoryModel::addCategory(const QString& name,
                                         const QColor& bgColor,
                                         bool readonly)
 {
-    MaterialCategory * mc = new MaterialCategory(name, bgColor, readonly);
-    mc->setUUID(QUuid::createUuid().toString());
-
-    categoriesUUIDMap_[mc->getUUID()] = mc;
-    categoriesMap_[name] = mc;
-    categories_.push_back(mc);
-
-    emit dataChanged(QModelIndex(), QModelIndex());
-    emit categoriesChanged();
+    addCategory(QUuid::createUuid().toString(), name, bgColor, readonly);
 }
 
 void MaterialCategoryModel::addCategory(const QString& uuid,
@@ -56,6 +50,9 @@ void MaterialCategoryModel::addCategory(const QString& uuid,
     MaterialCategory * mc = new MaterialCategory(name, bgColor, readonly);
     mc->setUUID(uuid);
     if (uuid.length()==0) mc->setUUID(QUuid::createUuid().toString());
+
+    NQLog("MaterialCategoryModel", NQLog::Spam) << "Cat: " << mc;
+    NQLog("MaterialCategoryModel", NQLog::Spam) << "     " << mc->getUUID();
 
     categoriesMap_[name] = mc;
     categoriesUUIDMap_[uuid] = mc;
@@ -100,17 +97,12 @@ void MaterialCategoryModel::removeCategory(const QString& name)
 
 void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QString& name)
 {
-    category->setName(name);
-
-    for (std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.begin();
-         it != categoriesMap_.end();
-         ++it) {
-            if (it->second==category) {
-                categoriesMap_.erase(it);
-                break;
-            }
+    std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(category->getName());
+    if(it != categoriesMap_.end()) {
+        categoriesMap_.erase(it);
     }
 
+    category->setName(name);
     categoriesMap_[name] = category;
 }
 
@@ -129,7 +121,11 @@ MaterialCategory* MaterialCategoryModel::getCategory(const QString& name)
 MaterialCategory* MaterialCategoryModel::getCategoryByUUID(const QString& uuid)
 {
     std::map<QString,MaterialCategory*>::iterator it = categoriesUUIDMap_.find(uuid);
-    if (it!=categoriesMap_.end()) return it->second;
+    if (it!=categoriesMap_.end()) {
+        MaterialCategory *category = it->second;
+        NQLog("MaterialCategoryModel", NQLog::Spam) << category;
+        return category;
+    }
     return 0;
 }
 
@@ -199,6 +195,16 @@ QVariant MaterialCategoryModel::data(const QModelIndex & index, int role) const
 //    return true;
 //}
 
+void MaterialCategoryModel::changedCategoryUUID(MaterialCategory* category, const QString& uuid)
+{
+    std::map<QString,MaterialCategory*>::iterator it = categoriesUUIDMap_.find(category->getUUID());
+    if (it!=categoriesUUIDMap_.end()) {
+        categoriesUUIDMap_.erase(it);
+    }
+    category->setUUID(uuid);
+    categoriesUUIDMap_[uuid] = category;
+}
+
 void MaterialCategoryModel::read(QIODevice *source)
 {
     QDomDocument document;
@@ -216,9 +222,14 @@ void MaterialCategoryModel::read(QIODevice *source)
         QDomElement name = catElem.elementsByTagName("Name").at(0).toElement();
 
         MaterialCategory* category = getCategory(name.text());
-        if (category!=NULL) {
-            category->setUUID(uuid.text());
-            if (category->getUUID().length()==0) category->setUUID(QUuid::createUuid().toString());
+        if (category!=NULL && category->isReadOnly()) {
+            QString suuid = uuid.text();
+            if (suuid.length()==0) suuid = QUuid::createUuid().toString();
+            changedCategoryUUID(category, suuid);
+
+            NQLog("MaterialCategoryModel", NQLog::Spam) << "Cat: " << category;
+            NQLog("MaterialCategoryModel", NQLog::Spam) << "     " << category->getUUID();
+
             continue;
         }
 
@@ -245,18 +256,20 @@ void MaterialCategoryModel::write(QIODevice *destination)
          it!=categories_.end();
          ++it) {
         MaterialCategory* category = *it;
-        //if (category->isReadOnly()) continue;
 
         stream.writeStartElement("Category");
 
         stream.writeTextElement("UUID", category->getUUID());
         stream.writeTextElement("Name", category->getName());
-        stream.writeStartElement("Color");
-        const QColor &color = category->getColor();
-        stream.writeAttribute("Red", QString::number(color.red()));
-        stream.writeAttribute("Green", QString::number(color.green()));
-        stream.writeAttribute("Blue", QString::number(color.blue()));
-        stream.writeEndElement();
+
+        if (!category->isReadOnly()) {
+            stream.writeStartElement("Color");
+            const QColor &color = category->getColor();
+            stream.writeAttribute("Red", QString::number(color.red()));
+            stream.writeAttribute("Green", QString::number(color.green()));
+            stream.writeAttribute("Blue", QString::number(color.blue()));
+            stream.writeEndElement();
+        }
 
         stream.writeEndElement();
     }
