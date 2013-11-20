@@ -27,6 +27,7 @@
 #include <QToolBar>
 #include <QAction>
 #include <QDockWidget>
+#include <QTimer>
 
 #include <parametermodel.h>
 #include <propertymodel.h>
@@ -64,6 +65,8 @@ public slots:
     void addDefaultLiquidMaterial();
     void addDefaultGaseousMaterial();
 
+    void saveData();
+
 protected:
 
     void closeEvent(QCloseEvent *event);
@@ -93,6 +96,8 @@ protected:
 
     PropertySelectionModel* PropertySelectionModel_;
     ParameterSelectionModel* ParameterSelectionModel_;
+
+    QTimer* autoSaveTimer_;
 };
 
 #endif // MATDBMAINWINDOW_H

@@ -189,10 +189,13 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
         fileCat.close();
     }
 
-    MaterialListModel_->read(dbDir,
-                             PropertyModel_,
-                             ParameterModel_);
+    MaterialListModel_->read(dbDir, PropertyModel_);
     if (MaterialListModel_->getMaterialCount()==0) makeDefaultMaterials();
+
+    autoSaveTimer_ = new QTimer(this);
+    connect(autoSaveTimer_, SIGNAL(timeout()),
+            this, SLOT(saveData()));
+    autoSaveTimer_->start(1000*5);
 
     updateGeometry();
 }
@@ -350,9 +353,9 @@ void MatDBMainWindow::importMaterials()
     MaterialListModel_->addMaterials(dialog.getSelectedMaterials());
 }
 
-void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
+void MatDBMainWindow::saveData()
 {
-    NQLog("MatDBMainWindow", NQLog::Spam) << "void closeEvent(QCloseEvent *event)";
+    NQLog("MatDBMainWindow", NQLog::Message) << "saving database";
 
     QSettings settings;
     QString dbPath = settings.value("dbpath").toString();
@@ -368,6 +371,13 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
         MaterialCategoryModel_->write(&ofileCat);
         ofileCat.close();
     }
+}
+
+void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
+{
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void closeEvent(QCloseEvent *event)";
+
+    saveData();
 }
 
 void MatDBMainWindow::aboutDialog()
