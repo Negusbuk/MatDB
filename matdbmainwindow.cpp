@@ -189,18 +189,10 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
         fileCat.close();
     }
 
-    QFile file(dbDir.absoluteFilePath("Materials.xml"));
-    if (file.open(QIODevice::ReadOnly)) {
-        MATMLReader reader(MaterialListModel_,
-                           PropertyModel_,
-                           ParameterModel_,
-                           MaterialCategoryModel_,
-                           this);
-        reader.read(&file);
-        file.close();
-    } else {
-        makeDefaultMaterials();
-    }
+    MaterialListModel_->read(dbDir,
+                             PropertyModel_,
+                             ParameterModel_);
+    if (MaterialListModel_->getMaterialCount()==0) makeDefaultMaterials();
 
     updateGeometry();
 }
@@ -369,37 +361,7 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
         dbDir.mkpath(".");
     }
 
-    QFile ofile(dbDir.absoluteFilePath("Materials.xml"));
-    if (ofile.open(QIODevice::WriteOnly)) {
-        MATMLWriter writer(MaterialListModel_->getAllMaterials(),
-                           PropertyModel_,
-                           ParameterModel_,
-                           this);
-        writer.write(&ofile, MATMLWriter::ANSYS);
-        ofile.close();
-    }
-
-    /*
-    QFile ofile1(dbDir.absoluteFilePath("Materials2_MatML.xml"));
-    if (ofile1.open(QIODevice::WriteOnly)) {
-        MATMLWriter writer(MaterialListModel_->getMaterials(),
-                           PropertyModel_,
-                           ParameterModel_,
-                           this);
-        writer.write(&ofile1, MATMLWriter::MatML);
-        ofile1.close();
-    }
-
-    QFile ofile2(dbDir.absoluteFilePath("Materials2_ANSYS.xml"));
-    if (ofile2.open(QIODevice::WriteOnly)) {
-        MATMLWriter writer(MaterialListModel_->getMaterials(),
-                           PropertyModel_,
-                           ParameterModel_,
-                           this);
-        writer.write(&ofile2, MATMLWriter::ANSYS);
-        ofile2.close();
-    }
-    */
+    MaterialListModel_->write(dbDir);
 
     QFile ofileCat(dbDir.absoluteFilePath("Categories.xml"));
     if (ofileCat.open(QIODevice::WriteOnly)) {
