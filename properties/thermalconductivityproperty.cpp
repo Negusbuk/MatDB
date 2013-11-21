@@ -275,3 +275,66 @@ void OrthotropicThermalConductivityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeTextElement("Name", "Thermal Conductivity");
     stream.writeEndElement();
 }
+
+void OrthotropicThermalConductivityProperty::writeHTML(QXmlStreamWriter& stream)
+{
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("class", "MatDBTitle");
+    stream.writeCharacters(getName());
+    stream.writeEndElement(); // td
+
+    Parameter* parameter;
+
+    parameter = getParameter("Thermal Conductivity X direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("X");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Thermal Conductivity Y direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("Y");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Thermal Conductivity Z direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("Z");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+}

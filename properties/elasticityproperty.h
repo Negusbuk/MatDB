@@ -57,6 +57,7 @@ public:
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeHTML(QXmlStreamWriter& stream);
 
 protected:
     IsotropicElasticityPropertyWidget* widget_;
@@ -92,6 +93,7 @@ public:
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeHTML(QXmlStreamWriter& stream);
 };
 
 #endif // ELASTICITYPROPERTY_H

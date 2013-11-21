@@ -27,6 +27,7 @@
 #include <QMap>
 #include <QObject>
 #include <QDir>
+#include <QXmlStreamWriter>
 
 #include <materiallistmodel.h>
 #include <propertymodel.h>
@@ -51,6 +52,8 @@ signals:
 public slots:
 
 protected:
+
+    void writeMaterial(Material*material, const QString& filename);
 
     const std::vector<Material*>& materials_;
     PropertyModel* propmodel_;

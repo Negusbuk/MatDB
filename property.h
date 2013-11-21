@@ -157,6 +157,7 @@ public:
     virtual void read(const QDomElement& element);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeHTML(QXmlStreamWriter& stream);
     virtual void writeXMLData(QXmlStreamWriter& stream);
 
     static double undefindedIdentifyer() { return 7.88860905221012e-31; }

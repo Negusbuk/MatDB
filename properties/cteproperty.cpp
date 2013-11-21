@@ -283,6 +283,69 @@ void OrthotropicInstantaneousCoefficientOfThermalExpansion::writeXML(QXmlStreamW
     stream.writeEndElement();
 }
 
+void OrthotropicInstantaneousCoefficientOfThermalExpansion::writeHTML(QXmlStreamWriter& stream)
+{
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("class", "MatDBTitle");
+    stream.writeCharacters(getName());
+    stream.writeEndElement(); // td
+
+    Parameter* parameter;
+
+    parameter = getParameter("Coefficient of Thermal Expansion X direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("CTE X");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Coefficient of Thermal Expansion Y direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("CTE Y");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Coefficient of Thermal Expansion Z direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("CTE Z");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+}
+
 IsotropicSecantCoefficientOfThermalExpansion::IsotropicSecantCoefficientOfThermalExpansion(ParameterModel* model,
                                                                                                int id) :
     Property(id)
@@ -402,6 +465,50 @@ void IsotropicSecantCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& st
     stream.writeEmptyElement("Unitless");
     stream.writeTextElement("Name", "Coefficient of Thermal Expansion");
     stream.writeEndElement();
+}
+
+void IsotropicSecantCoefficientOfThermalExpansion::writeHTML(QXmlStreamWriter& stream)
+{
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("class", "MatDBTitle");
+    stream.writeCharacters(getName());
+    stream.writeEndElement(); // td
+
+    Parameter* parameter;
+
+    parameter = getParameter("Coefficient of Thermal Expansion");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("CTE");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Reference Temperature");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(parameter->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
 }
 
 OrthotropicSecantCoefficientOfThermalExpansion::OrthotropicSecantCoefficientOfThermalExpansion(ParameterModel* model,
@@ -544,4 +651,86 @@ void OrthotropicSecantCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& 
     stream.writeEmptyElement("Unitless");
     stream.writeTextElement("Name", "Coefficient of Thermal Expansion");
     stream.writeEndElement();
+}
+
+void OrthotropicSecantCoefficientOfThermalExpansion::writeHTML(QXmlStreamWriter& stream)
+{
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("class", "MatDBTitle");
+    stream.writeCharacters(getName());
+    stream.writeEndElement(); // td
+
+    Parameter* parameter;
+
+    parameter = getParameter("Coefficient of Thermal Expansion X direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("CTE X");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Coefficient of Thermal Expansion Y direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("CTE Y");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Coefficient of Thermal Expansion Z direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("CTE Z");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    parameter = getParameter("Reference Temperature");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(parameter->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
 }

@@ -424,6 +424,78 @@ void Parameter::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // ParameterDetails
 }
 
+void Parameter::writeHTML(QXmlStreamWriter& stream)
+{
+    stream.writeStartElement("table");
+    //stream.writeAttribute("class", "MatDBTable");
+
+    if (getNumberOfValues()==0) {
+        stream.writeStartElement("tr");
+        stream.writeStartElement("td");
+        stream.writeAttribute("colspan", "3");
+        stream.writeAttribute("align", "right");
+        stream.writeAttribute("bgcolor", "red");
+        stream.writeCharacters("undefined");
+        stream.writeEndElement(); // td
+        stream.writeEndElement(); // tr
+    } else {
+        int idx=0;
+        for (ParameterValueVector::iterator it = Values_->begin();
+             it!=Values_->end();
+             ++it) {
+            stream.writeStartElement("tr");
+
+            ParameterValue& pvalue = *it;
+
+            stream.writeStartElement("td");
+            stream.writeAttribute("class", "MatDBValue");
+            if (Values_->size()>1) {
+                stream.writeCharacters(QString::number(idx));
+            } else {
+                stream.writeCharacters("");
+            }
+            stream.writeEndElement(); // td
+
+            QString ts = "";
+            if (pvalue.isTemperatureValid() && pvalue.isValueValid()) {
+                ts += pvalue.prettyTemperature();
+                if (idx==0) {
+                    ts += " ";
+                    ts += getTemperatureUnit()->currentUnitAsString();
+                }
+            }
+            stream.writeStartElement("td");
+            stream.writeAttribute("class", "MatDBValue");
+            stream.writeAttribute("align", "right");
+            stream.writeAttribute("style", "width:120px;");
+            stream.writeCharacters(ts);
+            stream.writeEndElement(); // td
+
+            QString vs = "";
+            if (pvalue.isValueValid()) {
+                vs += pvalue.prettyValue();
+                if (idx==0 && getValueUnit()->currentUnitAsString()!="1") {
+                    vs += " ";
+                    vs += getValueUnit()->currentUnitAsString();
+                }
+            } else {
+                vs = "undefined";
+            }
+            stream.writeStartElement("td");
+            stream.writeAttribute("class", "MatDBValue");
+            stream.writeAttribute("align", "right");
+            stream.writeAttribute("style", "width:120px;");
+            stream.writeCharacters(vs);
+
+            stream.writeEndElement(); // td
+
+            stream.writeEndElement(); // tr
+        }
+    }
+
+    stream.writeEndElement(); // table
+}
+
 bool Parameter::isModified() const
 {
     if (modified_) return modified_;
