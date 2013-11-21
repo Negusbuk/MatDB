@@ -51,6 +51,7 @@ public:
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeHTML(QXmlStreamWriter& stream);
 };
 
 class IsotropicSecantCoefficientOfThermalExpansion : public Property
@@ -66,6 +67,7 @@ public:
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeHTML(QXmlStreamWriter& stream);
 };
 
 class OrthotropicSecantCoefficientOfThermalExpansion : public Property
@@ -81,6 +83,7 @@ public:
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeHTML(QXmlStreamWriter& stream);
 };
 
 #endif // CTEPROPERTY_H

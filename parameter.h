@@ -115,6 +115,7 @@ public:
 
     virtual void write(QXmlStreamWriter& stream);
     virtual void read(const QDomElement& element);
+    virtual void writeHTML(QXmlStreamWriter& stream);
     virtual void writeXML(QXmlStreamWriter& stream);
 
 protected:

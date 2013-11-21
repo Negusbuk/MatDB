@@ -27,10 +27,12 @@
 #include <QMap>
 #include <QObject>
 #include <QDir>
+#include <QXmlStreamWriter>
 
 #include <materiallistmodel.h>
 #include <propertymodel.h>
 #include <parametermodel.h>
+#include <materialcategorymodel.h>
 #include <property.h>
 
 class HTMLWriter : public QObject
@@ -40,6 +42,7 @@ public:
     explicit HTMLWriter(const std::vector<Material*>& materials,
                         PropertyModel *propmodel,
                         ParameterModel *paramodel,
+                        MaterialCategoryModel *categorymodel,
                         QObject *parent = 0);
 
     void write(const QDir& destination);
@@ -50,9 +53,12 @@ public slots:
 
 protected:
 
+    void writeMaterial(Material*material, const QString& filename);
+
     const std::vector<Material*>& materials_;
     PropertyModel* propmodel_;
     ParameterModel* paramodel_;
+    MaterialCategoryModel* categorymodel_;
 };
 
 #endif // HTMLWRITER_H

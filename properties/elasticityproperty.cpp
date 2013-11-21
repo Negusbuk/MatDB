@@ -374,6 +374,88 @@ void IsotropicElasticityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
+
+void IsotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
+{
+    Parameter * parE = getParameter("Young's Modulus");
+    Parameter * parNu = getParameter("Poisson's Ratio");
+    Parameter * parG = getParameter("Shear Modulus");
+    Parameter * parK = getParameter("Bulk Modulus");
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("class", "MatDBTitle");
+    stream.writeCharacters(getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(parE->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parE->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(parNu->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parNu->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(parG->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parG->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(parK->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    parK->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+}
+
 IsotropicElasticityPropertyWidget::IsotropicElasticityPropertyWidget(QWidget * parent) :
     PropertySpecialWidget(parent)
 {
@@ -551,4 +633,181 @@ void OrthotropicElasticityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEmptyElement("Unitless");
     stream.writeTextElement("Name", "Elasticity");
     stream.writeEndElement();
+}
+
+void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
+{
+    Parameter * par;
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("class", "MatDBTitle");
+    stream.writeCharacters(getName());
+    stream.writeEndElement(); // td
+
+    par = getParameter("Young's Modulus X direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("Young's Modulus X");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Young's Modulus Y direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("Young's Modulus Y");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Young's Modulus Z direction");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters("Young's Modulus Z");
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Poisson's Ratio XY");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(par->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Poisson's Ratio YZ");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(par->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Poisson's Ratio XZ");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(par->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Shear Modulus XY");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(par->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Shear Modulus YZ");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(par->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeCharacters("");
+    stream.writeEndElement(); // td
+
+    par = getParameter("Shear Modulus XZ");
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    stream.writeCharacters(par->getName());
+    stream.writeEndElement(); // td
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("align", "right");
+    par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
 }

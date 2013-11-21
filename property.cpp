@@ -205,6 +205,30 @@ void Property::read(const QDomElement &element)
     }
 }
 
+void Property::writeHTML(QXmlStreamWriter& stream)
+{
+    if (getParameters().size()==1) {
+        stream.writeStartElement("tr");
+
+        stream.writeStartElement("td");
+        stream.writeAttribute("class", "MatDBTitle");
+        stream.writeCharacters(getName());
+        stream.writeEndElement(); // td
+
+        stream.writeStartElement("td");
+        stream.writeCharacters("");
+        stream.writeEndElement(); // td
+
+        stream.writeStartElement("td");
+        stream.writeAttribute("align", "right");
+        Parameter* parameter = getParameters().begin()->second;
+        parameter->writeHTML(stream);
+        stream.writeEndElement(); // td
+
+        stream.writeEndElement(); // tr
+    }
+}
+
 void Property::writeXML(QXmlStreamWriter& /* stream */)
 {
 
