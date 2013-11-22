@@ -212,8 +212,19 @@ void Property::writeHTML(QXmlStreamWriter& stream)
 
         stream.writeStartElement("td");
         stream.writeAttribute("class", "MatDBTitle");
+        stream.writeAttribute("valign", "top");
         stream.writeCharacters(getName());
         stream.writeEndElement(); // td
+
+        stream.writeStartElement("td");
+        stream.writeAttribute("colspan", "2");
+        stream.writeAttribute("align", "right");
+
+        stream.writeStartElement("table");
+        stream.writeAttribute("rules", "groups");
+        //stream.writeAttribute("class", "MatDBTable");
+
+        stream.writeStartElement("tr");
 
         stream.writeStartElement("td");
         stream.writeCharacters("");
@@ -223,6 +234,12 @@ void Property::writeHTML(QXmlStreamWriter& stream)
         stream.writeAttribute("align", "right");
         Parameter* parameter = getParameters().begin()->second;
         parameter->writeHTML(stream);
+        stream.writeEndElement(); // td
+
+        stream.writeEndElement(); // tr
+
+        stream.writeEndElement(); // table
+
         stream.writeEndElement(); // td
 
         stream.writeEndElement(); // tr

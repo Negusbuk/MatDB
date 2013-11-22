@@ -282,14 +282,27 @@ void OrthotropicThermalConductivityProperty::writeHTML(QXmlStreamWriter& stream)
 
     stream.writeStartElement("td");
     stream.writeAttribute("class", "MatDBTitle");
+    stream.writeAttribute("valign", "top");
     stream.writeCharacters(getName());
     stream.writeEndElement(); // td
 
+    stream.writeStartElement("td");
+    stream.writeAttribute("colspan", "2");
+    stream.writeAttribute("align", "right");
+
+    stream.writeStartElement("table");
+    //stream.writeAttribute("style", "border-top:1px solid #000;");
+    stream.writeAttribute("rules", "groups");
+    //stream.writeAttribute("class", "MatDBTable");
+
     Parameter* parameter;
+
+    stream.writeStartElement("tbody");
+    stream.writeStartElement("tr");
 
     parameter = getParameter("Thermal Conductivity X direction");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters("X");
     stream.writeEndElement(); // td
 
@@ -299,16 +312,14 @@ void OrthotropicThermalConductivityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     parameter = getParameter("Thermal Conductivity Y direction");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters("Y");
     stream.writeEndElement(); // td
 
@@ -318,22 +329,27 @@ void OrthotropicThermalConductivityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     parameter = getParameter("Thermal Conductivity Z direction");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters("Z");
     stream.writeEndElement(); // td
 
     stream.writeStartElement("td");
     stream.writeAttribute("align", "right");
     parameter->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
+
+    stream.writeEndElement(); // table
+
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr

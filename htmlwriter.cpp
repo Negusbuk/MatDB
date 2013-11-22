@@ -272,7 +272,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
 
     stream.writeStartElement("tr");
     stream.writeStartElement("td");
-    stream.writeAttribute("style", "width:200px;");
+    stream.writeAttribute("style", "width:150px;");
     stream.writeAttribute("class", "MatDBTitle");
     stream.writeCharacters("Description");
     stream.writeEndElement(); // td

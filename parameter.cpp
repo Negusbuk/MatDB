@@ -449,6 +449,7 @@ void Parameter::writeHTML(QXmlStreamWriter& stream)
 
             stream.writeStartElement("td");
             stream.writeAttribute("class", "MatDBValue");
+            stream.writeAttribute("style", "width:40px;");
             if (Values_->size()>1) {
                 stream.writeCharacters(QString::number(idx));
             } else {
