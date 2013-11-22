@@ -19,6 +19,7 @@
  ****************************************************************************/
 
 #include <QFile>
+#include <QDateTime>
 
 #include <nqlogger.h>
 
@@ -89,7 +90,6 @@ void HTMLWriter::write(const QDir& destination)
 
     stream.writeStartElement("div");
     stream.writeAttribute("class", "MatDBContent");
-    //stream.writeAttribute("style", "width:600px;");
 
     stream.writeStartElement("div");
     stream.writeAttribute("align", "left");
@@ -185,6 +185,11 @@ void HTMLWriter::write(const QDir& destination)
 
     stream.writeEndElement(); // table
 
+    QString generator = "Generated ";
+    generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
+    generator += " by MatDB";
+    stream.writeTextElement("p", generator);
+
     stream.writeEndElement();
     stream.writeEndElement();
     stream.writeEndElement();
@@ -237,7 +242,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
 
     stream.writeStartElement("table");
     //stream.writeAttribute("class", "MatDBTable");
-    stream.writeAttribute("style", "width:800px;");
+    stream.writeAttribute("style", "width:100%;");
     stream.writeStartElement("tr");
 
     stream.writeStartElement("td");
@@ -268,11 +273,11 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
 
     stream.writeStartElement("table");
     //stream.writeAttribute("class", "MatDBTable");
-    stream.writeAttribute("style", "width:800px;");
+    stream.writeAttribute("style", "width:100%;");
 
     stream.writeStartElement("tr");
     stream.writeStartElement("td");
-    stream.writeAttribute("style", "width:200px;");
+    stream.writeAttribute("style", "width:150px;");
     stream.writeAttribute("class", "MatDBTitle");
     stream.writeCharacters("Description");
     stream.writeEndElement(); // td
@@ -331,7 +336,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeEndElement(); // table
 
     stream.writeStartElement("table");
-    stream.writeAttribute("style", "width:800px;border-bottom:1px solid #000;");
+    stream.writeAttribute("style", "width:100%;border-bottom:1px solid #000;");
     stream.writeAttribute("rules", "groups");
 
     const std::vector<Property*> properties = material->getSortedProperties();
@@ -345,7 +350,17 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
 
     stream.writeEndElement(); // table
 
-    stream.writeEndElement();
+    stream.writeEndElement(); // div
+
+    stream.writeStartElement("div");
+    stream.writeAttribute("style", "width:100%;");
+    stream.writeAttribute("align", "right");
+    QString generator = "Generated ";
+    generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
+    generator += " by MatDB";
+    stream.writeTextElement("p", generator);
+    stream.writeEndElement(); // div
+
     stream.writeEndElement();
     stream.writeEndElement();
     stream.writeEndElement();

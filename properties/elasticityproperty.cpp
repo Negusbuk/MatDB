@@ -386,11 +386,24 @@ void IsotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
 
     stream.writeStartElement("td");
     stream.writeAttribute("class", "MatDBTitle");
+    stream.writeAttribute("valign", "top");
     stream.writeCharacters(getName());
     stream.writeEndElement(); // td
 
     stream.writeStartElement("td");
+    stream.writeAttribute("colspan", "2");
     stream.writeAttribute("align", "right");
+
+    stream.writeStartElement("table");
+    //stream.writeAttribute("style", "border-top:1px solid #000;");
+    stream.writeAttribute("rules", "groups");
+    //stream.writeAttribute("class", "MatDBTable");
+
+    stream.writeStartElement("tbody");
+    stream.writeStartElement("tr");
+
+    stream.writeStartElement("td");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(parE->getName());
     stream.writeEndElement(); // td
 
@@ -400,15 +413,13 @@ void IsotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
 
     stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
-
-    stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(parNu->getName());
     stream.writeEndElement(); // td
 
@@ -418,15 +429,13 @@ void IsotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
 
     stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
-
-    stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(parG->getName());
     stream.writeEndElement(); // td
 
@@ -436,21 +445,25 @@ void IsotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
 
     stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
-
-    stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(parK->getName());
     stream.writeEndElement(); // td
 
     stream.writeStartElement("td");
     stream.writeAttribute("align", "right");
     parK->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+
+    stream.writeEndElement(); // table
+
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
@@ -643,12 +656,25 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
 
     stream.writeStartElement("td");
     stream.writeAttribute("class", "MatDBTitle");
+    stream.writeAttribute("valign", "top");
     stream.writeCharacters(getName());
     stream.writeEndElement(); // td
 
+    stream.writeStartElement("td");
+    stream.writeAttribute("colspan", "2");
+    stream.writeAttribute("align", "right");
+
+    stream.writeStartElement("table");
+    //stream.writeAttribute("style", "border-top:1px solid #000;");
+    stream.writeAttribute("rules", "groups");
+    //stream.writeAttribute("class", "MatDBTable");
+
+    stream.writeStartElement("tbody");
+    stream.writeStartElement("tr");
+
     par = getParameter("Young's Modulus X direction");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters("Young's Modulus X");
     stream.writeEndElement(); // td
 
@@ -658,16 +684,14 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Young's Modulus Y direction");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters("Young's Modulus Y");
     stream.writeEndElement(); // td
 
@@ -677,16 +701,14 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Young's Modulus Z direction");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters("Young's Modulus Z");
     stream.writeEndElement(); // td
 
@@ -696,16 +718,14 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Poisson's Ratio XY");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(par->getName());
     stream.writeEndElement(); // td
 
@@ -715,16 +735,14 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Poisson's Ratio YZ");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(par->getName());
     stream.writeEndElement(); // td
 
@@ -734,16 +752,14 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Poisson's Ratio XZ");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(par->getName());
     stream.writeEndElement(); // td
 
@@ -753,16 +769,14 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Shear Modulus XY");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(par->getName());
     stream.writeEndElement(); // td
 
@@ -772,16 +786,14 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Shear Modulus YZ");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(par->getName());
     stream.writeEndElement(); // td
 
@@ -791,22 +803,27 @@ void OrthotropicElasticityProperty::writeHTML(QXmlStreamWriter& stream)
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
 
+    stream.writeStartElement("tbody");
     stream.writeStartElement("tr");
-
-    stream.writeStartElement("td");
-    stream.writeCharacters("");
-    stream.writeEndElement(); // td
 
     par = getParameter("Shear Modulus XZ");
     stream.writeStartElement("td");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("class", "MatDBParameterName");
     stream.writeCharacters(par->getName());
     stream.writeEndElement(); // td
 
     stream.writeStartElement("td");
     stream.writeAttribute("align", "right");
     par->writeHTML(stream);
+    stream.writeEndElement(); // td
+
+    stream.writeEndElement(); // tr
+    stream.writeEndElement(); // tbody
+
+    stream.writeEndElement(); // table
+
     stream.writeEndElement(); // td
 
     stream.writeEndElement(); // tr
