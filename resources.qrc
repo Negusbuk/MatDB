@@ -22,4 +22,8 @@
         <file>artwork/MatDBSplashScreen.png</file>
         <file>artwork/MatDBBG.png</file>
     </qresource>
+    <qresource>
+        <file>translations/MatDB_en.qm</file>
+        <file>translations/MatDB_de.qm</file>
+    </qresource>
 </RCC>

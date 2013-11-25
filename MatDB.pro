@@ -157,3 +157,6 @@ OTHER_FILES += stylesheet.qss \
     artwork/MatDBBG.png \
     html/header.html \
     html/footer.html
+
+TRANSLATIONS = translations/MatDB_en.ts \
+               translations/MatDB_de.ts
