@@ -31,9 +31,9 @@ MaterialCategoryModel::MaterialCategoryModel(QObject *parent) :
     QAbstractTableModel(parent),
     modified_(false)
 {
-    addCategory("No Category", QColor(255, 255, 255, 0), true);
-    addCategory("Structural", QColor(100, 0, 0, 255), true);
-    addCategory("Glue", QColor(0, 100, 0, 255), true);
+    addCategory(tr("No Category"), QColor(255, 255, 255, 0), true);
+    addCategory(tr("Structural"), QColor(100, 0, 0, 255), true);
+    addCategory(tr("Glue"), QColor(0, 100, 0, 255), true);
 }
 
 void MaterialCategoryModel::addCategory(const QString& name,

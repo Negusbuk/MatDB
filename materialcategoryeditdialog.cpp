@@ -39,7 +39,7 @@ MaterialCategoryEditDialog::MaterialCategoryEditDialog(QWidget *parent) :
     widget->setLayout(formLayout);
 
     nameEdit_ = new QLineEdit(widget);
-    formLayout->addRow("Name:", nameEdit_);
+    formLayout->addRow(tr("Name:"), nameEdit_);
 
     colorPicker_ = new NQColorWheel(widget);
     layout->addWidget(colorPicker_);
@@ -51,12 +51,12 @@ MaterialCategoryEditDialog::MaterialCategoryEditDialog(QWidget *parent) :
     widget->setLayout(buttonLayout);
 
     QPushButton *button;
-    button = new QPushButton("Ok", this);
+    button = new QPushButton(tr("Ok"), this);
     buttonLayout->addWidget(button);
     connect(button, SIGNAL(clicked()),
             this, SLOT(accept()));
 
-    button = new QPushButton("Cancel", this);
+    button = new QPushButton(tr("Cancel"), this);
     buttonLayout->addWidget(button);
     connect(button, SIGNAL(clicked()),
             this, SLOT(reject()));

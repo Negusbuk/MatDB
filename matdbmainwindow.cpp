@@ -73,44 +73,44 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
 
     ToolBar_ = addToolBar("ToolBar");
     ToolBar_->addAction(QIcon(":/icons/MatDBImportXML.png"),
-                        "Import XML",
+                        tr("Import XML"),
                         this,
                         SLOT(importMaterials()));
     ToolBar_->addSeparator();
     ToolBar_->addAction(QIcon(":/icons/MatDBAddIsotropicMaterial.png"),
-                        "Add Isotropic Material",
+                        tr("Add Isotropic Material"),
                         this,
                         SLOT(addDefaultIsotropicMaterial()));
     ToolBar_->addAction(QIcon(":/icons/MatDBAddOrthotropicMaterial.png"),
-                        "Add Orthotropic Material",
+                        tr("Add Orthotropic Material"),
                         this,
                         SLOT(addDefaultOrthotropicMaterial()));
     ToolBar_->addAction(QIcon(":/icons/MatDBAddLiquidMaterial.png"),
-                        "Add Liquid Material",
+                        tr("Add Liquid Material"),
                         this,
                         SLOT(addDefaultLiquidMaterial()));
     ToolBar_->addAction(QIcon(":/icons/MatDBAddGaseousMaterial.png"),
-                        "Add Gaseous Material",
+                        tr("Add Gaseous Material"),
                         this,
                         SLOT(addDefaultGaseousMaterial()));
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
     togglePropertyToolBoxDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBPropertyToolBox.png"),
-                                                                 "Hide Toolbox",
+                                                                 tr("Hide Toolbox"),
                                                                  this,
                                                                  SLOT(togglePropertyToolBoxDockWidget()));
     togglePropertyToolBoxDockWidgetAction_->setCheckable(true);
     togglePropertyToolBoxDockWidgetAction_->setChecked(true);
     toggleCategoryDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBCategories.png"),
-                                                          "Hide Categories",
+                                                          tr("Hide Categories"),
                                                           this,
                                                           SLOT(toggleCategoryDockWidget()));
     toggleCategoryDockWidgetAction_->setCheckable(true);
     toggleCategoryDockWidgetAction_->setChecked(true);
     ToolBar_->addSeparator();
-    ToolBar_->addAction(QIcon(":/icons/MatDBExportXML.png"), "Export XML", this, SLOT(exportMaterialsXML()));
-    ToolBar_->addAction(QIcon(":/icons/MatDBExportHTML.png"), "Export HTML", this, SLOT(exportMaterialsHTML()));
+    ToolBar_->addAction(QIcon(":/icons/MatDBExportXML.png"), tr("Export XML"), this, SLOT(exportMaterialsXML()));
+    ToolBar_->addAction(QIcon(":/icons/MatDBExportHTML.png"), tr("Export HTML"), this, SLOT(exportMaterialsHTML()));
     ToolBar_->setFloatable(false);
     ToolBar_->setMovable(false);
     ToolBar_->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -253,12 +253,12 @@ void MatDBMainWindow::exportMaterialsXML()
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    "Export Materials",
+                                                    tr("Export Materials"),
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
                                                     "*.xml");
 #else
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    "Export Materials",
+                                                    tr("Export Materials"),
                                                     QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
                                                     "*.xml");
 #endif
@@ -299,12 +299,12 @@ void MatDBMainWindow::exportMaterialsHTML()
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString dirname = QFileDialog::getExistingDirectory(this,
-                                                    "Export Materials",
+                                                    tr("Export Materials"),
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
                                                     QFileDialog::ShowDirsOnly);
 #else
     QString dirname = QFileDialog::getExistingDirectory(this,
-                                                    "Export Materials",
+                                                    tr("Export Materials"),
                                                     QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
                                                     QFileDialog::ShowDirsOnly);
 #endif
@@ -334,13 +334,13 @@ void MatDBMainWindow::importMaterials()
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    "Import Materials",
+                                                    tr("Import Materials"),
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
                                                     formats,
                                                     &selectedFormat);
 #else
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    "Import Materials",
+                                                    tr("Import Materials"),
                                                     QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
                                                     formats,
                                                     &selectedFormat);
@@ -415,10 +415,10 @@ void MatDBMainWindow::togglePropertyToolBoxDockWidget()
 {
     if (togglePropertyToolBoxDockWidgetAction_->isChecked()) {
         propertyToolBoxDockWidget_->show();
-        togglePropertyToolBoxDockWidgetAction_->setText("Hide Toolbox");
+        togglePropertyToolBoxDockWidgetAction_->setText(tr("Hide Toolbox"));
     } else {
         propertyToolBoxDockWidget_->hide();
-        togglePropertyToolBoxDockWidgetAction_->setText("Show Toolbox");
+        togglePropertyToolBoxDockWidgetAction_->setText(tr("Show Toolbox"));
     }
 }
 
@@ -426,9 +426,9 @@ void MatDBMainWindow::toggleCategoryDockWidget()
 {
     if (toggleCategoryDockWidgetAction_->isChecked()) {
         categoryDockWidget_->show();
-        toggleCategoryDockWidgetAction_->setText("Hide Categories");
+        toggleCategoryDockWidgetAction_->setText(tr("Hide Categories"));
     } else {
         categoryDockWidget_->hide();
-        toggleCategoryDockWidgetAction_->setText("Show Categories");
+        toggleCategoryDockWidgetAction_->setText(tr("Show Categories"));
     }
 }
