@@ -18,6 +18,7 @@
  **
  ****************************************************************************/
 
+#include <QApplication>
 #include <QBoxLayout>
 
 #include "matdbaboutdialog.h"
@@ -25,15 +26,18 @@
 MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
     QWizard(parent)
 {
+#ifdef Q_WS_MAC
+    this->setParent(qApp->focusWidget());
+    this->setWindowModality(Qt::WindowModal);
+    this->setWindowFlags(Qt::Sheet);
+    setWizardStyle(ModernStyle);
+#endif
+
     setSizeGripEnabled(false);
 
     setPage(Page_Intro, new IntroPage);
 
     setStartId(Page_Intro);
-
- #ifndef Q_WS_MAC
-     setWizardStyle(ModernStyle);
- #endif
 
      //setOption(HaveHelpButton, false);
      setPixmap(QWizard::BackgroundPixmap, QPixmap(":/pics/MatDBBG.png"));
