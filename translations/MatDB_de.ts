@@ -2,6 +2,61 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en_US">
 <context>
+    <name>HTMLWriter</name>
+    <message>
+        <location filename="../htmlwriter.cpp" line="47"/>
+        <source>No Category</source>
+        <translation type="unfinished">keine Kategorie</translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="74"/>
+        <source>.: MatDB Materials :.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="188"/>
+        <location filename="../htmlwriter.cpp" line="358"/>
+        <source>Generated on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="190"/>
+        <location filename="../htmlwriter.cpp" line="360"/>
+        <source> by MatDB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="217"/>
+        <source>.: MatDB Materials - </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="267"/>
+        <source>back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="282"/>
+        <source>Description</source>
+        <translation type="unfinished">Beschreibung</translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="290"/>
+        <source>Category</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="302"/>
+        <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="320"/>
+        <source>Notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>IntroPage</name>
     <message>
         <location filename="../matdbaboutdialog.cpp" line="47"/>
@@ -338,6 +393,62 @@
     </message>
 </context>
 <context>
+    <name>ParameterModel</name>
+    <message>
+        <location filename="../parametermodel.cpp" line="58"/>
+        <source>Temperature</source>
+        <translation>Temperatur</translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="64"/>
+        <source>Reference Temperature</source>
+        <translation>Referenztemperatur</translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="70"/>
+        <source>Density</source>
+        <translation>Dichte</translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="222"/>
+        <source>Resistivity Z direction</source>
+        <translation>spezifischer Widerstand Z-Richtung</translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="228"/>
+        <source>Specific Heat</source>
+        <translation>spezifische Wärmekapazität</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyModel</name>
+    <message>
+        <location filename="../propertymodel.cpp" line="88"/>
+        <source>Physical Properties</source>
+        <translation>Physikalische Eigenschaften</translation>
+    </message>
+    <message>
+        <location filename="../propertymodel.cpp" line="89"/>
+        <source>Linear Elastic Properties</source>
+        <translation>Lineare Elastische Eigenschaften</translation>
+    </message>
+    <message>
+        <location filename="../propertymodel.cpp" line="90"/>
+        <source>Thermal Properties</source>
+        <translation>Thermische Eigenschaften</translation>
+    </message>
+    <message>
+        <location filename="../propertymodel.cpp" line="91"/>
+        <source>Electrical Properties</source>
+        <translation>Elektrische Eigenschaften</translation>
+    </message>
+    <message>
+        <location filename="../propertymodel.cpp" line="92"/>
+        <source>Fluid Properties</source>
+        <translation>Eigenschaften von Flüffigkeiten und Gasen</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../materialpropertyview.cpp" line="78"/>
@@ -349,6 +460,31 @@
         <location filename="../materialpropertyview.cpp" line="106"/>
         <source>Table</source>
         <translation>Tabelle</translation>
+    </message>
+    <message>
+        <location filename="../property.cpp" line="60"/>
+        <source>Physical Properties</source>
+        <translation>Physikalische Eigenschafter</translation>
+    </message>
+    <message>
+        <location filename="../property.cpp" line="63"/>
+        <source>Linear Elastic Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../property.cpp" line="66"/>
+        <source>Thermal Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../property.cpp" line="69"/>
+        <source>Electrical Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../property.cpp" line="72"/>
+        <source>Fluid Properties</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
