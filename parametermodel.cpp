@@ -55,147 +55,177 @@ void ParameterModel::build()
 
     par = new Parameter(new Unit::Temperature(), id++);
     par->setName("Temperature");
+    par->setDisplayName(tr("Temperature"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Temperature(), id++, false);
     par->setName("Reference Temperature");
+    par->setDisplayName(tr("Reference Temperature"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Density(), mid--);
     par->setName("Density");
+    par->setDisplayName(tr("Density"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Viscosity(), mid--);
     par->setName("Viscosity");
+    par->setDisplayName(tr("Viscosity"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Young's Modulus");
+    par->setDisplayName(tr("Young's Modulus"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Young's Modulus X direction");
+    par->setDisplayName(tr("Young's Modulus X direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Young's Modulus Y direction");
+    par->setDisplayName(tr("Young's Modulus Y direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Young's Modulus Z direction");
+    par->setDisplayName(tr("Young's Modulus Z direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Unitless(), id++);
     par->setName("Poisson's Ratio");
+    par->setDisplayName(tr("Poisson's Ratio"));
     addParameter(par);
 
     par = new Parameter(new Unit::Unitless(), id++);
     par->setName("Poisson's Ratio XY");
+    par->setDisplayName(tr("Poisson's Ratio XY"));
     addParameter(par);
 
     par = new Parameter(new Unit::Unitless(), id++);
     par->setName("Poisson's Ratio YZ");
+    par->setDisplayName(tr("Poisson's Ratio YZ"));
     addParameter(par);
 
     par = new Parameter(new Unit::Unitless(), id++);
     par->setName("Poisson's Ratio XZ");
+    par->setDisplayName(tr("Poisson's Ratio XZ"));
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Shear Modulus");
+    par->setDisplayName(tr("Shear Modulus"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Shear Modulus XY");
+    par->setDisplayName(tr("Shear Modulus XY"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Shear Modulus YZ");
+    par->setDisplayName(tr("Shear Modulus YZ"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Shear Modulus XZ");
+    par->setDisplayName(tr("Shear Modulus XZ"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Bulk Modulus");
+    par->setDisplayName(tr("Bulk Modulus"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::ThermalConductivity(), id++);
     par->setName("Thermal Conductivity");
+    par->setDisplayName(tr("Thermal Conductivity"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::ThermalConductivity(), id++);
     par->setName("Thermal Conductivity X direction");
+    par->setDisplayName(tr("Thermal Conductivity X direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::ThermalConductivity(), id++);
     par->setName("Thermal Conductivity Y direction");
+    par->setDisplayName(tr("Thermal Conductivity Y direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::ThermalConductivity(), id++);
     par->setName("Thermal Conductivity Z direction");
+    par->setDisplayName(tr("Thermal Conductivity Z direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::CoefficientOfThermalExpansion(), id++);
     par->setName("Coefficient of Thermal Expansion");
+    par->setDisplayName(tr("Coefficient of Thermal Expansion"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::CoefficientOfThermalExpansion(), id++);
     par->setName("Coefficient of Thermal Expansion X direction");
+    par->setDisplayName(tr("Coefficient of Thermal Expansion X direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::CoefficientOfThermalExpansion(), id++);
     par->setName("Coefficient of Thermal Expansion Y direction");
+    par->setDisplayName(tr("Coefficient of Thermal Expansion Y direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::CoefficientOfThermalExpansion(), id++);
     par->setName("Coefficient of Thermal Expansion Z direction");
+    par->setDisplayName(tr("Coefficient of Thermal Expansion Z direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Resistivity(), id++);
     par->setName("Resistivity");
+    par->setDisplayName(tr("Resistivity"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Resistivity(), id++);
     par->setName("Resistivity X direction");
+    par->setDisplayName(tr("Resistivity X direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Resistivity(), id++);
     par->setName("Resistivity Y direction");
+    par->setDisplayName(tr("Resistivity Y direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::Resistivity(), id++);
     par->setName("Resistivity Z direction");
+    par->setDisplayName(tr("Resistivity Z direction"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
     par = new Parameter(new Unit::SpecificHeat(), id++);
     par->setName("Specific Heat");
+    par->setDisplayName(tr("Specific Heat"));
     par->setPrefferedValueUnit();
     addParameter(par);
 }
