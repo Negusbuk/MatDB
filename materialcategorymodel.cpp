@@ -58,6 +58,7 @@ void MaterialCategoryModel::addCategory(const QString& uuid,
     NQLog("MaterialCategoryModel", NQLog::Spam) << "     " << mc->getUUID();
 
     categoriesMap_[name] = mc;
+    categoriesDisplayMap_[displayName] = mc;
     categoriesUUIDMap_[uuid] = mc;
     categories_.push_back(mc);
 
@@ -108,12 +109,17 @@ void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QSt
     if(it != categoriesMap_.end()) {
         categoriesMap_.erase(it);
     }
+    std::map<QString,MaterialCategory*>::iterator itd = categoriesDisplayMap_.find(category->getDisplayName());
+    if(it != categoriesDisplayMap_.end()) {
+        categoriesDisplayMap_.erase(it);
+    }
 
     modified_ = true;
 
     category->setName(name);
     category->setDisplayName(name);
     categoriesMap_[name] = category;
+    categoriesDisplayMap_[name] = category;
 }
 
 void MaterialCategoryModel::changedCategory(MaterialCategory* category)
@@ -125,6 +131,13 @@ MaterialCategory* MaterialCategoryModel::getCategory(const QString& name)
 {
     std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(name);
     if (it!=categoriesMap_.end()) return it->second;
+    return 0;
+}
+
+MaterialCategory* MaterialCategoryModel::getCategoryByDisplayName(const QString& name)
+{
+    std::map<QString,MaterialCategory*>::iterator it = categoriesDisplayMap_.find(name);
+    if (it!=categoriesDisplayMap_.end()) return it->second;
     return 0;
 }
 
