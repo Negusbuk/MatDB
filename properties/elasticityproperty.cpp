@@ -33,6 +33,7 @@ IsotropicElasticityProperty::IsotropicElasticityProperty(ParameterModel* model, 
     Property(id)
 {
     setName("Isotropic Elasticity");
+    setDisplayName(QObject::tr("Isotropic Elasticity"));
     setCategory(LinearElasticProperty);
     setType(Elasticity);
     setBehavior(Isotropic);
@@ -54,6 +55,7 @@ IsotropicElasticityProperty::IsotropicElasticityProperty(const IsotropicElastici
     Property(property.getId())
 {
     setName("Isotropic Elasticity");
+    setDisplayName(QObject::tr("Isotropic Elasticity"));
     setCategory(LinearElasticProperty);
     setType(Elasticity);
     setBehavior(Isotropic);
@@ -513,6 +515,7 @@ OrthotropicElasticityProperty::OrthotropicElasticityProperty(ParameterModel* mod
     Property(id)
 {
     setName("Orthotropic Elasticity");
+    setDisplayName(QObject::tr("Orthotropic Elasticity"));
     setCategory(LinearElasticProperty);
     setType(Elasticity);
     setBehavior(Orthotropic);
@@ -541,6 +544,7 @@ OrthotropicElasticityProperty::OrthotropicElasticityProperty(const OrthotropicEl
     Property(property.getId())
 {
     setName("Orthotropic Elasticity");
+    setDisplayName(QObject::tr("Orthotropic Elasticity"));
     setCategory(LinearElasticProperty);
     setType(Elasticity);
     setBehavior(Orthotropic);

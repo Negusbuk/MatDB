@@ -53,6 +53,11 @@ void Property::setName(const QString& name)
     Name_ = name;
 }
 
+void Property::setDisplayName(const QString& name)
+{
+    DisplayName_ = name;
+}
+
 QString Property::getCategoryName() const
 {
     switch (Category_) {

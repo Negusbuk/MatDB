@@ -32,6 +32,7 @@ SpecificHeatProperty::SpecificHeatProperty(ParameterModel* model, int id) :
     Property(id)
 {
     setName("Specific Heat");
+    setDisplayName(QObject::tr("Specific Heat"));
     setCategory(ThermalProperty);
     setType(SpecificHeat);
     setBehavior(Isotropic);
@@ -43,6 +44,7 @@ SpecificHeatProperty::SpecificHeatProperty(const SpecificHeatProperty& property)
     Property(property.getId())
 {
     setName("Specific Heat");
+    setDisplayName(QObject::tr("Specific Heat"));
     setCategory(ThermalProperty);
     setType(SpecificHeat);
     setBehavior(Isotropic);

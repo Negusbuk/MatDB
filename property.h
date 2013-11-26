@@ -114,6 +114,9 @@ public:
     const QString& getName() const { return Name_; }
     void setName(const QString& name);
 
+    const QString& getDisplayName() const { return DisplayName_; }
+    void setDisplayName(const QString& name);
+
     Category getCategory() const { return Category_; }
     QString getCategoryName() const;
     void setCategory(Category cat) { Category_ = cat; }
@@ -167,6 +170,7 @@ protected:
     int Id_;
     QString IdString_;
     QString Name_;
+    QString DisplayName_;
     Category Category_;
     Type Type_;
     Behavior Behavior_;
