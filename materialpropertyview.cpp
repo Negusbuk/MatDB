@@ -56,7 +56,7 @@ MaterialPropertyViewParameterItem::MaterialPropertyViewParameterItem(Material * 
     setTextAlignment(1, Qt::AlignRight);
     setTextAlignment(2, Qt::AlignLeft);
 
-    setText(0, Parameter_->getName());
+    setText(0, Parameter_->getDisplayName());
 
     Parameter_->setViewItem(this);
 

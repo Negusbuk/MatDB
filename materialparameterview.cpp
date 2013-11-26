@@ -231,7 +231,7 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
         return;
     }
 
-    unitTable_->horizontalHeaderItem(1)->setText(parameter->getName());
+    unitTable_->horizontalHeaderItem(1)->setText(parameter->getDisplayName());
 
     if (!parameter->isDependent()) {
         valueTable_->setRowCount(1+parameter->getNumberOfValues());
