@@ -136,7 +136,6 @@ Parameter* Parameter::clone() const
 void Parameter::setName(const QString& name)
 {
     Name_ = name;
-    DisplayName_ = name + "_d";
 }
 
 void Parameter::setDisplayName(const QString& name)
