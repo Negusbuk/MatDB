@@ -218,6 +218,14 @@
     </message>
 </context>
 <context>
+    <name>MaterialCategoryWidget</name>
+    <message>
+        <location filename="../materialcategorywidget.cpp" line="85"/>
+        <source>New Category</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MaterialFilterWidget</name>
     <message>
         <location filename="../materialfilterwidget.cpp" line="59"/>
@@ -410,6 +418,131 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../parametermodel.cpp" line="76"/>
+        <source>Viscosity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="82"/>
+        <source>Young&apos;s Modulus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="88"/>
+        <source>Young&apos;s Modulus X direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="94"/>
+        <source>Young&apos;s Modulus Y direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="100"/>
+        <source>Young&apos;s Modulus Z direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="106"/>
+        <source>Poisson&apos;s Ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="111"/>
+        <source>Poisson&apos;s Ratio XY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="116"/>
+        <source>Poisson&apos;s Ratio YZ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="121"/>
+        <source>Poisson&apos;s Ratio XZ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="126"/>
+        <source>Shear Modulus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="132"/>
+        <source>Shear Modulus XY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="138"/>
+        <source>Shear Modulus YZ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="144"/>
+        <source>Shear Modulus XZ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="150"/>
+        <source>Bulk Modulus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="156"/>
+        <source>Thermal Conductivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="162"/>
+        <source>Thermal Conductivity X direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="168"/>
+        <source>Thermal Conductivity Y direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="174"/>
+        <source>Thermal Conductivity Z direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="180"/>
+        <source>Coefficient of Thermal Expansion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="186"/>
+        <source>Coefficient of Thermal Expansion X direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="192"/>
+        <source>Coefficient of Thermal Expansion Y direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="198"/>
+        <source>Coefficient of Thermal Expansion Z direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="204"/>
+        <source>Resistivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="210"/>
+        <source>Resistivity X direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="216"/>
+        <source>Resistivity Y direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../parametermodel.cpp" line="222"/>
         <source>Resistivity Z direction</source>
         <translation type="unfinished"></translation>
@@ -462,28 +595,106 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="60"/>
+        <location filename="../property.cpp" line="65"/>
         <source>Physical Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="63"/>
+        <location filename="../property.cpp" line="68"/>
         <source>Linear Elastic Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="66"/>
+        <location filename="../property.cpp" line="71"/>
         <source>Thermal Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="69"/>
+        <location filename="../property.cpp" line="74"/>
         <source>Electrical Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="72"/>
+        <location filename="../property.cpp" line="77"/>
         <source>Fluid Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/densityproperty.cpp" line="37"/>
+        <location filename="../properties/densityproperty.cpp" line="49"/>
+        <source>Density</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/cteproperty.cpp" line="37"/>
+        <location filename="../properties/cteproperty.cpp" line="50"/>
+        <source>Isotropic Instantaneous Coefficient of Thermal Expansion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/cteproperty.cpp" line="155"/>
+        <location filename="../properties/cteproperty.cpp" line="173"/>
+        <source>Orthotropic Instantaneous Coefficient of Thermal Expansion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/cteproperty.cpp" line="374"/>
+        <location filename="../properties/cteproperty.cpp" line="390"/>
+        <source>Isotropic Secant Coefficient of Thermal Expansion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/cteproperty.cpp" line="559"/>
+        <location filename="../properties/cteproperty.cpp" line="579"/>
+        <source>Orthotropic Secant Coefficient of Thermal Expansion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/elasticityproperty.cpp" line="36"/>
+        <location filename="../properties/elasticityproperty.cpp" line="58"/>
+        <source>Isotropic Elasticity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/elasticityproperty.cpp" line="518"/>
+        <location filename="../properties/elasticityproperty.cpp" line="547"/>
+        <source>Orthotropic Elasticity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/resistivityproperty.cpp" line="35"/>
+        <location filename="../properties/resistivityproperty.cpp" line="47"/>
+        <source>Isotropic Resistivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/resistivityproperty.cpp" line="151"/>
+        <location filename="../properties/resistivityproperty.cpp" line="168"/>
+        <source>Orthotropic Resistivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/specificheatproperty.cpp" line="35"/>
+        <location filename="../properties/specificheatproperty.cpp" line="47"/>
+        <source>Specific Heat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="35"/>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="47"/>
+        <source>Isotropic Thermal Conductivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="151"/>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="168"/>
+        <source>Orthotropic Thermal Conductivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/viscosityproperty.cpp" line="37"/>
+        <location filename="../properties/viscosityproperty.cpp" line="49"/>
+        <source>Viscosity</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
