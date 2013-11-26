@@ -52,7 +52,7 @@ void MaterialCategoryBox::materialChanged(Material* material)
 
     MaterialCategory* category = material->getCategory();
     if (category) {
-        int idx = findText(category->getName());
+        int idx = findText(category->getDisplayName());
         setCurrentIndex(idx);
     }
 }

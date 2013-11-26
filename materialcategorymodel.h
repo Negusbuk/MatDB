@@ -60,10 +60,12 @@ signals:
 public slots:
 
     void addCategory(const QString& name,
+                     const QString& displayName,
                      const QColor& bgColor,
                      bool readonly);
     void addCategory(const QString& uuid,
                      const QString& name,
+                     const QString& displayName,
                      const QColor& bgColor,
                      bool readonly);
     void removeCategory(const QString& name);

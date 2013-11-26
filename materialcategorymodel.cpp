@@ -31,24 +31,26 @@ MaterialCategoryModel::MaterialCategoryModel(QObject *parent) :
     QAbstractTableModel(parent),
     modified_(false)
 {
-    addCategory(tr("No Category"), QColor(255, 255, 255, 0), true);
-    addCategory(tr("Structural"), QColor(100, 0, 0, 255), true);
-    addCategory(tr("Glue"), QColor(0, 100, 0, 255), true);
+    addCategory("No Category", tr("No Category"), QColor(255, 255, 255, 0), true);
+    addCategory("Structural", tr("Structural"), QColor(100, 0, 0, 255), true);
+    addCategory("Glue", tr("Glue"), QColor(0, 100, 0, 255), true);
 }
 
 void MaterialCategoryModel::addCategory(const QString& name,
+                                        const QString& displayName,
                                         const QColor& bgColor,
                                         bool readonly)
 {
-    addCategory(QUuid::createUuid().toString(), name, bgColor, readonly);
+    addCategory(QUuid::createUuid().toString(), name, displayName, bgColor, readonly);
 }
 
 void MaterialCategoryModel::addCategory(const QString& uuid,
                                         const QString& name,
+                                        const QString& displayName,
                                         const QColor& bgColor,
                                         bool readonly)
 {
-    MaterialCategory * mc = new MaterialCategory(name, bgColor, readonly);
+    MaterialCategory * mc = new MaterialCategory(name, displayName, bgColor, readonly);
     mc->setUUID(uuid);
     if (uuid.length()==0) mc->setUUID(QUuid::createUuid().toString());
 
@@ -110,6 +112,7 @@ void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QSt
     modified_ = true;
 
     category->setName(name);
+    category->setDisplayName(name);
     categoriesMap_[name] = category;
 }
 
@@ -166,13 +169,13 @@ QVariant MaterialCategoryModel::data(const QModelIndex & index, int role) const
     MaterialCategory* category = categories_.at(row);
 
     if (role==Qt::DisplayRole) {
-        if (column==0) return QVariant(category->getName());
+        if (column==0) return QVariant(category->getDisplayName());
     }
     if (role==Qt::DecorationRole) {
         if (column==0) return QVariant(category->getIcon());
     }
     if (role==Qt::EditRole) {
-        if (column==0) return QVariant(category->getName());
+        if (column==0) return QVariant(category->getDisplayName());
     }
 
     return QVariant();
@@ -248,7 +251,7 @@ void MaterialCategoryModel::read(QIODevice *source)
         int blue = colorElem.attribute("Blue", "255").toInt();
         QColor color(red, green, blue);
 
-        addCategory(uuid.text(), name.text(), color, false);
+        addCategory(uuid.text(), name.text(), name.text(), color, false);
     }
 
     modified_ = false;
