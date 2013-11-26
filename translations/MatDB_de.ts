@@ -425,107 +425,107 @@
     <message>
         <location filename="../parametermodel.cpp" line="82"/>
         <source>Young&apos;s Modulus</source>
-        <translation type="unfinished"></translation>
+        <translation>Elastizitätsmodul</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="88"/>
         <source>Young&apos;s Modulus X direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Elastizitätsmodul X-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="94"/>
         <source>Young&apos;s Modulus Y direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Elastizitätsmodul Y-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="100"/>
         <source>Young&apos;s Modulus Z direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Elastizitätsmodul Z-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="106"/>
         <source>Poisson&apos;s Ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Querkontraktionszahl</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="111"/>
         <source>Poisson&apos;s Ratio XY</source>
-        <translation type="unfinished"></translation>
+        <translation>Querkontraktionszahl XY</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="116"/>
         <source>Poisson&apos;s Ratio YZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Querkontraktionszahl YZ</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="121"/>
         <source>Poisson&apos;s Ratio XZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Querkontraktionszahl XZ</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="126"/>
         <source>Shear Modulus</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubmodul</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="132"/>
         <source>Shear Modulus XY</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubmodul XY</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="138"/>
         <source>Shear Modulus YZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubmodul YZ</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="144"/>
         <source>Shear Modulus XZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubmodul XZ</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="150"/>
         <source>Bulk Modulus</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompressionsmodul</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="156"/>
         <source>Thermal Conductivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeleitfähigkeit</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="162"/>
         <source>Thermal Conductivity X direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeleitfähigkeit X-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="168"/>
         <source>Thermal Conductivity Y direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeleitfähigkeit Y-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="174"/>
         <source>Thermal Conductivity Z direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeleitfähigkeit Z-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="180"/>
         <source>Coefficient of Thermal Expansion</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeausdehnungskoeffizient</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="186"/>
         <source>Coefficient of Thermal Expansion X direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeausdehnungskoeffizient X-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="192"/>
         <source>Coefficient of Thermal Expansion Y direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeausdehnungskoeffizient Y-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="198"/>
         <source>Coefficient of Thermal Expansion Z direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Wärmeausdehnungskoeffizient Z-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="204"/>
@@ -629,37 +629,37 @@
         <location filename="../properties/cteproperty.cpp" line="37"/>
         <location filename="../properties/cteproperty.cpp" line="50"/>
         <source>Isotropic Instantaneous Coefficient of Thermal Expansion</source>
-        <translation type="unfinished"></translation>
+        <translation>isotroper unmittelbarer Wärmeausdehnungskoeffizient</translation>
     </message>
     <message>
         <location filename="../properties/cteproperty.cpp" line="155"/>
         <location filename="../properties/cteproperty.cpp" line="173"/>
         <source>Orthotropic Instantaneous Coefficient of Thermal Expansion</source>
-        <translation type="unfinished"></translation>
+        <translation>orthotroper unmittelbarer Wärmeausdehnungskoeffizient</translation>
     </message>
     <message>
         <location filename="../properties/cteproperty.cpp" line="374"/>
         <location filename="../properties/cteproperty.cpp" line="390"/>
         <source>Isotropic Secant Coefficient of Thermal Expansion</source>
-        <translation type="unfinished"></translation>
+        <translation>isotroper mittlerer Wärmeausdehnungskoeffizient</translation>
     </message>
     <message>
         <location filename="../properties/cteproperty.cpp" line="559"/>
         <location filename="../properties/cteproperty.cpp" line="579"/>
         <source>Orthotropic Secant Coefficient of Thermal Expansion</source>
-        <translation type="unfinished"></translation>
+        <translation>orthotroper mittlerer Wärmeausdehnungskoeffizient</translation>
     </message>
     <message>
         <location filename="../properties/elasticityproperty.cpp" line="36"/>
         <location filename="../properties/elasticityproperty.cpp" line="58"/>
         <source>Isotropic Elasticity</source>
-        <translation type="unfinished"></translation>
+        <translation>isotrope Elastizität</translation>
     </message>
     <message>
         <location filename="../properties/elasticityproperty.cpp" line="518"/>
         <location filename="../properties/elasticityproperty.cpp" line="547"/>
         <source>Orthotropic Elasticity</source>
-        <translation type="unfinished"></translation>
+        <translation>orthotrope Elastizität</translation>
     </message>
     <message>
         <location filename="../properties/resistivityproperty.cpp" line="35"/>
