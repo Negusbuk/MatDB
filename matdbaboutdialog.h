@@ -45,13 +45,18 @@ class IntroPage : public QWizardPage
 
  public:
      IntroPage(QWidget *parent = 0);
+class LicensePage : public QWizardPage
+{
+    Q_OBJECT
 
-     int nextId() const;
+public:
+    LicensePage(QWidget *parent = 0);
 
- private:
-     QLabel *topLabel;
-     QRadioButton *registerRadioButton;
-     QRadioButton *evaluateRadioButton;
- };
+    int nextId() const;
+
+private:
+
+    QTextEdit* licenseView_;
+};
 
 #endif // MATDBABOUTDIALOG_H

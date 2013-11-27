@@ -72,3 +72,25 @@ IntroPage::IntroPage(QWidget *parent)
  {
     return MatDBAboutDialog::Page_Intro;
  }
+LicensePage::LicensePage(QWidget *parent)
+    : QWizardPage(parent)
+{
+    setTitle(tr("License"));
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    setLayout(layout);
+
+    licenseView_ = new QTextEdit(this);
+    layout->addWidget(licenseView_);
+    licenseView_->setReadOnly(true);
+
+    QFile file(":/LICENSE");
+    file.open(QFile::ReadOnly);
+    licenseView_->setText(file.readAll());
+    file.close();
+}
+
+int LicensePage::nextId() const
+{
+    return -1;
+}
