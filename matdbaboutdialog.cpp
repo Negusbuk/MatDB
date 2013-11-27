@@ -18,53 +18,98 @@
  **
  ****************************************************************************/
 
+#include <QApplication>
 #include <QBoxLayout>
+#include <QGridLayout>
+#include <QSpacerItem>
+#include <QFile>
 
+#include "matdbversion.h"
 #include "matdbaboutdialog.h"
 
 MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
     QWizard(parent)
 {
+#ifdef Q_WS_MAC
+    this->setParent(qApp->focusWidget());
+    this->setWindowModality(Qt::WindowModal);
+    this->setWindowFlags(Qt::Sheet);
+    setWizardStyle(ModernStyle);
+    setFixedWidth(700);
+#else
+    setFixedWidth(500);
+#endif
+    setFixedHeight(400);
+
     setSizeGripEnabled(false);
 
-    setPage(Page_Intro, new IntroPage);
+    setPage(Page_Version, new VersionPage);
+    setPage(Page_License, new LicensePage);
 
-    setStartId(Page_Intro);
+    setStartId(Page_Version);
 
- #ifndef Q_WS_MAC
-     setWizardStyle(ModernStyle);
- #endif
+    QList<QWizard::WizardButton> layout;
+    layout << QWizard::Stretch << QWizard::FinishButton << QWizard::NextButton;
+    setButtonLayout(layout);
 
-     //setOption(HaveHelpButton, false);
-     setPixmap(QWizard::BackgroundPixmap, QPixmap(":/pics/MatDBBG.png"));
-
-     setWindowTitle(tr("License Wizard"));
+    QPixmap pix(":/artwork/MatDBBG.png");
+    pix = pix.scaled(pix.width()/1.5, pix.height()/1.5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    setPixmap(QWizard::WatermarkPixmap, pix);
+    setPixmap(QWizard::LogoPixmap, pix);
+    setPixmap(QWizard::BannerPixmap, pix);
+    setPixmap(QWizard::BackgroundPixmap, pix);
 }
 
-IntroPage::IntroPage(QWidget *parent)
-     : QWizardPage(parent)
- {
-     setTitle(tr("Introduction"));
-     setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/watermark.png"));
+VersionPage::VersionPage(QWidget *parent)
+    : QWizardPage(parent)
+{
+    setTitle(tr("Version"));
 
-     topLabel = new QLabel(tr("This wizard will help you register your copy of "
-                              "<i>Super Product One</i>&trade; or start "
-                              "evaluating the product."));
-     topLabel->setWordWrap(true);
+    QVBoxLayout *layout = new QVBoxLayout;
+    setLayout(layout);
 
-     registerRadioButton = new QRadioButton(tr("&Register your copy"));
-     evaluateRadioButton = new QRadioButton(tr("&Evaluate the product for 30 "
-                                               "days"));
-     registerRadioButton->setChecked(true);
+    QGridLayout *grid = new QGridLayout(this);
+    layout->addLayout(grid);
 
-     QVBoxLayout *layout = new QVBoxLayout;
-     layout->addWidget(topLabel);
-     layout->addWidget(registerRadioButton);
-     layout->addWidget(evaluateRadioButton);
-     setLayout(layout);
- }
+    QString release = MATDBRELEASESTR;
+    release += " (";
+    release += QString::number(MATDBRELEASE);
+    release += ")";
+    grid->addWidget(new QLabel(tr("MatDB Version")), 1, 0);
+    grid->addWidget(new QLabel(release), 1, 1);
+    grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
+                  1, 2);
 
- int IntroPage::nextId() const
- {
-    return MatDBAboutDialog::Page_Intro;
- }
+    grid->addWidget(new QLabel(tr("Qt Version")), 2, 0);
+    grid->addWidget(new QLabel(qVersion()), 2, 1);
+    grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
+                  2, 2);
+}
+
+int VersionPage::nextId() const
+{
+    return MatDBAboutDialog::Page_License;
+}
+
+LicensePage::LicensePage(QWidget *parent)
+    : QWizardPage(parent)
+{
+    setTitle(tr("License"));
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    setLayout(layout);
+
+    licenseView_ = new QTextEdit(this);
+    layout->addWidget(licenseView_);
+    licenseView_->setReadOnly(true);
+
+    QFile file(":/LICENSE.html");
+    file.open(QFile::ReadOnly);
+    licenseView_->setHtml(file.readAll());
+    file.close();
+}
+
+int LicensePage::nextId() const
+{
+    return -1;
+}

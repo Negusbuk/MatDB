@@ -17,6 +17,10 @@ win32-g++ {
   DEFINES += WIN32GPP
 }
 
+DEFINES += APPVERMAJOR=0
+DEFINES += APPVERMINOR=9
+DEFINES += APPPATCHLEVEL=2
+
 QT       += core gui xml
 
 INCLUDEPATH += ./properties ./external
@@ -134,7 +138,8 @@ HEADERS += matdbmainwindow.h \
     materialindexer.h \
     htmlwriter.h \
     materialselectiondialog.h \
-    parameterset.h
+    parameterset.h \
+    matdbversion.h
 
 FORMS    +=
 
@@ -156,4 +161,5 @@ OTHER_FILES += stylesheet.qss \
     artwork/MatDBSplashScreen.png \
     artwork/MatDBBG.png \
     html/header.html \
-    html/footer.html
+    html/footer.html \
+    LICENSE.html
