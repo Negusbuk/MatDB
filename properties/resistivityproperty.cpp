@@ -32,6 +32,7 @@ IsotropicResistivityProperty::IsotropicResistivityProperty(ParameterModel* model
     Property(id)
 {
     setName("Isotropic Resistivity");
+    setDisplayName(QObject::tr("Isotropic Resistivity"));
     setCategory(ElectricalProperty);
     setType(Resistivity);
     setBehavior(Isotropic);
@@ -43,6 +44,7 @@ IsotropicResistivityProperty::IsotropicResistivityProperty(const IsotropicResist
     Property(property.getId())
 {
     setName("Isotropic Resistivity");
+    setDisplayName(QObject::tr("Isotropic Resistivity"));
     setCategory(ElectricalProperty);
     setType(Resistivity);
     setBehavior(Isotropic);
@@ -146,6 +148,7 @@ OrthotropicResistivityProperty::OrthotropicResistivityProperty(ParameterModel* m
     Property(id)
 {
     setName("Orthotropic Resistivity");
+    setDisplayName(QObject::tr("Orthotropic Resistivity"));
     setCategory(ElectricalProperty);
     setType(Resistivity);
     setBehavior(Orthotropic);
@@ -162,6 +165,7 @@ OrthotropicResistivityProperty::OrthotropicResistivityProperty(const Orthotropic
     Property(property.getId())
 {
     setName("Orthotropic Resistivity");
+    setDisplayName(QObject::tr("Orthotropic Resistivity"));
     setCategory(ElectricalProperty);
     setType(Resistivity);
     setBehavior(Orthotropic);

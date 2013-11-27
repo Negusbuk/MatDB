@@ -87,7 +87,7 @@ void PropertyToolBox::build()
         for (std::vector<Property*>::const_iterator itv = v.begin();
              itv!=v.end();
              ++itv) {
-            item = new PropertyToolBoxItem((*itv)->getName(), (*itv), box);
+            item = new PropertyToolBoxItem((*itv)->getDisplayName(), (*itv), box);
             layout->addWidget(item);
         }
         layout->addStretch(1);

@@ -37,7 +37,7 @@ MaterialPropertyViewParameterItem::MaterialPropertyViewParameterItem(Material * 
     setTextAlignment(1, Qt::AlignRight);
     setTextAlignment(2, Qt::AlignLeft);
 
-    setText(0, Property_->getName());
+    setText(0, Property_->getDisplayName());
 
     Parameter_->setViewItem(this);
 
@@ -56,7 +56,7 @@ MaterialPropertyViewParameterItem::MaterialPropertyViewParameterItem(Material * 
     setTextAlignment(1, Qt::AlignRight);
     setTextAlignment(2, Qt::AlignLeft);
 
-    setText(0, Parameter_->getName());
+    setText(0, Parameter_->getDisplayName());
 
     Parameter_->setViewItem(this);
 
@@ -75,7 +75,7 @@ void MaterialPropertyViewParameterItem::update()
                                                             << " " << Parameter_;
 
     if (Parameter_->getNumberOfValues()==0) {
-        setText(1, "undefined");
+        setText(1, QObject::tr("Undefined"));
         setText(2, "");
         if (Parameter_->isDependent()) {
             setBackground(1, QBrush(Qt::yellow));
@@ -97,13 +97,13 @@ void MaterialPropertyViewParameterItem::update()
                 setBackground(2, background(0));
             }
         } else {
-            setText(1, "undefined");
+            setText(1, QObject::tr("Undefined"));
             setText(2, "");
             setBackground(1, QBrush(Qt::red));
             setBackground(2, QBrush(Qt::red));
         }
     } else {
-        setText(1, "table");
+        setText(1, QObject::tr("Table"));
         setText(2, "");
     }
 }
@@ -115,7 +115,7 @@ MaterialPropertyViewItem::MaterialPropertyViewItem(Material * material,
     Material_(material),
     Property_(property)
 {
-    setText(0, Property_->getName());
+    setText(0, Property_->getDisplayName());
     setText(1, "");
     setText(2, "");
 
@@ -154,7 +154,7 @@ MaterialPropertyView::MaterialPropertyView(MaterialListModel *listmodel,
             this, SLOT(displayContextMenu(const QPoint&)));
 
     ContextMenu_ = new QMenu();
-    ContextMenu_->addAction("Delete", this, SLOT(deleteProperty()));
+    ContextMenu_->addAction(tr("Delete"), this, SLOT(deleteProperty()));
 
     setMinimumWidth(400);
     setMinimumHeight(200);
@@ -162,9 +162,9 @@ MaterialPropertyView::MaterialPropertyView(MaterialListModel *listmodel,
     setColumnCount(3);
 
     QStringList headers;
-    headers << "Property";
-    headers << "Value";
-    headers << "Unit";
+    headers << tr("Property");
+    headers << tr("Value");
+    headers << tr("Unit");
     setHeaderLabels(headers);
 
     QHeaderView* hv = header();

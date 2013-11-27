@@ -34,6 +34,7 @@ IsotropicInstantaneousCoefficientOfThermalExpansion::IsotropicInstantaneousCoeff
     Property(id)
 {
     setName("Isotropic Instantaneous Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Isotropic Instantaneous Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
@@ -46,6 +47,7 @@ IsotropicInstantaneousCoefficientOfThermalExpansion::IsotropicInstantaneousCoeff
     Property(property.getId())
 {
     setName("Isotropic Instantaneous Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Isotropic Instantaneous Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
@@ -150,6 +152,7 @@ OrthotropicInstantaneousCoefficientOfThermalExpansion::OrthotropicInstantaneousC
     Property(id)
 {
     setName("Orthotropic Instantaneous Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Orthotropic Instantaneous Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);
@@ -167,6 +170,7 @@ OrthotropicInstantaneousCoefficientOfThermalExpansion::OrthotropicInstantaneousC
     Property(property.getId())
 {
     setName("Orthotropic Instantaneous Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Orthotropic Instantaneous Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);
@@ -367,6 +371,7 @@ IsotropicSecantCoefficientOfThermalExpansion::IsotropicSecantCoefficientOfTherma
     Property(id)
 {
     setName("Isotropic Secant Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Isotropic Secant Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
@@ -382,6 +387,7 @@ IsotropicSecantCoefficientOfThermalExpansion::IsotropicSecantCoefficientOfTherma
     Property(property.getId())
 {
     setName("Isotropic Secant Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Isotropic Secant Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Isotropic);
@@ -550,6 +556,7 @@ OrthotropicSecantCoefficientOfThermalExpansion::OrthotropicSecantCoefficientOfTh
     Property(id)
 {
     setName("Orthotropic Secant Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Orthotropic Secant Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);
@@ -569,6 +576,7 @@ OrthotropicSecantCoefficientOfThermalExpansion::OrthotropicSecantCoefficientOfTh
     Property(property.getId())
 {
     setName("Orthotropic Secant Coefficient of Thermal Expansion");
+    setDisplayName(QObject::tr("Orthotropic Secant Coefficient of Thermal Expansion"));
     setCategory(PhysicalProperty);
     setType(CoefficientOfThermalExpansion);
     setBehavior(Orthotropic);

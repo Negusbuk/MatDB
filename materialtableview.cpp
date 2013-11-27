@@ -59,7 +59,7 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
 
     fillTable(ListModel_->getMaterialCount());
 
-    setHorizontalHeaderItem(0, new QTableWidgetItem("Material"));
+    setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Material")));
 
     setSelectionBehavior(QAbstractItemView::SelectItems);
     setSelectionMode(QAbstractItemView::SingleSelection);
@@ -76,9 +76,9 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
     setMinimumHeight(200);
 
     ContextMenu_ = new QMenu();
-    ContextMenu_->addAction("Delete", selectionmodel, SLOT(deleteMaterial()));
+    ContextMenu_->addAction(tr("Delete"), selectionmodel, SLOT(deleteMaterial()));
     ContextMenu_->addSeparator();
-    ContextMenu_->addAction("Duplicate", selectionmodel, SLOT(duplicateMaterial()));
+    ContextMenu_->addAction(tr("Duplicate"), selectionmodel, SLOT(duplicateMaterial()));
 }
 
 void MaterialTableView::fillTable(int count)

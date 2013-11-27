@@ -38,9 +38,9 @@ MaterialImportDialog::MaterialImportDialog(MaterialListModel* model,
     setLayout(layout);
 
     materialView_ = new QTableWidget(model_->getMaterialCount(), 2, this);
-    materialView_->setHorizontalHeaderItem(0, new QTableWidgetItem("Material"));
+    materialView_->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Material")));
     materialView_->setColumnWidth(0, 400);
-    materialView_->setHorizontalHeaderItem(1, new QTableWidgetItem("Description"));
+    materialView_->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Description")));
     materialView_->setSelectionBehavior(QAbstractItemView::SelectItems);
     materialView_->setSelectionMode(QAbstractItemView::NoSelection);
 
@@ -83,14 +83,14 @@ MaterialImportDialog::MaterialImportDialog(MaterialListModel* model,
     buttonLayout->setContentsMargins(1,1,1,1);
     buttons->setLayout(buttonLayout);
 
-    QPushButton *button = new QPushButton("Import", buttons);
+    QPushButton *button = new QPushButton(tr("Import"), buttons);
     button->setFlat(true);
     button->setDefault(false);
     connect(button, SIGNAL(clicked()),
             this, SLOT(buildSelectedMaterials()));
     buttonLayout->addWidget(button);
 
-    button = new QPushButton("Cancel", buttons);
+    button = new QPushButton(tr("Cancel"), buttons);
     button->setFlat(true);
     button->setDefault(false);
     connect(button, SIGNAL(clicked()),

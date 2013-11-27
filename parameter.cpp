@@ -116,6 +116,7 @@ Parameter* Parameter::clone() const
                                          getId(),
                                          TemperatureDependent_);
     newParam->setName(getName());
+    newParam->setDisplayName(getDisplayName());
 
     for (std::vector<ParameterValue>::const_iterator it=getValues().begin();
          it!=getValues().end();
@@ -135,6 +136,11 @@ Parameter* Parameter::clone() const
 void Parameter::setName(const QString& name)
 {
     Name_ = name;
+}
+
+void Parameter::setDisplayName(const QString& name)
+{
+    DisplayName_ = name;
 }
 
 void Parameter::setValueUnit(const QString& unit)

@@ -36,6 +36,7 @@ public:
     explicit MaterialCategoryModel(QObject *parent = 0);
     
     MaterialCategory* getCategory(const QString& name);
+    MaterialCategory* getCategoryByDisplayName(const QString& uuid);
     MaterialCategory* getCategoryByUUID(const QString& uuid);
     bool isCategoryValid(MaterialCategory*) const;
     const std::vector<MaterialCategory*>& getCategories() const { return categories_; }
@@ -60,10 +61,12 @@ signals:
 public slots:
 
     void addCategory(const QString& name,
+                     const QString& displayName,
                      const QColor& bgColor,
                      bool readonly);
     void addCategory(const QString& uuid,
                      const QString& name,
+                     const QString& displayName,
                      const QColor& bgColor,
                      bool readonly);
     void removeCategory(const QString& name);
@@ -75,6 +78,7 @@ protected:
     void changedCategoryUUID(MaterialCategory* category, const QString& uuid);
 
     std::map<QString,MaterialCategory*> categoriesUUIDMap_;
+    std::map<QString,MaterialCategory*> categoriesDisplayMap_;
     std::map<QString,MaterialCategory*> categoriesMap_;
     std::vector<MaterialCategory*> categories_;
     bool modified_;

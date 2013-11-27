@@ -21,6 +21,7 @@
 #include <iostream>
 #include <unistd.h>
 
+#include <QtCore>
 #include <QApplication>
 #include <QFile>
 #include <QDir>
@@ -38,10 +39,13 @@
 #include "matdbmainwindow.h"
 
 //#define SHOWSPLASHSCREEN
+#define ENABLE_TRANSLATION
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QString locale = QLocale::system().name();
 
     NQLogger::instance()->addActiveModule("*");
 
@@ -57,6 +61,24 @@ int main(int argc, char *argv[])
     QString logfilename = logdir + "/MatDB.log";
 
     NQLog("Main") << "using " << logfilename << " for logging";
+
+#ifdef ENABLE_TRANSLATION
+    QString resourceDir = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+    QTranslator *qttranslator = new QTranslator(0);
+    if (qttranslator->load(QLatin1String("qt_") + locale, resourceDir)) {
+        a.installTranslator(qttranslator);
+    } else if (qttranslator->load(QLatin1String("qt_") + locale,
+                                QCoreApplication::applicationDirPath())) {
+        a.installTranslator(qttranslator);
+    }
+
+    QTranslator *translator = new QTranslator(0);
+    QString transName = ":/translations/" + QLatin1String("MatDB_") + locale + ".qm";
+    if (translator->load(transName)) {
+        NQLog("Main") << "using file '" + transName + "' for translations.";
+        a.installTranslator(translator);
+    }
+#endif
 
     QFile * logfile = new QFile(logfilename);
     if (logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {

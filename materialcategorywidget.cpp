@@ -82,7 +82,7 @@ MaterialCategoryWidget::MaterialCategoryWidget(MaterialCategoryModel* categoryMo
 void MaterialCategoryWidget::addCategory()
 {
     if (categoryModel_->getCategory("New Category")!=NULL) return;
-    categoryModel_->addCategory("New Category", QColor(242, 142, 0), false);
+    categoryModel_->addCategory("New Category", tr("New Category"), QColor(242, 142, 0), false);
     categories_->update();
 }
 
@@ -98,12 +98,12 @@ void MaterialCategoryWidget::categoryDoubleClicked(const QModelIndex& index)
 {
     QVariant data = categories_->model()->data(index);
     MaterialCategory* category = categoryModel_->getCategory(data.toString());
-    if (category->isReadOnly()) return;
+    if (!category || category->isReadOnly()) return;
 
     MaterialCategoryEditDialog dialog(this);
     dialog.setWindowModality(Qt::WindowModal);
 
-    dialog.setName(category->getName());
+    dialog.setName(category->getDisplayName());
 
     QColor c = category->getColor();
     dialog.setColor(c);
@@ -117,7 +117,7 @@ void MaterialCategoryWidget::categoryDoubleClicked(const QModelIndex& index)
         if (newName!=category->getName()) {
             MaterialCategory* dummy = categoryModel_->getCategory(newName);
             if (!dummy) {
-                if (newName!=category->getName()) {
+                if (newName!=category->getDisplayName()) {
                     categoryModel_->renameCategory(category, newName);
                     isChanged = true;
                 }

@@ -26,10 +26,12 @@
 QIcon* MaterialCategory::emptyIcon_ = 0;
 
 MaterialCategory::MaterialCategory(const QString& name,
+                                   const QString& displayName,
                                    const QColor& color,
                                    bool readonly):
     isReadOnly_(readonly),
     name_(name),
+    displayName_(displayName),
     color_(color)
 {
     if (emptyIcon_==0) {
