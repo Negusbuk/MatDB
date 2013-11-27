@@ -17,6 +17,10 @@ win32-g++ {
   DEFINES += WIN32GPP
 }
 
+DEFINES += APPVERMAJOR=0
+DEFINES += APPVERMINOR=9
+DEFINES += APPPATCHLEVEL=2
+
 QT       += core gui xml
 
 INCLUDEPATH += ./properties ./external
