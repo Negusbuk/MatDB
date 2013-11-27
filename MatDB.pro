@@ -157,4 +157,4 @@ OTHER_FILES += stylesheet.qss \
     artwork/MatDBBG.png \
     html/header.html \
     html/footer.html \
-    LICENSE
+    LICENSE.html
