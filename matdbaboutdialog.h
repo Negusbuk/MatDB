@@ -32,8 +32,7 @@ class MatDBAboutDialog : public QWizard
 public:
 
     enum {
-        Page_Intro,
-        Page_Thanks,
+        Page_Version,
         Page_License
     };
 
@@ -45,28 +44,12 @@ public slots:
     
 };
 
-class IntroPage : public QWizardPage
+class VersionPage : public QWizardPage
 {
     Q_OBJECT
 
 public:
-    IntroPage(QWidget *parent = 0);
-
-    int nextId() const;
-
-private:
-
-    QLabel *topLabel;
-    QRadioButton *registerRadioButton;
-    QRadioButton *evaluateRadioButton;
-};
-
-class ThanksPage : public QWizardPage
-{
-    Q_OBJECT
-
-public:
-    ThanksPage(QWidget *parent = 0);
+    VersionPage(QWidget *parent = 0);
 
     int nextId() const;
 

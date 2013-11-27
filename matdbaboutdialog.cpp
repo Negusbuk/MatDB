@@ -20,8 +20,11 @@
 
 #include <QApplication>
 #include <QBoxLayout>
+#include <QGridLayout>
+#include <QSpacerItem>
 #include <QFile>
 
+#include "matdbversion.h"
 #include "matdbaboutdialog.h"
 
 MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
@@ -32,19 +35,18 @@ MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
     this->setWindowModality(Qt::WindowModal);
     this->setWindowFlags(Qt::Sheet);
     setWizardStyle(ModernStyle);
-    setFixedWidth(900);
-#else
     setFixedWidth(700);
+#else
+    setFixedWidth(500);
 #endif
-
+    setFixedHeight(400);
 
     setSizeGripEnabled(false);
 
-    setPage(Page_Intro, new IntroPage);
-    setPage(Page_Thanks, new ThanksPage);
+    setPage(Page_Version, new VersionPage);
     setPage(Page_License, new LicensePage);
 
-    setStartId(Page_Intro);
+    setStartId(Page_Version);
 
     QList<QWizard::WizardButton> layout;
     layout << QWizard::Stretch << QWizard::FinishButton << QWizard::NextButton;
@@ -58,30 +60,33 @@ MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
     setPixmap(QWizard::BackgroundPixmap, pix);
 }
 
-IntroPage::IntroPage(QWidget *parent)
+VersionPage::VersionPage(QWidget *parent)
     : QWizardPage(parent)
 {
-    setTitle(tr("Introduction"));
+    setTitle(tr("Version"));
 
     QVBoxLayout *layout = new QVBoxLayout;
     setLayout(layout);
+
+    QGridLayout *grid = new QGridLayout(this);
+    layout->addLayout(grid);
+
+    QString release = MATDBRELEASESTR;
+    release += " (";
+    release += QString::number(MATDBRELEASE);
+    release += ")";
+    grid->addWidget(new QLabel(tr("MatDB Version")), 1, 0);
+    grid->addWidget(new QLabel(release), 1, 1);
+    grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
+                  1, 2);
+
+    grid->addWidget(new QLabel(tr("Qt Version")), 2, 0);
+    grid->addWidget(new QLabel(qVersion()), 2, 1);
+    grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
+                  2, 2);
 }
 
-int IntroPage::nextId() const
-{
-    return MatDBAboutDialog::Page_Thanks;
-}
-
-ThanksPage::ThanksPage(QWidget *parent)
-    : QWizardPage(parent)
-{
-    setTitle(tr("Thanks"));
-
-    QVBoxLayout *layout = new QVBoxLayout;
-    setLayout(layout);
-}
-
-int ThanksPage::nextId() const
+int VersionPage::nextId() const
 {
     return MatDBAboutDialog::Page_License;
 }
@@ -98,9 +103,9 @@ LicensePage::LicensePage(QWidget *parent)
     layout->addWidget(licenseView_);
     licenseView_->setReadOnly(true);
 
-    QFile file(":/LICENSE");
+    QFile file(":/LICENSE.html");
     file.open(QFile::ReadOnly);
-    licenseView_->setText(file.readAll());
+    licenseView_->setHtml(file.readAll());
     file.close();
 }
 
