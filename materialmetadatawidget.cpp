@@ -46,24 +46,24 @@ MaterialMetadataWidget::MaterialMetadataWidget(MaterialListModel* listModel,
 
     descriptionEdit_ = new QLineEdit(content_);
     descriptionEdit_->setAttribute(Qt::WA_MacShowFocusRect, 0);
-    layout_->addRow("Description:", descriptionEdit_);
+    layout_->addRow(tr("Description:"), descriptionEdit_);
     connect(descriptionEdit_, SIGNAL(textChanged(QString)),
             this, SLOT(descriptionChanged(QString)));
 
     MaterialCategoryBox * categoryBox;
     categoryBox = new MaterialCategoryBox(listModel_, selectionModel_,
                                           categoryModel_, content_);
-    layout_->addRow("Category:", categoryBox);
+    layout_->addRow(tr("Category:"), categoryBox);
 
     MaterialTagsEdit * tagsEdit;
     tagsEdit = new MaterialTagsEdit(listModel_, selectionModel_,
                                     content_);
     tagsEdit->setFixedHeight(80);
-    layout_->addRow("Tags:", tagsEdit);
+    layout_->addRow(tr("Tags:"), tagsEdit);
 
     notesEdit_ = new QPlainTextEdit(content_);
     notesEdit_->setFixedHeight(60);
-    layout_->addRow("Notes:", notesEdit_);
+    layout_->addRow(tr("Notes:"), notesEdit_);
     connect(notesEdit_, SIGNAL(textChanged()),
             this, SLOT(notesChanged()));
 

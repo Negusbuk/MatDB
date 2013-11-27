@@ -34,6 +34,7 @@ DensityProperty::DensityProperty(ParameterModel* model, int id) :
     Property(id)
 {
     setName("Density");
+    setDisplayName(QObject::tr("Density"));
     setCategory(PhysicalProperty);
     setType(Density);
     setBehavior(Isotropic);
@@ -45,6 +46,7 @@ DensityProperty::DensityProperty(const DensityProperty& property) :
     Property(property.getId())
 {
     setName("Density");
+    setDisplayName(QObject::tr("Density"));
     setCategory(PhysicalProperty);
     setType(Density);
     setBehavior(Isotropic);

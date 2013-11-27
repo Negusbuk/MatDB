@@ -56,11 +56,11 @@ MaterialFilterWidget::MaterialFilterWidget(MaterialListModel *listmodel,
     hbox->addWidget(stretch);
 
     QRadioButton * rb;
-    rb = new QRadioButton("AND", control);
+    rb = new QRadioButton(tr("AND"), control);
     hbox->addWidget(rb);
     filterLogicGroup_->addButton(rb, 0);
     rb->setChecked(true);
-    rb = new QRadioButton("OR", control);
+    rb = new QRadioButton(tr("OR"), control);
     hbox->addWidget(rb);
     filterLogicGroup_->addButton(rb, 1);
 

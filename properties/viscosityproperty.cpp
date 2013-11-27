@@ -34,6 +34,7 @@ ViscosityProperty::ViscosityProperty(ParameterModel* model, int id) :
     Property(id)
 {
     setName("Viscosity");
+    setDisplayName(QObject::tr("Viscosity"));
     setCategory(FluidProperty);
     setType(Viscosity);
     setBehavior(Isotropic);
@@ -45,6 +46,7 @@ ViscosityProperty::ViscosityProperty(const ViscosityProperty& property) :
     Property(property.getId())
 {
     setName("Viscosity");
+    setDisplayName(QObject::tr("Viscosity"));
     setCategory(FluidProperty);
     setType(Viscosity);
     setBehavior(Isotropic);

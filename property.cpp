@@ -53,23 +53,28 @@ void Property::setName(const QString& name)
     Name_ = name;
 }
 
+void Property::setDisplayName(const QString& name)
+{
+    DisplayName_ = name;
+}
+
 QString Property::getCategoryName() const
 {
     switch (Category_) {
     case PhysicalProperty:
-        return QString("Physical Properties");
+        return QString(QObject::tr("Physical Properties"));
         break;
     case LinearElasticProperty:
-        return QString("Linear Elastic Properties");
+        return QString(QObject::tr("Linear Elastic Properties"));
         break;
     case ThermalProperty:
-        return QString("Thermal Properties");
+        return QString(QObject::tr("Thermal Properties"));
         break;
     case ElectricalProperty:
-        return QString("Electrical Properties");
+        return QString(QObject::tr("Electrical Properties"));
         break;
     case FluidProperty:
-        return QString("Fluid Properties");
+        return QString(QObject::tr("Fluid Properties"));
         break;
     default:
         break;

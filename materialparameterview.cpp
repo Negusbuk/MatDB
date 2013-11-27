@@ -121,10 +121,10 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
             this, SLOT(displayContextMenu(const QPoint&)));
 
     ContextMenu_ = new QMenu();
-    ContextMenu_->addAction("Import", this, SLOT(import()));
+    ContextMenu_->addAction(tr("Import"), this, SLOT(import()));
     ContextMenu_->addSeparator();
-    DeleteAction_ = ContextMenu_->addAction("Delete", this, SLOT(deleteParameterRow()));
-    DeleteTempAction_ = ContextMenu_->addAction("Delete Temperature", this, SLOT(deleteTemperature()));
+    DeleteAction_ = ContextMenu_->addAction(tr("Delete"), this, SLOT(deleteParameterRow()));
+    DeleteTempAction_ = ContextMenu_->addAction(tr("Delete Temperature"), this, SLOT(deleteTemperature()));
 
     QVBoxLayout * layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
@@ -143,7 +143,7 @@ MaterialParameterView::MaterialParameterView(MaterialListModel *listmodel,
     valueTable_->setMinimumHeight(200);
 
     unitTable_->setColumnCount(2);
-    unitTable_->setHorizontalHeaderItem(0, new QTableWidgetItem("Temperature"));
+    unitTable_->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Temperature")));
     unitTable_->setHorizontalHeaderItem(1, new QTableWidgetItem(""));
     unitTable_->setRowCount(1);
 
@@ -231,7 +231,7 @@ void MaterialParameterView::parameterChanged(Parameter* parameter)
         return;
     }
 
-    unitTable_->horizontalHeaderItem(1)->setText(parameter->getName());
+    unitTable_->horizontalHeaderItem(1)->setText(parameter->getDisplayName());
 
     if (!parameter->isDependent()) {
         valueTable_->setRowCount(1+parameter->getNumberOfValues());
@@ -448,12 +448,12 @@ void MaterialParameterView::import()
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    "Import Data",
+                                                    tr("Import Data"),
                                                     QDesktopServices::storageLocation(QDesktopServices::DesktopLocation),
                                                     "*.csv");
 #else
     QString filename = QFileDialog::getOpenFileName(this,
-                                                    "Import Data",
+                                                    tr("Import Data"),
                                                     QStandardPaths::writableLocation(QStandardPaths::DesktopLocation),
                                                     "*.csv");
 #endif

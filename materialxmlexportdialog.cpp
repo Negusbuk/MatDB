@@ -41,9 +41,9 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
     setLayout(layout);
 
     materialView_ = new QTableWidget(model_->getMaterialCount(), 2, this);
-    materialView_->setHorizontalHeaderItem(0, new QTableWidgetItem("Material"));
+    materialView_->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Material")));
     materialView_->setColumnWidth(0, 400);
-    materialView_->setHorizontalHeaderItem(1, new QTableWidgetItem("Description"));
+    materialView_->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Description")));
     materialView_->setSelectionBehavior(QAbstractItemView::SelectItems);
     materialView_->setSelectionMode(QAbstractItemView::NoSelection);
 
@@ -87,7 +87,7 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
     buttonLayout->setContentsMargins(1, 1, 1, 1);
     buttons->setLayout(buttonLayout);
 
-    buttonLayout->addWidget(new QLabel("Export Mode:", buttons));
+    buttonLayout->addWidget(new QLabel(tr("Export Mode:"), buttons));
 
     QButtonGroup* group = new QButtonGroup(buttons);
     connect(group, SIGNAL(buttonClicked(QAbstractButton*)),
@@ -112,14 +112,14 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
 
     QPushButton *button;
 
-    button = new QPushButton("Export", buttons);
+    button = new QPushButton(tr("Export"), buttons);
     //button->setFlat(true);
     button->setDefault(false);
     connect(button, SIGNAL(clicked()),
             this, SLOT(exportMaterials()));
     buttonLayout->addWidget(button);
 
-    button = new QPushButton("Cancel", buttons);
+    button = new QPushButton(tr("Cancel"), buttons);
     //button->setFlat(true);
     button->setDefault(true);
     connect(button, SIGNAL(clicked()),

@@ -79,6 +79,9 @@ public:
     const QString& getName() const { return Name_; }
     void setName(const QString& name);
 
+    const QString& getDisplayName() const { return DisplayName_; }
+    void setDisplayName(const QString& name);
+
     void setParameterValues(ParameterValueVector* values) { Values_ = values; }
     void addValue(double value);
     void addValue(double temperature, double value);
@@ -125,6 +128,7 @@ protected:
     int Id_;
     QString IdString_;
     QString Name_;
+    QString DisplayName_;
     ParameterValueVector* Values_;
     bool ReadOnly_;
     bool Dependent_;
