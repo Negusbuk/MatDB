@@ -24,12 +24,18 @@
 #include <QWizard>
 #include <QLabel>
 #include <QRadioButton>
+#include <QTextEdit>
 
 class MatDBAboutDialog : public QWizard
 {
     Q_OBJECT
 public:
-     enum { Page_Intro };
+
+    enum {
+        Page_Intro,
+        Page_Thanks,
+        Page_License
+    };
 
     explicit MatDBAboutDialog(QWidget *parent = 0);
     
@@ -40,11 +46,37 @@ public slots:
 };
 
 class IntroPage : public QWizardPage
- {
-     Q_OBJECT
+{
+    Q_OBJECT
 
- public:
-     IntroPage(QWidget *parent = 0);
+public:
+    IntroPage(QWidget *parent = 0);
+
+    int nextId() const;
+
+private:
+
+    QLabel *topLabel;
+    QRadioButton *registerRadioButton;
+    QRadioButton *evaluateRadioButton;
+};
+
+class ThanksPage : public QWizardPage
+{
+    Q_OBJECT
+
+public:
+    ThanksPage(QWidget *parent = 0);
+
+    int nextId() const;
+
+private:
+
+    QLabel *topLabel;
+    QRadioButton *registerRadioButton;
+    QRadioButton *evaluateRadioButton;
+};
+
 class LicensePage : public QWizardPage
 {
     Q_OBJECT

@@ -20,6 +20,7 @@
 
 #include <QApplication>
 #include <QBoxLayout>
+#include <QFile>
 
 #include "matdbaboutdialog.h"
 
@@ -31,47 +32,60 @@ MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
     this->setWindowModality(Qt::WindowModal);
     this->setWindowFlags(Qt::Sheet);
     setWizardStyle(ModernStyle);
+    setFixedWidth(900);
+#else
+    setFixedWidth(700);
 #endif
+
 
     setSizeGripEnabled(false);
 
     setPage(Page_Intro, new IntroPage);
+    setPage(Page_Thanks, new ThanksPage);
+    setPage(Page_License, new LicensePage);
 
     setStartId(Page_Intro);
 
-     //setOption(HaveHelpButton, false);
-     setPixmap(QWizard::BackgroundPixmap, QPixmap(":/pics/MatDBBG.png"));
+    QList<QWizard::WizardButton> layout;
+    layout << QWizard::Stretch << QWizard::FinishButton << QWizard::NextButton;
+    setButtonLayout(layout);
 
-     setWindowTitle(tr("License Wizard"));
+    QPixmap pix(":/artwork/MatDBBG.png");
+    pix = pix.scaled(pix.width()/1.5, pix.height()/1.5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    setPixmap(QWizard::WatermarkPixmap, pix);
+    setPixmap(QWizard::LogoPixmap, pix);
+    setPixmap(QWizard::BannerPixmap, pix);
+    setPixmap(QWizard::BackgroundPixmap, pix);
 }
 
 IntroPage::IntroPage(QWidget *parent)
-     : QWizardPage(parent)
- {
-     setTitle(tr("Introduction"));
-     setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/watermark.png"));
+    : QWizardPage(parent)
+{
+    setTitle(tr("Introduction"));
 
-     topLabel = new QLabel(tr("This wizard will help you register your copy of "
-                              "<i>Super Product One</i>&trade; or start "
-                              "evaluating the product."));
-     topLabel->setWordWrap(true);
+    QVBoxLayout *layout = new QVBoxLayout;
+    setLayout(layout);
+}
 
-     registerRadioButton = new QRadioButton(tr("&Register your copy"));
-     evaluateRadioButton = new QRadioButton(tr("&Evaluate the product for 30 "
-                                               "days"));
-     registerRadioButton->setChecked(true);
+int IntroPage::nextId() const
+{
+    return MatDBAboutDialog::Page_Thanks;
+}
 
-     QVBoxLayout *layout = new QVBoxLayout;
-     layout->addWidget(topLabel);
-     layout->addWidget(registerRadioButton);
-     layout->addWidget(evaluateRadioButton);
-     setLayout(layout);
- }
+ThanksPage::ThanksPage(QWidget *parent)
+    : QWizardPage(parent)
+{
+    setTitle(tr("Thanks"));
 
- int IntroPage::nextId() const
- {
-    return MatDBAboutDialog::Page_Intro;
- }
+    QVBoxLayout *layout = new QVBoxLayout;
+    setLayout(layout);
+}
+
+int ThanksPage::nextId() const
+{
+    return MatDBAboutDialog::Page_License;
+}
+
 LicensePage::LicensePage(QWidget *parent)
     : QWizardPage(parent)
 {
