@@ -156,4 +156,5 @@ OTHER_FILES += stylesheet.qss \
     artwork/MatDBSplashScreen.png \
     artwork/MatDBBG.png \
     html/header.html \
-    html/footer.html
+    html/footer.html \
+    LICENSE
