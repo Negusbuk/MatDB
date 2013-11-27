@@ -138,7 +138,8 @@ HEADERS += matdbmainwindow.h \
     materialindexer.h \
     htmlwriter.h \
     materialselectiondialog.h \
-    parameterset.h
+    parameterset.h \
+    matdbversion.h
 
 FORMS    +=
 
