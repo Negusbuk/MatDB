@@ -18,60 +18,19 @@
  **
  ****************************************************************************/
 
-#ifndef MATDBABOUTDIALOG_H
-#define MATDBABOUTDIALOG_H
+#ifndef MATDBVERSION_H
+#define MATDBVERSION_H
 
-#include <QWizard>
-#include <QLabel>
-#include <QRadioButton>
-#include <QTextEdit>
+#define VERMAJOR    APPVERMAJOR
+#define VERMINOR    APPVERMINOR
+#define PATCHLEVEL  APPPATCHLEVEL
 
-class MatDBAboutDialog : public QWizard
-{
-    Q_OBJECT
-public:
+#define xstr(s) str(s)
+#define str(s) #s
 
-    enum {
-        Page_Version,
-        Page_License
-    };
+#define _RELEASECODE(a,b,c) (((a) << 16) + ((b) << 8) + (c))
 
-    explicit MatDBAboutDialog(QWidget *parent = 0);
-    
-signals:
-    
-public slots:
-    
-};
+#define MATDBRELEASE       _RELEASECODE(VERMAJOR,VERMINOR,PATCHLEVEL)
+#define MATDBRELEASESTR    xstr(VERMAJOR) "." xstr(VERMINOR) "." xstr(PATCHLEVEL)
 
-class VersionPage : public QWizardPage
-{
-    Q_OBJECT
-
-public:
-    VersionPage(QWidget *parent = 0);
-
-    int nextId() const;
-
-private:
-
-    QLabel *topLabel;
-    QRadioButton *registerRadioButton;
-    QRadioButton *evaluateRadioButton;
-};
-
-class LicensePage : public QWizardPage
-{
-    Q_OBJECT
-
-public:
-    LicensePage(QWidget *parent = 0);
-
-    int nextId() const;
-
-private:
-
-    QTextEdit* licenseView_;
-};
-
-#endif // MATDBABOUTDIALOG_H
+#endif // MATDBVERSION_H
