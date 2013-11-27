@@ -17,9 +17,8 @@
         <file>icons/MatDBResetFilter.png</file>
         <file>html/header.html</file>
         <file>html/footer.html</file>
-    </qresource>
-    <qresource prefix="/pics">
         <file>artwork/MatDBSplashScreen.png</file>
         <file>artwork/MatDBBG.png</file>
+        <file>LICENSE</file>
     </qresource>
 </RCC>
