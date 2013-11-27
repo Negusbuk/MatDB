@@ -57,34 +57,11 @@
     </message>
 </context>
 <context>
-    <name>IntroPage</name>
+    <name>LicensePage</name>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="47"/>
-        <source>Introduction</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../matdbaboutdialog.cpp" line="50"/>
-        <source>This wizard will help you register your copy of &lt;i&gt;Super Product One&lt;/i&gt;&amp;trade; or start evaluating the product.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../matdbaboutdialog.cpp" line="55"/>
-        <source>&amp;Register your copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../matdbaboutdialog.cpp" line="56"/>
-        <source>&amp;Evaluate the product for 30 days</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MatDBAboutDialog</name>
-    <message>
-        <location filename="../matdbaboutdialog.cpp" line="41"/>
-        <source>License Wizard</source>
-        <translation type="unfinished"></translation>
+        <location filename="../matdbaboutdialog.cpp" line="97"/>
+        <source>License</source>
+        <translation>Lizenz</translation>
     </message>
 </context>
 <context>
@@ -696,6 +673,24 @@
         <location filename="../properties/viscosityproperty.cpp" line="49"/>
         <source>Viscosity</source>
         <translation>Viskosität</translation>
+    </message>
+</context>
+<context>
+    <name>VersionPage</name>
+    <message>
+        <location filename="../matdbaboutdialog.cpp" line="66"/>
+        <source>Version</source>
+        <translation>Version</translation>
+    </message>
+    <message>
+        <location filename="../matdbaboutdialog.cpp" line="78"/>
+        <source>MatDB Version</source>
+        <translation>MatDB Version</translation>
+    </message>
+    <message>
+        <location filename="../matdbaboutdialog.cpp" line="83"/>
+        <source>Qt Version</source>
+        <translation>Qt Version</translation>
     </message>
 </context>
 </TS>
