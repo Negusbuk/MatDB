@@ -19,6 +19,6 @@
         <file>html/footer.html</file>
         <file>artwork/MatDBSplashScreen.png</file>
         <file>artwork/MatDBBG.png</file>
-        <file>LICENSE</file>
+        <file>LICENSE.html</file>
     </qresource>
 </RCC>
