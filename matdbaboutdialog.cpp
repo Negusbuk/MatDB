@@ -84,6 +84,15 @@ VersionPage::VersionPage(QWidget *parent)
     grid->addWidget(new QLabel(qVersion()), 2, 1);
     grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
                   2, 2);
+
+    QTextEdit *copyright = new QTextEdit(this);
+    layout->addWidget(copyright);
+    copyright->setReadOnly(true);
+
+    QFile file(":/COPYRIGHT.html");
+    file.open(QFile::ReadOnly);
+    copyright->setHtml(file.readAll());
+    file.close();
 }
 
 int VersionPage::nextId() const
@@ -99,13 +108,13 @@ LicensePage::LicensePage(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout;
     setLayout(layout);
 
-    licenseView_ = new QTextEdit(this);
-    layout->addWidget(licenseView_);
-    licenseView_->setReadOnly(true);
+    QTextEdit *licenseView = new QTextEdit(this);
+    layout->addWidget(licenseView);
+    licenseView->setReadOnly(true);
 
     QFile file(":/LICENSE.html");
     file.open(QFile::ReadOnly);
-    licenseView_->setHtml(file.readAll());
+    licenseView->setHtml(file.readAll());
     file.close();
 }
 

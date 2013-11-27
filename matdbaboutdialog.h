@@ -52,12 +52,6 @@ public:
     VersionPage(QWidget *parent = 0);
 
     int nextId() const;
-
-private:
-
-    QLabel *topLabel;
-    QRadioButton *registerRadioButton;
-    QRadioButton *evaluateRadioButton;
 };
 
 class LicensePage : public QWizardPage
@@ -68,10 +62,6 @@ public:
     LicensePage(QWidget *parent = 0);
 
     int nextId() const;
-
-private:
-
-    QTextEdit* licenseView_;
 };
 
 #endif // MATDBABOUTDIALOG_H
