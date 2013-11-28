@@ -15,43 +15,43 @@
     </message>
     <message>
         <location filename="../htmlwriter.cpp" line="188"/>
-        <location filename="../htmlwriter.cpp" line="358"/>
+        <location filename="../htmlwriter.cpp" line="360"/>
         <source>Generated on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="190"/>
-        <location filename="../htmlwriter.cpp" line="360"/>
-        <source> by MatDB</source>
+        <location filename="../htmlwriter.cpp" line="192"/>
+        <location filename="../htmlwriter.cpp" line="364"/>
+        <source>by MatDB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="217"/>
-        <source>.: MatDB Materials - </source>
+        <location filename="../htmlwriter.cpp" line="219"/>
+        <source>.: MatDB Material - </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="267"/>
+        <location filename="../htmlwriter.cpp" line="269"/>
         <source>back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="282"/>
+        <location filename="../htmlwriter.cpp" line="284"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="290"/>
+        <location filename="../htmlwriter.cpp" line="292"/>
         <source>Category</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="302"/>
+        <location filename="../htmlwriter.cpp" line="304"/>
         <source>Tags</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="320"/>
+        <location filename="../htmlwriter.cpp" line="322"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -59,7 +59,7 @@
 <context>
     <name>LicensePage</name>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="97"/>
+        <location filename="../matdbaboutdialog.cpp" line="106"/>
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
