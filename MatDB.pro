@@ -17,6 +17,10 @@ win32-g++ {
   DEFINES += WIN32GPP
 }
 
+DEFINES += APPVERMAJOR=0
+DEFINES += APPVERMINOR=9
+DEFINES += APPPATCHLEVEL=2
+
 QT       += core gui xml
 
 INCLUDEPATH += ./properties ./external
@@ -156,4 +160,9 @@ OTHER_FILES += stylesheet.qss \
     artwork/MatDBSplashScreen.png \
     artwork/MatDBBG.png \
     html/header.html \
-    html/footer.html
+    html/footer.html \
+    LICENSE.html \
+    COPYRIGHT.html
+
+TRANSLATIONS = translations/MatDB_en.ts \
+               translations/MatDB_de.ts

@@ -42,9 +42,9 @@ MaterialSelectionDialog::MaterialSelectionDialog(const QString& buttonText,
     setLayout(layout);
 
     materialView_ = new QTableWidget(model_->getMaterialCount(), 2, this);
-    materialView_->setHorizontalHeaderItem(0, new QTableWidgetItem("Material"));
+    materialView_->setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Material")));
     materialView_->setColumnWidth(0, 400);
-    materialView_->setHorizontalHeaderItem(1, new QTableWidgetItem("Description"));
+    materialView_->setHorizontalHeaderItem(1, new QTableWidgetItem(tr("Description")));
     materialView_->setSelectionBehavior(QAbstractItemView::SelectItems);
     materialView_->setSelectionMode(QAbstractItemView::NoSelection);
 
@@ -95,7 +95,7 @@ MaterialSelectionDialog::MaterialSelectionDialog(const QString& buttonText,
             this, SLOT(okClicked()));
     buttonLayout->addWidget(okButton_);
 
-    QPushButton * button = new QPushButton("Cancel", buttons);
+    QPushButton * button = new QPushButton(tr("Cancel"), buttons);
     //button->setFlat(true);
     button->setDefault(true);
     connect(button, SIGNAL(clicked()),

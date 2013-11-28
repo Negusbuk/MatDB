@@ -17,9 +17,13 @@
         <file>icons/MatDBResetFilter.png</file>
         <file>html/header.html</file>
         <file>html/footer.html</file>
-    </qresource>
-    <qresource prefix="/pics">
         <file>artwork/MatDBSplashScreen.png</file>
         <file>artwork/MatDBBG.png</file>
+        <file>LICENSE.html</file>
+        <file>COPYRIGHT.html</file>
+    </qresource>
+    <qresource>
+        <file>translations/MatDB_en.qm</file>
+        <file>translations/MatDB_de.qm</file>
     </qresource>
 </RCC>

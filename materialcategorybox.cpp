@@ -52,7 +52,7 @@ void MaterialCategoryBox::materialChanged(Material* material)
 
     MaterialCategory* category = material->getCategory();
     if (category) {
-        int idx = findText(category->getName());
+        int idx = findText(category->getDisplayName());
         setCurrentIndex(idx);
     }
 }
@@ -68,7 +68,7 @@ void MaterialCategoryBox::selectedCategoryChanged(const QString& /* item */)
     if (currentIndex()==0) {
         material->setCategory(0);
     } else {
-        material->setCategory(categoryModel_->getCategory(currentText()));
+        material->setCategory(categoryModel_->getCategoryByDisplayName(currentText()));
     }
 
     emit materialMetadataChanged(material);

@@ -32,6 +32,7 @@ IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(Param
     Property(id)
 {
     setName("Isotropic Thermal Conductivity");
+    setDisplayName(QObject::tr("Isotropic Thermal Conductivity"));
     setCategory(ThermalProperty);
     setType(ThermalConductivity);
     setBehavior(Isotropic);
@@ -43,6 +44,7 @@ IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(const
     Property(property.getId())
 {
     setName("Isotropic Thermal Conductivity");
+    setDisplayName(QObject::tr("Isotropic Thermal Conductivity"));
     setCategory(ThermalProperty);
     setType(ThermalConductivity);
     setBehavior(Isotropic);
@@ -146,6 +148,7 @@ OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(P
     Property(id)
 {
     setName("Orthotropic Thermal Conductivity");
+    setDisplayName(QObject::tr("Orthotropic Thermal Conductivity"));
     setCategory(ThermalProperty);
     setType(ThermalConductivity);
     setBehavior(Orthotropic);
@@ -162,6 +165,7 @@ OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(c
     Property(property.getId())
 {
     setName("Orthotropic Thermal Conductivity");
+    setDisplayName(QObject::tr("Orthotropic Thermal Conductivity"));
     setCategory(ThermalProperty);
     setType(ThermalConductivity);
     setBehavior(Orthotropic);

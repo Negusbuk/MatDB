@@ -18,37 +18,19 @@
  **
  ****************************************************************************/
 
-#include <QPixmap>
-#include <QPainter>
+#ifndef MATDBVERSION_H
+#define MATDBVERSION_H
 
-#include <materialcategory.h>
+#define VERMAJOR    APPVERMAJOR
+#define VERMINOR    APPVERMINOR
+#define PATCHLEVEL  APPPATCHLEVEL
 
-QIcon* MaterialCategory::emptyIcon_ = 0;
+#define xstr(s) str(s)
+#define str(s) #s
 
-MaterialCategory::MaterialCategory(const QString& name,
-                                   const QString& displayName,
-                                   const QColor& color,
-                                   bool readonly):
-    isReadOnly_(readonly),
-    name_(name),
-    displayName_(displayName),
-    color_(color)
-{
-    if (emptyIcon_==0) {
-        QPixmap e(8, 8);
-        e.fill(QColor(242, 142, 0, 0));
-        emptyIcon_ = new QIcon(e);
-    }
+#define _RELEASECODE(a,b,c) (((a) << 16) + ((b) << 8) + (c))
 
-    QPixmap pm(8, 8);
-    pm.fill(color_);
-    icon_ = QIcon(pm);
-}
+#define MATDBRELEASE       _RELEASECODE(VERMAJOR,VERMINOR,PATCHLEVEL)
+#define MATDBRELEASESTR    xstr(VERMAJOR) "." xstr(VERMINOR) "." xstr(PATCHLEVEL)
 
-void MaterialCategory::setColor(const QColor& color)
-{
-    color_ = color;
-    QPixmap pm(8, 8);
-    pm.fill(color_);
-    icon_ = QIcon(pm);
-}
+#endif // MATDBVERSION_H

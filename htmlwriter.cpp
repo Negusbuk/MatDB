@@ -44,7 +44,7 @@ void HTMLWriter::write(const QDir& destination)
     NQLog("HTMLWriter", NQLog::Message) << "void write(const QDir& destination)";
     NQLog("HTMLWriter", NQLog::Message) << destination.absolutePath();
 
-    MaterialCategory* noCategory = categorymodel_->getCategory("No Category");
+    MaterialCategory* noCategory = categorymodel_->getCategory(tr("No Category"));
     std::map<MaterialCategory*,std::vector<Material*> > map;
     std::map<MaterialCategory*,int> count;
 
@@ -71,7 +71,7 @@ void HTMLWriter::write(const QDir& destination)
     hfile.open(QFile::ReadOnly);
     QString header(hfile.readAll());
     hfile.close();
-    header.replace("@TITLE@", ".: MatDB Materials :.");
+    header.replace("@TITLE@", tr(".: MatDB Materials :."));
 
     QFile ffile(":/html/footer.html");
     ffile.open(QFile::ReadOnly);
@@ -185,9 +185,9 @@ void HTMLWriter::write(const QDir& destination)
 
     stream.writeEndElement(); // table
 
-    QString generator = "Generated ";
+    QString generator = tr("Generated on");
     generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-    generator += " by MatDB";
+    generator += tr(" by MatDB");
     stream.writeTextElement("p", generator);
 
     stream.writeEndElement();
@@ -214,7 +214,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     hfile.open(QFile::ReadOnly);
     QString header(hfile.readAll());
     hfile.close();
-    QString title = ".: MatDB Materials - ";
+    QString title = tr(".: MatDB Materials - ");
     title += material->getName();
     title += " :.";
     header.replace("@TITLE@", title);
@@ -264,7 +264,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeAttribute("valign", "top");
     stream.writeStartElement("a");
     stream.writeAttribute("href", "./index.html");
-    stream.writeCharacters("back");
+    stream.writeCharacters(tr("back"));
     stream.writeEndElement(); // a
     stream.writeEndElement(); // td
 
@@ -279,7 +279,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeStartElement("td");
     stream.writeAttribute("style", "width:150px;");
     stream.writeAttribute("class", "MatDBTitle");
-    stream.writeCharacters("Description");
+    stream.writeCharacters(tr("Description"));
     stream.writeEndElement(); // td
     stream.writeTextElement("td", material->getDescription());
     stream.writeEndElement(); // tr
@@ -287,7 +287,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeStartElement("tr");
     stream.writeStartElement("td");
     stream.writeAttribute("class", "MatDBTitle");
-    stream.writeCharacters("Category");
+    stream.writeCharacters(tr("Category"));
     stream.writeEndElement(); // td
     if (material->getCategory()) {
          stream.writeTextElement("td", material->getCategory()->getName());
@@ -299,7 +299,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeStartElement("tr");
     stream.writeStartElement("td");
     stream.writeAttribute("class", "MatDBTitle");
-    stream.writeCharacters("Tags");
+    stream.writeCharacters(tr("Tags"));
     stream.writeEndElement(); // td
     stream.writeStartElement("td");
     QStringList tags = material->getTags();
@@ -317,7 +317,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeStartElement("tr");
     stream.writeStartElement("td");
     stream.writeAttribute("class", "MatDBTitle");
-    stream.writeCharacters("Notes");
+    stream.writeCharacters(tr("Notes"));
     stream.writeEndElement(); // td
     stream.writeStartElement("td");
     QStringList notes = material->getNotes().split("\n");
@@ -355,9 +355,9 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeStartElement("div");
     stream.writeAttribute("style", "width:100%;");
     stream.writeAttribute("align", "right");
-    QString generator = "Generated ";
+    QString generator = tr("Generated on");
     generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-    generator += " by MatDB";
+    generator += tr(" by MatDB");
     stream.writeTextElement("p", generator);
     stream.writeEndElement(); // div
 
