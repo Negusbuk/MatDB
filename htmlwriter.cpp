@@ -44,7 +44,7 @@ void HTMLWriter::write(const QDir& destination)
     NQLog("HTMLWriter", NQLog::Message) << "void write(const QDir& destination)";
     NQLog("HTMLWriter", NQLog::Message) << destination.absolutePath();
 
-    MaterialCategory* noCategory = categorymodel_->getCategoryByDisplayName(tr("No Category"));
+    MaterialCategory* noCategory = categorymodel_->getCategory("No Category");
     std::map<MaterialCategory*,std::vector<Material*> > map;
     std::map<MaterialCategory*,int> count;
 
