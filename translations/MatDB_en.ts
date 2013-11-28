@@ -4,11 +4,6 @@
 <context>
     <name>HTMLWriter</name>
     <message>
-        <location filename="../htmlwriter.cpp" line="47"/>
-        <source>No Category</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../htmlwriter.cpp" line="74"/>
         <source>.: MatDB Materials :.</source>
         <translation type="unfinished"></translation>
