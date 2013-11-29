@@ -106,6 +106,12 @@ QString Property::getTypeName() const
     case Viscosity:
         return QString("Viscosity");
         break;
+    case CriticalTemperature:
+        return QString("Critical Temperature");
+        break;
+    case CriticalPressure:
+        return QString("Critical Pressure");
+        break;
     default:
         break;
     }
