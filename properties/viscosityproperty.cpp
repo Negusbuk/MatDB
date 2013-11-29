@@ -68,8 +68,8 @@ Property* ViscosityProperty::clone(ParameterModel* model)
     return prop;
 }
 
-//<PropertyData property="pr0">
-//  <Data format="float">6e-08</Data>
+//<PropertyData property="pr3">
+//  <Data format="float">1.7894e-05</Data>
 //  <Qualifier name="Variable Type">Dependent</Qualifier>
 //  <ParameterValue parameter="pa0" format="float">
 //    <Data>7.88860905221012e-31</Data>
@@ -77,8 +77,8 @@ Property* ViscosityProperty::clone(ParameterModel* model)
 //  </ParameterValue>
 //</PropertyData>
 void ViscosityProperty::apply(PropertyData& data,
-                            PropertyDetail& detail,
-                            std::map<QString,ParameterDetail> /* paramMap */)
+                              PropertyDetail& detail,
+                              std::map<QString,ParameterDetail> /* paramMap */)
 {
     PValue pt = data.pvalues.front();
     std::vector<double> values;
