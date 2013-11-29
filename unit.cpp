@@ -264,6 +264,22 @@ Density::Density() :
 Pressure::Pressure() :
     VUnit()
 {
+    addUnit("N m^-2", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return value;
+            },
+            [&] (double value) {
+               return value;
+            });
+
+    addUnit("J m^-3", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return value;
+            },
+            [&] (double value) {
+               return value;
+            });
+
     addUnit("Pa", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
                return value;
