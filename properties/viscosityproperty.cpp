@@ -187,7 +187,7 @@ void ViscosityProperty::writeXMLData(QXmlStreamWriter& stream)
         if (pv.isTemperatureValid()) {
             values += QString::number(pv.getTemperature());
         } else {
-            values += "7.88860905221012e-31";
+            values += Property::undefindedIdentifyerAsString();
         }
     }
     stream.writeTextElement("Data", values);
