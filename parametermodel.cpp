@@ -83,6 +83,12 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Critical Pressure");
+    par->setDisplayName(tr("Critical Pressure"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Pressure(), id++);
     par->setName("Young's Modulus");
     par->setDisplayName(tr("Young's Modulus"));
