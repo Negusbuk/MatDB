@@ -65,6 +65,12 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Temperature(), id++, false);
+    par->setName("Critical Temperature");
+    par->setDisplayName(tr("Critical Temperature"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Density(), mid--);
     par->setName("Density");
     par->setDisplayName(tr("Density"));
