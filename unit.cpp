@@ -129,6 +129,14 @@ double VUnit::convertToCurrent(double value)
     return newValue;
 }
 
+double VUnit::convertToCurrent(double value, const QString& unit)
+{
+    int unitIndex = getUnitIndex(unit);
+    const UnitEntry * unitEntry = getUnitEntry(unitIndex);
+    double newValue = unitEntry->funcToBaseUnit_(value);
+    return convertToCurrent(newValue);
+}
+
 VUnit* VUnit::cloneWithUnitIndex() const
 {
     VUnit* unit = this->clone();
