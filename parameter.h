@@ -84,6 +84,7 @@ public:
 
     void setParameterValues(ParameterValueVector* values) { Values_ = values; }
     void addValue(double value);
+    void addValue(double value, const QString& unit);
     void addValue(double temperature, double value);
     void addValue(const ParameterValue& value);
     int getNumberOfValues() const;
