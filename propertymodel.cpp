@@ -27,6 +27,7 @@
 #include "viscosityproperty.h"
 #include "criticaltemperatureproperty.h"
 #include "criticalpressureproperty.h"
+#include "boilingpointproperty.h"
 
 #include "propertymodel.h"
 
@@ -88,6 +89,7 @@ void PropertyModel::build()
     addProperty(new ViscosityProperty(ParameterModel_, id++));
     addProperty(new CriticalTemperatureProperty(ParameterModel_, id++));
     addProperty(new CriticalPressureProperty(ParameterModel_, id++));
+    addProperty(new BoilingPointProperty(ParameterModel_, id++));
 
     Categories_.push_back(tr("Physical Properties"));
     Categories_.push_back(tr("Linear Elastic Properties"));

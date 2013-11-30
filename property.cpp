@@ -112,6 +112,9 @@ QString Property::getTypeName() const
     case CriticalPressure:
         return QString("Critical Pressure");
         break;
+    case BoilingPoint:
+        return QString("Boiling Point");
+        break;
     default:
         break;
     }

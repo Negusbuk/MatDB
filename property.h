@@ -95,7 +95,8 @@ public:
 
         Viscosity                        =  5001,
         CriticalTemperature              =  5002,
-        CriticalPressure                 =  5003
+        CriticalPressure                 =  5003,
+        BoilingPoint                     =  5004
     };
 
     enum Behavior {

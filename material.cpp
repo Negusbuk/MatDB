@@ -448,8 +448,6 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 
     Property * prop;
 
-    // boiling point 373K
-
     prop = propertyModel->getProperty("Density")->clone();
     prop->getParameter("Density")->addValue(0.9982);
     mat->addProperty(prop);
@@ -460,6 +458,10 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 
     prop = propertyModel->getProperty("Viscosity")->clone();
     prop->getParameter("Viscosity")->addValue(0.001003);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Boiling Point")->clone();
+    prop->getParameter("Boiling Point")->addValue(373, "K");
     mat->addProperty(prop);
 
     prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();

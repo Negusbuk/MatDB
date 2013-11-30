@@ -71,6 +71,12 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Temperature(), id++, false);
+    par->setName("Boiling Point");
+    par->setDisplayName(tr("Boiling Point"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Density(), mid--);
     par->setName("Density");
     par->setDisplayName(tr("Density"));
