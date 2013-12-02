@@ -260,9 +260,18 @@ void Property::writeHTML(QXmlStreamWriter& stream)
     }
 }
 
-void Property::writeXML(QXmlStreamWriter& /* stream */)
+void Property::writeXML(QXmlStreamWriter& stream)
 {
+    Parameter* parameter = Parameters_.begin()->second;
 
+    stream.writeStartElement("PropertyDetails");
+    stream.writeAttribute("id", getIdString());
+
+    parameter->getValueUnit()->writeXML(stream);
+
+    stream.writeTextElement("Name", parameter->getName());
+
+    stream.writeEndElement();
 }
 
 void Property::writeXMLData(QXmlStreamWriter& stream)
