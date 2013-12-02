@@ -203,7 +203,7 @@ void MaterialTableView::dropEvent(QDropEvent *event)
         return;
     }
 
-    material->addProperty(property);
+    material->addProperty(property->clone());
 
     if (SelectionModel_->getSelection()!=material) {
         SelectionModel_->setSelection(material);

@@ -58,7 +58,7 @@ Property* BoilingPointProperty::clone(ParameterModel* model)
 {
     BoilingPointProperty* prop;
     if (model) {
-       prop = new BoilingPointProperty(model, getId());
+        prop = new BoilingPointProperty(model, getId());
     } else {
         prop = new BoilingPointProperty(*this);
     }
