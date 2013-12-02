@@ -144,7 +144,7 @@ QString Property::getDefinitionAsString() const
         return QString("Instantaneous");
         break;
     case Secant:
-        return QString("Definition");
+        return QString("Secant");
         break;
     default:
         break;
