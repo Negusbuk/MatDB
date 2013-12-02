@@ -85,13 +85,6 @@ Property *Material::addProperty(Property* property)
         NQLog("Material", NQLog::Spam) << "   " << (*it)->getName();
     }
 
-    std::map<QString,Parameter*>& pmap = property->getParameters();
-    for (std::map<QString,Parameter*>::iterator itP = pmap.begin();
-         itP!=pmap.end();
-         ++itP) {
-        ParameterValues_[QString(itP->second->getName())] = std::vector<ParameterValue>();
-    }
-
     modified_ = true;
 
     return property;
@@ -101,7 +94,6 @@ void Material::setProperties(const std::vector<Property*>& properties)
 {
     Properties_.clear();
     PropertiesByType_.clear();
-    ParameterValues_.clear();
     PropertiesSorted_.clear();
 
     for (std::vector<Property*>::const_iterator it = properties.begin();
@@ -119,14 +111,6 @@ Property* Material::getProperty(const QString& name)
     std::map<QString,Property*>::iterator it = Properties_.find(name);
     if (it!=Properties_.end()) {
         Property* property = it->second;
-
-        std::map<QString,Parameter*>& pmap = property->getParameters();
-        for (std::map<QString,Parameter*>::iterator itP = pmap.begin();
-             itP!=pmap.end();
-             ++itP) {
-            std::vector<ParameterValue>* pvalues = getParameterValues(itP->second->getName());
-            itP->second->setParameterValues(pvalues);
-        }
         return property;
     }
     return NULL;
@@ -164,11 +148,6 @@ void Material::removeProperty(Property* property)
         }
     }
 
-    std::map<QString,std::vector<ParameterValue> >::iterator it = ParameterValues_.find(property->getName());
-    if (it!=ParameterValues_.end()) {
-        ParameterValues_.erase(it);
-    }
-
     for (std::vector<Property*>::iterator it = PropertiesSorted_.begin();
          it!=PropertiesSorted_.end();
          ++it) {
@@ -181,13 +160,6 @@ void Material::removeProperty(Property* property)
     delete property;
 
     modified_ = true;
-}
-
-std::vector<ParameterValue> * Material::getParameterValues(const QString& name)
-{
-    std::map<QString,std::vector<ParameterValue> >::iterator it = ParameterValues_.find(name);
-    if (it!=ParameterValues_.end()) return &(it->second);
-    return NULL;
 }
 
 void Material::setCategory(MaterialCategory* c)

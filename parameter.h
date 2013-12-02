@@ -82,7 +82,6 @@ public:
     const QString& getDisplayName() const { return DisplayName_; }
     void setDisplayName(const QString& name);
 
-    void setParameterValues(ParameterValueVector* values) { Values_ = values; }
     void addValue(double value);
     void addValue(double value, const QString& unit);
     void addValue(double temperature, double value);
@@ -96,6 +95,7 @@ public:
 
     void sort();
 
+    Parameter* cloneWithData() const;
     Parameter* clone() const;
 
     bool isReadOnly() const { return ReadOnly_; }
@@ -130,7 +130,7 @@ protected:
     QString IdString_;
     QString Name_;
     QString DisplayName_;
-    ParameterValueVector* Values_;
+    ParameterValueVector Values_;
     bool ReadOnly_;
     bool Dependent_;
     bool TemperatureDependent_;
