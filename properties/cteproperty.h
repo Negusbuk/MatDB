@@ -21,6 +21,8 @@
 #ifndef CTEPROPERTY_H
 #define CTEPROPERTY_H
 
+#include <propertymodel.h>
+#include <referencetemperatureproperty.h>
 #include <property.h>
 
 class IsotropicInstantaneousCoefficientOfThermalExpansion : public Property
@@ -71,7 +73,12 @@ public:
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeXMLData(QXmlStreamWriter& stream);
     virtual void writeHTML(QXmlStreamWriter& stream);
+
+protected:
+
+    ReferenceTemperatureProperty* referenceTemperatureProperty_;
 };
 
 class OrthotropicSecantCoefficientOfThermalExpansion : public Property
@@ -88,7 +95,12 @@ public:
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeXMLData(QXmlStreamWriter& stream);
     virtual void writeHTML(QXmlStreamWriter& stream);
+
+protected:
+
+    ReferenceTemperatureProperty* referenceTemperatureProperty_;
 };
 
 #endif // CTEPROPERTY_H
