@@ -38,7 +38,8 @@ public:
     UnitEntry(const QString& name, double minValue, double maxValue,
               std::function<double (double)> funcToBaseUnit,
               std::function<double (double)> funcFromBaseUnit,
-              bool isPrefferedUnit = false);
+              bool isPrefferedUnit = false,
+              bool isXMLexportUnit = false);
 
     int UnitIndex_;
     QString Name_;
@@ -47,6 +48,7 @@ public:
     std::function<double (double)> funcToBaseUnit_;
     std::function<double (double)> funcFromBaseUnit_;
     bool isPrefferedUnit_;
+    bool isXMLexportUnit_;
 };
 
 class VUnit : public QDoubleValidator
@@ -57,6 +59,7 @@ public:
     const std::vector<QString> getUnits() const { return Units_; }
     int currentUnit() const { return CurrentUnit_; }
     const QString& currentUnitAsString() const { return Units_[CurrentUnit_]; }
+    const QString& xmlExportUnitAsString() const;
 
     int getUnitIndex(const QString& unit) const;
     int getPrefferedUnitIndex() const { return PrefferedUnitIndex_; }
@@ -70,23 +73,29 @@ public:
     virtual double convert(double value, int unitIndex);
     virtual double convertToBase(double value);
     virtual double convertToPreffered(double value);
+    virtual double convertToXMLExport(double value);
     virtual double convertToCurrent(double value);
     virtual double convertToCurrent(double value, const QString& unit);
     virtual VUnit* clone() const = 0;
     virtual VUnit* cloneWithUnitIndex() const;
 
+    bool hasXMLExportUnit() const { return XMLExportUnitIndex_!=-1; }
+
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeXMLexport(QXmlStreamWriter& stream);
 
 protected:
     std::vector<QString> Units_;
     std::map<QString,UnitEntry> UnitsMap_;
     int CurrentUnit_;
     int PrefferedUnitIndex_;
+    int XMLExportUnitIndex_;
 
     void addUnit(const QString& unit, double minValue, double maxValue,
                  std::function<double (double)> funcToBaseUnit,
                  std::function<double (double)> funcFromBaseUnit,
-                 bool isPrefferedUnit = false);
+                 bool isPrefferedUnit = false,
+                 bool isXMLExportUnit = false);
 };
 
 class Unitless : public VUnit

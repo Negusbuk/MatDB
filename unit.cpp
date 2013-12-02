@@ -35,13 +35,15 @@ UnitEntry::UnitEntry()
 UnitEntry::UnitEntry(const QString& name, double minValue, double maxValue,
                      std::function<double (double)> funcToBaseUnit,
                      std::function<double (double)> funcFromBaseUnit,
-                     bool isPrefferedUnit) :
+                     bool isPrefferedUnit,
+                     bool isXMLexportUnit) :
     Name_(name),
     MinValue_(minValue),
     MaxValue_(maxValue),
     funcToBaseUnit_(funcToBaseUnit),
     funcFromBaseUnit_(funcFromBaseUnit),
-    isPrefferedUnit_(isPrefferedUnit)
+    isPrefferedUnit_(isPrefferedUnit),
+    isXMLexportUnit_(isXMLexportUnit)
 {
     UnitIndex_ = 0;
 }
@@ -52,6 +54,16 @@ VUnit::VUnit()
 
     CurrentUnit_ = 0;
     PrefferedUnitIndex_ = 0;
+    XMLExportUnitIndex_ = -1;
+}
+
+const QString& VUnit::xmlExportUnitAsString() const
+{
+    if (XMLExportUnitIndex_!=-1) {
+        return Units_[XMLExportUnitIndex_];
+    } else {
+        return Units_[CurrentUnit_];
+    }
 }
 
 double VUnit::convert(double value, const QString& unit)
@@ -63,12 +75,15 @@ double VUnit::convert(double value, const QString& unit)
 void VUnit::addUnit(const QString& unit, double minValue, double maxValue,
                     std::function<double (double)> funcToBaseUnit,
                     std::function<double (double)> funcFromBaseUnit,
-                    bool isPrefferedUnit)
+                    bool isPrefferedUnit,
+                    bool isXMLExportUnit)
 {
     UnitEntry entry(unit, minValue, maxValue,
-                    funcToBaseUnit, funcFromBaseUnit);
+                    funcToBaseUnit, funcFromBaseUnit,
+                    isPrefferedUnit, isXMLExportUnit);
     entry.UnitIndex_ = Units_.size();
     if (isPrefferedUnit) PrefferedUnitIndex_ = entry.UnitIndex_;
+    if (isXMLExportUnit) XMLExportUnitIndex_ = entry.UnitIndex_;
     UnitsMap_[unit] = entry;
     Units_.push_back(unit);
 }
@@ -122,6 +137,12 @@ double VUnit::convertToPreffered(double value)
     return convert(value, PrefferedUnitIndex_);
 }
 
+double VUnit::convertToXMLExport(double value)
+{
+    if (XMLExportUnitIndex_==-1) return value;
+    return convert(value, XMLExportUnitIndex_);
+}
+
 double VUnit::convertToCurrent(double value)
 {
     const UnitEntry * unit = getUnitEntry(CurrentUnit_);
@@ -147,6 +168,32 @@ VUnit* VUnit::cloneWithUnitIndex() const
 void VUnit::writeXML(QXmlStreamWriter& stream)
 {
     QString unit = currentUnitAsString();
+    QStringList l = unit.split(" ");
+
+    stream.writeStartElement("Units");
+
+    for (QStringList::Iterator it = l.begin();
+         it!=l.end();
+         ++it) {
+        QString u = *it;
+        int power = 0;
+        if (u.contains('^')) {
+            power = u.section('^', 1, 1).toInt();
+            u = u.section('^', 0, 0);
+        }
+
+        stream.writeStartElement("Unit");
+        if (power!=0) stream.writeAttribute("power", QString::number(power));
+        stream.writeTextElement("Name", u);
+        stream.writeEndElement(); // Unit
+    }
+
+    stream.writeEndElement(); // Units
+}
+
+void VUnit::writeXMLexport(QXmlStreamWriter& stream)
+{
+    QString unit = xmlExportUnitAsString();
     QStringList l = unit.split(" ");
 
     stream.writeStartElement("Units");
@@ -465,7 +512,8 @@ CoefficientOfThermalExpansion::CoefficientOfThermalExpansion() :
             },
             [&] (double value) {
                return 1.e-6*value;
-            });
+            },
+            false, true);
 }
 
 Resistivity::Resistivity() :
