@@ -252,12 +252,12 @@ void MatDBMainWindow::exportMaterialsXML()
     if (result==0) return;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    QString filename = QFileDialog::getOpenFileName(this,
+    QString filename = QFileDialog::getSaveFileName(this,
                                                     tr("Export Materials"),
                                                     QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation),
                                                     "*.xml");
 #else
-    QString filename = QFileDialog::getOpenFileName(this,
+    QString filename = QFileDialog::getSaveFileName(this,
                                                     tr("Export Materials"),
                                                     QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
                                                     "*.xml");
