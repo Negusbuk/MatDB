@@ -34,6 +34,9 @@ public:
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
                        std::map<QString,ParameterDetail> paramMap);
+
+    virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeXMLData(QXmlStreamWriter& stream);
 };
 
 #endif // SPECIFICHEATPROPERTY_H

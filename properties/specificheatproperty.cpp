@@ -26,6 +26,8 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 
+#include <nqlogger.h>
+
 #include "specificheatproperty.h"
 
 SpecificHeatProperty::SpecificHeatProperty(ParameterModel* model, int id) :
@@ -35,7 +37,7 @@ SpecificHeatProperty::SpecificHeatProperty(ParameterModel* model, int id) :
     setDisplayName(QObject::tr("Specific Heat"));
     setCategory(ThermalProperty);
     setType(SpecificHeat);
-    setBehavior(Isotropic);
+    setBehavior(UnknownBehavior);
     Parameter *par = model->getParameter("Specific Heat");
     addParameter(par->clone());
 }
@@ -47,7 +49,7 @@ SpecificHeatProperty::SpecificHeatProperty(const SpecificHeatProperty& property)
     setDisplayName(QObject::tr("Specific Heat"));
     setCategory(ThermalProperty);
     setType(SpecificHeat);
-    setBehavior(Isotropic);
+    setBehavior(UnknownBehavior);
     const Parameter *par = property.getParameter("Specific Heat");
     addParameter(par->clone());
 }
@@ -127,4 +129,109 @@ void SpecificHeatProperty::apply(PropertyData& data,
     }
 
     param->setPrefferedValueUnit();
+}
+
+void SpecificHeatProperty::writeXML(QXmlStreamWriter& stream)
+{
+    Parameter* parameter = Parameters_.begin()->second;
+
+    stream.writeStartElement("PropertyDetails");
+    stream.writeAttribute("id", getIdString());
+
+    parameter->getValueUnit()->writeXML(stream);
+
+    stream.writeTextElement("Name", parameter->getName());
+
+    stream.writeEndElement();
+}
+
+void SpecificHeatProperty::writeXMLData(QXmlStreamWriter& stream)
+{
+    NQLog("SpecificHeatProperty", NQLog::Spam) << "  XML write data for property " << getName()
+                                               << " (" << getIdString().toStdString() << ")";
+
+    stream.writeStartElement("PropertyData");
+    stream.writeAttribute("property", getIdString());
+
+    stream.writeStartElement("Data");
+    stream.writeAttribute("format", "string");
+    stream.writeCharacters("-");
+    stream.writeEndElement(); // Data
+
+    if (Definition_!=UnknownDefinition) {
+        stream.writeStartElement("Qualifier");
+        stream.writeAttribute("name", "Definition");
+        stream.writeCharacters(getDefinitionAsString());
+        stream.writeEndElement(); // Qualifier
+    }
+
+    if (Behavior_!=UnknownBehavior) {
+        stream.writeStartElement("Qualifier");
+        stream.writeAttribute("name", "Behavior");
+        stream.writeCharacters(getBehaviorAsString());
+        stream.writeEndElement(); // Qualifier
+    }
+
+    for (std::map<QString,Parameter*>::const_iterator it = Parameters_.begin();
+         it!=Parameters_.end();
+         ++it) {
+        Parameter * parameter = it->second;
+
+        stream.writeStartElement("ParameterValue");
+        stream.writeAttribute("parameter", parameter->getIdString());
+        stream.writeAttribute("format", "float");
+
+        QString values;
+        for (std::vector<ParameterValue>::const_iterator it=parameter->getValues().begin();
+             it!=parameter->getValues().end();
+             ++it) {
+
+            const ParameterValue& pv = *it;
+            if (it!=parameter->getValues().begin()) values += ",";
+            if (pv.isValueValid()) {
+                values += QString::number(pv.getValue(), 'e', 6);
+            } else {
+                values += undefindedIdentifyerAsString();
+            }
+        }
+        if (parameter->getValues().size()==0) values = undefindedIdentifyerAsString();
+        stream.writeTextElement("Data", values);
+
+        stream.writeStartElement("Qualifier");
+        stream.writeAttribute("name", "Variable Type");
+        stream.writeCharacters("Dependent");
+        stream.writeEndElement(); // Qualifier
+
+        stream.writeEndElement(); // ParameterValue
+    }
+
+    stream.writeStartElement("ParameterValue");
+    stream.writeAttribute("parameter", "pa0");
+    stream.writeAttribute("format", "float");
+
+    QString values;
+    Parameter * parameter = Parameters_.begin()->second;
+    for (std::vector<ParameterValue>::const_iterator it=parameter->getValues().begin();
+         it!=parameter->getValues().end();
+         ++it) {
+
+        const ParameterValue& pv = *it;
+        if (it!=parameter->getValues().begin()) values += ",";
+        if (pv.isTemperatureValid()) {
+            values += QString::number(pv.getTemperature(), 'e', 6);
+        } else {
+            values += undefindedIdentifyerAsString();
+        }
+    }
+    if (parameter->getValues().size()==0) values = undefindedIdentifyerAsString();
+    stream.writeTextElement("Data", values);
+
+    stream.writeStartElement("Qualifier");
+    stream.writeAttribute("name", "Variable Type");
+    stream.writeCharacters("Independent");
+    stream.writeEndElement(); // Qualifier
+
+    stream.writeEndElement(); // ParameterValue
+
+    stream.writeEndElement(); // PropertyData
 }
