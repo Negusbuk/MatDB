@@ -78,11 +78,13 @@ public:
         LinearElasticProperty     = 2,
         ThermalProperty           = 3,
         ElectricalProperty        = 4,
-        FluidProperty             = 5
+        FluidProperty             = 5,
+        NoCategory
     };
 
     enum Type {
         InvalidType                      =     0,
+        ReferenceTemperature             =   100,
 
         Density                          =  1001,
         CoefficientOfThermalExpansion    =  1002,

@@ -28,6 +28,7 @@
 #include "criticaltemperatureproperty.h"
 #include "criticalpressureproperty.h"
 #include "boilingpointproperty.h"
+#include "referencetemperatureproperty.h"
 
 #include "propertymodel.h"
 
@@ -54,7 +55,7 @@ void PropertyModel::addProperty(Property* property)
 
     Properties_[property->getName()] = property;
     PropertiesById_[property->getId()] = property;
-    PropertiesByCategory_[property->getCategoryName()].push_back(property);
+    if (property->getCategory()!=Property::NoCategory) PropertiesByCategory_[property->getCategoryName()].push_back(property);
     PropertiesByType_[property->getTypeName()].push_back(property);
 
     property->setSorting((int)PropertiesSorting_.size());
@@ -69,6 +70,7 @@ void PropertyModel::build()
 
     addProperty(new DensityProperty(this, ParameterModel_, id++));
 
+    addProperty(new ReferenceTemperatureProperty(this, ParameterModel_, id++));
 
     addProperty(new IsotropicInstantaneousCoefficientOfThermalExpansion(this, ParameterModel_, id));
     addProperty(new OrthotropicInstantaneousCoefficientOfThermalExpansion(this, ParameterModel_, id++));

@@ -91,7 +91,8 @@ SOURCES += main.cpp \
     materialselectiondialog.cpp \
     properties/criticalpressureproperty.cpp \
     properties/criticaltemperatureproperty.cpp \
-    properties/boilingpointproperty.cpp
+    properties/boilingpointproperty.cpp \
+    properties/referencetemperatureproperty.cpp
 
 HEADERS += matdbmainwindow.h \
     material.h \
@@ -142,7 +143,8 @@ HEADERS += matdbmainwindow.h \
     materialselectiondialog.h \
     properties/criticalpressureproperty.h \
     properties/criticaltemperatureproperty.h \
-    properties/boilingpointproperty.h
+    properties/boilingpointproperty.h \
+    properties/referencetemperatureproperty.h
 
 FORMS    +=
 
