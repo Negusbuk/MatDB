@@ -238,6 +238,7 @@ void MaterialPropertyView::materialChanged(Material* material)
 
     //resetInputContext();
 
+    PropertySelectionModel_->setSelection(NULL);
     ParameterSelectionModel_->setSelection(NULL);
 }
 
