@@ -18,18 +18,18 @@
  **
  ****************************************************************************/
 
-#ifndef SPECIFICHEATPROPERTY_H
-#define SPECIFICHEATPROPERTY_H
+#ifndef BOILINGPOINTPROPERTY_H
+#define BOILINGPOINTPROPERTY_H
 
 #include <property.h>
 
-class SpecificHeatProperty : public Property
+class BoilingPointProperty : public Property
 {
 public:
-    SpecificHeatProperty(ParameterModel* model, int id);
-    SpecificHeatProperty(const SpecificHeatProperty&);
+    BoilingPointProperty(ParameterModel* model, int id);
+    BoilingPointProperty(const BoilingPointProperty&);
 
-    Property* clone(ParameterModel* model = 0);
+    virtual Property* clone(ParameterModel* model = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -39,4 +39,4 @@ public:
     virtual void writeXMLData(QXmlStreamWriter& stream);
 };
 
-#endif // SPECIFICHEATPROPERTY_H
+#endif // BOILINGPOINTPROPERTY_H

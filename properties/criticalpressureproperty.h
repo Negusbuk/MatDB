@@ -18,18 +18,18 @@
  **
  ****************************************************************************/
 
-#ifndef SPECIFICHEATPROPERTY_H
-#define SPECIFICHEATPROPERTY_H
+#ifndef CRITICALPRESSURE_H
+#define CRITICALPRESSURE_H
 
 #include <property.h>
 
-class SpecificHeatProperty : public Property
+class CriticalPressureProperty : public Property
 {
 public:
-    SpecificHeatProperty(ParameterModel* model, int id);
-    SpecificHeatProperty(const SpecificHeatProperty&);
+    CriticalPressureProperty(ParameterModel* model, int id);
+    CriticalPressureProperty(const CriticalPressureProperty&);
 
-    Property* clone(ParameterModel* model = 0);
+    virtual Property* clone(ParameterModel* model = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -39,4 +39,4 @@ public:
     virtual void writeXMLData(QXmlStreamWriter& stream);
 };
 
-#endif // SPECIFICHEATPROPERTY_H
+#endif // CRITICALPRESSURE_H

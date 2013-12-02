@@ -71,6 +71,7 @@ public:
     virtual double convertToBase(double value);
     virtual double convertToPreffered(double value);
     virtual double convertToCurrent(double value);
+    virtual double convertToCurrent(double value, const QString& unit);
     virtual VUnit* clone() const = 0;
     virtual VUnit* cloneWithUnitIndex() const;
 

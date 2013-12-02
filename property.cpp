@@ -106,6 +106,15 @@ QString Property::getTypeName() const
     case Viscosity:
         return QString("Viscosity");
         break;
+    case CriticalTemperature:
+        return QString("Critical Temperature");
+        break;
+    case CriticalPressure:
+        return QString("Critical Pressure");
+        break;
+    case BoilingPoint:
+        return QString("Boiling Point");
+        break;
     default:
         break;
     }
@@ -251,9 +260,18 @@ void Property::writeHTML(QXmlStreamWriter& stream)
     }
 }
 
-void Property::writeXML(QXmlStreamWriter& /* stream */)
+void Property::writeXML(QXmlStreamWriter& stream)
 {
+    Parameter* parameter = Parameters_.begin()->second;
 
+    stream.writeStartElement("PropertyDetails");
+    stream.writeAttribute("id", getIdString());
+
+    parameter->getValueUnit()->writeXML(stream);
+
+    stream.writeTextElement("Name", parameter->getName());
+
+    stream.writeEndElement();
 }
 
 void Property::writeXMLData(QXmlStreamWriter& stream)

@@ -58,7 +58,7 @@ Property* DensityProperty::clone(ParameterModel* model)
 {
     DensityProperty* prop;
     if (model) {
-       prop = new DensityProperty(model, getId());
+        prop = new DensityProperty(model, getId());
     } else {
         prop = new DensityProperty(*this);
     }
@@ -187,7 +187,7 @@ void DensityProperty::writeXMLData(QXmlStreamWriter& stream)
         if (pv.isTemperatureValid()) {
             values += QString::number(pv.getTemperature());
         } else {
-            values += "7.88860905221012e-31";
+            values += Property::undefindedIdentifyerAsString();
         }
     }
     stream.writeTextElement("Data", values);

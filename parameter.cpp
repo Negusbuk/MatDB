@@ -174,6 +174,13 @@ void Parameter::addValue(double value)
     addValue(v);
 }
 
+void Parameter::addValue(double value, const QString& unit)
+{
+    ParameterValue v;
+    v.setValue(getValueUnit()->convertToCurrent(value, unit));
+    addValue(v);
+}
+
 void Parameter::addValue(double temperature, double value)
 {
     ParameterValue v;

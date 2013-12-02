@@ -448,8 +448,6 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 
     Property * prop;
 
-    // boiling point 373K
-
     prop = propertyModel->getProperty("Density")->clone();
     prop->getParameter("Density")->addValue(0.9982);
     mat->addProperty(prop);
@@ -460,6 +458,10 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 
     prop = propertyModel->getProperty("Viscosity")->clone();
     prop->getParameter("Viscosity")->addValue(0.001003);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Boiling Point")->clone();
+    prop->getParameter("Boiling Point")->addValue(373, "K");
     mat->addProperty(prop);
 
     prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
@@ -477,15 +479,20 @@ Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
 
     Property * prop;
 
-    // critical temperature 132.3 K
-    // critical pressure 3.758 MPa
-
     prop = propertyModel->getProperty("Density")->clone();
     prop->getParameter("Density")->addValue(0.001225);
     mat->addProperty(prop);
 
     prop = propertyModel->getProperty("Specific Heat")->clone();
     prop->getParameter("Specific Heat")->addValue(1006.4);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Critical Temperature")->clone();
+    prop->getParameter("Critical Temperature")->addValue(132.3, "K");
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Critical Pressure")->clone();
+    prop->getParameter("Critical Pressure")->addValue(3.758, "MPa");
     mat->addProperty(prop);
 
     prop = propertyModel->getProperty("Viscosity")->clone();
