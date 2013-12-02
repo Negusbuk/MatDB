@@ -42,7 +42,7 @@ PropertyModel::PropertyModel(ParameterModel* parametermodel,
 Property* PropertyModel::getProperty(const QString& name)
 {
     std::map<QString,Property*>::iterator it = Properties_.find(name);
-    if (it!=Properties_.end()) return it->second->clone(ParameterModel_);
+    if (it!=Properties_.end()) return it->second->clone(this, ParameterModel_);
     return NULL;
 }
 
@@ -67,29 +67,30 @@ void PropertyModel::build()
 {
     int id = 0;
 
-    addProperty(new DensityProperty(ParameterModel_, id++));
+    addProperty(new DensityProperty(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel_, id));
-    addProperty(new OrthotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel_, id++));
 
-    addProperty(new IsotropicSecantCoefficientOfThermalExpansion(ParameterModel_, id));
-    addProperty(new OrthotropicSecantCoefficientOfThermalExpansion(ParameterModel_, id++));
+    addProperty(new IsotropicInstantaneousCoefficientOfThermalExpansion(this, ParameterModel_, id));
+    addProperty(new OrthotropicInstantaneousCoefficientOfThermalExpansion(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicElasticityProperty(ParameterModel_, id));
-    addProperty(new OrthotropicElasticityProperty(ParameterModel_, id++));
+    addProperty(new IsotropicSecantCoefficientOfThermalExpansion(this, ParameterModel_, id));
+    addProperty(new OrthotropicSecantCoefficientOfThermalExpansion(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicThermalConductivityProperty(ParameterModel_, id));
-    addProperty(new OrthotropicThermalConductivityProperty(ParameterModel_, id++));
+    addProperty(new IsotropicElasticityProperty(this, ParameterModel_, id));
+    addProperty(new OrthotropicElasticityProperty(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicResistivityProperty(ParameterModel_, id));
-    addProperty(new OrthotropicResistivityProperty(ParameterModel_, id++));
+    addProperty(new IsotropicThermalConductivityProperty(this, ParameterModel_, id));
+    addProperty(new OrthotropicThermalConductivityProperty(this, ParameterModel_, id++));
 
-    addProperty(new SpecificHeatProperty(ParameterModel_, id++));
+    addProperty(new IsotropicResistivityProperty(this, ParameterModel_, id));
+    addProperty(new OrthotropicResistivityProperty(this, ParameterModel_, id++));
 
-    addProperty(new ViscosityProperty(ParameterModel_, id++));
-    addProperty(new CriticalTemperatureProperty(ParameterModel_, id++));
-    addProperty(new CriticalPressureProperty(ParameterModel_, id++));
-    addProperty(new BoilingPointProperty(ParameterModel_, id++));
+    addProperty(new SpecificHeatProperty(this, ParameterModel_, id++));
+
+    addProperty(new ViscosityProperty(this, ParameterModel_, id++));
+    addProperty(new CriticalTemperatureProperty(this, ParameterModel_, id++));
+    addProperty(new CriticalPressureProperty(this, ParameterModel_, id++));
+    addProperty(new BoilingPointProperty(this, ParameterModel_, id++));
 
     Categories_.push_back(tr("Physical Properties"));
     Categories_.push_back(tr("Linear Elastic Properties"));

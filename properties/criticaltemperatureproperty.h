@@ -26,10 +26,12 @@
 class CriticalTemperatureProperty : public Property
 {
 public:
-    CriticalTemperatureProperty(ParameterModel* model, int id);
+    CriticalTemperatureProperty(PropertyModel* propmodel,
+                                ParameterModel* paramodel, int id);
     CriticalTemperatureProperty(const CriticalTemperatureProperty&);
 
-    virtual Property* clone(ParameterModel* model = 0);
+    virtual Property* clone(PropertyModel* propmodel = 0,
+                            ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,

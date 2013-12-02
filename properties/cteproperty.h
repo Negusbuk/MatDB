@@ -26,10 +26,12 @@
 class IsotropicInstantaneousCoefficientOfThermalExpansion : public Property
 {
 public:
-    IsotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel* model, int id);
+    IsotropicInstantaneousCoefficientOfThermalExpansion(PropertyModel *propmodel,
+                                                        ParameterModel* model, int id);
     IsotropicInstantaneousCoefficientOfThermalExpansion(const IsotropicInstantaneousCoefficientOfThermalExpansion&);
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel* propmodel = 0,
+                    ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -41,10 +43,11 @@ public:
 class OrthotropicInstantaneousCoefficientOfThermalExpansion : public Property
 {
 public:
-    OrthotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel* model, int id);
+    OrthotropicInstantaneousCoefficientOfThermalExpansion(PropertyModel *propmodel,
+                                                          ParameterModel* paramodel, int id);
     OrthotropicInstantaneousCoefficientOfThermalExpansion(const OrthotropicInstantaneousCoefficientOfThermalExpansion&);
 
-    Property* clone(ParameterModel* model);
+    Property* clone(PropertyModel *propmodel = 0, ParameterModel* paramodel=0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -57,10 +60,11 @@ public:
 class IsotropicSecantCoefficientOfThermalExpansion : public Property
 {
 public:
-    IsotropicSecantCoefficientOfThermalExpansion(ParameterModel* model, int id);
+    IsotropicSecantCoefficientOfThermalExpansion(PropertyModel* propmodel,
+                                                 ParameterModel* paramodel, int id);
     IsotropicSecantCoefficientOfThermalExpansion(const IsotropicSecantCoefficientOfThermalExpansion&);
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel *propmodel = 0, ParameterModel* paramodel=0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -73,10 +77,11 @@ public:
 class OrthotropicSecantCoefficientOfThermalExpansion : public Property
 {
 public:
-    OrthotropicSecantCoefficientOfThermalExpansion(ParameterModel* model, int id);
+    OrthotropicSecantCoefficientOfThermalExpansion(PropertyModel *propmodel,
+                                                   ParameterModel* model, int id);
     OrthotropicSecantCoefficientOfThermalExpansion(const OrthotropicSecantCoefficientOfThermalExpansion&);
 
-    Property* clone(ParameterModel* model);
+    Property* clone(PropertyModel *propmodel = 0, ParameterModel* paramodel=0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,

@@ -39,7 +39,8 @@ public:
         CalcFromPoissonsRatioAndShearModulus   = 2
     };
 
-    IsotropicElasticityProperty(ParameterModel* model, int id);
+    IsotropicElasticityProperty(PropertyModel* propmodel,
+                                ParameterModel* paramodel, int id);
     IsotropicElasticityProperty(const IsotropicElasticityProperty&);
 
     bool hasSpecialWidget() { return true; }
@@ -50,7 +51,8 @@ public:
     void setCalculationMode(CalculationMode mode);
     void recalculate();
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel* propmodel = 0,
+                    ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -83,10 +85,12 @@ protected:
 class OrthotropicElasticityProperty : public Property
 {
 public:
-    OrthotropicElasticityProperty(ParameterModel* model, int id);
+    OrthotropicElasticityProperty(PropertyModel* propmodel,
+                                  ParameterModel* paramodel, int id);
     OrthotropicElasticityProperty(const OrthotropicElasticityProperty&);
 
-    Property* clone(ParameterModel* model);
+    Property* clone(PropertyModel* propmodel = 0,
+                    ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,

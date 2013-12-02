@@ -30,7 +30,8 @@
 
 #include "specificheatproperty.h"
 
-SpecificHeatProperty::SpecificHeatProperty(ParameterModel* model, int id) :
+SpecificHeatProperty::SpecificHeatProperty(PropertyModel *propmodel,
+                                           ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Specific Heat");
@@ -38,7 +39,7 @@ SpecificHeatProperty::SpecificHeatProperty(ParameterModel* model, int id) :
     setCategory(ThermalProperty);
     setType(SpecificHeat);
     setBehavior(UnknownBehavior);
-    Parameter *par = model->getParameter("Specific Heat");
+    Parameter *par = paramodel->getParameter("Specific Heat");
     addParameter(par->clone());
 }
 
@@ -54,11 +55,12 @@ SpecificHeatProperty::SpecificHeatProperty(const SpecificHeatProperty& property)
     addParameter(par->clone());
 }
 
-Property* SpecificHeatProperty::clone(ParameterModel* model)
+Property* SpecificHeatProperty::clone(PropertyModel *propmodel,
+                                      ParameterModel* paramodel)
 {
     SpecificHeatProperty* prop;
-    if (model) {
-        prop = new SpecificHeatProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new SpecificHeatProperty(propmodel, paramodel, getId());
     } else {
         prop = new SpecificHeatProperty(*this);
     }

@@ -64,6 +64,8 @@ struct PropertyData {
     std::vector<PValue> pvalues;
 };
 
+class PropertyModel;
+
 class Property
 {
 public:
@@ -146,7 +148,8 @@ public:
     virtual PropertySpecialWidget * getSpecialWidget(QWidget * /*parent=0*/) { return 0; }
     virtual void recalculate() { }
 
-    virtual Property* clone(ParameterModel* model = 0) = 0;
+    virtual Property* clone(PropertyModel* propmodel = 0,
+                            ParameterModel* paramodel = 0) = 0;
 
     virtual void apply(PropertyData& /* data */,
                        PropertyDetail& /* detail */,

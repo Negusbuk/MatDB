@@ -30,7 +30,8 @@
 
 #include "criticalpressureproperty.h"
 
-CriticalPressureProperty::CriticalPressureProperty(ParameterModel* model, int id) :
+CriticalPressureProperty::CriticalPressureProperty(PropertyModel *propmodel,
+                                                   ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Critical Pressure");
@@ -38,7 +39,7 @@ CriticalPressureProperty::CriticalPressureProperty(ParameterModel* model, int id
     setCategory(FluidProperty);
     setType(CriticalPressure);
     setBehavior(Isotropic);
-    Parameter *par = model->getParameter("Critical Pressure");
+    Parameter *par = paramodel->getParameter("Critical Pressure");
     addParameter(par->clone());
 }
 
@@ -54,11 +55,12 @@ CriticalPressureProperty::CriticalPressureProperty(const CriticalPressurePropert
     addParameter(par->clone());
 }
 
-Property* CriticalPressureProperty::clone(ParameterModel* model)
+Property* CriticalPressureProperty::clone(PropertyModel* propmodel,
+                                          ParameterModel* paramodel)
 {
     CriticalPressureProperty* prop;
-    if (model) {
-       prop = new CriticalPressureProperty(model, getId());
+    if (propmodel && paramodel) {
+       prop = new CriticalPressureProperty(propmodel, paramodel, getId());
     } else {
         prop = new CriticalPressureProperty(*this);
     }

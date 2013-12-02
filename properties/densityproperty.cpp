@@ -30,7 +30,7 @@
 
 #include "densityproperty.h"
 
-DensityProperty::DensityProperty(ParameterModel* model, int id) :
+DensityProperty::DensityProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Density");
@@ -38,7 +38,7 @@ DensityProperty::DensityProperty(ParameterModel* model, int id) :
     setCategory(PhysicalProperty);
     setType(Density);
     setBehavior(Isotropic);
-    Parameter *par = model->getParameter("Density");
+    Parameter *par = paramodel->getParameter("Density");
     addParameter(par->clone());
 }
 
@@ -54,11 +54,11 @@ DensityProperty::DensityProperty(const DensityProperty& property) :
     addParameter(par->clone());
 }
 
-Property* DensityProperty::clone(ParameterModel* model)
+Property* DensityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)
 {
     DensityProperty* prop;
-    if (model) {
-        prop = new DensityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new DensityProperty(propmodel, paramodel, getId());
     } else {
         prop = new DensityProperty(*this);
     }

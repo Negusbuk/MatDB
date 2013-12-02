@@ -28,7 +28,8 @@
 
 #include "resistivityproperty.h"
 
-IsotropicResistivityProperty::IsotropicResistivityProperty(ParameterModel* model, int id) :
+IsotropicResistivityProperty::IsotropicResistivityProperty(PropertyModel *propmodel,
+                                                           ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Isotropic Resistivity");
@@ -36,7 +37,7 @@ IsotropicResistivityProperty::IsotropicResistivityProperty(ParameterModel* model
     setCategory(ElectricalProperty);
     setType(Resistivity);
     setBehavior(Isotropic);
-    Parameter *par = model->getParameter("Resistivity");
+    Parameter *par = paramodel->getParameter("Resistivity");
     addParameter(par->clone());
 }
 
@@ -52,11 +53,12 @@ IsotropicResistivityProperty::IsotropicResistivityProperty(const IsotropicResist
     addParameter(par->clone());
 }
 
-Property* IsotropicResistivityProperty::clone(ParameterModel* model)
+Property* IsotropicResistivityProperty::clone(PropertyModel *propmodel,
+                                              ParameterModel* paramodel)
 {
     IsotropicResistivityProperty* prop;
-    if (model) {
-        prop = new IsotropicResistivityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new IsotropicResistivityProperty(propmodel, paramodel, getId());
     } else {
         prop = new IsotropicResistivityProperty(*this);
     }
@@ -144,7 +146,8 @@ void IsotropicResistivityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-OrthotropicResistivityProperty::OrthotropicResistivityProperty(ParameterModel* model, int id) :
+OrthotropicResistivityProperty::OrthotropicResistivityProperty(PropertyModel *propmodel,
+                                                               ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Orthotropic Resistivity");
@@ -153,11 +156,11 @@ OrthotropicResistivityProperty::OrthotropicResistivityProperty(ParameterModel* m
     setType(Resistivity);
     setBehavior(Orthotropic);
     Parameter *par;
-    par = model->getParameter("Resistivity X direction");
+    par = paramodel->getParameter("Resistivity X direction");
     addParameter(par->clone());
-    par = model->getParameter("Resistivity Y direction");
+    par = paramodel->getParameter("Resistivity Y direction");
     addParameter(par->clone());
-    par = model->getParameter("Resistivity Z direction");
+    par = paramodel->getParameter("Resistivity Z direction");
     addParameter(par->clone());
 }
 
@@ -177,11 +180,12 @@ OrthotropicResistivityProperty::OrthotropicResistivityProperty(const Orthotropic
     addParameter(par3->clone());
 }
 
-Property* OrthotropicResistivityProperty::clone(ParameterModel* model)
+Property* OrthotropicResistivityProperty::clone(PropertyModel *propmodel,
+                                                ParameterModel* paramodel)
 {
     OrthotropicResistivityProperty* prop;
-    if (model) {
-        prop = new OrthotropicResistivityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new OrthotropicResistivityProperty(propmodel, paramodel, getId());
     } else {
         prop = new OrthotropicResistivityProperty(*this);
     }

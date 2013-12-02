@@ -30,7 +30,8 @@
 
 #include "criticaltemperatureproperty.h"
 
-CriticalTemperatureProperty::CriticalTemperatureProperty(ParameterModel* model, int id) :
+CriticalTemperatureProperty::CriticalTemperatureProperty(PropertyModel *propmodel,
+                                                         ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Critical Temperature");
@@ -38,7 +39,7 @@ CriticalTemperatureProperty::CriticalTemperatureProperty(ParameterModel* model, 
     setCategory(FluidProperty);
     setType(CriticalTemperature);
     setBehavior(Isotropic);
-    Parameter *par = model->getParameter("Critical Temperature");
+    Parameter *par = paramodel->getParameter("Critical Temperature");
     addParameter(par->clone());
 }
 
@@ -54,11 +55,12 @@ CriticalTemperatureProperty::CriticalTemperatureProperty(const CriticalTemperatu
     addParameter(par->clone());
 }
 
-Property* CriticalTemperatureProperty::clone(ParameterModel* model)
+Property* CriticalTemperatureProperty::clone(PropertyModel* propmodel,
+                                             ParameterModel* paramodel)
 {
     CriticalTemperatureProperty* prop;
-    if (model) {
-       prop = new CriticalTemperatureProperty(model, getId());
+    if (propmodel && paramodel) {
+       prop = new CriticalTemperatureProperty(propmodel, paramodel, getId());
     } else {
         prop = new CriticalTemperatureProperty(*this);
     }
