@@ -58,7 +58,7 @@ Property* DensityProperty::clone(ParameterModel* model)
 {
     DensityProperty* prop;
     if (model) {
-       prop = new DensityProperty(model, getId());
+        prop = new DensityProperty(model, getId());
     } else {
         prop = new DensityProperty(*this);
     }
