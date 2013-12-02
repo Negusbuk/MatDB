@@ -53,6 +53,12 @@ void ParameterModel::build()
     int id = 0;
     int mid = -1;
 
+    par = new Parameter(new Unit::Unitless(), id++);
+    par->setName("Material Property");
+    par->setDisplayName(tr("Material Property"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Temperature(), id++);
     par->setName("Temperature");
     par->setDisplayName(tr("Temperature"));
