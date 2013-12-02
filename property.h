@@ -32,7 +32,6 @@
 #include <QXmlStreamWriter>
 
 #include <parameter.h>
-#include <parameterset.h>
 #include <parametermodel.h>
 
 #include <propertyspecialwidget.h>
@@ -179,7 +178,6 @@ protected:
     Behavior Behavior_;
     Definition Definition_;
     std::map<QString,Parameter*> Parameters_;
-    ParameterSet ParameterSet_;
     std::vector<Parameter*> OrderedParameters_;
     int sorting_;
     bool modified_;
