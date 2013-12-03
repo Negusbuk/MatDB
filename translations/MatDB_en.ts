@@ -321,7 +321,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../materialselectiondialog.cpp" line="98"/>
+        <location filename="../materialselectiondialog.cpp" line="100"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -362,12 +362,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../materialxmlexportdialog.cpp" line="115"/>
+        <location filename="../materialxmlexportdialog.cpp" line="118"/>
         <source>Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../materialxmlexportdialog.cpp" line="122"/>
+        <location filename="../materialxmlexportdialog.cpp" line="125"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -386,169 +386,189 @@
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="70"/>
-        <source>Density</source>
+        <source>Critical Temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="76"/>
-        <source>Viscosity</source>
+        <source>Boiling Point</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="82"/>
-        <source>Young&apos;s Modulus</source>
+        <source>Density</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="88"/>
-        <source>Young&apos;s Modulus X direction</source>
+        <source>Viscosity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="94"/>
-        <source>Young&apos;s Modulus Y direction</source>
+        <source>Critical Pressure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="100"/>
-        <source>Young&apos;s Modulus Z direction</source>
+        <source>Young&apos;s Modulus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="106"/>
+        <source>Young&apos;s Modulus X direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="112"/>
+        <source>Young&apos;s Modulus Y direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="118"/>
+        <source>Young&apos;s Modulus Z direction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="124"/>
         <source>Poisson&apos;s Ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="111"/>
+        <location filename="../parametermodel.cpp" line="129"/>
         <source>Poisson&apos;s Ratio XY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="116"/>
+        <location filename="../parametermodel.cpp" line="134"/>
         <source>Poisson&apos;s Ratio YZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="121"/>
+        <location filename="../parametermodel.cpp" line="139"/>
         <source>Poisson&apos;s Ratio XZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="126"/>
+        <location filename="../parametermodel.cpp" line="144"/>
         <source>Shear Modulus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="132"/>
+        <location filename="../parametermodel.cpp" line="150"/>
         <source>Shear Modulus XY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="138"/>
+        <location filename="../parametermodel.cpp" line="156"/>
         <source>Shear Modulus YZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="144"/>
+        <location filename="../parametermodel.cpp" line="162"/>
         <source>Shear Modulus XZ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="150"/>
+        <location filename="../parametermodel.cpp" line="168"/>
         <source>Bulk Modulus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="156"/>
+        <location filename="../parametermodel.cpp" line="174"/>
         <source>Thermal Conductivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="162"/>
+        <location filename="../parametermodel.cpp" line="180"/>
         <source>Thermal Conductivity X direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="168"/>
+        <location filename="../parametermodel.cpp" line="186"/>
         <source>Thermal Conductivity Y direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="174"/>
+        <location filename="../parametermodel.cpp" line="192"/>
         <source>Thermal Conductivity Z direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="180"/>
+        <location filename="../parametermodel.cpp" line="198"/>
         <source>Coefficient of Thermal Expansion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="186"/>
+        <location filename="../parametermodel.cpp" line="204"/>
         <source>Coefficient of Thermal Expansion X direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="192"/>
+        <location filename="../parametermodel.cpp" line="210"/>
         <source>Coefficient of Thermal Expansion Y direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="198"/>
+        <location filename="../parametermodel.cpp" line="216"/>
         <source>Coefficient of Thermal Expansion Z direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="204"/>
+        <location filename="../parametermodel.cpp" line="222"/>
         <source>Resistivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="210"/>
+        <location filename="../parametermodel.cpp" line="228"/>
         <source>Resistivity X direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="216"/>
+        <location filename="../parametermodel.cpp" line="234"/>
         <source>Resistivity Y direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="222"/>
+        <location filename="../parametermodel.cpp" line="240"/>
         <source>Resistivity Z direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../parametermodel.cpp" line="228"/>
+        <location filename="../parametermodel.cpp" line="246"/>
         <source>Specific Heat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../parametermodel.cpp" line="252"/>
+        <source>Material Property</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PropertyModel</name>
     <message>
-        <location filename="../propertymodel.cpp" line="88"/>
+        <location filename="../propertymodel.cpp" line="97"/>
         <source>Physical Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../propertymodel.cpp" line="89"/>
+        <location filename="../propertymodel.cpp" line="98"/>
         <source>Linear Elastic Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../propertymodel.cpp" line="90"/>
+        <location filename="../propertymodel.cpp" line="99"/>
         <source>Thermal Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../propertymodel.cpp" line="91"/>
+        <location filename="../propertymodel.cpp" line="100"/>
         <source>Electrical Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../propertymodel.cpp" line="92"/>
+        <location filename="../propertymodel.cpp" line="101"/>
         <source>Fluid Properties</source>
         <translation type="unfinished"></translation>
     </message>
@@ -567,27 +587,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="65"/>
+        <location filename="../property.cpp" line="66"/>
         <source>Physical Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="68"/>
+        <location filename="../property.cpp" line="69"/>
         <source>Linear Elastic Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="71"/>
+        <location filename="../property.cpp" line="72"/>
         <source>Thermal Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="74"/>
+        <location filename="../property.cpp" line="75"/>
         <source>Electrical Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../property.cpp" line="77"/>
+        <location filename="../property.cpp" line="78"/>
         <source>Fluid Properties</source>
         <translation type="unfinished"></translation>
     </message>
@@ -598,68 +618,68 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/cteproperty.cpp" line="37"/>
-        <location filename="../properties/cteproperty.cpp" line="50"/>
+        <location filename="../properties/cteproperty.cpp" line="38"/>
+        <location filename="../properties/cteproperty.cpp" line="51"/>
         <source>Isotropic Instantaneous Coefficient of Thermal Expansion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/cteproperty.cpp" line="155"/>
-        <location filename="../properties/cteproperty.cpp" line="173"/>
+        <location filename="../properties/cteproperty.cpp" line="158"/>
+        <location filename="../properties/cteproperty.cpp" line="176"/>
         <source>Orthotropic Instantaneous Coefficient of Thermal Expansion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/cteproperty.cpp" line="374"/>
-        <location filename="../properties/cteproperty.cpp" line="390"/>
+        <location filename="../properties/cteproperty.cpp" line="379"/>
+        <location filename="../properties/cteproperty.cpp" line="399"/>
         <source>Isotropic Secant Coefficient of Thermal Expansion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/cteproperty.cpp" line="559"/>
-        <location filename="../properties/cteproperty.cpp" line="579"/>
+        <location filename="../properties/cteproperty.cpp" line="709"/>
+        <location filename="../properties/cteproperty.cpp" line="733"/>
         <source>Orthotropic Secant Coefficient of Thermal Expansion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/elasticityproperty.cpp" line="36"/>
-        <location filename="../properties/elasticityproperty.cpp" line="58"/>
+        <location filename="../properties/elasticityproperty.cpp" line="37"/>
+        <location filename="../properties/elasticityproperty.cpp" line="59"/>
         <source>Isotropic Elasticity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/elasticityproperty.cpp" line="518"/>
-        <location filename="../properties/elasticityproperty.cpp" line="547"/>
+        <location filename="../properties/elasticityproperty.cpp" line="521"/>
+        <location filename="../properties/elasticityproperty.cpp" line="550"/>
         <source>Orthotropic Elasticity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/resistivityproperty.cpp" line="35"/>
-        <location filename="../properties/resistivityproperty.cpp" line="47"/>
+        <location filename="../properties/resistivityproperty.cpp" line="36"/>
+        <location filename="../properties/resistivityproperty.cpp" line="48"/>
         <source>Isotropic Resistivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/resistivityproperty.cpp" line="151"/>
-        <location filename="../properties/resistivityproperty.cpp" line="168"/>
+        <location filename="../properties/resistivityproperty.cpp" line="154"/>
+        <location filename="../properties/resistivityproperty.cpp" line="171"/>
         <source>Orthotropic Resistivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/specificheatproperty.cpp" line="35"/>
-        <location filename="../properties/specificheatproperty.cpp" line="47"/>
+        <location filename="../properties/specificheatproperty.cpp" line="38"/>
+        <location filename="../properties/specificheatproperty.cpp" line="50"/>
         <source>Specific Heat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/thermalconductivityproperty.cpp" line="35"/>
-        <location filename="../properties/thermalconductivityproperty.cpp" line="47"/>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="36"/>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="48"/>
         <source>Isotropic Thermal Conductivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../properties/thermalconductivityproperty.cpp" line="151"/>
-        <location filename="../properties/thermalconductivityproperty.cpp" line="168"/>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="153"/>
+        <location filename="../properties/thermalconductivityproperty.cpp" line="170"/>
         <source>Orthotropic Thermal Conductivity</source>
         <translation type="unfinished"></translation>
     </message>
@@ -667,6 +687,30 @@
         <location filename="../properties/viscosityproperty.cpp" line="37"/>
         <location filename="../properties/viscosityproperty.cpp" line="49"/>
         <source>Viscosity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/boilingpointproperty.cpp" line="37"/>
+        <location filename="../properties/boilingpointproperty.cpp" line="49"/>
+        <source>Boiling Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/criticalpressureproperty.cpp" line="38"/>
+        <location filename="../properties/criticalpressureproperty.cpp" line="50"/>
+        <source>Critical Pressure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/criticaltemperatureproperty.cpp" line="38"/>
+        <location filename="../properties/criticaltemperatureproperty.cpp" line="50"/>
+        <source>Critical Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../properties/referencetemperatureproperty.cpp" line="38"/>
+        <location filename="../properties/referencetemperatureproperty.cpp" line="53"/>
+        <source>Reference Temperature</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
