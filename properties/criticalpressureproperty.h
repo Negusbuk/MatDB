@@ -18,42 +18,27 @@
  **
  ****************************************************************************/
 
-#ifndef THERMALCONDUCTIVITYPROPERTY_H
-#define THERMALCONDUCTIVITYPROPERTY_H
+#ifndef CRITICALPRESSURE_H
+#define CRITICALPRESSURE_H
 
 #include <property.h>
 
-class IsotropicThermalConductivityProperty : public Property
+class CriticalPressureProperty : public Property
 {
 public:
-    IsotropicThermalConductivityProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id);
-    IsotropicThermalConductivityProperty(const IsotropicThermalConductivityProperty&);
+    CriticalPressureProperty(PropertyModel* propmodel,
+                             ParameterModel* paramodel, int id);
+    CriticalPressureProperty(const CriticalPressureProperty&);
 
-    Property* clone(PropertyModel *propmodel = 0,
-                    ParameterModel* paramodel = 0);
+    virtual Property* clone(PropertyModel *propmodel = 0,
+                            ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
                        std::map<QString,ParameterDetail> paramMap);
 
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeXMLData(QXmlStreamWriter& stream);
 };
 
-class OrthotropicThermalConductivityProperty : public Property
-{
-public:
-    OrthotropicThermalConductivityProperty(PropertyModel *propmodel, ParameterModel* paramodel, int id);
-    OrthotropicThermalConductivityProperty(const OrthotropicThermalConductivityProperty&);
-
-    Property* clone(PropertyModel* propmodel = 0,
-                    ParameterModel* paramodel = 0);
-
-    virtual void apply(PropertyData& data,
-                       PropertyDetail& detail,
-                       std::map<QString,ParameterDetail> paramMap);
-
-    virtual void writeXML(QXmlStreamWriter& stream);
-    virtual void writeHTML(QXmlStreamWriter& stream);
-};
-
-#endif // THERMALCONDUCTIVITYPROPERTY_H
+#endif // CRITICALPRESSURE_H

@@ -90,13 +90,12 @@ Parameter::Parameter(Unit::VUnit* unit, int id, bool tempDependent) :
     Property_(0),
     TemperatureUnit_(new Unit::Temperature()),
     ValueUnit_(unit),
-    Values_(0),
     ReadOnly_(false),
     Dependent_(false),
     TemperatureDependent_(tempDependent),
     modified_(false)
 {
-    Values_ = new ParameterValueVector;
+    Values_.clear();
 
     Id_ = id;
     IdString_ = "pa";
@@ -107,16 +106,11 @@ Parameter::~Parameter()
 {
     delete TemperatureUnit_;
     delete ValueUnit_;
-    if (Values_) delete Values_;
 }
 
-Parameter* Parameter::clone() const
+Parameter* Parameter::cloneWithData() const
 {
-    Parameter * newParam = new Parameter(ValueUnit_->cloneWithUnitIndex(),
-                                         getId(),
-                                         TemperatureDependent_);
-    newParam->setName(getName());
-    newParam->setDisplayName(getDisplayName());
+    Parameter * newParam = this->clone();
 
     for (std::vector<ParameterValue>::const_iterator it=getValues().begin();
          it!=getValues().end();
@@ -129,6 +123,17 @@ Parameter* Parameter::clone() const
             newParam->addValue(pv.getValue());
         }
     }
+
+    return newParam;
+}
+
+Parameter* Parameter::clone() const
+{
+    Parameter * newParam = new Parameter(ValueUnit_->cloneWithUnitIndex(),
+                                         getId(),
+                                         TemperatureDependent_);
+    newParam->setName(getName());
+    newParam->setDisplayName(getDisplayName());
 
     return newParam;
 }
@@ -174,6 +179,13 @@ void Parameter::addValue(double value)
     addValue(v);
 }
 
+void Parameter::addValue(double value, const QString& unit)
+{
+    ParameterValue v;
+    v.setValue(getValueUnit()->convertToCurrent(value, unit));
+    addValue(v);
+}
+
 void Parameter::addValue(double temperature, double value)
 {
     ParameterValue v;
@@ -184,54 +196,46 @@ void Parameter::addValue(double temperature, double value)
 
 void Parameter::addValue(const ParameterValue& value)
 {
-    if (!Values_) Values_ = new ParameterValueVector;
-
-    Values_->push_back(ParameterValue(value));
+    Values_.push_back(ParameterValue(value));
     modified_ = true;
 }
 
 int Parameter::getNumberOfValues() const
 {
-    if (Values_) return Values_->size();
-    return 0;
+    return Values_.size();
 }
 
 std::vector<ParameterValue>& Parameter::getValues()
 {
-    return *Values_;
+    return Values_;
 }
 
 const std::vector<ParameterValue>& Parameter::getValues() const
 {
-    return *Values_;
+    return Values_;
 }
 
 void Parameter::clear()
 {
-    if (Values_)
-        Values_->clear();
+    Values_.clear();
 
     modified_ = true;
 }
 
 void Parameter::deleteValue(size_t idx)
 {
-    if (!Values_) return;
+    if (idx>=Values_.size()) return;
 
-    if (idx>=Values_->size()) return;
-
-    Values_->erase(Values_->begin() + idx);
+    Values_.erase(Values_.begin() + idx);
 
     modified_ = true;
 }
 
 void Parameter::deleteTemperature(size_t idx)
 {
-    if (!Values_) return;
+    if (idx>=Values_.size()) return;
 
-    if (idx>=Values_->size()) return;
-
-    ParameterValue& pvalue = Values_->at(idx);
+    ParameterValue& pvalue = Values_.at(idx);
     pvalue.setTemperature(0);
     pvalue.resetTemperature();
 
@@ -286,10 +290,8 @@ void Parameter::importValues(const QString& filename)
 
 void Parameter::sort()
 {
-    if (!Values_) return;
-
 #ifdef WIN32GPP
-    std::sort(Values_->begin(), Values_->end(),
+    std::sort(Values_.begin(), Values_.end(),
               [](ParameterValue lhs,ParameterValue rhs) {
         if (lhs.getTemperature()<rhs.getTemperature()) {
             return true;
@@ -301,7 +303,7 @@ void Parameter::sort()
         return false;
     });
 #else
-    std::sort(Values_->begin(), Values_->end(),
+    std::sort(Values_.begin(), Values_.end(),
               [](ParameterValue& lhs,ParameterValue& rhs) {
         if (lhs.getTemperature()<rhs.getTemperature()) {
             return true;
@@ -327,26 +329,24 @@ void Parameter::write(QXmlStreamWriter& stream)
     getTemperatureUnit()->writeXML(stream);
     stream.writeEndElement();
 
-    if (Values_) {
-        for (std::vector<ParameterValue>::const_iterator it=getValues().begin();
-             it!=getValues().end();
-             ++it) {
-            const ParameterValue& pv = *it;
-            stream.writeStartElement("Value");
+    for (std::vector<ParameterValue>::const_iterator it=getValues().begin();
+         it!=getValues().end();
+         ++it) {
+        const ParameterValue& pv = *it;
+        stream.writeStartElement("Value");
 
-            if (pv.isTemperatureValid()) {
-                stream.writeAttribute("Temperature", QString::number(pv.getTemperature(), 'e', 6));
-            } else {
-                stream.writeAttribute("Temperature", Property::undefindedIdentifyerAsString());
-            }
-
-            if (pv.isValueValid()) {
-                stream.writeCharacters(QString::number(pv.getValue(), 'e', 12));
-            } else {
-                stream.writeCharacters(Property::undefindedIdentifyerAsString());
-            }
-            stream.writeEndElement();
+        if (pv.isTemperatureValid()) {
+            stream.writeAttribute("Temperature", QString::number(pv.getTemperature(), 'e', 6));
+        } else {
+            stream.writeAttribute("Temperature", Property::undefindedIdentifyerAsString());
         }
+
+        if (pv.isValueValid()) {
+            stream.writeCharacters(QString::number(pv.getValue(), 'e', 12));
+        } else {
+            stream.writeCharacters(Property::undefindedIdentifyerAsString());
+        }
+        stream.writeEndElement();
     }
 
     modified_ = false;
@@ -423,7 +423,7 @@ void Parameter::writeXML(QXmlStreamWriter& stream)
     stream.writeStartElement("ParameterDetails");
     stream.writeAttribute("id", getIdString());
 
-    getValueUnit()->writeXML(stream);
+    getValueUnit()->writeXMLexport(stream);
 
     stream.writeTextElement("Name", getName());
 
@@ -446,8 +446,8 @@ void Parameter::writeHTML(QXmlStreamWriter& stream)
         stream.writeEndElement(); // tr
     } else {
         int idx=0;
-        for (ParameterValueVector::iterator it = Values_->begin();
-             it!=Values_->end();
+        for (ParameterValueVector::iterator it = Values_.begin();
+             it!=Values_.end();
              ++it) {
             stream.writeStartElement("tr");
 
@@ -456,7 +456,7 @@ void Parameter::writeHTML(QXmlStreamWriter& stream)
             stream.writeStartElement("td");
             stream.writeAttribute("class", "MatDBValue");
             stream.writeAttribute("style", "width:40px;");
-            if (Values_->size()>1) {
+            if (Values_.size()>1) {
                 stream.writeCharacters(QString::number(idx));
             } else {
                 stream.writeCharacters("");

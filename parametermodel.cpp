@@ -65,6 +65,18 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Temperature(), id++, false);
+    par->setName("Critical Temperature");
+    par->setDisplayName(tr("Critical Temperature"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Temperature(), id++, false);
+    par->setName("Boiling Point");
+    par->setDisplayName(tr("Boiling Point"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Density(), mid--);
     par->setName("Density");
     par->setDisplayName(tr("Density"));
@@ -74,6 +86,12 @@ void ParameterModel::build()
     par = new Parameter(new Unit::Viscosity(), mid--);
     par->setName("Viscosity");
     par->setDisplayName(tr("Viscosity"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Critical Pressure");
+    par->setDisplayName(tr("Critical Pressure"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
@@ -226,6 +244,12 @@ void ParameterModel::build()
     par = new Parameter(new Unit::SpecificHeat(), id++);
     par->setName("Specific Heat");
     par->setDisplayName(tr("Specific Heat"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++);
+    par->setName("Material Property");
+    par->setDisplayName(tr("Material Property"));
     par->setPrefferedValueUnit();
     addParameter(par);
 }

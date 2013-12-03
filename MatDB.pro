@@ -89,7 +89,10 @@ SOURCES += main.cpp \
     materialindexer.cpp \
     htmlwriter.cpp \
     materialselectiondialog.cpp \
-    parameterset.cpp
+    properties/criticalpressureproperty.cpp \
+    properties/criticaltemperatureproperty.cpp \
+    properties/boilingpointproperty.cpp \
+    properties/referencetemperatureproperty.cpp
 
 HEADERS += matdbmainwindow.h \
     material.h \
@@ -138,7 +141,10 @@ HEADERS += matdbmainwindow.h \
     materialindexer.h \
     htmlwriter.h \
     materialselectiondialog.h \
-    parameterset.h
+    properties/criticalpressureproperty.h \
+    properties/criticaltemperatureproperty.h \
+    properties/boilingpointproperty.h \
+    properties/referencetemperatureproperty.h
 
 FORMS    +=
 
@@ -160,7 +166,9 @@ OTHER_FILES += stylesheet.qss \
     artwork/MatDBSplashScreen.png \
     artwork/MatDBBG.png \
     html/header.html \
-    html/footer.html
+    html/footer.html \
+    LICENSE.html \
+    COPYRIGHT.html
 
 TRANSLATIONS = translations/MatDB_en.ts \
                translations/MatDB_de.ts

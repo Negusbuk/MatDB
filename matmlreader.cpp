@@ -168,7 +168,7 @@ void MATMLReader::processMaterial(QDomElement& matElem, Material* mat)
 
         Property * prop = propmodel_->getProperty(propName);
         if (!prop) continue;
-        Property * clonedProp = prop->clone(paramodel_);
+        Property * clonedProp = prop->clone(propmodel_, paramodel_);
         clonedProp->apply(data, propDetail, ParameterDetailMap_);
         mat->addProperty(clonedProp);
     }

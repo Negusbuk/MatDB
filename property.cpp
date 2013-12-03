@@ -27,6 +27,7 @@
 #include <QButtonGroup>
 
 #include <nqlogger.h>
+#include <unit.h>
 
 #include "property.h"
 
@@ -106,6 +107,15 @@ QString Property::getTypeName() const
     case Viscosity:
         return QString("Viscosity");
         break;
+    case CriticalTemperature:
+        return QString("Critical Temperature");
+        break;
+    case CriticalPressure:
+        return QString("Critical Pressure");
+        break;
+    case BoilingPoint:
+        return QString("Boiling Point");
+        break;
     default:
         break;
     }
@@ -134,7 +144,7 @@ QString Property::getDefinitionAsString() const
         return QString("Instantaneous");
         break;
     case Secant:
-        return QString("Definition");
+        return QString("Secant");
         break;
     default:
         break;
@@ -251,9 +261,18 @@ void Property::writeHTML(QXmlStreamWriter& stream)
     }
 }
 
-void Property::writeXML(QXmlStreamWriter& /* stream */)
+void Property::writeXML(QXmlStreamWriter& stream)
 {
+    Parameter* parameter = Parameters_.begin()->second;
 
+    stream.writeStartElement("PropertyDetails");
+    stream.writeAttribute("id", getIdString());
+
+    parameter->getValueUnit()->writeXML(stream);
+
+    stream.writeTextElement("Name", parameter->getName());
+
+    stream.writeEndElement();
 }
 
 void Property::writeXMLData(QXmlStreamWriter& stream)
@@ -287,6 +306,7 @@ void Property::writeXMLData(QXmlStreamWriter& stream)
          it!=Parameters_.end();
          ++it) {
         Parameter * parameter = it->second;
+        Unit::VUnit * vunit = parameter->getValueUnit();
 
         stream.writeStartElement("ParameterValue");
         stream.writeAttribute("parameter", parameter->getIdString());
@@ -300,7 +320,11 @@ void Property::writeXMLData(QXmlStreamWriter& stream)
             const ParameterValue& pv = *it;
             if (it!=parameter->getValues().begin()) values += ",";
             if (pv.isValueValid()) {
-                values += QString::number(pv.getValue(), 'e', 6);
+                if (vunit->hasXMLExportUnit()) {
+                    values += QString::number(vunit->convertToXMLExport(pv.getValue()), 'e', 6);
+                } else {
+                    values += QString::number(pv.getValue(), 'e', 6);
+                }
             } else {
                 values += undefindedIdentifyerAsString();
             }

@@ -26,14 +26,17 @@
 class SpecificHeatProperty : public Property
 {
 public:
-    SpecificHeatProperty(ParameterModel* model, int id);
+    SpecificHeatProperty(PropertyModel *propmodel, ParameterModel* paramodel, int id);
     SpecificHeatProperty(const SpecificHeatProperty&);
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel *propmodel = 0, ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
                        std::map<QString,ParameterDetail> paramMap);
+
+    virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeXMLData(QXmlStreamWriter& stream);
 };
 
 #endif // SPECIFICHEATPROPERTY_H

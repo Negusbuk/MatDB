@@ -88,6 +88,8 @@ MaterialSelectionDialog::MaterialSelectionDialog(const QString& buttonText,
     buttonLayout->setContentsMargins(1,1,1,1);
     buttons->setLayout(buttonLayout);
 
+    buttonLayout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding));
+
     okButton_ = new QPushButton(buttonText, buttons);
     //button->setFlat(true);
     okButton_->setDefault(false);

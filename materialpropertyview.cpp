@@ -238,6 +238,7 @@ void MaterialPropertyView::materialChanged(Material* material)
 
     //resetInputContext();
 
+    PropertySelectionModel_->setSelection(NULL);
     ParameterSelectionModel_->setSelection(NULL);
 }
 
@@ -325,7 +326,7 @@ void MaterialPropertyView::dropEvent(QDropEvent *event)
         return;
     }
 
-    material->addProperty(property->clone(ParameterModel_));
+    material->addProperty(property->clone(PropertyModel_, ParameterModel_));
 
     materialChanged(material);
 

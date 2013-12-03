@@ -44,7 +44,7 @@ void HTMLWriter::write(const QDir& destination)
     NQLog("HTMLWriter", NQLog::Message) << "void write(const QDir& destination)";
     NQLog("HTMLWriter", NQLog::Message) << destination.absolutePath();
 
-    MaterialCategory* noCategory = categorymodel_->getCategory(tr("No Category"));
+    MaterialCategory* noCategory = categorymodel_->getCategory("No Category");
     std::map<MaterialCategory*,std::vector<Material*> > map;
     std::map<MaterialCategory*,int> count;
 
@@ -186,8 +186,10 @@ void HTMLWriter::write(const QDir& destination)
     stream.writeEndElement(); // table
 
     QString generator = tr("Generated on");
+    generator += " ";
     generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-    generator += tr(" by MatDB");
+    generator += " ";
+    generator += tr("by MatDB");
     stream.writeTextElement("p", generator);
 
     stream.writeEndElement();
@@ -214,7 +216,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     hfile.open(QFile::ReadOnly);
     QString header(hfile.readAll());
     hfile.close();
-    QString title = tr(".: MatDB Materials - ");
+    QString title = tr(".: MatDB Material - ");
     title += material->getName();
     title += " :.";
     header.replace("@TITLE@", title);
@@ -356,8 +358,10 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeAttribute("style", "width:100%;");
     stream.writeAttribute("align", "right");
     QString generator = tr("Generated on");
+    generator += " ";
     generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-    generator += tr(" by MatDB");
+    generator += " ";
+    generator += tr("by MatDB");
     stream.writeTextElement("p", generator);
     stream.writeEndElement(); // div
 
