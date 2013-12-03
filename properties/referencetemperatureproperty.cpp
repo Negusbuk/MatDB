@@ -98,18 +98,30 @@ void ReferenceTemperatureProperty::apply(PropertyData& data,
 
 void ReferenceTemperatureProperty::writeXML(QXmlStreamWriter& stream)
 {
-    Parameter* parameter = Parameters_.begin()->second;
+    Parameter* parameter = getParameter("Material Property");
 
     stream.writeStartElement("PropertyDetails");
     stream.writeAttribute("id", getIdString());
 
     parameter->getValueUnit()->writeXML(stream);
 
-    stream.writeTextElement("Name", parameter->getName());
+    stream.writeTextElement("Name", getName());
 
     stream.writeEndElement();
 }
 
+//  <PropertyData property="pr1">
+//    <Data format="string">-</Data>
+//    <Qualifier name="Definition">Secant</Qualifier>
+//    <Qualifier name="Behavior">Isotropic</Qualifier>
+//    <ParameterValue parameter="pa2" format="float">
+//      <Data>20</Data>
+//      <Qualifier name="Variable Type">Dependent</Qualifier>
+//    </ParameterValue>
+//    <ParameterValue parameter="pa3" format="string">
+//      <Data>Coefficient of Thermal Expansion</Data>
+//    </ParameterValue>
+//  </PropertyData>
 void ReferenceTemperatureProperty::writeXMLData(QXmlStreamWriter& stream)
 {
     NQLog("ReferenceTemperatureProperty", NQLog::Spam) << "  XML write data for property " << getName()
@@ -137,24 +149,41 @@ void ReferenceTemperatureProperty::writeXMLData(QXmlStreamWriter& stream)
         stream.writeEndElement(); // Qualifier
     }
 
+    Parameter * parameter = getParameter("Reference Temperature");
+    Unit::VUnit * vunit = parameter->getValueUnit();
+
+    stream.writeStartElement("ParameterValue");
+    stream.writeAttribute("parameter", parameter->getIdString());
+    stream.writeAttribute("format", "float");
+
     QString values("");
-    Parameter * parameter = Parameters_.begin()->second;
     for (std::vector<ParameterValue>::const_iterator it=parameter->getValues().begin();
          it!=parameter->getValues().end();
          ++it) {
 
         const ParameterValue& pv = *it;
         if (it!=parameter->getValues().begin()) values += ",";
-        values += QString::number(pv.getValue());
+        if (vunit->hasXMLExportUnit()) {
+            values += QString::number(vunit->convertToXMLExport(pv.getValue()), 'e', 6);
+        } else {
+            values += QString::number(pv.getValue(), 'e', 6);
+        }
     }
-    stream.writeCharacters(values);
+    stream.writeTextElement("Data", values);
 
     stream.writeStartElement("Qualifier");
     stream.writeAttribute("name", "Variable Type");
     stream.writeCharacters("Dependent");
     stream.writeEndElement(); // Qualifier
 
-    stream.writeEndElement(); // Data
+    stream.writeEndElement(); // ParameterValue
+
+    parameter = getParameter("Material Property");
+    stream.writeStartElement("ParameterValue");
+    stream.writeAttribute("parameter", parameter->getIdString());
+    stream.writeAttribute("format", "string");
+    stream.writeTextElement("Data", getMaterialProperty());
+    stream.writeEndElement(); // ParameterValue
 
     stream.writeEndElement(); // PropertyData
 }

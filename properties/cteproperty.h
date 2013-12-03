@@ -100,6 +100,8 @@ public:
 
 protected:
 
+    void writeXMLparameter(QXmlStreamWriter& stream, Parameter* parameter);
+
     ReferenceTemperatureProperty* referenceTemperatureProperty_;
 };
 

@@ -425,19 +425,34 @@ Property* IsotropicSecantCoefficientOfThermalExpansion::clone(PropertyModel *pro
     return prop;
 }
 
-//<PropertyData property="pr2">
-//  <Data format="string">-</Data>
-//  <Qualifier name="Definition">Instantaneous</Qualifier>
-//  <Qualifier name="Behavior">Isotropic</Qualifier>
-//  <ParameterValue parameter="pa3" format="float">
-//    <Data>3e-06</Data>
-//    <Qualifier name="Variable Type">Dependent</Qualifier>
-//  </ParameterValue>
-//  <ParameterValue parameter="pa0" format="float">
-//    <Data>7.88860905221012e-31</Data>
-//    <Qualifier name="Variable Type">Independent</Qualifier>
-//  </ParameterValue>
-//</PropertyData>
+//<BulkDetails>
+//  <Name>Test</Name>
+//  <PropertyData property="pr0">
+//    <Data format="string">-</Data>
+//    <Qualifier name="Definition">Secant</Qualifier>
+//    <Qualifier name="Behavior">Isotropic</Qualifier>
+//    <ParameterValue parameter="pa0" format="float">
+//      <Data>1e-06</Data>
+//      <Qualifier name="Variable Type">Dependent</Qualifier>
+//    </ParameterValue>
+//    <ParameterValue parameter="pa1" format="float">
+//      <Data>7.88860905221012e-31</Data>
+//      <Qualifier name="Variable Type">Independent</Qualifier>
+//    </ParameterValue>
+//  </PropertyData>
+//  <PropertyData property="pr1">
+//    <Data format="string">-</Data>
+//    <Qualifier name="Definition">Secant</Qualifier>
+//    <Qualifier name="Behavior">Isotropic</Qualifier>
+//    <ParameterValue parameter="pa2" format="float">
+//      <Data>20</Data>
+//      <Qualifier name="Variable Type">Dependent</Qualifier>
+//    </ParameterValue>
+//    <ParameterValue parameter="pa3" format="string">
+//      <Data>Coefficient of Thermal Expansion</Data>
+//    </ParameterValue>
+//  </PropertyData>
+//</BulkDetails>
 void IsotropicSecantCoefficientOfThermalExpansion::apply(PropertyData& data,
                                                                  PropertyDetail& /* detail */,
                                                                  std::map<QString,ParameterDetail> paramMap)
@@ -502,6 +517,34 @@ void IsotropicSecantCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& st
     stream.writeEndElement();
 }
 
+//<BulkDetails>
+//  <Name>Test</Name>
+//  <PropertyData property="pr0">
+//    <Data format="string">-</Data>
+//    <Qualifier name="Definition">Secant</Qualifier>
+//    <Qualifier name="Behavior">Isotropic</Qualifier>
+//    <ParameterValue parameter="pa0" format="float">
+//      <Data>1e-06</Data>
+//      <Qualifier name="Variable Type">Dependent</Qualifier>
+//    </ParameterValue>
+//    <ParameterValue parameter="pa1" format="float">
+//      <Data>7.88860905221012e-31</Data>
+//      <Qualifier name="Variable Type">Independent</Qualifier>
+//    </ParameterValue>
+//  </PropertyData>
+//  <PropertyData property="pr1">
+//    <Data format="string">-</Data>
+//    <Qualifier name="Definition">Secant</Qualifier>
+//    <Qualifier name="Behavior">Isotropic</Qualifier>
+//    <ParameterValue parameter="pa2" format="float">
+//      <Data>20</Data>
+//      <Qualifier name="Variable Type">Dependent</Qualifier>
+//    </ParameterValue>
+//    <ParameterValue parameter="pa3" format="string">
+//      <Data>Coefficient of Thermal Expansion</Data>
+//    </ParameterValue>
+//  </PropertyData>
+//</BulkDetails>
 void IsotropicSecantCoefficientOfThermalExpansion::writeXMLData(QXmlStreamWriter& stream)
 {
     NQLog("IsotropicSecantCoefficientOfThermalExpansion", NQLog::Spam) << "  XML write data for property " << getName()
@@ -676,7 +719,7 @@ OrthotropicSecantCoefficientOfThermalExpansion::OrthotropicSecantCoefficientOfTh
     par = paramodel->getParameter("Coefficient of Thermal Expansion Z direction");
     addParameter(par->clone());
     referenceTemperatureProperty_ = dynamic_cast<ReferenceTemperatureProperty*>(propmodel->getProperty("Reference Temperature"));
-    referenceTemperatureProperty_->setBehavior(Isotropic);
+    referenceTemperatureProperty_->setBehavior(Orthotropic);
     referenceTemperatureProperty_->setDefinition(Secant);
     referenceTemperatureProperty_->setMaterialProperty("Coefficient of Thermal Expansion");
     par = referenceTemperatureProperty_->getParameter("Reference Temperature");
@@ -699,7 +742,7 @@ OrthotropicSecantCoefficientOfThermalExpansion::OrthotropicSecantCoefficientOfTh
     const Parameter *par3 = property.getParameter("Coefficient of Thermal Expansion Z direction");
     addParameter(par3->clone());
     referenceTemperatureProperty_ = dynamic_cast<ReferenceTemperatureProperty*>(property.referenceTemperatureProperty_->clone());
-    referenceTemperatureProperty_->setBehavior(Isotropic);
+    referenceTemperatureProperty_->setBehavior(Orthotropic);
     referenceTemperatureProperty_->setDefinition(Secant);
     referenceTemperatureProperty_->setMaterialProperty("Coefficient of Thermal Expansion");
     addParameter(referenceTemperatureProperty_->getParameter("Reference Temperature"));
@@ -810,34 +853,8 @@ void OrthotropicSecantCoefficientOfThermalExpansion::writeXML(QXmlStreamWriter& 
     stream.writeEndElement();
 }
 
-void OrthotropicSecantCoefficientOfThermalExpansion::writeXMLData(QXmlStreamWriter& stream)
+void OrthotropicSecantCoefficientOfThermalExpansion::writeXMLparameter(QXmlStreamWriter& stream, Parameter* parameter)
 {
-    NQLog("OrthotropicSecantCoefficientOfThermalExpansion", NQLog::Spam) << "  XML write data for property " << getName()
-                                   << " (" << getIdString().toStdString() << ")";
-
-    stream.writeStartElement("PropertyData");
-    stream.writeAttribute("property", getIdString());
-
-    stream.writeStartElement("Data");
-    stream.writeAttribute("format", "string");
-    stream.writeCharacters("-");
-    stream.writeEndElement(); // Data
-
-    if (Definition_!=UnknownDefinition) {
-        stream.writeStartElement("Qualifier");
-        stream.writeAttribute("name", "Definition");
-        stream.writeCharacters(getDefinitionAsString());
-        stream.writeEndElement(); // Qualifier
-    }
-
-    if (Behavior_!=UnknownBehavior) {
-        stream.writeStartElement("Qualifier");
-        stream.writeAttribute("name", "Behavior");
-        stream.writeCharacters(getBehaviorAsString());
-        stream.writeEndElement(); // Qualifier
-    }
-
-    Parameter * parameter = getParameter("Coefficient of Thermal Expansion");
     Unit::VUnit * vunit = parameter->getValueUnit();
 
     stream.writeStartElement("ParameterValue");
@@ -870,12 +887,51 @@ void OrthotropicSecantCoefficientOfThermalExpansion::writeXMLData(QXmlStreamWrit
     stream.writeEndElement(); // Qualifier
 
     stream.writeEndElement(); // ParameterValue
+}
+
+void OrthotropicSecantCoefficientOfThermalExpansion::writeXMLData(QXmlStreamWriter& stream)
+{
+    NQLog("OrthotropicSecantCoefficientOfThermalExpansion", NQLog::Spam) << "  XML write data for property " << getName()
+                                   << " (" << getIdString().toStdString() << ")";
+
+    NQLog("IsotropicSecantCoefficientOfThermalExpansion", NQLog::Spam) << "  XML write data for property " << getName()
+                                   << " (" << getIdString().toStdString() << ")";
+
+    stream.writeStartElement("PropertyData");
+    stream.writeAttribute("property", getIdString());
+
+    stream.writeStartElement("Data");
+    stream.writeAttribute("format", "string");
+    stream.writeCharacters("-");
+    stream.writeEndElement(); // Data
+
+    if (Definition_!=UnknownDefinition) {
+        stream.writeStartElement("Qualifier");
+        stream.writeAttribute("name", "Definition");
+        stream.writeCharacters(getDefinitionAsString());
+        stream.writeEndElement(); // Qualifier
+    }
+
+    if (Behavior_!=UnknownBehavior) {
+        stream.writeStartElement("Qualifier");
+        stream.writeAttribute("name", "Behavior");
+        stream.writeCharacters(getBehaviorAsString());
+        stream.writeEndElement(); // Qualifier
+    }
+
+    Parameter * parameter;
+    parameter = getParameter("Coefficient of Thermal Expansion X direction");
+    writeXMLparameter(stream, parameter);
+    parameter = getParameter("Coefficient of Thermal Expansion Y direction");
+    writeXMLparameter(stream, parameter);
+    parameter = getParameter("Coefficient of Thermal Expansion Z direction");
+    writeXMLparameter(stream, parameter);
 
     stream.writeStartElement("ParameterValue");
     stream.writeAttribute("parameter", "pa0");
     stream.writeAttribute("format", "float");
 
-    values = "";
+    QString values("");
     for (std::vector<ParameterValue>::const_iterator it=parameter->getValues().begin();
          it!=parameter->getValues().end();
          ++it) {
