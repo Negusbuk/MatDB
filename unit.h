@@ -104,6 +104,7 @@ public:
     Unitless();
     VUnit* clone() const { return new Unitless(); }
     virtual void writeXML(QXmlStreamWriter& stream);
+    virtual void writeXMLexport(QXmlStreamWriter& stream);
 };
 
 class Temperature : public VUnit

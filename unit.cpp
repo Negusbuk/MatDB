@@ -82,7 +82,10 @@ void VUnit::addUnit(const QString& unit, double minValue, double maxValue,
                     funcToBaseUnit, funcFromBaseUnit,
                     isPrefferedUnit, isXMLExportUnit);
     entry.UnitIndex_ = Units_.size();
-    if (isPrefferedUnit) PrefferedUnitIndex_ = entry.UnitIndex_;
+    if (isPrefferedUnit) {
+        PrefferedUnitIndex_ = entry.UnitIndex_;
+        XMLExportUnitIndex_ = entry.UnitIndex_;
+    }
     if (isXMLExportUnit) XMLExportUnitIndex_ = entry.UnitIndex_;
     UnitsMap_[unit] = entry;
     Units_.push_back(unit);
@@ -230,6 +233,11 @@ Unitless::Unitless() :
 }
 
 void Unitless::writeXML(QXmlStreamWriter& stream)
+{
+    stream.writeEmptyElement("Unitless");
+}
+
+void Unitless::writeXMLexport(QXmlStreamWriter& stream)
 {
     stream.writeEmptyElement("Unitless");
 }
