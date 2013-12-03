@@ -29,7 +29,8 @@
 
 #include <elasticityproperty.h>
 
-IsotropicElasticityProperty::IsotropicElasticityProperty(ParameterModel* model, int id) :
+IsotropicElasticityProperty::IsotropicElasticityProperty(PropertyModel *propmodel,
+                                                         ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Isotropic Elasticity");
@@ -38,13 +39,13 @@ IsotropicElasticityProperty::IsotropicElasticityProperty(ParameterModel* model, 
     setType(Elasticity);
     setBehavior(Isotropic);
     Parameter *par;
-    par = model->getParameter("Young's Modulus");
+    par = paramodel->getParameter("Young's Modulus");
     addParameter(par->clone());
-    par = model->getParameter("Poisson's Ratio");
+    par = paramodel->getParameter("Poisson's Ratio");
     addParameter(par->clone());
-    par = model->getParameter("Shear Modulus");
+    par = paramodel->getParameter("Shear Modulus");
     addParameter(par->clone());
-    par = model->getParameter("Bulk Modulus");
+    par = paramodel->getParameter("Bulk Modulus");
     addParameter(par->clone());
 
     widget_ = 0;
@@ -72,11 +73,12 @@ IsotropicElasticityProperty::IsotropicElasticityProperty(const IsotropicElastici
     setCalculationMode(CalcFromYoungsModulusAndPoissonsRatio);
 }
 
-Property* IsotropicElasticityProperty::clone(ParameterModel* model)
+Property* IsotropicElasticityProperty::clone(PropertyModel* propmodel,
+                                             ParameterModel* paramodel)
 {
     IsotropicElasticityProperty* prop;
-    if (model) {
-        prop = new IsotropicElasticityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new IsotropicElasticityProperty(propmodel, paramodel, getId());
     } else {
         prop = new IsotropicElasticityProperty(*this);
     }
@@ -511,7 +513,8 @@ void IsotropicElasticityPropertyWidget::updateContents()
     buttonGroup_->button(mode)->setChecked(true);
 }
 
-OrthotropicElasticityProperty::OrthotropicElasticityProperty(ParameterModel* model, int id) :
+OrthotropicElasticityProperty::OrthotropicElasticityProperty(PropertyModel* propmodel,
+                                                             ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Orthotropic Elasticity");
@@ -520,23 +523,23 @@ OrthotropicElasticityProperty::OrthotropicElasticityProperty(ParameterModel* mod
     setType(Elasticity);
     setBehavior(Orthotropic);
     Parameter *par;
-    par = model->getParameter("Young's Modulus X direction");
+    par = paramodel->getParameter("Young's Modulus X direction");
     addParameter(par->clone());
-    par = model->getParameter("Young's Modulus Y direction");
+    par = paramodel->getParameter("Young's Modulus Y direction");
     addParameter(par->clone());
-    par = model->getParameter("Young's Modulus Z direction");
+    par = paramodel->getParameter("Young's Modulus Z direction");
     addParameter(par->clone());
-    par = model->getParameter("Poisson's Ratio XY");
+    par = paramodel->getParameter("Poisson's Ratio XY");
     addParameter(par->clone());
-    par = model->getParameter("Poisson's Ratio YZ");
+    par = paramodel->getParameter("Poisson's Ratio YZ");
     addParameter(par->clone());
-    par = model->getParameter("Poisson's Ratio XZ");
+    par = paramodel->getParameter("Poisson's Ratio XZ");
     addParameter(par->clone());
-    par = model->getParameter("Shear Modulus XY");
+    par = paramodel->getParameter("Shear Modulus XY");
     addParameter(par->clone());
-    par = model->getParameter("Shear Modulus YZ");
+    par = paramodel->getParameter("Shear Modulus YZ");
     addParameter(par->clone());
-    par = model->getParameter("Shear Modulus XZ");
+    par = paramodel->getParameter("Shear Modulus XZ");
     addParameter(par->clone());
 }
 
@@ -568,11 +571,12 @@ OrthotropicElasticityProperty::OrthotropicElasticityProperty(const OrthotropicEl
     addParameter(par3xz->clone());
 }
 
-Property* OrthotropicElasticityProperty::clone(ParameterModel* model)
+Property* OrthotropicElasticityProperty::clone(PropertyModel* propmodel,
+                                               ParameterModel* paramodel)
 {
     OrthotropicElasticityProperty* prop;
-    if (model) {
-        prop = new OrthotropicElasticityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new OrthotropicElasticityProperty(propmodel, paramodel, getId());
     } else {
         prop = new OrthotropicElasticityProperty(*this);
     }

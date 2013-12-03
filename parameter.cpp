@@ -423,7 +423,7 @@ void Parameter::writeXML(QXmlStreamWriter& stream)
     stream.writeStartElement("ParameterDetails");
     stream.writeAttribute("id", getIdString());
 
-    getValueUnit()->writeXML(stream);
+    getValueUnit()->writeXMLexport(stream);
 
     stream.writeTextElement("Name", getName());
 

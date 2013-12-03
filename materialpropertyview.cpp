@@ -326,7 +326,7 @@ void MaterialPropertyView::dropEvent(QDropEvent *event)
         return;
     }
 
-    material->addProperty(property->clone(ParameterModel_));
+    material->addProperty(property->clone(PropertyModel_, ParameterModel_));
 
     materialChanged(material);
 

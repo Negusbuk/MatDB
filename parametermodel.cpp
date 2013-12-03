@@ -246,4 +246,10 @@ void ParameterModel::build()
     par->setDisplayName(tr("Specific Heat"));
     par->setPrefferedValueUnit();
     addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++);
+    par->setName("Material Property");
+    par->setDisplayName(tr("Material Property"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
 }

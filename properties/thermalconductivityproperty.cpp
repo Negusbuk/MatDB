@@ -28,7 +28,8 @@
 
 #include "thermalconductivityproperty.h"
 
-IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(ParameterModel* model, int id) :
+IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(PropertyModel* propmodel,
+                                                                           ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Isotropic Thermal Conductivity");
@@ -36,7 +37,7 @@ IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(Param
     setCategory(ThermalProperty);
     setType(ThermalConductivity);
     setBehavior(Isotropic);
-    Parameter *par = model->getParameter("Thermal Conductivity");
+    Parameter *par = paramodel->getParameter("Thermal Conductivity");
     addParameter(par->clone());
 }
 
@@ -52,11 +53,11 @@ IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(const
     addParameter(par->clone());
 }
 
-Property* IsotropicThermalConductivityProperty::clone(ParameterModel* model)
+Property* IsotropicThermalConductivityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)
 {
     IsotropicThermalConductivityProperty* prop;
-    if (model) {
-        prop = new IsotropicThermalConductivityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new IsotropicThermalConductivityProperty(propmodel, paramodel, getId());
     } else {
         prop = new IsotropicThermalConductivityProperty(*this);
     }
@@ -144,7 +145,8 @@ void IsotropicThermalConductivityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(ParameterModel* model, int id) :
+OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(PropertyModel* propmodel,
+                                                                               ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Orthotropic Thermal Conductivity");
@@ -153,11 +155,11 @@ OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(P
     setType(ThermalConductivity);
     setBehavior(Orthotropic);
     Parameter *par;
-    par = model->getParameter("Thermal Conductivity X direction");
+    par = paramodel->getParameter("Thermal Conductivity X direction");
     addParameter(par->clone());
-    par = model->getParameter("Thermal Conductivity Y direction");
+    par = paramodel->getParameter("Thermal Conductivity Y direction");
     addParameter(par->clone());
-    par = model->getParameter("Thermal Conductivity Z direction");
+    par = paramodel->getParameter("Thermal Conductivity Z direction");
     addParameter(par->clone());
 }
 
@@ -177,11 +179,11 @@ OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(c
     addParameter(par3->clone());
 }
 
-Property* OrthotropicThermalConductivityProperty::clone(ParameterModel* model)
+Property* OrthotropicThermalConductivityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)
 {
     OrthotropicThermalConductivityProperty* prop;
-    if (model) {
-        prop = new OrthotropicThermalConductivityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new OrthotropicThermalConductivityProperty(propmodel, paramodel, getId());
     } else {
         prop = new OrthotropicThermalConductivityProperty(*this);
     }

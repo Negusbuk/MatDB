@@ -26,10 +26,11 @@
 class IsotropicThermalConductivityProperty : public Property
 {
 public:
-    IsotropicThermalConductivityProperty(ParameterModel* model, int id);
+    IsotropicThermalConductivityProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id);
     IsotropicThermalConductivityProperty(const IsotropicThermalConductivityProperty&);
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel *propmodel = 0,
+                    ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -41,10 +42,11 @@ public:
 class OrthotropicThermalConductivityProperty : public Property
 {
 public:
-    OrthotropicThermalConductivityProperty(ParameterModel* model, int id);
+    OrthotropicThermalConductivityProperty(PropertyModel *propmodel, ParameterModel* paramodel, int id);
     OrthotropicThermalConductivityProperty(const OrthotropicThermalConductivityProperty&);
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel* propmodel = 0,
+                    ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,

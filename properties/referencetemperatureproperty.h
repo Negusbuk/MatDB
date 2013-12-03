@@ -18,20 +18,22 @@
  **
  ****************************************************************************/
 
-#ifndef CRITICALTEMPERATURE_H
-#define CRITICALTEMPERATURE_H
+#ifndef REFERENCETEMPERATUREPROPERTY_H
+#define REFERENCETEMPERATUREPROPERTY_H
 
 #include <property.h>
 
-class CriticalTemperatureProperty : public Property
+class ReferenceTemperatureProperty : public Property
 {
 public:
-    CriticalTemperatureProperty(PropertyModel* propmodel,
-                                ParameterModel* paramodel, int id);
-    CriticalTemperatureProperty(const CriticalTemperatureProperty&);
+    ReferenceTemperatureProperty(PropertyModel* propmodel,
+                                 ParameterModel* paramodel, int id);
+    ReferenceTemperatureProperty(const ReferenceTemperatureProperty&);
 
-    virtual Property* clone(PropertyModel* propmodel = 0,
-                            ParameterModel* paramodel = 0);
+    const QString& getMaterialProperty() const { return materialProperty_; }
+    void setMaterialProperty(const QString& matprop) { materialProperty_ = matprop; }
+
+    virtual Property* clone(PropertyModel *propmodel = 0, ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -39,6 +41,10 @@ public:
 
     virtual void writeXML(QXmlStreamWriter& stream);
     virtual void writeXMLData(QXmlStreamWriter& stream);
+
+protected:
+
+    QString materialProperty_;
 };
 
-#endif // CRITICALTEMPERATURE_H
+#endif // REFERENCETEMPERATUREPROPERTY_H
