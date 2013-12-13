@@ -93,7 +93,8 @@ SOURCES += main.cpp \
     properties/criticaltemperatureproperty.cpp \
     properties/boilingpointproperty.cpp \
     properties/referencetemperatureproperty.cpp \
-    properties/plytypeproperty.cpp
+    properties/plytypeproperty.cpp \
+    properties/strainlimitsproperty.cpp
 
 HEADERS += matdbmainwindow.h \
     material.h \
@@ -146,7 +147,8 @@ HEADERS += matdbmainwindow.h \
     properties/criticaltemperatureproperty.h \
     properties/boilingpointproperty.h \
     properties/referencetemperatureproperty.h \
-    properties/plytypeproperty.h
+    properties/plytypeproperty.h \
+    properties/strainlimitsproperty.h
 
 FORMS    +=
 
