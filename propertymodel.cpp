@@ -30,6 +30,7 @@
 #include "boilingpointproperty.h"
 #include "referencetemperatureproperty.h"
 #include "plytypeproperty.h"
+#include "strainlimitsproperty.h"
 
 #include "propertymodel.h"
 
@@ -96,6 +97,8 @@ void PropertyModel::build()
     addProperty(new BoilingPointProperty(this, ParameterModel_, id++));
 
     addProperty(new PlyTypeProperty(this, ParameterModel_, id++));
+    addProperty(new IsotropicStrainLimitsProperty(this, ParameterModel_, id++));
+    addProperty(new OrthotropicStrainLimitsProperty(this, ParameterModel_, id++));
 
     Categories_.push_back(tr("Physical Properties"));
     Categories_.push_back(tr("Linear Elastic Properties"));
