@@ -90,6 +90,7 @@ public:
         CoefficientOfThermalExpansion    =  1002,
 
         Elasticity                       =  2001,
+        PlyType                          =  2002,
 
         ThermalConductivity              =  3001,
         SpecificHeat                     =  3003,
