@@ -59,6 +59,7 @@ public slots:
     void togglePropertyToolBoxDockWidget();
     void toggleCategoryDockWidget();
     void aboutDialog();
+    void preferenceDialog();
 
     void addDefaultIsotropicMaterial();
     void addDefaultOrthotropicMaterial();

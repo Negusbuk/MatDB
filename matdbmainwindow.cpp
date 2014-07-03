@@ -42,6 +42,8 @@
 #include "htmlwriter.h"
 
 #include "matdbaboutdialog.h"
+#include "matdbpreferencedialog.h"
+
 #include "materialcategorywidget.h"
 #include <materialfilterwidget.h>
 
@@ -52,9 +54,9 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
 {
     QMenuBar *menubar = new QMenuBar(0);
     setMenuBar(menubar);
-    QMenu * menu = menuBar()->addMenu("&File");
+    QMenu * menu = menuBar()->addMenu(tr("&File"));
     menu->addAction("about.*", this, SLOT(aboutDialog()));
-    //menu->addAction("config", this, SLOT(preferenceDialog()));
+    menu->addAction("config", this, SLOT(preferenceDialog()));
 
     MaterialCategoryModel_ = new MaterialCategoryModel(this);
     ParameterModel_ = new ParameterModel(this);
@@ -408,7 +410,15 @@ void MatDBMainWindow::aboutDialog()
     NQLog("MatDBMainWindow", NQLog::Spam) << "void aboutDialog()";
 
     MatDBAboutDialog dialog;
-         dialog.exec();
+    dialog.exec();
+}
+
+void MatDBMainWindow::preferenceDialog()
+{
+    NQLog("MatDBMainWindow", NQLog::Spam) << "void preferenceDialog()";
+
+    MatDBPreferenceDialog dialog;
+    dialog.exec();
 }
 
 void MatDBMainWindow::togglePropertyToolBoxDockWidget()

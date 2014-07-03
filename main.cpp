@@ -37,6 +37,7 @@
 #include <nqlogger.h>
 
 #include "matdbmainwindow.h"
+#include "matdblanguagehandler.h"
 
 //#define SHOWSPLASHSCREEN
 #define ENABLE_TRANSLATION
@@ -45,7 +46,14 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QString locale = QLocale::system().name();
+    QCoreApplication::setOrganizationName("Negusbuk");
+    QCoreApplication::setOrganizationDomain("mussgiller.de");
+    QCoreApplication::setApplicationName("MatDB");
+
+    QSettings settings;
+    if (!settings.contains("language")) {
+        settings.setValue("language", "system");
+    }
 
     NQLogger::instance()->addActiveModule("*");
 
@@ -62,32 +70,14 @@ int main(int argc, char *argv[])
 
     NQLog("Main") << "using " << logfilename << " for logging";
 
-#ifdef ENABLE_TRANSLATION
-    QString resourceDir = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
-    QTranslator *qttranslator = new QTranslator(0);
-    if (qttranslator->load(QLatin1String("qt_") + locale, resourceDir)) {
-        a.installTranslator(qttranslator);
-    } else if (qttranslator->load(QLatin1String("qt_") + locale,
-                                QCoreApplication::applicationDirPath())) {
-        a.installTranslator(qttranslator);
-    }
-
-    QTranslator *translator = new QTranslator(0);
-    QString transName = ":/translations/" + QLatin1String("MatDB_") + locale + ".qm";
-    if (translator->load(transName)) {
-        NQLog("Main") << "using file '" + transName + "' for translations.";
-        a.installTranslator(translator);
-    }
-#endif
+    QString locale = QLocale::system().name();
+    if (settings.value("language")!="system") locale = settings.value("language").toString();
+    MatDBLanguageHandler::instance()->changeLanguage(locale);
 
     QFile * logfile = new QFile(logfilename);
     if (logfile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
         NQLogger::instance()->addDestiniation(logfile, NQLog::Message);
     }
-
-    QCoreApplication::setOrganizationName("Negusbuk");
-    QCoreApplication::setOrganizationDomain("mussgiller.de");
-    QCoreApplication::setApplicationName("MatDB");
 
 #ifdef SHOWSPLASHSCREEN
     QPixmap pixmap(":/pics/MatDBSplashScreen.png");
@@ -97,7 +87,6 @@ int main(int argc, char *argv[])
     qApp->processEvents();
 #endif
 
-    QSettings settings;
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
     QString defaultDBPath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #else

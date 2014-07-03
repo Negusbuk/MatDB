@@ -78,6 +78,7 @@ SOURCES += main.cpp \
     materialxmlexportdialog.cpp \
     materialimportdialog.cpp \
     matdbaboutdialog.cpp \
+    matdbpreferencedialog.cpp \
     materialcategory.cpp \
     materialcategorymodel.cpp \
     materialtagsedit.cpp \
@@ -92,7 +93,11 @@ SOURCES += main.cpp \
     properties/criticalpressureproperty.cpp \
     properties/criticaltemperatureproperty.cpp \
     properties/boilingpointproperty.cpp \
-    properties/referencetemperatureproperty.cpp
+    properties/referencetemperatureproperty.cpp \
+    properties/plytypeproperty.cpp \
+    properties/stresslimitsproperty.cpp \
+    properties/strainlimitsproperty.cpp \
+    matdblanguagehandler.cpp
 
 HEADERS += matdbmainwindow.h \
     material.h \
@@ -130,6 +135,7 @@ HEADERS += matdbmainwindow.h \
     materialxmlexportdialog.h \
     materialimportdialog.h \
     matdbaboutdialog.h \
+    matdbpreferencedialog.h \
     materialcategory.h \
     materialcategorymodel.h \
     materialtagsedit.h \
@@ -144,7 +150,11 @@ HEADERS += matdbmainwindow.h \
     properties/criticalpressureproperty.h \
     properties/criticaltemperatureproperty.h \
     properties/boilingpointproperty.h \
-    properties/referencetemperatureproperty.h
+    properties/referencetemperatureproperty.h \
+    properties/plytypeproperty.h \
+    properties/stresslimitsproperty.h \
+    properties/strainlimitsproperty.h \
+    matdblanguagehandler.h
 
 FORMS    +=
 
