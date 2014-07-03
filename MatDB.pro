@@ -96,7 +96,8 @@ SOURCES += main.cpp \
     properties/referencetemperatureproperty.cpp \
     properties/plytypeproperty.cpp \
     properties/stresslimitsproperty.cpp \
-    properties/strainlimitsproperty.cpp
+    properties/strainlimitsproperty.cpp \
+    matdblanguagehandler.cpp
 
 HEADERS += matdbmainwindow.h \
     material.h \
@@ -152,7 +153,8 @@ HEADERS += matdbmainwindow.h \
     properties/referencetemperatureproperty.h \
     properties/plytypeproperty.h \
     properties/stresslimitsproperty.h \
-    properties/strainlimitsproperty.h
+    properties/strainlimitsproperty.h \
+    matdblanguagehandler.h
 
 FORMS    +=
 
