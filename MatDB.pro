@@ -78,6 +78,7 @@ SOURCES += main.cpp \
     materialxmlexportdialog.cpp \
     materialimportdialog.cpp \
     matdbaboutdialog.cpp \
+    matdbpreferencedialog.cpp \
     materialcategory.cpp \
     materialcategorymodel.cpp \
     materialtagsedit.cpp \
@@ -133,6 +134,7 @@ HEADERS += matdbmainwindow.h \
     materialxmlexportdialog.h \
     materialimportdialog.h \
     matdbaboutdialog.h \
+    matdbpreferencedialog.h \
     materialcategory.h \
     materialcategorymodel.h \
     materialtagsedit.h \
