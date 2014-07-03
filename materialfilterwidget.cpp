@@ -19,7 +19,6 @@
  ****************************************************************************/
 
 #include <QLayout>
-#include <QRadioButton>
 
 #include "materialfilterwidget.h"
 
@@ -55,14 +54,13 @@ MaterialFilterWidget::MaterialFilterWidget(MaterialListModel *listmodel,
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     hbox->addWidget(stretch);
 
-    QRadioButton * rb;
-    rb = new QRadioButton(tr("AND"), control);
-    hbox->addWidget(rb);
-    filterLogicGroup_->addButton(rb, 0);
-    rb->setChecked(true);
-    rb = new QRadioButton(tr("OR"), control);
-    hbox->addWidget(rb);
-    filterLogicGroup_->addButton(rb, 1);
+    rbAND_ = new QRadioButton(tr("AND"), control);
+    hbox->addWidget(rbAND_);
+    filterLogicGroup_->addButton(rbAND_, 0);
+    rbAND_->setChecked(true);
+    rbOR_ = new QRadioButton(tr("OR"), control);
+    hbox->addWidget(rbOR_);
+    filterLogicGroup_->addButton(rbOR_, 1);
 
     resetButton_ = new QPushButton(QIcon(":/icons/MatDBResetFilter.png"), "", control);
     resetButton_->setFlat(true);
@@ -109,4 +107,14 @@ void MaterialFilterWidget::logicChanged(int id)
 void MaterialFilterWidget::resetFilter()
 {
     tokenEdit_->setTokens(QStringList());
+}
+
+void MaterialFilterWidget::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        rbAND_->setText(tr("AND"));
+        rbOR_->setText(tr("OR"));
+    } else {
+        QWidget::changeEvent(event);
+    }
 }
