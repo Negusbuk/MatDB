@@ -92,6 +92,15 @@ QString Property::getTypeName() const
     case Elasticity:
         return QString("Elasticity");
         break;
+    case PlyType:
+        return QString("Ply Type");
+        break;
+    case StressLimits:
+        return QString("Stress Limits");
+        break;
+    case StrainLimits:
+        return QString("Strain Limits");
+        break;
     case ThermalConductivity:
         return QString("Thermal Conductivity");
         break;

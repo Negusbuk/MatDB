@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- **  Copyright (C) 2013 Andreas Mussgiller
+ **  Copyright (C) 2014 Andreas Mussgiller
  **
  **  This program is free software: you can redistribute it and/or modify
  **  it under the terms of the GNU General Public License as published by
@@ -18,48 +18,49 @@
  **
  ****************************************************************************/
 
-#ifndef MATERIALFILTERWIDGET_H
-#define MATERIALFILTERWIDGET_H
+#ifndef MATDBPREFERENCEDIALOG_H
+#define MATDBPREFERENCEDIALOG_H
 
-#include <QWidget>
-#include <QPushButton>
-#include <QButtonGroup>
-#include <QRadioButton>
-#include <QEvent>
+#include <QDialog>
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QComboBox>
 
-#include <nqtokenedit.h>
+class LanguagePage;
 
-#include <materiallistmodel.h>
-
-class MaterialFilterWidget : public QWidget
+class MatDBPreferenceDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit MaterialFilterWidget(MaterialListModel *listmodel,
-                                  QWidget *parent = 0);
 
-signals:
-
-    void filterChanged(QStringList,bool);
+    explicit MatDBPreferenceDialog(QWidget *parent = 0);
 
 public slots:
+    void changePage(QListWidgetItem *current, QListWidgetItem *previous);
 
 protected slots:
 
-    void resetFilter();
-    void tokensChanged(const QStringList&);
-    void logicChanged(int id);
+    void applyChanges();
+
+private:
+
+    void createIcons();
+
+    QListWidget *contentsWidget_;
+    QStackedWidget *pagesWidget_;
+    LanguagePage *languagePage_;
+};
+
+class LanguagePage : public QWidget
+{
+public:
+    LanguagePage(QWidget *parent = 0);
+
+    QVariant selectedLanguage();
 
 protected:
 
-    void changeEvent(QEvent *event);
-
-    MaterialListModel* ListModel_;
-    NQTokenEdit* tokenEdit_;
-    QButtonGroup* filterLogicGroup_;
-    QRadioButton* rbAND_;
-    QRadioButton* rbOR_;
-    QPushButton* resetButton_;
+    QComboBox *languageCombo_;
 };
 
-#endif // MATERIALFILTERWIDGET_H
+#endif // MATDBPREFERENCEDIALOG_H

@@ -33,7 +33,10 @@ MaterialCategoryModel::MaterialCategoryModel(QObject *parent) :
 {
     addCategory("No Category", tr("No Category"), QColor(255, 255, 255, 0), true);
     addCategory("Structural", tr("Structural"), QColor(100, 0, 0, 255), true);
+    addCategory("Structural Core", tr("Structural Core"), QColor(0, 100, 0, 255), true);
+    addCategory("Thermal Management", tr("Thermal Management"), QColor(0, 100, 0, 255), true);
     addCategory("Glue", tr("Glue"), QColor(0, 100, 0, 255), true);
+    addCategory("Elementary", tr("Elementary"), QColor(0, 100, 0, 255), true);
 }
 
 void MaterialCategoryModel::addCategory(const QString& name,
