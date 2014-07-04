@@ -75,3 +75,12 @@ void MaterialCategoryBox::selectedCategoryChanged(const QString& /* item */)
 
     emit materialMetadataChanged(material);
 }
+
+void MaterialCategoryBox::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+    } else {
+        QWidget::changeEvent(event);
+    }
+}
