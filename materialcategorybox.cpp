@@ -54,6 +54,8 @@ void MaterialCategoryBox::materialChanged(Material* material)
     if (category) {
         int idx = findText(category->getDisplayName());
         setCurrentIndex(idx);
+    } else {
+        setCurrentIndex(0);
     }
 }
 
