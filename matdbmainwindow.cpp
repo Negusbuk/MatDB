@@ -152,7 +152,6 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     propertyToolBoxDockWidget_->setWidget(PropertyToolBox_);
     addDockWidget(Qt::LeftDockWidgetArea, propertyToolBoxDockWidget_);
 
-
     categoryDockWidget_ = new QDockWidget(tr("Categories"), this);
     categoryDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
     categoryDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
