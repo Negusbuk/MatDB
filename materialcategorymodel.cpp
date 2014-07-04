@@ -310,3 +310,30 @@ void MaterialCategoryModel::write(QIODevice *destination)
 
     modified_ = false;
 }
+
+void MaterialCategoryModel::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+        MaterialCategory* cat;
+
+        cat = getCategory("No Category");
+        if (cat) cat->setDisplayName(tr("No Category"));
+
+        cat = getCategory("Structural");
+        if (cat) cat->setDisplayName(tr("Structural"));
+
+        cat = getCategory("Structural Core");
+        if (cat) cat->setDisplayName(tr("Structural Core"));
+
+        cat = getCategory("Thermal Management");
+        if (cat) cat->setDisplayName(tr("Thermal Management"));
+
+        cat = getCategory("Glue");
+        if (cat) cat->setDisplayName(tr("Glue"));
+
+        cat = getCategory("Elementary");
+        if (cat) cat->setDisplayName(tr("Elementary"));
+
+    }
+}
