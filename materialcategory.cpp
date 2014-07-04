@@ -21,15 +21,19 @@
 #include <QPixmap>
 #include <QPainter>
 
+#include <nqlogger.h>
+
 #include <materialcategory.h>
 
 QIcon* MaterialCategory::emptyIcon_ = 0;
 
 MaterialCategory::MaterialCategory(const QString& name,
+                                   const QString& displayName,
                                    const QColor& color,
                                    bool readonly):
     isReadOnly_(readonly),
     name_(name),
+    displayName_(displayName),
     color_(color)
 {
     if (emptyIcon_==0) {
@@ -41,15 +45,6 @@ MaterialCategory::MaterialCategory(const QString& name,
     QPixmap pm(8, 8);
     pm.fill(color_);
     icon_ = QIcon(pm);
-}
-
-const QString MaterialCategory::getDisplayName() const
-{
-    if (!isReadOnly_) {
-        return QObject::tr(name_.toStdString().c_str());
-    } else {
-        return name_;
-    }
 }
 
 void MaterialCategory::setColor(const QColor& color)

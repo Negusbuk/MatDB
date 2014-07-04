@@ -29,13 +29,14 @@ class MaterialCategory
 {
 public:
     explicit MaterialCategory(const QString& name,
+                              const QString& displayName,
                               const QColor& bgColor,
                               bool readonly);
 
     const QString& getUUID() const { return uuid_; }
     bool isReadOnly() const { return isReadOnly_; }
     const QString& getName() const { return name_; }
-    const QString getDisplayName() const;
+    const QString getDisplayName() const { return displayName_; }
     const QColor& getColor() const { return color_; }
     const QIcon& getIcon() const { return icon_; }
     static QIcon& getEmptyIcon() { return *emptyIcon_; }
@@ -44,6 +45,7 @@ public slots:
 
     void setUUID(const QString& uuid) { uuid_ = uuid; }
     void setName(const QString& name) { name_ = name; }
+    void setDisplayName(const QString& displayName) { displayName_ = displayName; }
     void setColor(const QColor& color);
 
 protected:
@@ -51,6 +53,7 @@ protected:
     QString uuid_;
     bool isReadOnly_;
     QString name_;
+    QString displayName_;
     QColor color_;
     QIcon icon_;
     static QIcon* emptyIcon_;
