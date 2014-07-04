@@ -74,27 +74,27 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     ParameterSelectionModel_ = new ParameterSelectionModel(this);
 
     ToolBar_ = addToolBar("ToolBar");
-    ToolBar_->addAction(QIcon(":/icons/MatDBImportXML.png"),
-                        tr("Import XML"),
-                        this,
-                        SLOT(importMaterials()));
+    importXMLAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBImportXML.png"),
+                                           tr("Import XML"),
+                                           this,
+                                           SLOT(importMaterials()));
     ToolBar_->addSeparator();
-    ToolBar_->addAction(QIcon(":/icons/MatDBAddIsotropicMaterial.png"),
-                        tr("Add Isotropic Material"),
-                        this,
-                        SLOT(addDefaultIsotropicMaterial()));
-    ToolBar_->addAction(QIcon(":/icons/MatDBAddOrthotropicMaterial.png"),
-                        tr("Add Orthotropic Material"),
-                        this,
-                        SLOT(addDefaultOrthotropicMaterial()));
-    ToolBar_->addAction(QIcon(":/icons/MatDBAddLiquidMaterial.png"),
-                        tr("Add Liquid Material"),
-                        this,
-                        SLOT(addDefaultLiquidMaterial()));
-    ToolBar_->addAction(QIcon(":/icons/MatDBAddGaseousMaterial.png"),
-                        tr("Add Gaseous Material"),
-                        this,
-                        SLOT(addDefaultGaseousMaterial()));
+    addIsotropicMatAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBAddIsotropicMaterial.png"),
+                                                 tr("Add Isotropic Material"),
+                                                 this,
+                                                 SLOT(addDefaultIsotropicMaterial()));
+    addOrthotropicMatAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBAddOrthotropicMaterial.png"),
+                                                   tr("Add Orthotropic Material"),
+                                                   this,
+                                                   SLOT(addDefaultOrthotropicMaterial()));
+    addLiquidMatAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBAddLiquidMaterial.png"),
+                                              tr("Add Liquid Material"),
+                                              this,
+                                              SLOT(addDefaultLiquidMaterial()));
+    addGaseousMatAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBAddGaseousMaterial.png"),
+                                               tr("Add Gaseous Material"),
+                                               this,
+                                               SLOT(addDefaultGaseousMaterial()));
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
@@ -111,8 +111,14 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     toggleCategoryDockWidgetAction_->setCheckable(true);
     toggleCategoryDockWidgetAction_->setChecked(true);
     ToolBar_->addSeparator();
-    ToolBar_->addAction(QIcon(":/icons/MatDBExportXML.png"), tr("Export XML"), this, SLOT(exportMaterialsXML()));
-    ToolBar_->addAction(QIcon(":/icons/MatDBExportHTML.png"), tr("Export HTML"), this, SLOT(exportMaterialsHTML()));
+    exportXMLAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBExportXML.png"),
+                                           tr("Export XML"),
+                                           this,
+                                           SLOT(exportMaterialsXML()));
+    exportHTMLAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBExportHTML.png"),
+                                            tr("Export HTML"),
+                                            this,
+                                            SLOT(exportMaterialsHTML()));
     ToolBar_->setFloatable(false);
     ToolBar_->setMovable(false);
     ToolBar_->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -155,31 +161,31 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     categoryDockWidget_->setWidget(categoryWidget);
     addDockWidget(Qt::LeftDockWidgetArea, categoryDockWidget_);
 
-    dock = new QDockWidget(tr("Properties"), this);
-    dock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::TopDockWidgetArea);
-    dock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
+    propertiesDockWidget_ = new QDockWidget(tr("Properties"), this);
+    propertiesDockWidget_->setAllowedAreas(Qt::RightDockWidgetArea | Qt::TopDockWidgetArea);
+    propertiesDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
     MaterialPropertyView_ = new MaterialPropertyView(MaterialListModel_,
                                                      MaterialSelectionModel_,
                                                      PropertyModel_,
                                                      ParameterModel_,
                                                      PropertySelectionModel_,
                                                      ParameterSelectionModel_,
-                                                     dock);
-    dock->setWidget(MaterialPropertyView_);
-    addDockWidget(Qt::RightDockWidgetArea, dock);
+                                                     propertiesDockWidget_);
+    propertiesDockWidget_->setWidget(MaterialPropertyView_);
+    addDockWidget(Qt::RightDockWidgetArea, propertiesDockWidget_);
 
-    dock = new QDockWidget(tr("Parameter"), this);
-    dock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::BottomDockWidgetArea);
-    dock->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
+    parameterDockWidget_ = new QDockWidget(tr("Parameter"), this);
+    parameterDockWidget_->setAllowedAreas(Qt::RightDockWidgetArea | Qt::BottomDockWidgetArea);
+    parameterDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
     ParameterStackView_ = new ParameterStackView(MaterialListModel_,
                                                  MaterialSelectionModel_,
                                                  PropertySelectionModel_,
                                                  ParameterSelectionModel_,
                                                  PropertyModel_,
                                                  MaterialCategoryModel_,
-                                                 dock);
-    dock->setWidget(ParameterStackView_);
-    addDockWidget(Qt::RightDockWidgetArea, dock);
+                                                 parameterDockWidget_);
+    parameterDockWidget_->setWidget(ParameterStackView_);
+    addDockWidget(Qt::RightDockWidgetArea, parameterDockWidget_);
 
     QSettings settings;
     QString dbPath = settings.value("dbpath").toString();
@@ -440,5 +446,40 @@ void MatDBMainWindow::toggleCategoryDockWidget()
     } else {
         categoryDockWidget_->hide();
         toggleCategoryDockWidgetAction_->setText(tr("Show Categories"));
+    }
+}
+
+void MatDBMainWindow::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+        propertyToolBoxDockWidget_->setWindowTitle(tr("Property Collection"));
+        categoryDockWidget_->setWindowTitle(tr("Categories"));
+        propertiesDockWidget_->setWindowTitle(tr("Properties"));
+        parameterDockWidget_->setWindowTitle(tr("Parameter"));
+
+        importXMLAction_->setText(tr("Import XML"));
+        addIsotropicMatAction_->setText(tr("Add Isotropic Material"));
+        addOrthotropicMatAction_->setText(tr("Add Orthotropic Material"));
+        addLiquidMatAction_->setText(tr("Add Liquid Material"));
+        addGaseousMatAction_->setText(tr("Add Gaseous Material"));
+
+        if (togglePropertyToolBoxDockWidgetAction_->isChecked()) {
+            togglePropertyToolBoxDockWidgetAction_->setText(tr("Hide Toolbox"));
+        } else {
+            togglePropertyToolBoxDockWidgetAction_->setText(tr("Show Toolbox"));
+        }
+
+        if (toggleCategoryDockWidgetAction_->isChecked()) {
+            toggleCategoryDockWidgetAction_->setText(tr("Hide Categories"));
+        } else {
+            toggleCategoryDockWidgetAction_->setText(tr("Show Categories"));
+        }
+
+        exportXMLAction_->setText(tr("Export XML"));
+        exportHTMLAction_->setText(tr("Export HTML"));
+
+    } else {
+        QWidget::changeEvent(event);
     }
 }

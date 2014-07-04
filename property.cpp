@@ -63,19 +63,19 @@ QString Property::getCategoryName() const
 {
     switch (Category_) {
     case PhysicalProperty:
-        return QString(QObject::tr("Physical Properties"));
+        return QString("Physical Properties");
         break;
     case LinearElasticProperty:
-        return QString(QObject::tr("Linear Elastic Properties"));
+        return QString("Linear Elastic Properties");
         break;
     case ThermalProperty:
-        return QString(QObject::tr("Thermal Properties"));
+        return QString("Thermal Properties");
         break;
     case ElectricalProperty:
-        return QString(QObject::tr("Electrical Properties"));
+        return QString("Electrical Properties");
         break;
     case FluidProperty:
-        return QString(QObject::tr("Fluid Properties"));
+        return QString("Fluid Properties");
         break;
     default:
         break;
