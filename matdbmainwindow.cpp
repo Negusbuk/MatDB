@@ -478,6 +478,8 @@ void MatDBMainWindow::changeEvent(QEvent *event)
         exportXMLAction_->setText(tr("Export XML"));
         exportHTMLAction_->setText(tr("Export HTML"));
 
+        MaterialCategoryModel_->changeEvent(event);
+
     } else {
         QWidget::changeEvent(event);
     }
