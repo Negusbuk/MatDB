@@ -113,8 +113,8 @@ void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QSt
         categoriesMap_.erase(it);
     }
     std::map<QString,MaterialCategory*>::iterator itd = categoriesDisplayMap_.find(category->getDisplayName());
-    if(it != categoriesDisplayMap_.end()) {
-        categoriesDisplayMap_.erase(it);
+    if (itd != categoriesDisplayMap_.end()) {
+        categoriesDisplayMap_.erase(itd);
     }
 
     modified_ = true;
