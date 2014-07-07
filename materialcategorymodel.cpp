@@ -109,7 +109,7 @@ void MaterialCategoryModel::removeCategory(const QString& name)
 void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QString& name)
 {
     std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(category->getName());
-    if(it != categoriesMap_.end()) {
+    if (it != categoriesMap_.end()) {
         categoriesMap_.erase(it);
     }
     std::map<QString,MaterialCategory*>::iterator itd = categoriesDisplayMap_.find(category->getDisplayName());
