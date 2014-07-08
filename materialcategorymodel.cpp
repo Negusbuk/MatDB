@@ -123,6 +123,9 @@ void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QSt
     category->setDisplayName(name);
     categoriesMap_[name] = category;
     categoriesDisplayMap_[name] = category;
+
+    emit dataChanged(QModelIndex(), QModelIndex());
+    emit categoriesChanged();
 }
 
 void MaterialCategoryModel::changedCategory(MaterialCategory* category)
