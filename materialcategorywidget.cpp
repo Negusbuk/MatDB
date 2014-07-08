@@ -139,3 +139,14 @@ void MaterialCategoryWidget::categoryDoubleClicked(const QModelIndex& index)
         }
     }
 }
+
+void MaterialCategoryWidget::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+        categories_->update();
+
+    } else {
+        QWidget::changeEvent(event);
+    }
+}
