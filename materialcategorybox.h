@@ -45,6 +45,7 @@ public slots:
 
     void materialChanged(Material* material);
     void selectedCategoryChanged(const QString&);
+    void dataChanged(QModelIndex,QModelIndex);
 
 protected:
 
