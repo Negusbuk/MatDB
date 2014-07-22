@@ -99,7 +99,7 @@ SOURCES += main.cpp \
     properties/strainlimitsproperty.cpp \
     matdblanguagehandler.cpp
 
-HEADERS += matdbmainwindow.h \
+HEADERS += matdbmainwindow.h matdbversion.h \
     material.h \
     materiallistmodel.h \
     materialselectionmodel.h \
