@@ -68,7 +68,7 @@ VersionPage::VersionPage(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout;
     setLayout(layout);
 
-    QGridLayout *grid = new QGridLayout(this);
+    QGridLayout *grid = new QGridLayout;
     layout->addLayout(grid);
 
     QString release = MATDBRELEASESTR;
