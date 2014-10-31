@@ -21,6 +21,8 @@ DEFINES += APPVERMAJOR=0
 DEFINES += APPVERMINOR=9
 DEFINES += APPPATCHLEVEL=5
 
+DEFINES += APPGITVERSION=$$system(git describe --tags)
+
 QT       += core gui xml
 
 INCLUDEPATH += ./properties ./external
