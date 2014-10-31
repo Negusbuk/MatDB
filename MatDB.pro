@@ -21,7 +21,11 @@ DEFINES += APPVERMAJOR=0
 DEFINES += APPVERMINOR=9
 DEFINES += APPPATCHLEVEL=5
 
-DEFINES += APPGITVERSION=$$system(git describe --tags)
+win32-g++ {
+  DEFINES += APPGITVERSION=unknown
+} else {
+  DEFINES += APPGITVERSION=$$system(git describe --tags)
+}
 
 QT       += core gui xml
 
