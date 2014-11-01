@@ -8,7 +8,7 @@ MatDB.pbproj
 # Qt Stuff
 moc_*
 qrc_*
-*.pro.user
+*.pro.user*
 
 # Compiled Object files
 *.slo
