@@ -49,10 +49,10 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
             this, SLOT(metadataChanged(Material*)));
 
     connect(SelectionModel_, SIGNAL(selectionChanged(Material*)),
-            this, SLOT(setSelection(Material*)));
+            this, SLOT(setSelectedMaterial(Material*)));
 
     connect(this, SIGNAL(itemSelectionChanged()),
-            this, SLOT(selectionChanged()));
+            this, SLOT(selectedMaterialChanged()));
 
     connect(this, SIGNAL(itemChanged(QTableWidgetItem*)),
             this, SLOT(itemEdited(QTableWidgetItem*)));
@@ -111,7 +111,7 @@ void MaterialTableView::fillTable(int count)
     setVerticalHeaderItem(count, new QTableWidgetItem("*"));
 }
 
-void MaterialTableView::setSelection(Material *selection)
+void MaterialTableView::setSelectedMaterial(Material *selection)
 {
     MaterialMap::const_iterator it = indexMap_.find(selection);
 
@@ -140,7 +140,7 @@ void MaterialTableView::metadataChanged(Material* material)
     }
 }
 
-void MaterialTableView::selectionChanged()
+void MaterialTableView::selectedMaterialChanged()
 {
     QList<QTableWidgetItem*> items = selectedItems();
     if (items.count()==1) {
