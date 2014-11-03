@@ -30,7 +30,7 @@
 
 #include "criticalpressureproperty.h"
 
-CriticalPressureProperty::CriticalPressureProperty(PropertyModel *propmodel,
+CriticalPressureProperty::CriticalPressureProperty(PropertyModel * /* propmodel */,
                                                    ParameterModel* paramodel, int id) :
     Property(id)
 {

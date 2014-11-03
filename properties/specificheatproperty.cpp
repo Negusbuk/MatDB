@@ -30,7 +30,7 @@
 
 #include "specificheatproperty.h"
 
-SpecificHeatProperty::SpecificHeatProperty(PropertyModel *propmodel,
+SpecificHeatProperty::SpecificHeatProperty(PropertyModel * /* propmodel */,
                                            ParameterModel* paramodel, int id) :
     Property(id)
 {

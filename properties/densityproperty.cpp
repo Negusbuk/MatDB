@@ -30,7 +30,8 @@
 
 #include "densityproperty.h"
 
-DensityProperty::DensityProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id) :
+DensityProperty::DensityProperty(PropertyModel* /* propmodel */,
+                                 ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Density");

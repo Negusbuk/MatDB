@@ -29,8 +29,8 @@
 
 #include <plytypeproperty.h>
 
-PlyTypeProperty::PlyTypeProperty(PropertyModel *propmodel,
-                                 ParameterModel* paramodel, int id) :
+PlyTypeProperty::PlyTypeProperty(PropertyModel * /* propmodel */,
+                                 ParameterModel* /* paramodel */, int id) :
     Property(id)
 {
     setName("Ply Type");
@@ -98,9 +98,9 @@ Property* PlyTypeProperty::clone(PropertyModel* propmodel,
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void PlyTypeProperty::apply(PropertyData& data,
+void PlyTypeProperty::apply(PropertyData& /* data */,
                             PropertyDetail& /* detail */,
-                            std::map<QString,ParameterDetail> paramMap)
+                            std::map<QString,ParameterDetail> /* paramMap */)
 {
     // std::cout << "PlyTypeProperty::apply" << std::endl;
 
@@ -199,7 +199,7 @@ void PlyTypeProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-void PlyTypeProperty::writeHTML(QXmlStreamWriter& stream)
+void PlyTypeProperty::writeHTML(QXmlStreamWriter& /* stream */)
 {
     /*
     Parameter * parE = getParameter("Young's Modulus");

@@ -29,7 +29,7 @@
 
 #include <cteproperty.h>
 
-IsotropicInstantaneousCoefficientOfThermalExpansion::IsotropicInstantaneousCoefficientOfThermalExpansion(PropertyModel* propmodel,
+IsotropicInstantaneousCoefficientOfThermalExpansion::IsotropicInstantaneousCoefficientOfThermalExpansion(PropertyModel* /* propmodel */,
                                                                                                          ParameterModel* paramodel,
                                                                                                int id) :
     Property(id)
@@ -149,7 +149,7 @@ void IsotropicInstantaneousCoefficientOfThermalExpansion::writeXML(QXmlStreamWri
     stream.writeEndElement();
 }
 
-OrthotropicInstantaneousCoefficientOfThermalExpansion::OrthotropicInstantaneousCoefficientOfThermalExpansion(PropertyModel *propmodel,
+OrthotropicInstantaneousCoefficientOfThermalExpansion::OrthotropicInstantaneousCoefficientOfThermalExpansion(PropertyModel * /* propmodel */,
                                                                                                              ParameterModel* paramodel,
                                                                                                    int id) :
     Property(id)

@@ -30,7 +30,7 @@
 
 #include "boilingpointproperty.h"
 
-BoilingPointProperty::BoilingPointProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id) :
+BoilingPointProperty::BoilingPointProperty(PropertyModel* /* propmodel */, ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Boiling Point");

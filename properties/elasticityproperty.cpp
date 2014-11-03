@@ -29,7 +29,7 @@
 
 #include <elasticityproperty.h>
 
-IsotropicElasticityProperty::IsotropicElasticityProperty(PropertyModel *propmodel,
+IsotropicElasticityProperty::IsotropicElasticityProperty(PropertyModel * /* propmodel */,
                                                          ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -513,7 +513,7 @@ void IsotropicElasticityPropertyWidget::updateContents()
     buttonGroup_->button(mode)->setChecked(true);
 }
 
-OrthotropicElasticityProperty::OrthotropicElasticityProperty(PropertyModel* propmodel,
+OrthotropicElasticityProperty::OrthotropicElasticityProperty(PropertyModel* /* propmodel */,
                                                              ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -631,7 +631,7 @@ Property* OrthotropicElasticityProperty::clone(PropertyModel* propmodel,
 //  </ParameterValue>
 //</PropertyData>
 void OrthotropicElasticityProperty::apply(PropertyData& data,
-                                          PropertyDetail& detail,
+                                          PropertyDetail& /* detail */,
                                           std::map<QString,ParameterDetail> paramMap)
 {
     // std::cout << "IsotropicElasticityProperty::apply" << std::endl;

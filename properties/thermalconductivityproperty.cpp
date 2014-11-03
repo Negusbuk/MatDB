@@ -28,7 +28,7 @@
 
 #include "thermalconductivityproperty.h"
 
-IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(PropertyModel* propmodel,
+IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(PropertyModel* /* propmodel */,
                                                                            ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -145,7 +145,7 @@ void IsotropicThermalConductivityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(PropertyModel* propmodel,
+OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(PropertyModel* /* propmodel */,
                                                                                ParameterModel* paramodel, int id) :
     Property(id)
 {

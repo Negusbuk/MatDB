@@ -30,7 +30,7 @@
 
 #include "referencetemperatureproperty.h"
 
-ReferenceTemperatureProperty::ReferenceTemperatureProperty(PropertyModel *propmodel,
+ReferenceTemperatureProperty::ReferenceTemperatureProperty(PropertyModel * /* propmodel */,
                                                            ParameterModel* paramodel, int id) :
     Property(id)
 {

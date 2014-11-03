@@ -29,7 +29,7 @@
 
 #include <strainlimitsproperty.h>
 
-IsotropicStrainLimitsProperty::IsotropicStrainLimitsProperty(PropertyModel *propmodel,
+IsotropicStrainLimitsProperty::IsotropicStrainLimitsProperty(PropertyModel * /* propmodel */,
                                                          ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -103,9 +103,9 @@ Property* IsotropicStrainLimitsProperty::clone(PropertyModel* propmodel,
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void IsotropicStrainLimitsProperty::apply(PropertyData& data,
+void IsotropicStrainLimitsProperty::apply(PropertyData& /* data */,
                                         PropertyDetail& /* detail */,
-                                        std::map<QString,ParameterDetail> paramMap)
+                                        std::map<QString,ParameterDetail> /* paramMap */)
 {
     // std::cout << "IsotropicStrainLimitsProperty::apply" << std::endl;
 
@@ -184,7 +184,7 @@ void IsotropicStrainLimitsProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-void IsotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& stream)
+void IsotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& /* stream */)
 {
 //    Parameter * parE = getParameter("Young's Modulus");
 //    Parameter * parNu = getParameter("Poisson's Ratio");
@@ -278,8 +278,8 @@ void IsotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& stream)
 //    stream.writeEndElement(); // tr
 }
 
-OrthotropicStrainLimitsProperty::OrthotropicStrainLimitsProperty(PropertyModel* propmodel,
-                                                             ParameterModel* paramodel, int id) :
+OrthotropicStrainLimitsProperty::OrthotropicStrainLimitsProperty(PropertyModel* /* propmodel */,
+                                                                 ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Orthotropic Strain Limits");
@@ -395,9 +395,9 @@ Property* OrthotropicStrainLimitsProperty::clone(PropertyModel* propmodel,
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void OrthotropicStrainLimitsProperty::apply(PropertyData& data,
-                                          PropertyDetail& detail,
-                                          std::map<QString,ParameterDetail> paramMap)
+void OrthotropicStrainLimitsProperty::apply(PropertyData& /* data */,
+                                          PropertyDetail& /* detail */ ,
+                                          std::map<QString,ParameterDetail> /* paramMap */)
 {
     // std::cout << "IsotropicStrainLimitsProperty::apply" << std::endl;
 
@@ -465,7 +465,7 @@ void OrthotropicStrainLimitsProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-void OrthotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& stream)
+void OrthotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& /* stream */)
 {
 //    Parameter * par;
 

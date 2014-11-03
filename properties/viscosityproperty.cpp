@@ -30,7 +30,8 @@
 
 #include "viscosityproperty.h"
 
-ViscosityProperty::ViscosityProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id) :
+ViscosityProperty::ViscosityProperty(PropertyModel* /* propmodel */,
+                                     ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Viscosity");

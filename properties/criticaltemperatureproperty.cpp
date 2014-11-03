@@ -30,7 +30,7 @@
 
 #include "criticaltemperatureproperty.h"
 
-CriticalTemperatureProperty::CriticalTemperatureProperty(PropertyModel *propmodel,
+CriticalTemperatureProperty::CriticalTemperatureProperty(PropertyModel * /* propmodel */,
                                                          ParameterModel* paramodel, int id) :
     Property(id)
 {

@@ -28,7 +28,7 @@
 
 #include "resistivityproperty.h"
 
-IsotropicResistivityProperty::IsotropicResistivityProperty(PropertyModel *propmodel,
+IsotropicResistivityProperty::IsotropicResistivityProperty(PropertyModel * /* propmodel */,
                                                            ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -146,7 +146,7 @@ void IsotropicResistivityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-OrthotropicResistivityProperty::OrthotropicResistivityProperty(PropertyModel *propmodel,
+OrthotropicResistivityProperty::OrthotropicResistivityProperty(PropertyModel * /* propmodel */,
                                                                ParameterModel* paramodel, int id) :
     Property(id)
 {
