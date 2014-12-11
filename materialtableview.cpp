@@ -80,7 +80,8 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
     ContextMenu_->addAction(tr("Delete"), selectionmodel, SLOT(deleteMaterial()),
                             QKeySequence(Qt::Key_Backspace | Qt::CTRL));
     ContextMenu_->addSeparator();
-    ContextMenu_->addAction(tr("Duplicate"), selectionmodel, SLOT(duplicateMaterial()));
+    ContextMenu_->addAction(tr("Duplicate"), selectionmodel, SLOT(duplicateMaterial()),
+                            QKeySequence(Qt::Key_Plus | Qt::CTRL));
 }
 
 void MaterialTableView::fillTable(int count)
@@ -221,6 +222,9 @@ void MaterialTableView::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Backspace && event->modifiers() == Qt::CTRL) {
         NQLog("MaterialTableView", NQLog::Spam) << "void MaterialTableView::keyPressEvent() << delete";
         SelectionModel_->deleteMaterial();
+    } else if (event->key() == Qt::Key_Plus && event->modifiers() == Qt::CTRL) {
+        NQLog("MaterialTableView", NQLog::Spam) << "void MaterialTableView::keyPressEvent() << duplicate";
+        SelectionModel_->duplicateMaterial();
     } else {
         QTableWidget::keyPressEvent(event);
     }
