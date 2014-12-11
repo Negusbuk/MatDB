@@ -76,7 +76,9 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
     setMinimumHeight(500);
 
     ContextMenu_ = new QMenu();
-    ContextMenu_->addAction(tr("Delete"), selectionmodel, SLOT(deleteMaterial()));
+    ContextMenu_->setMinimumWidth(150);
+    ContextMenu_->addAction(tr("Delete"), selectionmodel, SLOT(deleteMaterial()),
+                            QKeySequence(Qt::Key_Backspace | Qt::CTRL));
     ContextMenu_->addSeparator();
     ContextMenu_->addAction(tr("Duplicate"), selectionmodel, SLOT(duplicateMaterial()));
 }
@@ -212,6 +214,16 @@ void MaterialTableView::dropEvent(QDropEvent *event)
     }
 
     event->acceptProposedAction();
+}
+
+void MaterialTableView::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Backspace && event->modifiers() == Qt::CTRL) {
+        NQLog("MaterialTableView", NQLog::Spam) << "void MaterialTableView::keyPressEvent() << delete";
+        SelectionModel_->deleteMaterial();
+    } else {
+        QTableWidget::keyPressEvent(event);
+    }
 }
 
 void MaterialTableView::itemEdited(QTableWidgetItem * item)
