@@ -61,13 +61,13 @@ IsotropicElasticityProperty::IsotropicElasticityProperty(const IsotropicElastici
     setType(Elasticity);
     setBehavior(Isotropic);
     const Parameter *par1 = property.getParameter("Young's Modulus");
-    addParameter(par1->clone());
+    addParameter(par1->cloneWithData());
     const Parameter *par2 = property.getParameter("Poisson's Ratio");
-    addParameter(par2->clone());
+    addParameter(par2->cloneWithData());
     const Parameter *par3 = property.getParameter("Shear Modulus");
-    addParameter(par3->clone());
+    addParameter(par3->cloneWithData());
     const Parameter *par4 = property.getParameter("Bulk Modulus");
-    addParameter(par4->clone());
+    addParameter(par4->cloneWithData());
 
     widget_ = 0;
     setCalculationMode(CalcFromYoungsModulusAndPoissonsRatio);

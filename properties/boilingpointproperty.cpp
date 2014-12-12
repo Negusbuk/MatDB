@@ -51,7 +51,7 @@ BoilingPointProperty::BoilingPointProperty(const BoilingPointProperty& property)
     setType(BoilingPoint);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Boiling Point");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* BoilingPointProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)

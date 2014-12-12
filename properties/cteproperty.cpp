@@ -54,7 +54,7 @@ IsotropicInstantaneousCoefficientOfThermalExpansion::IsotropicInstantaneousCoeff
     setBehavior(Isotropic);
     setDefinition(Instantaneous);
     const Parameter *par = property.getParameter("Coefficient of Thermal Expansion");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* IsotropicInstantaneousCoefficientOfThermalExpansion::clone(PropertyModel *propmodel,
@@ -179,11 +179,11 @@ OrthotropicInstantaneousCoefficientOfThermalExpansion::OrthotropicInstantaneousC
     setBehavior(Orthotropic);
     setDefinition(Instantaneous);
     const Parameter *par1 = property.getParameter("Coefficient of Thermal Expansion X direction");
-    addParameter(par1->clone());
+    addParameter(par1->cloneWithData());
     const Parameter *par2 = property.getParameter("Coefficient of Thermal Expansion Y direction");
-    addParameter(par2->clone());
+    addParameter(par2->cloneWithData());
     const Parameter *par3 = property.getParameter("Coefficient of Thermal Expansion Z direction");
-    addParameter(par3->clone());
+    addParameter(par3->cloneWithData());
 }
 
 Property* OrthotropicInstantaneousCoefficientOfThermalExpansion::clone(PropertyModel *propmodel,

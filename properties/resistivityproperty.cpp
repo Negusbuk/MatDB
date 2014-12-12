@@ -50,7 +50,7 @@ IsotropicResistivityProperty::IsotropicResistivityProperty(const IsotropicResist
     setType(Resistivity);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Resistivity");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* IsotropicResistivityProperty::clone(PropertyModel *propmodel,
@@ -173,11 +173,11 @@ OrthotropicResistivityProperty::OrthotropicResistivityProperty(const Orthotropic
     setType(Resistivity);
     setBehavior(Orthotropic);
     const Parameter *par1 = property.getParameter("Resistivity X direction");
-    addParameter(par1->clone());
+    addParameter(par1->cloneWithData());
     const Parameter *par2 = property.getParameter("Resistivity Y direction");
-    addParameter(par2->clone());
+    addParameter(par2->cloneWithData());
     const Parameter *par3 = property.getParameter("Resistivity Z direction");
-    addParameter(par3->clone());
+    addParameter(par3->cloneWithData());
 }
 
 Property* OrthotropicResistivityProperty::clone(PropertyModel *propmodel,

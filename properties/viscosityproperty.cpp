@@ -52,7 +52,7 @@ ViscosityProperty::ViscosityProperty(const ViscosityProperty& property) :
     setType(Viscosity);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Viscosity");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* ViscosityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)

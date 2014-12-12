@@ -52,7 +52,7 @@ DensityProperty::DensityProperty(const DensityProperty& property) :
     setType(Density);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Density");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* DensityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)

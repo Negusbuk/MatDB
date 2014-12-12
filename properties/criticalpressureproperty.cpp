@@ -52,7 +52,7 @@ CriticalPressureProperty::CriticalPressureProperty(const CriticalPressurePropert
     setType(CriticalPressure);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Critical Pressure");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* CriticalPressureProperty::clone(PropertyModel* propmodel,
