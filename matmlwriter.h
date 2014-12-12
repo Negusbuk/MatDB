@@ -59,6 +59,8 @@ public slots:
 protected:
 
     const std::vector<Material*>& materials_;
+    std::map<int,int> properties_;
+    std::map<int,int> parameters_;
     PropertyModel* propmodel_;
     ParameterModel* paramodel_;
 };

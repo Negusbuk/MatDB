@@ -44,8 +44,8 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
     if (mode==Unknown) return;
 
     QXmlStreamWriter stream(destination);
-
     stream.setAutoFormatting(true);
+    stream.setAutoFormattingIndent(2);
     stream.writeStartDocument();
 
     if (mode==ANSYS) {
@@ -59,12 +59,32 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
         stream.writeStartElement("MatML_Doc");
     }
 
+    parameters_[0] = 0;
+
     for (std::vector<Material*>::const_iterator it = materials_.begin();
          it!=materials_.end();
          ++it) {
         Material* material = *it;
         NQLog("MATMLWriter", NQLog::Message) << "XML write material " << material->getName();
         material->writeXML(stream);
+
+        const std::vector<Property*>& properties = material->getSortedProperties();
+        for (std::vector<Property*>::const_iterator itp = properties.begin();
+             itp != properties.end();
+             ++itp) {
+            // NQLog("MATMLWriter", NQLog::Spam) << "XML write property " << (*itp)->getId();
+            properties_[(*itp)->getId()] = (*itp)->getId();
+
+            std::map<QString,Parameter*>& parameters = (*itp)->getParameters();
+            for (std::map<QString,Parameter*>::const_iterator itpar = parameters.begin();
+                 itpar != parameters.end();
+                 ++itpar) {
+                if (itpar->second->getId()!=-1) {
+                    //NQLog("MATMLWriter", NQLog::Spam) << "XML write parameter " << itpar->second->getId();
+                    parameters_[itpar->second->getId()] = itpar->second->getId();
+                }
+            }
+        }
     }
 
     stream.writeStartElement("Metadata");
@@ -75,9 +95,12 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
 
         Parameter* parameter = it->second;
         if (parameter->getId()<0) continue;
-        NQLog("MATMLWriter", NQLog::Spam) << "XML write parameter " << parameter->getName()
-                                          << " (" << parameter->getIdString().toStdString() << ")";
-        parameter->writeXML(stream);
+        std::map<int,int>::const_iterator itfind = parameters_.find(parameter->getId());
+        if (itfind!=parameters_.end()) {
+            // NQLog("MATMLWriter", NQLog::Spam) << "XML write parameter " << parameter->getName()
+            //                                   << " (" << parameter->getIdString().toStdString() << ")";
+            parameter->writeXML(stream);
+        }
     }
 
     for (std::map<int,Property*>::const_iterator it = propmodel_->getPropertiesById().begin();
@@ -85,9 +108,12 @@ void MATMLWriter::write(QIODevice *destination, ExportMode mode)
          ++it) {
 
         Property* property = it->second;
-        NQLog("MATMLWriter", NQLog::Spam) << "XML write property " << property->getName()
-                                          << " (" << property->getIdString().toStdString() << ")";
-        property->writeXML(stream);
+        std::map<int,int>::const_iterator itfind = properties_.find(property->getId());
+        if (itfind!=properties_.end()) {
+            // NQLog("MATMLWriter", NQLog::Spam) << "XML write property " << property->getName()
+            //                                   << " (" << property->getIdString().toStdString() << ")";
+            property->writeXML(stream);
+        }
     }
 
     stream.writeEndElement(); // Metadata
