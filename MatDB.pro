@@ -73,118 +73,119 @@ SOURCES += main.cpp \
            propertyselectionmodel.cpp \
            parameterstackview.cpp \
            matmlreader.cpp \
-    matmlwriter.cpp \
-    materialmetadatawidget.cpp \
-    external/flowlayout.cpp \
-    external/nqlogger.cpp \
-    external/nqtokenedit.cpp \
-    external/nqtokenedititem.cpp \
-    external/nqcolorwheel.cpp \
-    materialtableitem.cpp \
-    materialxmlexportdialog.cpp \
-    materialimportdialog.cpp \
-    matdbaboutdialog.cpp \
-    matdbpreferencedialog.cpp \
-    materialcategory.cpp \
-    materialcategorymodel.cpp \
-    materialtagsedit.cpp \
-    materialcategorybox.cpp \
-    materialcategoryeditdialog.cpp \
-    propertyspecialwidget.cpp \
-    materialfilterwidget.cpp \
-    materialcategorywidget.cpp \
-    materialindexer.cpp \
-    htmlwriter.cpp \
-    materialselectiondialog.cpp \
-    properties/criticalpressureproperty.cpp \
-    properties/criticaltemperatureproperty.cpp \
-    properties/boilingpointproperty.cpp \
-    properties/referencetemperatureproperty.cpp \
-    properties/plytypeproperty.cpp \
-    properties/stresslimitsproperty.cpp \
-    properties/strainlimitsproperty.cpp \
-    matdblanguagehandler.cpp
+           matmlwriter.cpp \
+           materialmetadatawidget.cpp \
+           external/flowlayout.cpp \
+           external/nqlogger.cpp \
+           external/nqtokenedit.cpp \
+           external/nqtokenedititem.cpp \
+           external/nqcolorwheel.cpp \
+           materialtableitem.cpp \
+           materialxmlexportdialog.cpp \
+           materialimportdialog.cpp \
+           matdbaboutdialog.cpp \
+           matdbpreferencedialog.cpp \
+           materialcategory.cpp \
+           materialcategorymodel.cpp \
+           materialtagsedit.cpp \
+           materialcategorybox.cpp \
+           materialcategoryeditdialog.cpp \
+           propertyspecialwidget.cpp \
+           materialfilterwidget.cpp \
+           materialcategorywidget.cpp \
+           materialindexer.cpp \
+           htmlwriter.cpp \
+           materialselectiondialog.cpp \
+           properties/criticalpressureproperty.cpp \
+           properties/criticaltemperatureproperty.cpp \
+           properties/boilingpointproperty.cpp \
+           properties/referencetemperatureproperty.cpp \
+           properties/plytypeproperty.cpp \
+           properties/stresslimitsproperty.cpp \
+           properties/strainlimitsproperty.cpp \
+           matdblanguagehandler.cpp
 
-HEADERS += matdbmainwindow.h matdbversion.h \
-    material.h \
-    materiallistmodel.h \
-    materialselectionmodel.h \
-    materialpropertyview.h \
-    property.h \
-    properties/densityproperty.h \
+HEADERS += matdbversion.h \
+           matdbmainwindow.h \
+           material.h \
+           materiallistmodel.h \
+           materialselectionmodel.h \
+           materialpropertyview.h \
+           property.h \
+           properties/densityproperty.h \
            properties/viscosityproperty.h \
-    properties/elasticityproperty.h \
-    properties/thermalconductivityproperty.h \
-    properties/cteproperty.h \
-    properties/resistivityproperty.h \
-    properties/specificheatproperty.h \
-    parameter.h \
-    propertymodel.h \
-    parametermodel.h \
-    propertytoolbox.h \
-    materialparameterview.h \
-    materialtableview.h \
-    unit.h \
-    unitcombobox.h \
-    parameterselectionmodel.h \
-    propertyselectionmodel.h \
-    parameterstackview.h \
-    matmlreader.h \
-    matmlwriter.h \
-    materialmetadatawidget.h \
-    external/flowlayout.h \
-    external/nqlogger.h \
-    external/nqtokenedit.h \
-    external/nqtokenedititem.h \
-    external/nqcolorwheel.h \
-    materialtableitem.h \
-    materialxmlexportdialog.h \
-    materialimportdialog.h \
-    matdbaboutdialog.h \
-    matdbpreferencedialog.h \
-    materialcategory.h \
-    materialcategorymodel.h \
-    materialtagsedit.h \
-    materialcategorybox.h \
-    materialcategoryeditdialog.h \
-    propertyspecialwidget.h \
-    materialfilterwidget.h \
-    materialcategorywidget.h \
-    materialindexer.h \
-    htmlwriter.h \
-    materialselectiondialog.h \
-    properties/criticalpressureproperty.h \
-    properties/criticaltemperatureproperty.h \
-    properties/boilingpointproperty.h \
-    properties/referencetemperatureproperty.h \
-    properties/plytypeproperty.h \
-    properties/stresslimitsproperty.h \
-    properties/strainlimitsproperty.h \
-    matdblanguagehandler.h
+           properties/elasticityproperty.h \
+           properties/thermalconductivityproperty.h \
+           properties/cteproperty.h \
+           properties/resistivityproperty.h \
+           properties/specificheatproperty.h \
+           parameter.h \
+           propertymodel.h \
+           parametermodel.h \
+           propertytoolbox.h \
+           materialparameterview.h \
+           materialtableview.h \
+           unit.h \
+           unitcombobox.h \
+           parameterselectionmodel.h \
+           propertyselectionmodel.h \
+           parameterstackview.h \
+           matmlreader.h \
+           matmlwriter.h \
+           materialmetadatawidget.h \
+           external/flowlayout.h \
+           external/nqlogger.h \
+           external/nqtokenedit.h \
+           external/nqtokenedititem.h \
+           external/nqcolorwheel.h \
+           materialtableitem.h \
+           materialxmlexportdialog.h \
+           materialimportdialog.h \
+           matdbaboutdialog.h \
+           matdbpreferencedialog.h \
+           materialcategory.h \
+           materialcategorymodel.h \
+           materialtagsedit.h \
+           materialcategorybox.h \
+           materialcategoryeditdialog.h \
+           propertyspecialwidget.h \
+           materialfilterwidget.h \
+           materialcategorywidget.h \
+           materialindexer.h \
+           htmlwriter.h \
+           materialselectiondialog.h \
+           properties/criticalpressureproperty.h \
+           properties/criticaltemperatureproperty.h \
+           properties/boilingpointproperty.h \
+           properties/referencetemperatureproperty.h \
+           properties/plytypeproperty.h \
+           properties/stresslimitsproperty.h \
+           properties/strainlimitsproperty.h \
+           matdblanguagehandler.h
 
 FORMS    +=
 
 RESOURCES += resources.qrc
 
 OTHER_FILES += stylesheet.qss \
-    icons/MatDBImportXML.png \
-    icons/MatDBExportXML.png \
-    icons/MatDBExportHTML.png \
-    icons/MatDBPropertiesToolBox.png \
-    icons/MatDBCategories.png \
-    icons/MatDBAddIsotropicMaterial.png \
-    icons/MatDBAddOrthotropicMaterial.png \
-    icons/MatDBAddLiquidMaterial.png \
-    icons/MatDBAddGaseousMaterial.png \
-    icons/MatDBAddCategory.png \
-    icons/MatDBRemoveCategory.png \
-    icons/MatDBResetFilter.png \
-    artwork/MatDBSplashScreen.png \
-    artwork/MatDBBG.png \
-    html/header.html \
-    html/footer.html \
-    LICENSE.html \
-    COPYRIGHT.html
+               icons/MatDBImportXML.png \
+               icons/MatDBExportXML.png \
+               icons/MatDBExportHTML.png \
+               icons/MatDBPropertiesToolBox.png \
+               icons/MatDBCategories.png \
+               icons/MatDBAddIsotropicMaterial.png \
+               icons/MatDBAddOrthotropicMaterial.png \
+               icons/MatDBAddLiquidMaterial.png \
+               icons/MatDBAddGaseousMaterial.png \
+               icons/MatDBAddCategory.png \
+               icons/MatDBRemoveCategory.png \
+               icons/MatDBResetFilter.png \
+               artwork/MatDBSplashScreen.png \
+               artwork/MatDBBG.png \
+               html/header.html \
+               html/footer.html \
+               LICENSE.html \
+               COPYRIGHT.html
 
 TRANSLATIONS = translations/MatDB_en.ts \
                translations/MatDB_de.ts
