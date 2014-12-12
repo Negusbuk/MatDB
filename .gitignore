@@ -1,4 +1,5 @@
 # Other Stuff
+.qmake.*
 Makefile
 .svn
 MatDB.app
@@ -8,7 +9,7 @@ MatDB.pbproj
 # Qt Stuff
 moc_*
 qrc_*
-*.pro.user
+*.pro.user*
 
 # Compiled Object files
 *.slo

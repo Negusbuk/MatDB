@@ -68,7 +68,7 @@ VersionPage::VersionPage(QWidget *parent)
     QVBoxLayout *layout = new QVBoxLayout;
     setLayout(layout);
 
-    QGridLayout *grid = new QGridLayout(this);
+    QGridLayout *grid = new QGridLayout;
     layout->addLayout(grid);
 
     QString release = MATDBRELEASESTR;
@@ -80,10 +80,20 @@ VersionPage::VersionPage(QWidget *parent)
     grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
                   1, 2);
 
-    grid->addWidget(new QLabel(tr("Qt Version")), 2, 0);
-    grid->addWidget(new QLabel(qVersion()), 2, 1);
+    grid->addWidget(new QLabel(tr("tag")), 2, 0);
+    grid->addWidget(new QLabel(MATDBTAGSTR), 2, 1);
     grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
                   2, 2);
+
+    grid->addWidget(new QLabel(tr("git version")), 3, 0);
+    grid->addWidget(new QLabel(MATDBGITTAGSTR), 3, 1);
+    grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
+                  3, 2);
+
+    grid->addWidget(new QLabel(tr("Qt Version")), 4, 0);
+    grid->addWidget(new QLabel(qVersion()), 4, 1);
+    grid->addItem(new QSpacerItem(10, 10, QSizePolicy::Maximum),
+                  4, 2);
 
     QTextEdit *copyright = new QTextEdit(this);
     layout->addWidget(copyright);

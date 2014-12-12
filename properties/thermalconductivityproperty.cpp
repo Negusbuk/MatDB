@@ -28,7 +28,7 @@
 
 #include "thermalconductivityproperty.h"
 
-IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(PropertyModel* propmodel,
+IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(PropertyModel* /* propmodel */,
                                                                            ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -50,7 +50,7 @@ IsotropicThermalConductivityProperty::IsotropicThermalConductivityProperty(const
     setType(ThermalConductivity);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Thermal Conductivity");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* IsotropicThermalConductivityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)
@@ -145,7 +145,7 @@ void IsotropicThermalConductivityProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(PropertyModel* propmodel,
+OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(PropertyModel* /* propmodel */,
                                                                                ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -172,11 +172,11 @@ OrthotropicThermalConductivityProperty::OrthotropicThermalConductivityProperty(c
     setType(ThermalConductivity);
     setBehavior(Orthotropic);
     const Parameter *par1 = property.getParameter("Thermal Conductivity X direction");
-    addParameter(par1->clone());
+    addParameter(par1->cloneWithData());
     const Parameter *par2 = property.getParameter("Thermal Conductivity Y direction");
-    addParameter(par2->clone());
+    addParameter(par2->cloneWithData());
     const Parameter *par3 = property.getParameter("Thermal Conductivity Z direction");
-    addParameter(par3->clone());
+    addParameter(par3->cloneWithData());
 }
 
 Property* OrthotropicThermalConductivityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)

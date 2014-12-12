@@ -109,12 +109,12 @@ void MaterialCategoryModel::removeCategory(const QString& name)
 void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QString& name)
 {
     std::map<QString,MaterialCategory*>::iterator it = categoriesMap_.find(category->getName());
-    if(it != categoriesMap_.end()) {
+    if (it != categoriesMap_.end()) {
         categoriesMap_.erase(it);
     }
     std::map<QString,MaterialCategory*>::iterator itd = categoriesDisplayMap_.find(category->getDisplayName());
-    if(it != categoriesDisplayMap_.end()) {
-        categoriesDisplayMap_.erase(it);
+    if (itd != categoriesDisplayMap_.end()) {
+        categoriesDisplayMap_.erase(itd);
     }
 
     modified_ = true;
@@ -123,6 +123,9 @@ void MaterialCategoryModel::renameCategory(MaterialCategory* category, const QSt
     category->setDisplayName(name);
     categoriesMap_[name] = category;
     categoriesDisplayMap_[name] = category;
+
+    emit dataChanged(QModelIndex(), QModelIndex());
+    emit categoriesChanged();
 }
 
 void MaterialCategoryModel::changedCategory(MaterialCategory* category)
@@ -309,4 +312,31 @@ void MaterialCategoryModel::write(QIODevice *destination)
     stream.writeEndDocument();
 
     modified_ = false;
+}
+
+void MaterialCategoryModel::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+        MaterialCategory* cat;
+
+        cat = getCategory("No Category");
+        if (cat) cat->setDisplayName(tr("No Category"));
+
+        cat = getCategory("Structural");
+        if (cat) cat->setDisplayName(tr("Structural"));
+
+        cat = getCategory("Structural Core");
+        if (cat) cat->setDisplayName(tr("Structural Core"));
+
+        cat = getCategory("Thermal Management");
+        if (cat) cat->setDisplayName(tr("Thermal Management"));
+
+        cat = getCategory("Glue");
+        if (cat) cat->setDisplayName(tr("Glue"));
+
+        cat = getCategory("Elementary");
+        if (cat) cat->setDisplayName(tr("Elementary"));
+
+    }
 }

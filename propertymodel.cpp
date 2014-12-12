@@ -103,11 +103,11 @@ void PropertyModel::build()
     addProperty(new IsotropicStrainLimitsProperty(this, ParameterModel_, id++));
     addProperty(new OrthotropicStrainLimitsProperty(this, ParameterModel_, id++));
 
-    Categories_.push_back(tr("Physical Properties"));
-    Categories_.push_back(tr("Linear Elastic Properties"));
-    Categories_.push_back(tr("Thermal Properties"));
-    Categories_.push_back(tr("Electrical Properties"));
-    Categories_.push_back(tr("Fluid Properties"));
+    Categories_.push_back("Physical Properties");
+    Categories_.push_back("Linear Elastic Properties");
+    Categories_.push_back("Thermal Properties");
+    Categories_.push_back("Electrical Properties");
+    Categories_.push_back("Fluid Properties");
 }
 
 int PropertyModel::getPropertySorting(Property* property) const

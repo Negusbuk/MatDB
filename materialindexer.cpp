@@ -126,7 +126,7 @@ void MaterialIndexer::filter(const QStringList& filters, bool logic, std::vector
          it!=keyMap_.end();
          ++it) {
 
-        NQLog("MaterialIndexer", NQLog::Spam) << "  " << it->first;
+        // NQLog("MaterialIndexer", NQLog::Spam) << "  " << it->first;
 
         if (checkKey(it->first, filters, logic)) {
             for (auto itM = it->second.begin();
@@ -233,35 +233,35 @@ void MaterialIndexer::processKey(const std::string& key, Material* material)
 
 void MaterialIndexer::dumpIndex()
 {
-    NQLog("MaterialIndexer", NQLog::Spam) << "void dump()";
+    // NQLog("MaterialIndexer", NQLog::Spam) << "void dump()";
 
     for (auto it = keyMap_.begin();
          it != keyMap_.end();
          ++it) {
-        NQLog("MaterialIndexer", NQLog::Spam) << "  "
-                                              << it->first;
+        // NQLog("MaterialIndexer", NQLog::Spam) << "  "
+        //                                       << it->first;
 
         auto& materials = it->second;
         for (auto itMat=materials.begin();
              itMat!=materials.end();
              ++itMat) {
-            NQLog("MaterialIndexer", NQLog::Spam) << "     -> "
-                                                  << (*itMat)->getName();
+            // NQLog("MaterialIndexer", NQLog::Spam) << "     -> "
+            //                                       << (*itMat)->getName();
         }
     }
 
     for (auto it = materialMap_.begin();
          it != materialMap_.end();
          ++it) {
-        NQLog("MaterialIndexer", NQLog::Spam) << "  "
-                                              << it->first->getName();
+        // NQLog("MaterialIndexer", NQLog::Spam) << "  "
+        //                                       << it->first->getName();
 
         auto& keys = it->second;
         for (auto itKey=keys.begin();
              itKey!=keys.end();
              ++itKey) {
-            NQLog("MaterialIndexer", NQLog::Spam) << "     -> "
-                                                  << *itKey;
+            // NQLog("MaterialIndexer", NQLog::Spam) << "     -> "
+            //                                       << *itKey;
         }
     }
 }

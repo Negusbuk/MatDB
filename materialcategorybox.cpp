@@ -41,6 +41,8 @@ MaterialCategoryBox::MaterialCategoryBox(MaterialListModel* listModel,
             this, SLOT(selectedCategoryChanged(const QString&)));
 
     setModel(categoryModel_);
+    connect(categoryModel_, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            this, SLOT(dataChanged(QModelIndex,QModelIndex)));
 }
 
 void MaterialCategoryBox::materialChanged(Material* material)
@@ -54,6 +56,8 @@ void MaterialCategoryBox::materialChanged(Material* material)
     if (category) {
         int idx = findText(category->getDisplayName());
         setCurrentIndex(idx);
+    } else {
+        setCurrentIndex(0);
     }
 }
 
@@ -72,4 +76,19 @@ void MaterialCategoryBox::selectedCategoryChanged(const QString& /* item */)
     }
 
     emit materialMetadataChanged(material);
+}
+
+void MaterialCategoryBox::dataChanged(QModelIndex,QModelIndex)
+{
+    NQLog("MaterialCategoryBox", NQLog::Spam) << "void dataChanged(QModelIndex,QModelIndex)";
+    repaint();
+}
+
+void MaterialCategoryBox::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+    } else {
+        QWidget::changeEvent(event);
+    }
 }
