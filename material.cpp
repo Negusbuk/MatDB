@@ -328,7 +328,7 @@ Material* Material::makeDefaultIsotropicMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Structural Steel");
+    mat->setName("* Structural Steel");
 
     Property * prop;
 
@@ -366,7 +366,7 @@ Material* Material::makeDefaultOrthotropicMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Orthotropic Structural Steel");
+    mat->setName("* Orthotropic Structural Steel");
 
     Property * prop;
 
@@ -416,7 +416,7 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Water");
+    mat->setName("* Water");
 
     Property * prop;
 
@@ -447,7 +447,7 @@ Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Air");
+    mat->setName("* Air");
 
     Property * prop;
 
