@@ -81,6 +81,7 @@ void HTMLWriter::write(const QDir& destination)
     QString xml;
     QXmlStreamWriter stream(&xml);
     stream.setAutoFormatting(true);
+    stream.setAutoFormattingIndent(2);
 
     stream.writeStartElement("body");
     stream.writeAttribute("id", "MatDB");
@@ -229,6 +230,7 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     QString xml;
     QXmlStreamWriter stream(&xml);
     stream.setAutoFormatting(true);
+    stream.setAutoFormattingIndent(2);
 
     stream.writeStartElement("body");
     stream.writeAttribute("id", "MatDB");
