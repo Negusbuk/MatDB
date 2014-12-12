@@ -45,7 +45,7 @@ void HTMLWriter::write(const QDir& destination)
     NQLog("HTMLWriter", NQLog::Message) << destination.absolutePath();
 
     MaterialCategory* noCategory = categorymodel_->getCategory("No Category");
-    std::map<MaterialCategory*,std::vector<Material*> > map;
+    map_t map;
     std::map<MaterialCategory*,int> count;
 
     for (std::vector<MaterialCategory*>::const_iterator itc = categorymodel_->getCategories().begin();
@@ -92,6 +92,70 @@ void HTMLWriter::write(const QDir& destination)
     stream.writeStartElement("div");
     stream.writeAttribute("class", "MatDBContent");
 
+    //writeMaterialTable(stream, map, destination);
+    writeMaterialCloud(stream, map, destination);
+
+    stream.writeStartElement("div");
+    stream.writeAttribute("id", "stats");
+    stream.writeAttribute("align", "right");
+
+    stream.writeStartElement("table");
+    //stream.writeAttribute("class", "MatDBStats");
+
+    for (std::vector<MaterialCategory*>::const_iterator itc = categorymodel_->getCategories().begin();
+         itc!=categorymodel_->getCategories().end();
+         ++itc) {
+
+        std::map<MaterialCategory*,int>::iterator itfind = count.find(*itc);
+        if (itfind!=count.end()) {
+            stream.writeStartElement("tr");
+
+            stream.writeStartElement("td");
+            stream.writeAttribute("bgcolor", (*itc)->getColor().name());
+            stream.writeAttribute("width", "10");
+            stream.writeEndElement(); // td
+
+            stream.writeStartElement("td");
+            stream.writeAttribute("style", "padding-right: 20px;");
+            stream.writeCharacters((*itc)->getName());
+            stream.writeEndElement(); // td
+
+            stream.writeStartElement("td");
+            stream.writeAttribute("align", "right");
+            stream.writeCharacters(QString::number(itfind->second));
+            stream.writeEndElement(); // td
+
+            stream.writeEndElement(); // tr
+        }
+    }
+
+    stream.writeEndElement(); // table
+
+    QString generator = tr("Generated on");
+    generator += " ";
+    generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
+    generator += " ";
+    generator += tr("by MatDB");
+    stream.writeTextElement("p", generator);
+
+    stream.writeEndElement();
+    stream.writeEndElement();
+    stream.writeEndElement();
+    stream.writeEndElement();
+
+    QFile ofile(destination.absoluteFilePath("index.html"));
+    if (ofile.open(QIODevice::WriteOnly)) {
+        QTextStream ts(&ofile);
+
+        ts << header;
+        ts << xml;
+        ts << footer;
+        ofile.close();
+    }
+}
+
+void HTMLWriter::writeMaterialTable(QXmlStreamWriter& stream, map_t& map, const QDir& destination)
+{
     stream.writeStartElement("div");
     stream.writeAttribute("align", "left");
 
@@ -153,60 +217,66 @@ void HTMLWriter::write(const QDir& destination)
     }
 
     stream.writeEndElement();
+}
 
+void HTMLWriter::writeMaterialCloud(QXmlStreamWriter& stream, map_t& map, const QDir& destination)
+{
     stream.writeStartElement("div");
-    stream.writeAttribute("align", "right");
+    stream.writeAttribute("align", "center");
 
-    stream.writeStartElement("table");
-    stream.writeAttribute("class", "MatDBStats");
+    QString colorString;
+    QString bgcolorString;
 
-    for (std::vector<MaterialCategory*>::const_iterator itc = categorymodel_->getCategories().begin();
-         itc!=categorymodel_->getCategories().end();
-         ++itc) {
+    float minLength = 1000;
+    float maxLength = 0;
+    for (std::vector<Material*>::const_iterator it = materials_.begin();
+         it != materials_.end();
+         ++it) {
+        if ((*it)->getName().size()>maxLength) maxLength = (*it)->getName().size();
+        if ((*it)->getName().size()<minLength) minLength = (*it)->getName().size();
+    }
 
-        std::map<MaterialCategory*,int>::iterator itfind = count.find(*itc);
-        if (itfind!=count.end()) {
-            stream.writeStartElement("tr");
+    for (std::vector<Material*>::const_iterator it = materials_.begin();
+         it != materials_.end();
+         ++it) {
 
-            stream.writeStartElement("td");
-            stream.writeAttribute("bgcolor", (*itc)->getColor().name());
-            stream.writeAttribute("width", "10");
-            stream.writeEndElement(); // td
-
-            stream.writeStartElement("td");
-            stream.writeAttribute("style", "padding-right: 20px;");
-            stream.writeCharacters((*itc)->getName());
-            stream.writeEndElement(); // td
-
-            stream.writeTextElement("td", QString::number(itfind->second));
-
-            stream.writeEndElement(); // tr
+        const MaterialCategory* category = (*it)->getCategory();
+        if (category==0) {
+            colorString = "#000000;";
+            bgcolorString = "#FFFFFF;";
+        } else {
+            bgcolorString = "#FFFFFF;";
+            qreal lightness = category->getColor().lightnessF();
+            if (lightness>0.4) {
+                QColor bg(255*(1.4-lightness), 255*(1.4-lightness), 255*(1.4-lightness));
+                bgcolorString = bg.name() + ";";
+            }
+            NQLog("HTMLWriter", NQLog::Message) << "color " << category->getColor().lightnessF();
+            colorString = category->getColor().name() + ";";
         }
+
+        int fontsize = 10 + (maxLength-(*it)->getName().size())*8.0/maxLength;
+
+        stream.writeStartElement("span");
+        stream.writeAttribute("style", QString("padding: 0.75em; background-color:") + bgcolorString);
+        stream.writeStartElement("a");
+        stream.writeAttribute("id", "float");
+        stream.writeAttribute("style", QString("color:") + colorString + QString("padding:0.75em;") +
+                              QString("font-size:") + QString::number(fontsize) + "px;");
+        QString url = (*it)->getUUID();
+        url.remove(0, 1);
+        url.remove(url.length()-1, 1);
+        url.prepend("./mat_");
+        url += ".html";
+        stream.writeAttribute("href", url);
+        stream.writeCharacters((*it)->getName());
+        stream.writeEndElement(); // a
+        stream.writeEndElement(); // span
+
+        writeMaterial(*it, destination.absoluteFilePath(url));
     }
 
-    stream.writeEndElement(); // table
-
-    QString generator = tr("Generated on");
-    generator += " ";
-    generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
-    generator += " ";
-    generator += tr("by MatDB");
-    stream.writeTextElement("p", generator);
-
     stream.writeEndElement();
-    stream.writeEndElement();
-    stream.writeEndElement();
-    stream.writeEndElement();
-
-    QFile ofile(destination.absoluteFilePath("index.html"));
-    if (ofile.open(QIODevice::WriteOnly)) {
-        QTextStream ts(&ofile);
-
-        ts << header;
-        ts << xml;
-        ts << footer;
-        ofile.close();
-    }
 }
 
 void HTMLWriter::writeMaterial(Material* material, const QString& filename)
