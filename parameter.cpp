@@ -497,6 +497,8 @@ void Parameter::writeHTML(QXmlStreamWriter& stream)
             stream.writeEndElement(); // td
 
             stream.writeEndElement(); // tr
+
+            ++idx;
         }
     }
 
