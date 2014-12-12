@@ -256,6 +256,12 @@ void HTMLWriter::writeMaterialCloud(QXmlStreamWriter& stream, map_t& map, const 
             colorString = "#000000;";
             bgcolorString = "#FFFFFF;";
         } else {
+
+            const QColor& c = category->getColor();
+            QColor bg(255 - c.red(), 255 - c.green(), 255 - c.blue());
+            colorString = bg.name() + ";";
+
+            /*
             bgcolorString = "#FFFFFF;";
             qreal lightness = category->getColor().lightnessF();
             if (lightness>0.4) {
@@ -263,16 +269,19 @@ void HTMLWriter::writeMaterialCloud(QXmlStreamWriter& stream, map_t& map, const 
                 bgcolorString = bg.name() + ";";
             }
             NQLog("HTMLWriter", NQLog::Message) << "color " << category->getColor().lightnessF();
-            colorString = category->getColor().name() + ";";
+            */
+
+            bgcolorString = category->getColor().name() + ";";
         }
 
         int fontsize = 10 + (maxLength-(*it)->getName().size())*8.0/maxLength;
 
         stream.writeStartElement("span");
-        stream.writeAttribute("style", QString("padding: 0.75em; background-color:") + bgcolorString);
+        stream.writeAttribute("id", "button");
+        stream.writeAttribute("style", QString("background-color:") + bgcolorString);
         stream.writeStartElement("a");
         stream.writeAttribute("id", "float");
-        stream.writeAttribute("style", QString("color:") + colorString + QString("padding:0.75em;") +
+        stream.writeAttribute("style", QString("color:") + colorString +
                               QString("font-size:") + QString::number(fontsize) + "px;");
         QString url = (*it)->getUUID();
         url.remove(0, 1);
@@ -283,6 +292,7 @@ void HTMLWriter::writeMaterialCloud(QXmlStreamWriter& stream, map_t& map, const 
         stream.writeCharacters((*it)->getName());
         stream.writeEndElement(); // a
         stream.writeEndElement(); // span
+        //if (stream.device()) stream.device()->write("&nbsp;");
 
         writeMaterial(*it, destination.absoluteFilePath(url));
     }
