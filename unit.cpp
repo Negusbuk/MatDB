@@ -82,10 +82,7 @@ void VUnit::addUnit(const QString& unit, double minValue, double maxValue,
                     funcToBaseUnit, funcFromBaseUnit,
                     isPrefferedUnit, isXMLExportUnit);
     entry.UnitIndex_ = Units_.size();
-    if (isPrefferedUnit) {
-        PrefferedUnitIndex_ = entry.UnitIndex_;
-        XMLExportUnitIndex_ = entry.UnitIndex_;
-    }
+    if (isPrefferedUnit) PrefferedUnitIndex_ = entry.UnitIndex_;
     if (isXMLExportUnit) XMLExportUnitIndex_ = entry.UnitIndex_;
     UnitsMap_[unit] = entry;
     Units_.push_back(unit);
@@ -252,7 +249,7 @@ Temperature::Temperature() :
             [&] (double value) {
                return value;
             },
-            true);
+            true, true);
 
     addUnit("K", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -280,7 +277,8 @@ Density::Density() :
             },
             [&] (double value) {
                return value;
-            });
+            },
+            false, true);
 
     addUnit("kg cm^-3", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -305,7 +303,7 @@ Density::Density() :
             [&] (double value) {
                return 1.e-3*value;
             },
-            true);
+            true, false);
 
     addUnit("lb in^-3", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -349,7 +347,8 @@ Pressure::Pressure() :
             },
             [&] (double value) {
                return value;
-            });
+            },
+            false, true);
 
     addUnit("hPa", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -382,7 +381,7 @@ Pressure::Pressure() :
             [&] (double value) {
                return 1.e-9*value;
             },
-            true);
+            true, false);
 
     addUnit("bar", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -435,7 +434,7 @@ ThermalConductivity::ThermalConductivity() :
             [&] (double value) {
                return value;
             },
-            true);
+            true, true);
 
     addUnit("W m^-1 C^-1", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -496,7 +495,7 @@ CoefficientOfThermalExpansion::CoefficientOfThermalExpansion() :
             [&] (double value) {
                return value;
             },
-            true);
+            true, false);
 
     addUnit("ppm C^-1", -std::numeric_limits<double>::max(), std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -563,7 +562,7 @@ SpecificHeat::SpecificHeat() :
             [&] (double value) {
                return value;
             },
-            true);
+            true, true);
 
     addUnit("kJ kg^-1 K^-1", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
@@ -592,7 +591,7 @@ Viscosity::Viscosity() :
             [&] (double value) {
                return value;
             },
-            true);
+            true, true);
 
     addUnit("kg m^-1 s^-1", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
