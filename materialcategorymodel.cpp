@@ -281,6 +281,8 @@ void MaterialCategoryModel::write(QIODevice *destination)
     QXmlStreamWriter stream(destination);
 
     stream.setAutoFormatting(true);
+    stream.setAutoFormattingIndent(2);
+
     stream.writeStartDocument();
 
     stream.writeStartElement("Categories");

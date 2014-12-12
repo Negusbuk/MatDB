@@ -195,6 +195,8 @@ void MaterialListModel::write(const QDir& dbDir)
             QXmlStreamWriter stream(&ofile);
 
             stream.setAutoFormatting(true);
+            stream.setAutoFormattingIndent(2);
+
             stream.writeStartDocument();
             stream.writeStartElement("Materials");
 
