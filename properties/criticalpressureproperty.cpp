@@ -30,7 +30,7 @@
 
 #include "criticalpressureproperty.h"
 
-CriticalPressureProperty::CriticalPressureProperty(PropertyModel *propmodel,
+CriticalPressureProperty::CriticalPressureProperty(PropertyModel * /* propmodel */,
                                                    ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -52,7 +52,7 @@ CriticalPressureProperty::CriticalPressureProperty(const CriticalPressurePropert
     setType(CriticalPressure);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Critical Pressure");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* CriticalPressureProperty::clone(PropertyModel* propmodel,

@@ -21,6 +21,7 @@
 #ifndef MATERIALCATEGORYBOX_H
 #define MATERIALCATEGORYBOX_H
 
+#include <QEvent>
 #include <QComboBox>
 
 #include <materiallistmodel.h>
@@ -44,8 +45,11 @@ public slots:
 
     void materialChanged(Material* material);
     void selectedCategoryChanged(const QString&);
+    void dataChanged(QModelIndex,QModelIndex);
 
 protected:
+
+    void changeEvent(QEvent *event);
 
     MaterialListModel* listModel_;
     MaterialSelectionModel* selectionModel_;

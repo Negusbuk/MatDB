@@ -30,7 +30,8 @@
 
 #include "viscosityproperty.h"
 
-ViscosityProperty::ViscosityProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id) :
+ViscosityProperty::ViscosityProperty(PropertyModel* /* propmodel */,
+                                     ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Viscosity");
@@ -51,7 +52,7 @@ ViscosityProperty::ViscosityProperty(const ViscosityProperty& property) :
     setType(Viscosity);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Viscosity");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* ViscosityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)

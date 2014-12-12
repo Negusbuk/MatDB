@@ -59,6 +59,7 @@ public slots:
     void togglePropertyToolBoxDockWidget();
     void toggleCategoryDockWidget();
     void aboutDialog();
+    void preferenceDialog();
 
     void addDefaultIsotropicMaterial();
     void addDefaultOrthotropicMaterial();
@@ -71,6 +72,7 @@ protected:
 
     void closeEvent(QCloseEvent *event);
     void makeDefaultMaterials();
+    void changeEvent(QEvent *event);
 
     QToolBar* ToolBar_;
     QSplitter* HSplitter_;
@@ -82,10 +84,21 @@ protected:
     MaterialParameterView* MaterialParameterView_;
     PropertyToolBox* PropertyToolBox_;
 
+    QAction* importXMLAction_;
+    QAction* addIsotropicMatAction_;
+    QAction* addOrthotropicMatAction_;
+    QAction* addLiquidMatAction_;
+    QAction* addGaseousMatAction_;
+
     QAction* togglePropertyToolBoxDockWidgetAction_;
     QDockWidget* propertyToolBoxDockWidget_;
     QAction* toggleCategoryDockWidgetAction_;
     QDockWidget* categoryDockWidget_;
+    QDockWidget* propertiesDockWidget_;
+    QDockWidget* parameterDockWidget_;
+
+    QAction* exportXMLAction_;
+    QAction* exportHTMLAction_;
 
     MaterialListModel* MaterialListModel_;
     MaterialCategoryModel* MaterialCategoryModel_;

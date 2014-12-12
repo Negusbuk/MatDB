@@ -30,7 +30,7 @@
 
 #include "referencetemperatureproperty.h"
 
-ReferenceTemperatureProperty::ReferenceTemperatureProperty(PropertyModel *propmodel,
+ReferenceTemperatureProperty::ReferenceTemperatureProperty(PropertyModel * /* propmodel */,
                                                            ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -55,9 +55,9 @@ ReferenceTemperatureProperty::ReferenceTemperatureProperty(const ReferenceTemper
     setType(ReferenceTemperature);
     setBehavior(Isotropic);
     const Parameter *par1 = property.getParameter("Reference Temperature");
-    addParameter(par1->clone());
+    addParameter(par1->cloneWithData());
     const Parameter *par2 = property.getParameter("Material Property");
-    addParameter(par2->clone());
+    addParameter(par2->cloneWithData());
 }
 
 Property* ReferenceTemperatureProperty::clone(PropertyModel *propmodel,

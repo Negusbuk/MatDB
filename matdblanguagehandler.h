@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- **  Copyright (C) 2013 Andreas Mussgiller
+ **  Copyright (C) 2014 Andreas Mussgiller
  **
  **  This program is free software: you can redistribute it and/or modify
  **  it under the terms of the GNU General Public License as published by
@@ -18,41 +18,27 @@
  **
  ****************************************************************************/
 
-#ifndef MATERIALCATEGORYWIDGET_H
-#define MATERIALCATEGORYWIDGET_H
+#ifndef MATDBLANGUAGEHANDLER_H
+#define MATDBLANGUAGEHANDLER_H
 
-#include <QWidget>
-#include <QListView>
-#include <QPushButton>
-#include <QEvent>
+#include <QList>
+#include <QTranslator>
 
-#include <materialcategorymodel.h>
-
-class MaterialCategoryWidget : public QWidget
+class MatDBLanguageHandler
 {
-    Q_OBJECT
 public:
-    explicit MaterialCategoryWidget(MaterialCategoryModel* categoryModel,
-                                    QWidget *parent = 0);
 
-signals:
+    static MatDBLanguageHandler* instance();
 
-    void categoryChanged(MaterialCategory*);
-
-public slots:
-
-    void addCategory();
-    void removeCategory();
-    void categoryDoubleClicked(const QModelIndex& index);
+    void changeLanguage(const QString &locale);
 
 protected:
 
-    void changeEvent(QEvent *event);
+    MatDBLanguageHandler();
 
-    MaterialCategoryModel* categoryModel_;
-    QListView* categories_;
-    QPushButton* addCategoryButton_;
-    QPushButton* removeCategoryButton_;
+    static MatDBLanguageHandler *instance_;
+
+    QList<QTranslator*> translators_;
 };
 
-#endif // MATERIALCATEGORYWIDGET_H
+#endif // MATDBLANGUAGEHANDLER_H

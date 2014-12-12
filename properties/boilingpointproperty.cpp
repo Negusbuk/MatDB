@@ -30,7 +30,7 @@
 
 #include "boilingpointproperty.h"
 
-BoilingPointProperty::BoilingPointProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id) :
+BoilingPointProperty::BoilingPointProperty(PropertyModel* /* propmodel */, ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Boiling Point");
@@ -51,7 +51,7 @@ BoilingPointProperty::BoilingPointProperty(const BoilingPointProperty& property)
     setType(BoilingPoint);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Boiling Point");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* BoilingPointProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)

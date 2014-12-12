@@ -26,6 +26,7 @@
 #include <QDragMoveEvent>
 #include <QDropEvent>
 #include <QMenu>
+#include <QEvent>
 
 #include "material.h"
 #include "materiallistmodel.h"
@@ -59,6 +60,7 @@ public:
     void update();
 
 protected:
+
     Material* Material_;
     Property* Property_;
     Parameter* Parameter_;
@@ -97,7 +99,7 @@ signals:
     
 public slots:
     void materialChanged(Material* material);
-    void selectionChanged();
+    void selectedPropertyChanged();
     void parameterModified(Parameter* parameter);
     void propertyModified(Property* property);
 
@@ -109,6 +111,7 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
+    void changeEvent(QEvent *event);
 
     MaterialListModel* ListModel_;
     MaterialSelectionModel * SelectionModel_;
@@ -118,6 +121,7 @@ protected:
     ParameterSelectionModel * ParameterSelectionModel_;
 
     QMenu* ContextMenu_;
+    QAction* deleteAction_;
 };
 
 #endif // MATERIALPROPERTYVIEW_H

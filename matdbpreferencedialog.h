@@ -1,6 +1,6 @@
 /****************************************************************************
  **
- **  Copyright (C) 2013 Andreas Mussgiller
+ **  Copyright (C) 2014 Andreas Mussgiller
  **
  **  This program is free software: you can redistribute it and/or modify
  **  it under the terms of the GNU General Public License as published by
@@ -18,49 +18,49 @@
  **
  ****************************************************************************/
 
-#ifndef MATMLWRITER_H
-#define MATMLWRITER_H
+#ifndef MATDBPREFERENCEDIALOG_H
+#define MATDBPREFERENCEDIALOG_H
 
-#include <map>
-#include <vector>
+#include <QDialog>
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QComboBox>
 
-#include <QMap>
-#include <QObject>
-#include <QIODevice>
+class LanguagePage;
 
-#include <materiallistmodel.h>
-#include <propertymodel.h>
-#include <parametermodel.h>
-#include <property.h>
-
-class MATMLWriter : public QObject
+class MatDBPreferenceDialog : public QDialog
 {
     Q_OBJECT
-
 public:
 
-    enum ExportMode {
-        ANSYS           = 1,
-        MatML           = 2,
-        Unknown
-    };
+    explicit MatDBPreferenceDialog(QWidget *parent = 0);
 
-    explicit MATMLWriter(const std::vector<Material*>& materials,
-                         PropertyModel *propmodel,
-                         ParameterModel *paramodel,
-                         QObject *parent = 0);
-    
-    void write(QIODevice *destination, ExportMode mode);
-
-signals:
-    
 public slots:
-    
-protected:
+    void changePage(QListWidgetItem *current, QListWidgetItem *previous);
 
-    const std::vector<Material*>& materials_;
-    PropertyModel* propmodel_;
-    ParameterModel* paramodel_;
+protected slots:
+
+    void applyChanges();
+
+private:
+
+    void createIcons();
+
+    QListWidget *contentsWidget_;
+    QStackedWidget *pagesWidget_;
+    LanguagePage *languagePage_;
 };
 
-#endif // MATMLWRITER_H
+class LanguagePage : public QWidget
+{
+public:
+    LanguagePage(QWidget *parent = 0);
+
+    QVariant selectedLanguage();
+
+protected:
+
+    QComboBox *languageCombo_;
+};
+
+#endif // MATDBPREFERENCEDIALOG_H

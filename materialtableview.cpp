@@ -49,10 +49,10 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
             this, SLOT(metadataChanged(Material*)));
 
     connect(SelectionModel_, SIGNAL(selectionChanged(Material*)),
-            this, SLOT(setSelection(Material*)));
+            this, SLOT(setSelectedMaterial(Material*)));
 
     connect(this, SIGNAL(itemSelectionChanged()),
-            this, SLOT(selectionChanged()));
+            this, SLOT(selectedMaterialChanged()));
 
     connect(this, SIGNAL(itemChanged(QTableWidgetItem*)),
             this, SLOT(itemEdited(QTableWidgetItem*)));
@@ -72,13 +72,16 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
 
     horizontalHeader()->setStretchLastSection(true);
 
-    setMinimumWidth(350);
-    setMinimumHeight(200);
+    setMinimumWidth(400);
+    setMinimumHeight(500);
 
     ContextMenu_ = new QMenu();
-    ContextMenu_->addAction(tr("Delete"), selectionmodel, SLOT(deleteMaterial()));
+    ContextMenu_->setMinimumWidth(150);
+    ContextMenu_->addAction(tr("Delete"), selectionmodel, SLOT(deleteMaterial()),
+                            QKeySequence(Qt::Key_Backspace | Qt::CTRL));
     ContextMenu_->addSeparator();
-    ContextMenu_->addAction(tr("Duplicate"), selectionmodel, SLOT(duplicateMaterial()));
+    ContextMenu_->addAction(tr("Duplicate"), selectionmodel, SLOT(duplicateMaterial()),
+                            QKeySequence(Qt::Key_Plus | Qt::CTRL));
 }
 
 void MaterialTableView::fillTable(int count)
@@ -111,7 +114,7 @@ void MaterialTableView::fillTable(int count)
     setVerticalHeaderItem(count, new QTableWidgetItem("*"));
 }
 
-void MaterialTableView::setSelection(Material *selection)
+void MaterialTableView::setSelectedMaterial(Material *selection)
 {
     MaterialMap::const_iterator it = indexMap_.find(selection);
 
@@ -140,7 +143,7 @@ void MaterialTableView::metadataChanged(Material* material)
     }
 }
 
-void MaterialTableView::selectionChanged()
+void MaterialTableView::selectedMaterialChanged()
 {
     QList<QTableWidgetItem*> items = selectedItems();
     if (items.count()==1) {
@@ -212,6 +215,19 @@ void MaterialTableView::dropEvent(QDropEvent *event)
     }
 
     event->acceptProposedAction();
+}
+
+void MaterialTableView::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Backspace && event->modifiers() == Qt::CTRL) {
+        NQLog("MaterialTableView", NQLog::Spam) << "void MaterialTableView::keyPressEvent() << delete";
+        SelectionModel_->deleteMaterial();
+    } else if (event->key() == Qt::Key_Plus && event->modifiers() == Qt::CTRL) {
+        NQLog("MaterialTableView", NQLog::Spam) << "void MaterialTableView::keyPressEvent() << duplicate";
+        SelectionModel_->duplicateMaterial();
+    } else {
+        QTableWidget::keyPressEvent(event);
+    }
 }
 
 void MaterialTableView::itemEdited(QTableWidgetItem * item)
