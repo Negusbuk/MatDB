@@ -130,15 +130,26 @@ void HTMLWriter::write(const QDir& destination)
     }
 
     stream.writeEndElement(); // table
+    stream.writeEndElement(); // div
+
+    stream.writeStartElement("div");
+    stream.writeAttribute("style", "width:100%;");
+    stream.writeAttribute("align", "right");
 
     QString generator = tr("Generated on");
     generator += " ";
     generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
     generator += " ";
-    generator += tr("by MatDB");
-    stream.writeTextElement("p", generator);
+    generator += tr("by");
+    stream.writeStartElement("p");
+    stream.writeCharacters(generator + " ");
+    stream.writeStartElement("a");
+    stream.writeAttribute("href", "http://negusbuk.github.io/MatDB/");
+    stream.writeCharacters("MatDB");
+    stream.writeEndElement(); // a
+    stream.writeEndElement(); // p
+    stream.writeEndElement(); // div
 
-    stream.writeEndElement();
     stream.writeEndElement();
     stream.writeEndElement();
     stream.writeEndElement();
@@ -429,12 +440,19 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
     stream.writeStartElement("div");
     stream.writeAttribute("style", "width:100%;");
     stream.writeAttribute("align", "right");
+
     QString generator = tr("Generated on");
     generator += " ";
     generator += QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss");
     generator += " ";
-    generator += tr("by MatDB");
-    stream.writeTextElement("p", generator);
+    generator += tr("by");
+    stream.writeStartElement("p");
+    stream.writeCharacters(generator + " ");
+    stream.writeStartElement("a");
+    stream.writeAttribute("href", "http://negusbuk.github.io/MatDB/");
+    stream.writeCharacters("MatDB");
+    stream.writeEndElement(); // a
+    stream.writeEndElement(); // p
     stream.writeEndElement(); // div
 
     stream.writeEndElement();
