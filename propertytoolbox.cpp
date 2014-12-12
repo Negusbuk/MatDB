@@ -64,7 +64,6 @@ void PropertyToolBox::build()
 {
     QWidget * box;
     PropertyToolBoxItem * item;
-    std::map<QString,QWidget*> categoryWidgetMap;
     const std::vector<QString>& categories = PropertyModel_->getCategories();
     for (std::vector<QString>::const_iterator it = categories.begin();
          it!=categories.end();
@@ -80,15 +79,16 @@ void PropertyToolBox::build()
         QString s = itm->first;
 
         box = new QWidget(this);
-        categoryWidgetMap[s] = box;
+        categoryWidgetMap_[s] = box;
         QVBoxLayout * layout = new QVBoxLayout(box);
         box->setLayout(layout);
 
         for (std::vector<Property*>::const_iterator itv = v.begin();
              itv!=v.end();
              ++itv) {
-            item = new PropertyToolBoxItem((*itv)->getDisplayName(), (*itv), box);
+            item = new PropertyToolBoxItem(QObject::tr((*itv)->getName().toStdString().c_str()), (*itv), box);
             layout->addWidget(item);
+            itemLabelMap_[item] = (*itv)->getName();
         }
         layout->addStretch(1);
     }
@@ -98,8 +98,34 @@ void PropertyToolBox::build()
          ++it) {
         QString s = *it;
 
-        box = categoryWidgetMap[s];
+        box = categoryWidgetMap_[s];
         if (!box) continue;
-        addItem(box, s);
+        addItem(box, QObject::tr(s.toStdString().c_str()));
+    }
+}
+
+void PropertyToolBox::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+        for (std::map<QString,QWidget*>::iterator it = categoryWidgetMap_.begin();
+             it!=categoryWidgetMap_.end();
+             ++it) {
+            if (it->second) {
+                int idx = indexOf(it->second);
+                setItemText(idx, QObject::tr(it->first.toStdString().c_str()));
+            }
+        }
+
+        for (std::map<QLabel*,QString>::iterator it = itemLabelMap_.begin();
+             it!=itemLabelMap_.end();
+             ++it) {
+            if (it->first) {
+                it->first->setText(QObject::tr(it->second.toStdString().c_str()));
+            }
+        }
+
+    } else {
+        QWidget::changeEvent(event);
     }
 }

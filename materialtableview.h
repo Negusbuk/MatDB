@@ -49,9 +49,9 @@ public slots:
 
 protected slots:
     void fillTable(int count);
-    void setSelection(Material* selection);
+    void setSelectedMaterial(Material* selection);
     void metadataChanged(Material* material);
-    void selectionChanged();
+    void selectedMaterialChanged();
     void itemEdited(QTableWidgetItem * item);
     void displayContextMenu(const QPoint& point);
 
@@ -67,6 +67,7 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
+    void keyPressEvent(QKeyEvent * event);
 
     QMenu* ContextMenu_;
 };

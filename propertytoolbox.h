@@ -26,6 +26,7 @@
 
 #include <QLabel>
 #include <QToolBox>
+#include <QEvent>
 #include <QMouseEvent>
 
 #include <property.h>
@@ -57,6 +58,10 @@ public slots:
     
 protected:
 
+    void changeEvent(QEvent *event);
+
+    std::map<QString,QWidget*> categoryWidgetMap_;
+    std::map<QLabel*,QString> itemLabelMap_;
     PropertyModel* PropertyModel_;
     void build();
 };

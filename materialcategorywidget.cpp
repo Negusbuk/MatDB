@@ -81,8 +81,8 @@ MaterialCategoryWidget::MaterialCategoryWidget(MaterialCategoryModel* categoryMo
 
 void MaterialCategoryWidget::addCategory()
 {
-    if (categoryModel_->getCategory("New Category")!=NULL) return;
-    categoryModel_->addCategory("New Category", tr("New Category"), QColor(242, 142, 0), false);
+    if (categoryModel_->getCategory(tr("New Category"))!=NULL) return;
+    categoryModel_->addCategory(tr("New Category"), tr("New Category"), QColor(242, 142, 0), false);
     categories_->update();
 }
 
@@ -103,7 +103,7 @@ void MaterialCategoryWidget::categoryDoubleClicked(const QModelIndex& index)
     MaterialCategoryEditDialog dialog(this);
     dialog.setWindowModality(Qt::WindowModal);
 
-    dialog.setName(category->getDisplayName());
+    dialog.setName(category->getName());
 
     QColor c = category->getColor();
     dialog.setColor(c);
@@ -117,10 +117,8 @@ void MaterialCategoryWidget::categoryDoubleClicked(const QModelIndex& index)
         if (newName!=category->getName()) {
             MaterialCategory* dummy = categoryModel_->getCategory(newName);
             if (!dummy) {
-                if (newName!=category->getDisplayName()) {
-                    categoryModel_->renameCategory(category, newName);
-                    isChanged = true;
-                }
+                categoryModel_->renameCategory(category, newName);
+                isChanged = true;
             }
         }
 
@@ -137,5 +135,16 @@ void MaterialCategoryWidget::categoryDoubleClicked(const QModelIndex& index)
             categories_->update();
             emit categoryChanged(category);
         }
+    }
+}
+
+void MaterialCategoryWidget::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+
+        categories_->update();
+
+    } else {
+        QWidget::changeEvent(event);
     }
 }

@@ -30,7 +30,8 @@
 
 #include "densityproperty.h"
 
-DensityProperty::DensityProperty(ParameterModel* model, int id) :
+DensityProperty::DensityProperty(PropertyModel* /* propmodel */,
+                                 ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Density");
@@ -38,7 +39,7 @@ DensityProperty::DensityProperty(ParameterModel* model, int id) :
     setCategory(PhysicalProperty);
     setType(Density);
     setBehavior(Isotropic);
-    Parameter *par = model->getParameter("Density");
+    Parameter *par = paramodel->getParameter("Density");
     addParameter(par->clone());
 }
 
@@ -51,14 +52,14 @@ DensityProperty::DensityProperty(const DensityProperty& property) :
     setType(Density);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Density");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
-Property* DensityProperty::clone(ParameterModel* model)
+Property* DensityProperty::clone(PropertyModel* propmodel, ParameterModel* paramodel)
 {
     DensityProperty* prop;
-    if (model) {
-       prop = new DensityProperty(model, getId());
+    if (propmodel && paramodel) {
+        prop = new DensityProperty(propmodel, paramodel, getId());
     } else {
         prop = new DensityProperty(*this);
     }
@@ -187,7 +188,7 @@ void DensityProperty::writeXMLData(QXmlStreamWriter& stream)
         if (pv.isTemperatureValid()) {
             values += QString::number(pv.getTemperature());
         } else {
-            values += "7.88860905221012e-31";
+            values += Property::undefindedIdentifyerAsString();
         }
     }
     stream.writeTextElement("Data", values);

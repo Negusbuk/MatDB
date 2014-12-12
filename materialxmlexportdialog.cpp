@@ -97,6 +97,7 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
     modeANSYSbutton_->setMinimumHeight(1.2*modeANSYSbutton_->minimumSizeHint().height());
     //group->addButton(modeANSYSbutton_, 0);
     buttonLayout->addWidget(modeANSYSbutton_);
+    modeANSYSbutton_->setChecked(true);
 
     modeMATMLbutton_ = new QRadioButton("MatML", buttons);
     modeMATMLbutton_->setMinimumHeight(1.2*modeMATMLbutton_->minimumSizeHint().height());
@@ -109,6 +110,8 @@ MaterialXMLExportDialog::MaterialXMLExportDialog(MaterialListModel* model,
     buttonLayout = new QHBoxLayout(buttons);
     buttonLayout->setContentsMargins(1,1,1,1);
     buttons->setLayout(buttonLayout);
+
+    buttonLayout->addSpacerItem(new QSpacerItem(10, 10, QSizePolicy::Expanding));
 
     QPushButton *button;
 

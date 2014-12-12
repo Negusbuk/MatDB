@@ -26,6 +26,7 @@
 
 #include <QAbstractTableModel>
 #include <QIODevice>
+#include <QEvent>
 
 #include <materialcategory.h>
 
@@ -52,6 +53,8 @@ public:
 
     void read(QIODevice *source);
     void write(QIODevice *destination);
+
+    void changeEvent(QEvent *event);
 
 signals:
 

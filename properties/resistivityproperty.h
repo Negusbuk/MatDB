@@ -26,10 +26,10 @@
 class IsotropicResistivityProperty : public Property
 {
 public:
-    IsotropicResistivityProperty(ParameterModel* model, int id);
+    IsotropicResistivityProperty(PropertyModel *propmodel, ParameterModel* paramodel, int id);
     IsotropicResistivityProperty(const IsotropicResistivityProperty&);
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel *propmodel = 0, ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,
@@ -41,10 +41,10 @@ public:
 class OrthotropicResistivityProperty : public Property
 {
 public:
-    OrthotropicResistivityProperty(ParameterModel* model, int id);
+    OrthotropicResistivityProperty(PropertyModel *propmodel, ParameterModel* paramodel, int id);
     OrthotropicResistivityProperty(const OrthotropicResistivityProperty&);
 
-    Property* clone(ParameterModel* model = 0);
+    Property* clone(PropertyModel *propmodel = 0, ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,

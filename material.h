@@ -34,7 +34,6 @@
 #include <parametermodel.h>
 #include <materialcategorymodel.h>
 #include <property.h>
-#include <parameter.h>
 
 class Material
 {
@@ -65,8 +64,6 @@ public:
     void setNotes(const QString& notes) { Notes_ = notes; }
     const QString& getNotes() const { return Notes_; }
 
-    std::vector<ParameterValue> * getParameterValues(const QString& name);
-
     void setModified() { modified_ = true; }
     bool isModified() const;
 
@@ -95,7 +92,6 @@ protected:
     QString Name_;
     std::map<QString,Property*> Properties_;
     std::map<Property::Type,Property*> PropertiesByType_;
-    std::map<QString,std::vector<ParameterValue> > ParameterValues_;
     std::vector<Property*> PropertiesSorted_;
 
     QString Description_;

@@ -85,13 +85,6 @@ Property *Material::addProperty(Property* property)
         NQLog("Material", NQLog::Spam) << "   " << (*it)->getName();
     }
 
-    std::map<QString,Parameter*>& pmap = property->getParameters();
-    for (std::map<QString,Parameter*>::iterator itP = pmap.begin();
-         itP!=pmap.end();
-         ++itP) {
-        ParameterValues_[QString(itP->second->getName())] = std::vector<ParameterValue>();
-    }
-
     modified_ = true;
 
     return property;
@@ -101,7 +94,6 @@ void Material::setProperties(const std::vector<Property*>& properties)
 {
     Properties_.clear();
     PropertiesByType_.clear();
-    ParameterValues_.clear();
     PropertiesSorted_.clear();
 
     for (std::vector<Property*>::const_iterator it = properties.begin();
@@ -119,14 +111,6 @@ Property* Material::getProperty(const QString& name)
     std::map<QString,Property*>::iterator it = Properties_.find(name);
     if (it!=Properties_.end()) {
         Property* property = it->second;
-
-        std::map<QString,Parameter*>& pmap = property->getParameters();
-        for (std::map<QString,Parameter*>::iterator itP = pmap.begin();
-             itP!=pmap.end();
-             ++itP) {
-            std::vector<ParameterValue>* pvalues = getParameterValues(itP->second->getName());
-            itP->second->setParameterValues(pvalues);
-        }
         return property;
     }
     return NULL;
@@ -164,11 +148,6 @@ void Material::removeProperty(Property* property)
         }
     }
 
-    std::map<QString,std::vector<ParameterValue> >::iterator it = ParameterValues_.find(property->getName());
-    if (it!=ParameterValues_.end()) {
-        ParameterValues_.erase(it);
-    }
-
     for (std::vector<Property*>::iterator it = PropertiesSorted_.begin();
          it!=PropertiesSorted_.end();
          ++it) {
@@ -181,13 +160,6 @@ void Material::removeProperty(Property* property)
     delete property;
 
     modified_ = true;
-}
-
-std::vector<ParameterValue> * Material::getParameterValues(const QString& name)
-{
-    std::map<QString,std::vector<ParameterValue> >::iterator it = ParameterValues_.find(name);
-    if (it!=ParameterValues_.end()) return &(it->second);
-    return NULL;
 }
 
 void Material::setCategory(MaterialCategory* c)
@@ -356,7 +328,7 @@ Material* Material::makeDefaultIsotropicMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Structural Steel");
+    mat->setName("* Structural Steel");
 
     Property * prop;
 
@@ -394,7 +366,7 @@ Material* Material::makeDefaultOrthotropicMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Orthotropic Structural Steel");
+    mat->setName("* Orthotropic Structural Steel");
 
     Property * prop;
 
@@ -444,11 +416,9 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Water");
+    mat->setName("* Water");
 
     Property * prop;
-
-    // boiling point 373K
 
     prop = propertyModel->getProperty("Density")->clone();
     prop->getParameter("Density")->addValue(0.9982);
@@ -462,6 +432,10 @@ Material* Material::makeDefaultLiquidMaterial(PropertyModel* propertyModel)
     prop->getParameter("Viscosity")->addValue(0.001003);
     mat->addProperty(prop);
 
+    prop = propertyModel->getProperty("Boiling Point")->clone();
+    prop->getParameter("Boiling Point")->addValue(373, "K");
+    mat->addProperty(prop);
+
     prop = propertyModel->getProperty("Isotropic Thermal Conductivity")->clone();
     prop->getParameter("Thermal Conductivity")->addValue(0.6);
     mat->addProperty(prop);
@@ -473,12 +447,9 @@ Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
 {
     Material * mat = new Material();
     mat->setUUID(QUuid::createUuid().toString());
-    mat->setName("Air");
+    mat->setName("* Air");
 
     Property * prop;
-
-    // critical temperature 132.3 K
-    // critical pressure 3.758 MPa
 
     prop = propertyModel->getProperty("Density")->clone();
     prop->getParameter("Density")->addValue(0.001225);
@@ -486,6 +457,14 @@ Material* Material::makeDefaultGaseousMaterial(PropertyModel* propertyModel)
 
     prop = propertyModel->getProperty("Specific Heat")->clone();
     prop->getParameter("Specific Heat")->addValue(1006.4);
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Critical Temperature")->clone();
+    prop->getParameter("Critical Temperature")->addValue(132.3, "K");
+    mat->addProperty(prop);
+
+    prop = propertyModel->getProperty("Critical Pressure")->clone();
+    prop->getParameter("Critical Pressure")->addValue(3.758, "MPa");
     mat->addProperty(prop);
 
     prop = propertyModel->getProperty("Viscosity")->clone();
