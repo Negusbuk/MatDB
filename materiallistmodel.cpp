@@ -79,7 +79,7 @@ void MaterialListModel::addMaterial(Material* material)
 
 void MaterialListModel::addMaterials(const std::vector<Material*>& materials)
 {
-    NQLog("MaterialListModel") << "adding " << materials.size() << " materials";
+    // NQLog("MaterialListModel") << "adding " << materials.size() << " materials";
 
     for (std::vector<Material*>::const_iterator it = materials.begin();
          it!=materials.end();
@@ -117,7 +117,7 @@ const std::vector<Material*>& MaterialListModel::getMaterials() const
 
 Material* MaterialListModel::getMaterial(size_t idx)
 {
-    NQLog("MaterialListModel", NQLog::Spam) << "void getMaterial(size_t idx) " << idx;
+    // NQLog("MaterialListModel", NQLog::Spam) << "void getMaterial(size_t idx) " << idx;
 
     if (isFiltered_) {
         if (idx>=FilteredMaterialList_.size()) return 0;
@@ -358,8 +358,8 @@ void MaterialListModel::categoryChanged(MaterialCategory* category)
 
 void MaterialListModel::filterChanged(const QStringList& filters, bool logic)
 {
-    NQLog("MaterialListModel", NQLog::Spam) << "void filterChanged(const QStringList& filters) "
-                                            << filters.size() << " " << currentFilters_.size();
+    // NQLog("MaterialListModel", NQLog::Spam) << "void filterChanged(const QStringList& filters) "
+    //                                         << filters.size() << " " << currentFilters_.size();
 
     if (currentFilters_!=filters || currentFilterLogic_!=logic) {
         MaterialIndexer_->filter(filters, logic, FilteredMaterialList_);

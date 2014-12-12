@@ -57,8 +57,8 @@ void MaterialCategoryModel::addCategory(const QString& uuid,
     mc->setUUID(uuid);
     if (uuid.length()==0) mc->setUUID(QUuid::createUuid().toString());
 
-    NQLog("MaterialCategoryModel", NQLog::Spam) << "Cat: " << mc;
-    NQLog("MaterialCategoryModel", NQLog::Spam) << "     " << mc->getUUID();
+    // NQLog("MaterialCategoryModel", NQLog::Spam) << "Cat: " << mc;
+    // NQLog("MaterialCategoryModel", NQLog::Spam) << "     " << mc->getUUID();
 
     categoriesMap_[name] = mc;
     categoriesDisplayMap_[displayName] = mc;
