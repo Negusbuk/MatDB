@@ -25,6 +25,13 @@
 #include "resistivityproperty.h"
 #include "specificheatproperty.h"
 #include "viscosityproperty.h"
+#include "criticaltemperatureproperty.h"
+#include "criticalpressureproperty.h"
+#include "boilingpointproperty.h"
+#include "referencetemperatureproperty.h"
+#include "plytypeproperty.h"
+#include "stresslimitsproperty.h"
+#include "strainlimitsproperty.h"
 
 #include "propertymodel.h"
 
@@ -39,7 +46,7 @@ PropertyModel::PropertyModel(ParameterModel* parametermodel,
 Property* PropertyModel::getProperty(const QString& name)
 {
     std::map<QString,Property*>::iterator it = Properties_.find(name);
-    if (it!=Properties_.end()) return it->second->clone(ParameterModel_);
+    if (it!=Properties_.end()) return it->second->clone(this, ParameterModel_);
     return NULL;
 }
 
@@ -51,7 +58,7 @@ void PropertyModel::addProperty(Property* property)
 
     Properties_[property->getName()] = property;
     PropertiesById_[property->getId()] = property;
-    PropertiesByCategory_[property->getCategoryName()].push_back(property);
+    if (property->getCategory()!=Property::NoCategory) PropertiesByCategory_[property->getCategoryName()].push_back(property);
     PropertiesByType_[property->getTypeName()].push_back(property);
 
     property->setSorting((int)PropertiesSorting_.size());
@@ -64,32 +71,43 @@ void PropertyModel::build()
 {
     int id = 0;
 
-    addProperty(new DensityProperty(ParameterModel_, id++));
+    addProperty(new DensityProperty(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel_, id));
-    addProperty(new OrthotropicInstantaneousCoefficientOfThermalExpansion(ParameterModel_, id++));
+    addProperty(new ReferenceTemperatureProperty(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicSecantCoefficientOfThermalExpansion(ParameterModel_, id));
-    addProperty(new OrthotropicSecantCoefficientOfThermalExpansion(ParameterModel_, id++));
+    addProperty(new IsotropicInstantaneousCoefficientOfThermalExpansion(this, ParameterModel_, id));
+    addProperty(new OrthotropicInstantaneousCoefficientOfThermalExpansion(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicElasticityProperty(ParameterModel_, id));
-    addProperty(new OrthotropicElasticityProperty(ParameterModel_, id++));
+    addProperty(new IsotropicSecantCoefficientOfThermalExpansion(this, ParameterModel_, id));
+    addProperty(new OrthotropicSecantCoefficientOfThermalExpansion(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicThermalConductivityProperty(ParameterModel_, id));
-    addProperty(new OrthotropicThermalConductivityProperty(ParameterModel_, id++));
+    addProperty(new IsotropicElasticityProperty(this, ParameterModel_, id));
+    addProperty(new OrthotropicElasticityProperty(this, ParameterModel_, id++));
 
-    addProperty(new IsotropicResistivityProperty(ParameterModel_, id));
-    addProperty(new OrthotropicResistivityProperty(ParameterModel_, id++));
+    addProperty(new IsotropicThermalConductivityProperty(this, ParameterModel_, id));
+    addProperty(new OrthotropicThermalConductivityProperty(this, ParameterModel_, id++));
 
-    addProperty(new SpecificHeatProperty(ParameterModel_, id++));
+    addProperty(new IsotropicResistivityProperty(this, ParameterModel_, id));
+    addProperty(new OrthotropicResistivityProperty(this, ParameterModel_, id++));
 
-    addProperty(new ViscosityProperty(ParameterModel_, id++));
+    addProperty(new SpecificHeatProperty(this, ParameterModel_, id++));
 
-    Categories_.push_back(tr("Physical Properties"));
-    Categories_.push_back(tr("Linear Elastic Properties"));
-    Categories_.push_back(tr("Thermal Properties"));
-    Categories_.push_back(tr("Electrical Properties"));
-    Categories_.push_back(tr("Fluid Properties"));
+    addProperty(new ViscosityProperty(this, ParameterModel_, id++));
+    addProperty(new CriticalTemperatureProperty(this, ParameterModel_, id++));
+    addProperty(new CriticalPressureProperty(this, ParameterModel_, id++));
+    addProperty(new BoilingPointProperty(this, ParameterModel_, id++));
+
+    addProperty(new PlyTypeProperty(this, ParameterModel_, id++));
+    addProperty(new IsotropicStressLimitsProperty(this, ParameterModel_, id++));
+    addProperty(new OrthotropicStressLimitsProperty(this, ParameterModel_, id++));
+    addProperty(new IsotropicStrainLimitsProperty(this, ParameterModel_, id++));
+    addProperty(new OrthotropicStrainLimitsProperty(this, ParameterModel_, id++));
+
+    Categories_.push_back("Physical Properties");
+    Categories_.push_back("Linear Elastic Properties");
+    Categories_.push_back("Thermal Properties");
+    Categories_.push_back("Electrical Properties");
+    Categories_.push_back("Fluid Properties");
 }
 
 int PropertyModel::getPropertySorting(Property* property) const

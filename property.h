@@ -32,7 +32,6 @@
 #include <QXmlStreamWriter>
 
 #include <parameter.h>
-#include <parameterset.h>
 #include <parametermodel.h>
 
 #include <propertyspecialwidget.h>
@@ -65,6 +64,8 @@ struct PropertyData {
     std::vector<PValue> pvalues;
 };
 
+class PropertyModel;
+
 class Property
 {
 public:
@@ -77,16 +78,21 @@ public:
         LinearElasticProperty     = 2,
         ThermalProperty           = 3,
         ElectricalProperty        = 4,
-        FluidProperty             = 5
+        FluidProperty             = 5,
+        NoCategory
     };
 
     enum Type {
         InvalidType                      =     0,
+        ReferenceTemperature             =   100,
 
         Density                          =  1001,
         CoefficientOfThermalExpansion    =  1002,
 
         Elasticity                       =  2001,
+        PlyType                          =  2002,
+        StressLimits                     =  2003,
+        StrainLimits                     =  2004,
 
         ThermalConductivity              =  3001,
         SpecificHeat                     =  3003,
@@ -94,6 +100,9 @@ public:
         Resistivity                      =  4001,
 
         Viscosity                        =  5001,
+        CriticalTemperature              =  5002,
+        CriticalPressure                 =  5003,
+        BoilingPoint                     =  5004
     };
 
     enum Behavior {
@@ -144,7 +153,8 @@ public:
     virtual PropertySpecialWidget * getSpecialWidget(QWidget * /*parent=0*/) { return 0; }
     virtual void recalculate() { }
 
-    virtual Property* clone(ParameterModel* model = 0) = 0;
+    virtual Property* clone(PropertyModel* propmodel = 0,
+                            ParameterModel* paramodel = 0) = 0;
 
     virtual void apply(PropertyData& /* data */,
                        PropertyDetail& /* detail */,
@@ -176,7 +186,6 @@ protected:
     Behavior Behavior_;
     Definition Definition_;
     std::map<QString,Parameter*> Parameters_;
-    ParameterSet ParameterSet_;
     std::vector<Parameter*> OrderedParameters_;
     int sorting_;
     bool modified_;

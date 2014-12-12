@@ -19,7 +19,7 @@
  ****************************************************************************/
 
 #ifndef MATMLWRITER_H
-#define MATMLWRTIER_H
+#define MATMLWRITER_H
 
 #include <map>
 #include <vector>

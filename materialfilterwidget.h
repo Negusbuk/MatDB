@@ -24,6 +24,8 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QRadioButton>
+#include <QEvent>
 
 #include <nqtokenedit.h>
 
@@ -50,9 +52,13 @@ protected slots:
 
 protected:
 
+    void changeEvent(QEvent *event);
+
     MaterialListModel* ListModel_;
     NQTokenEdit* tokenEdit_;
     QButtonGroup* filterLogicGroup_;
+    QRadioButton* rbAND_;
+    QRadioButton* rbOR_;
     QPushButton* resetButton_;
 };
 

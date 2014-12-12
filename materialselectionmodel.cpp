@@ -69,7 +69,6 @@ void MaterialSelectionModel::duplicateMaterial()
     NQLog("MaterialSelectionModel", NQLog::Spam) << "void duplicateMaterial()";
 
     emit duplicateMaterial(Selection_);
-    void deleteMaterial(Material* selection);
     setSelection(0);
 }
 
@@ -78,4 +77,5 @@ void MaterialSelectionModel::deleteMaterial()
     NQLog("MaterialSelectionModel", NQLog::Spam) << "void deleteMaterial()";
 
     emit deleteMaterial(Selection_);
+    setSelection(0);
 }

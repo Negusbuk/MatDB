@@ -26,10 +26,11 @@
 class ViscosityProperty : public Property
 {
 public:
-    ViscosityProperty(ParameterModel* model, int id);
+    ViscosityProperty(PropertyModel* propmodel, ParameterModel* paramodel, int id);
     ViscosityProperty(const ViscosityProperty&);
 
-    virtual Property* clone(ParameterModel* model = 0);
+    virtual Property* clone(PropertyModel* propmodel = 0,
+                            ParameterModel* paramodel = 0);
 
     virtual void apply(PropertyData& data,
                        PropertyDetail& detail,

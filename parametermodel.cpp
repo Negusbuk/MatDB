@@ -65,6 +65,18 @@ void ParameterModel::build()
     par->setPrefferedValueUnit();
     addParameter(par);
 
+    par = new Parameter(new Unit::Temperature(), id++, false);
+    par->setName("Critical Temperature");
+    par->setDisplayName(tr("Critical Temperature"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Temperature(), id++, false);
+    par->setName("Boiling Point");
+    par->setDisplayName(tr("Boiling Point"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
     par = new Parameter(new Unit::Density(), mid--);
     par->setName("Density");
     par->setDisplayName(tr("Density"));
@@ -74,6 +86,12 @@ void ParameterModel::build()
     par = new Parameter(new Unit::Viscosity(), mid--);
     par->setName("Viscosity");
     par->setDisplayName(tr("Viscosity"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Critical Pressure");
+    par->setDisplayName(tr("Critical Pressure"));
     par->setPrefferedValueUnit();
     addParameter(par);
 
@@ -226,6 +244,156 @@ void ParameterModel::build()
     par = new Parameter(new Unit::SpecificHeat(), id++);
     par->setName("Specific Heat");
     par->setDisplayName(tr("Specific Heat"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++);
+    par->setName("Material Property");
+    par->setDisplayName(tr("Material Property"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Tensile Stress");
+    par->setDisplayName(tr("Tensile Stress"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Tensile Stress X direction");
+    par->setDisplayName(tr("Tensile Stress X direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Tensile Stress Y direction");
+    par->setDisplayName(tr("Tensile Stress Y direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Tensile Stress Z direction");
+    par->setDisplayName(tr("Tensile Stress Z direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Compressive Stress");
+    par->setDisplayName(tr("Compressive Stress"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Compressive Stress X direction");
+    par->setDisplayName(tr("Compressive Stress X direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Compressive Stress Y direction");
+    par->setDisplayName(tr("Compressive Stress Y direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Compressive Stress Z direction");
+    par->setDisplayName(tr("Compressive Stress Z direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Shear Stress");
+    par->setDisplayName(tr("Shear Stress"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Shear Stress XY");
+    par->setDisplayName(tr("Shear Stress XY"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Shear Stress YZ");
+    par->setDisplayName(tr("Shear Stress YZ"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Pressure(), id++, false);
+    par->setName("Shear Stress XZ");
+    par->setDisplayName(tr("Shear Stress XZ"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Tensile Strain");
+    par->setDisplayName(tr("Tensile Strain"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Tensile Strain X direction");
+    par->setDisplayName(tr("Tensile Strain X direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Tensile Strain Y direction");
+    par->setDisplayName(tr("Tensile Strain Y direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Tensile Strain Z direction");
+    par->setDisplayName(tr("Tensile Strain Z direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Compressive Strain");
+    par->setDisplayName(tr("Compressive Strain"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Compressive Strain X direction");
+    par->setDisplayName(tr("Compressive Strain X direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Compressive Strain Y direction");
+    par->setDisplayName(tr("Compressive Strain Y direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Compressive Strain Z direction");
+    par->setDisplayName(tr("Compressive Strain Z direction"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Shear Strain");
+    par->setDisplayName(tr("Shear Strain"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Shear Strain XY");
+    par->setDisplayName(tr("Shear Strain XY"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Shear Strain YZ");
+    par->setDisplayName(tr("Shear Strain YZ"));
+    par->setPrefferedValueUnit();
+    addParameter(par);
+
+    par = new Parameter(new Unit::Unitless(), id++, false);
+    par->setName("Shear Strain XZ");
+    par->setDisplayName(tr("Shear Strain XZ"));
     par->setPrefferedValueUnit();
     addParameter(par);
 }

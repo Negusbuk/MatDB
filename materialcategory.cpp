@@ -21,6 +21,8 @@
 #include <QPixmap>
 #include <QPainter>
 
+#include <nqlogger.h>
+
 #include <materialcategory.h>
 
 QIcon* MaterialCategory::emptyIcon_ = 0;

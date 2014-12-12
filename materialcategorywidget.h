@@ -24,6 +24,7 @@
 #include <QWidget>
 #include <QListView>
 #include <QPushButton>
+#include <QEvent>
 
 #include <materialcategorymodel.h>
 
@@ -45,6 +46,8 @@ public slots:
     void categoryDoubleClicked(const QModelIndex& index);
 
 protected:
+
+    void changeEvent(QEvent *event);
 
     MaterialCategoryModel* categoryModel_;
     QListView* categories_;

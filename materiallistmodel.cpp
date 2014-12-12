@@ -282,6 +282,8 @@ void MaterialListModel::materialMetadataChanged(Material* material)
 
 void MaterialListModel::duplicateMaterial(Material* material)
 {
+    if (material==0) return;
+
     NQLog("MaterialListModel") << "void MaterialSelectionModel::duplicateMaterial() "
                                << material->getName();
 
@@ -291,6 +293,8 @@ void MaterialListModel::duplicateMaterial(Material* material)
 
 void MaterialListModel::deleteMaterial(Material* material)
 {
+    if (material==0) return;
+
     NQLog("MaterialListModel") << "void MaterialSelectionModel::deleteMaterial() "
                                << material->getName();
 
