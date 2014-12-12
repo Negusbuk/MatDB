@@ -99,7 +99,7 @@ signals:
     
 public slots:
     void materialChanged(Material* material);
-    void selectionChanged();
+    void selectedPropertyChanged();
     void parameterModified(Parameter* parameter);
     void propertyModified(Property* property);
 

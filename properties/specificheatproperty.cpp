@@ -30,7 +30,7 @@
 
 #include "specificheatproperty.h"
 
-SpecificHeatProperty::SpecificHeatProperty(PropertyModel *propmodel,
+SpecificHeatProperty::SpecificHeatProperty(PropertyModel * /* propmodel */,
                                            ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -52,7 +52,7 @@ SpecificHeatProperty::SpecificHeatProperty(const SpecificHeatProperty& property)
     setType(SpecificHeat);
     setBehavior(UnknownBehavior);
     const Parameter *par = property.getParameter("Specific Heat");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* SpecificHeatProperty::clone(PropertyModel *propmodel,

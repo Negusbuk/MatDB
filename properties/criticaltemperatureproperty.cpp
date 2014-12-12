@@ -30,7 +30,7 @@
 
 #include "criticaltemperatureproperty.h"
 
-CriticalTemperatureProperty::CriticalTemperatureProperty(PropertyModel *propmodel,
+CriticalTemperatureProperty::CriticalTemperatureProperty(PropertyModel * /* propmodel */,
                                                          ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -52,7 +52,7 @@ CriticalTemperatureProperty::CriticalTemperatureProperty(const CriticalTemperatu
     setType(CriticalTemperature);
     setBehavior(Isotropic);
     const Parameter *par = property.getParameter("Critical Temperature");
-    addParameter(par->clone());
+    addParameter(par->cloneWithData());
 }
 
 Property* CriticalTemperatureProperty::clone(PropertyModel* propmodel,

@@ -29,7 +29,7 @@
 
 #include <strainlimitsproperty.h>
 
-IsotropicStrainLimitsProperty::IsotropicStrainLimitsProperty(PropertyModel *propmodel,
+IsotropicStrainLimitsProperty::IsotropicStrainLimitsProperty(PropertyModel * /* propmodel */,
                                                          ParameterModel* paramodel, int id) :
     Property(id)
 {
@@ -56,11 +56,11 @@ IsotropicStrainLimitsProperty::IsotropicStrainLimitsProperty(const IsotropicStra
     setType(StrainLimits);
     setBehavior(Isotropic);
     const Parameter *par1 = property.getParameter("Tensile Strain");
-    addParameter(par1->clone());
+    addParameter(par1->cloneWithData());
     const Parameter *par2 = property.getParameter("Compressive Strain");
-    addParameter(par2->clone());
+    addParameter(par2->cloneWithData());
     const Parameter *par3 = property.getParameter("Shear Strain");
-    addParameter(par3->clone());
+    addParameter(par3->cloneWithData());
 }
 
 Property* IsotropicStrainLimitsProperty::clone(PropertyModel* propmodel,
@@ -103,9 +103,9 @@ Property* IsotropicStrainLimitsProperty::clone(PropertyModel* propmodel,
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void IsotropicStrainLimitsProperty::apply(PropertyData& data,
+void IsotropicStrainLimitsProperty::apply(PropertyData& /* data */,
                                         PropertyDetail& /* detail */,
-                                        std::map<QString,ParameterDetail> paramMap)
+                                        std::map<QString,ParameterDetail> /* paramMap */)
 {
     // std::cout << "IsotropicStrainLimitsProperty::apply" << std::endl;
 
@@ -184,7 +184,7 @@ void IsotropicStrainLimitsProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-void IsotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& stream)
+void IsotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& /* stream */)
 {
 //    Parameter * parE = getParameter("Young's Modulus");
 //    Parameter * parNu = getParameter("Poisson's Ratio");
@@ -278,8 +278,8 @@ void IsotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& stream)
 //    stream.writeEndElement(); // tr
 }
 
-OrthotropicStrainLimitsProperty::OrthotropicStrainLimitsProperty(PropertyModel* propmodel,
-                                                             ParameterModel* paramodel, int id) :
+OrthotropicStrainLimitsProperty::OrthotropicStrainLimitsProperty(PropertyModel* /* propmodel */,
+                                                                 ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Orthotropic Strain Limits");
@@ -317,23 +317,23 @@ OrthotropicStrainLimitsProperty::OrthotropicStrainLimitsProperty(const Orthotrop
     setType(StrainLimits);
     setBehavior(Orthotropic);
     const Parameter *par1x = property.getParameter("Tensile Strain X direction");
-    addParameter(par1x->clone());
+    addParameter(par1x->cloneWithData());
     const Parameter *par1y = property.getParameter("Tensile Strain Y direction");
     addParameter(par1y->clone());
     const Parameter *par1z = property.getParameter("Tensile Strain Z direction");
-    addParameter(par1z->clone());
+    addParameter(par1z->cloneWithData());
     const Parameter *par2xy = property.getParameter("Compressive Strain X direction");
-    addParameter(par2xy->clone());
+    addParameter(par2xy->cloneWithData());
     const Parameter *par2yz = property.getParameter("Compressive Strain Y direction");
-    addParameter(par2yz->clone());
+    addParameter(par2yz->cloneWithData());
     const Parameter *par2xz = property.getParameter("Compressive Strain Z direction");
-    addParameter(par2xz->clone());
+    addParameter(par2xz->cloneWithData());
     const Parameter *par3xy = property.getParameter("Shear Strain XY");
-    addParameter(par3xy->clone());
+    addParameter(par3xy->cloneWithData());
     const Parameter *par3yz = property.getParameter("Shear Strain YZ");
-    addParameter(par3yz->clone());
+    addParameter(par3yz->cloneWithData());
     const Parameter *par3xz = property.getParameter("Shear Strain XZ");
-    addParameter(par3xz->clone());
+    addParameter(par3xz->cloneWithData());
 }
 
 Property* OrthotropicStrainLimitsProperty::clone(PropertyModel* propmodel,
@@ -395,9 +395,9 @@ Property* OrthotropicStrainLimitsProperty::clone(PropertyModel* propmodel,
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void OrthotropicStrainLimitsProperty::apply(PropertyData& data,
-                                          PropertyDetail& detail,
-                                          std::map<QString,ParameterDetail> paramMap)
+void OrthotropicStrainLimitsProperty::apply(PropertyData& /* data */,
+                                          PropertyDetail& /* detail */ ,
+                                          std::map<QString,ParameterDetail> /* paramMap */)
 {
     // std::cout << "IsotropicStrainLimitsProperty::apply" << std::endl;
 
@@ -465,7 +465,7 @@ void OrthotropicStrainLimitsProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-void OrthotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& stream)
+void OrthotropicStrainLimitsProperty::writeHTML(QXmlStreamWriter& /* stream */)
 {
 //    Parameter * par;
 

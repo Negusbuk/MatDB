@@ -29,8 +29,8 @@
 
 #include <stresslimitsproperty.h>
 
-IsotropicStressLimitsProperty::IsotropicStressLimitsProperty(PropertyModel *propmodel,
-                                                         ParameterModel* paramodel, int id) :
+IsotropicStressLimitsProperty::IsotropicStressLimitsProperty(PropertyModel * /* propmodel */,
+                                                             ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Isotropic Stress Limits");
@@ -56,15 +56,15 @@ IsotropicStressLimitsProperty::IsotropicStressLimitsProperty(const IsotropicStre
     setType(StressLimits);
     setBehavior(Isotropic);
     const Parameter *par1 = property.getParameter("Tensile Stress");
-    addParameter(par1->clone());
+    addParameter(par1->cloneWithData());
     const Parameter *par2 = property.getParameter("Compressive Stress");
-    addParameter(par2->clone());
+    addParameter(par2->cloneWithData());
     const Parameter *par3 = property.getParameter("Shear Stress");
-    addParameter(par3->clone());
+    addParameter(par3->cloneWithData());
 }
 
 Property* IsotropicStressLimitsProperty::clone(PropertyModel* propmodel,
-                                             ParameterModel* paramodel)
+                                               ParameterModel* paramodel)
 {
     IsotropicStressLimitsProperty* prop;
     if (propmodel && paramodel) {
@@ -103,9 +103,9 @@ Property* IsotropicStressLimitsProperty::clone(PropertyModel* propmodel,
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void IsotropicStressLimitsProperty::apply(PropertyData& data,
+void IsotropicStressLimitsProperty::apply(PropertyData& /* data */,
                                         PropertyDetail& /* detail */,
-                                        std::map<QString,ParameterDetail> paramMap)
+                                        std::map<QString,ParameterDetail> /* paramMap */)
 {
     // std::cout << "IsotropicStressLimitsProperty::apply" << std::endl;
 
@@ -184,7 +184,7 @@ void IsotropicStressLimitsProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-void IsotropicStressLimitsProperty::writeHTML(QXmlStreamWriter& stream)
+void IsotropicStressLimitsProperty::writeHTML(QXmlStreamWriter& /* stream */)
 {
 //    Parameter * parE = getParameter("Young's Modulus");
 //    Parameter * parNu = getParameter("Poisson's Ratio");
@@ -278,8 +278,8 @@ void IsotropicStressLimitsProperty::writeHTML(QXmlStreamWriter& stream)
 //    stream.writeEndElement(); // tr
 }
 
-OrthotropicStressLimitsProperty::OrthotropicStressLimitsProperty(PropertyModel* propmodel,
-                                                             ParameterModel* paramodel, int id) :
+OrthotropicStressLimitsProperty::OrthotropicStressLimitsProperty(PropertyModel* /* propmodel */,
+                                                                 ParameterModel* paramodel, int id) :
     Property(id)
 {
     setName("Orthotropic Stress Limits");
@@ -317,27 +317,27 @@ OrthotropicStressLimitsProperty::OrthotropicStressLimitsProperty(const Orthotrop
     setType(StressLimits);
     setBehavior(Orthotropic);
     const Parameter *par1x = property.getParameter("Tensile Stress X direction");
-    addParameter(par1x->clone());
+    addParameter(par1x->cloneWithData());
     const Parameter *par1y = property.getParameter("Tensile Stress Y direction");
-    addParameter(par1y->clone());
+    addParameter(par1y->cloneWithData());
     const Parameter *par1z = property.getParameter("Tensile Stress Z direction");
-    addParameter(par1z->clone());
+    addParameter(par1z->cloneWithData());
     const Parameter *par2xy = property.getParameter("Compressive Stress X direction");
-    addParameter(par2xy->clone());
+    addParameter(par2xy->cloneWithData());
     const Parameter *par2yz = property.getParameter("Compressive Stress Y direction");
-    addParameter(par2yz->clone());
+    addParameter(par2yz->cloneWithData());
     const Parameter *par2xz = property.getParameter("Compressive Stress Z direction");
-    addParameter(par2xz->clone());
+    addParameter(par2xz->cloneWithData());
     const Parameter *par3xy = property.getParameter("Shear Stress XY");
-    addParameter(par3xy->clone());
+    addParameter(par3xy->cloneWithData());
     const Parameter *par3yz = property.getParameter("Shear Stress YZ");
-    addParameter(par3yz->clone());
+    addParameter(par3yz->cloneWithData());
     const Parameter *par3xz = property.getParameter("Shear Stress XZ");
-    addParameter(par3xz->clone());
+    addParameter(par3xz->cloneWithData());
 }
 
 Property* OrthotropicStressLimitsProperty::clone(PropertyModel* propmodel,
-                                               ParameterModel* paramodel)
+                                                 ParameterModel* paramodel)
 {
     OrthotropicStressLimitsProperty* prop;
     if (propmodel && paramodel) {
@@ -395,9 +395,9 @@ Property* OrthotropicStressLimitsProperty::clone(PropertyModel* propmodel,
 //    <Qualifier name="Variable Type">Independent</Qualifier>
 //  </ParameterValue>
 //</PropertyData>
-void OrthotropicStressLimitsProperty::apply(PropertyData& data,
-                                          PropertyDetail& detail,
-                                          std::map<QString,ParameterDetail> paramMap)
+void OrthotropicStressLimitsProperty::apply(PropertyData& /* data */,
+                                          PropertyDetail& /* detail */,
+                                          std::map<QString,ParameterDetail> /* paramMap */)
 {
     // std::cout << "IsotropicStressLimitsProperty::apply" << std::endl;
 
@@ -465,7 +465,7 @@ void OrthotropicStressLimitsProperty::writeXML(QXmlStreamWriter& stream)
     stream.writeEndElement();
 }
 
-void OrthotropicStressLimitsProperty::writeHTML(QXmlStreamWriter& stream)
+void OrthotropicStressLimitsProperty::writeHTML(QXmlStreamWriter& /* stream */)
 {
 //    Parameter * par;
 

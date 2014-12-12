@@ -198,7 +198,7 @@ MaterialPropertyView::MaterialPropertyView(MaterialListModel *listmodel,
             this, SLOT(propertyModified(Property*)));
 
     connect(this, SIGNAL(itemSelectionChanged()),
-            this, SLOT(selectionChanged()));
+            this, SLOT(selectedPropertyChanged()));
 
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
@@ -244,9 +244,9 @@ void MaterialPropertyView::materialChanged(Material* material)
     ParameterSelectionModel_->setSelection(NULL);
 }
 
-void MaterialPropertyView::selectionChanged()
+void MaterialPropertyView::selectedPropertyChanged()
 {
-    NQLog("MaterialPropertyView", NQLog::Spam) << "void selectionChanged()";
+    NQLog("MaterialPropertyView", NQLog::Spam) << "void selectedPropertyChanged()";
 
     QList<QTreeWidgetItem*> items = selectedItems();
     if (items.count()==1) {

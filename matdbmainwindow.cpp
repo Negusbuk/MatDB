@@ -142,8 +142,6 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     clayout->addWidget(MaterialTableView_);
     setCentralWidget(central);
 
-    QDockWidget *dock;
-
     propertyToolBoxDockWidget_ = new QDockWidget(tr("Property Collection"), this);
     propertyToolBoxDockWidget_->setAllowedAreas(Qt::LeftDockWidgetArea);
     propertyToolBoxDockWidget_->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
