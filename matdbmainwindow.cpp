@@ -287,7 +287,7 @@ void MatDBMainWindow::exportMaterialsHTML()
     NQLog("MatDBMainWindow", NQLog::Spam) << "void exportMaterialsHTML()";
 
     /*
-    QDir destination("/Users/mussgill/Desktop/");
+    QDir destination("/Users/mussgill/Desktop/MatDB");
     const std::vector<Material*>& selection = MaterialListModel_->getMaterials();
     HTMLWriter writer(selection,
                       PropertyModel_,
