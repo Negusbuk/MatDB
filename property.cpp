@@ -251,6 +251,7 @@ void Property::writeHTML(QXmlStreamWriter& stream)
         stream.writeStartElement("tr");
 
         stream.writeStartElement("td");
+        stream.writeAttribute("class", "MatDBParameterName");
         stream.writeCharacters("");
         stream.writeEndElement(); // td
 
