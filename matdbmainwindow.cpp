@@ -392,13 +392,13 @@ void MatDBMainWindow::saveData()
 
     MaterialListModel_->write(dbDir);
 
-    if (MaterialCategoryModel_->isModified()) {
+    //if (MaterialCategoryModel_->isModified()) {
         QFile ofileCat(dbDir.absoluteFilePath("Categories.xml"));
         if (ofileCat.open(QIODevice::WriteOnly)) {
             MaterialCategoryModel_->write(&ofileCat);
             ofileCat.close();
         }
-    }
+    //}
 }
 
 void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
