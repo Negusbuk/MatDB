@@ -253,13 +253,13 @@ void HTMLWriter::writeMaterialCloud(QXmlStreamWriter& stream, map_t& map, const 
 
         const MaterialCategory* category = (*it)->getCategory();
         if (category==0) {
-            colorString = "#000000;";
             bgcolorString = "#FFFFFF;";
+            colorString = "#000000;";
         } else {
 
             const QColor& c = category->getColor();
             QColor bg(255 - c.red(), 255 - c.green(), 255 - c.blue());
-            colorString = bg.name() + ";";
+            bgcolorString = bg.name() + ";";
 
             /*
             bgcolorString = "#FFFFFF;";
@@ -271,14 +271,14 @@ void HTMLWriter::writeMaterialCloud(QXmlStreamWriter& stream, map_t& map, const 
             NQLog("HTMLWriter", NQLog::Message) << "color " << category->getColor().lightnessF();
             */
 
-            bgcolorString = category->getColor().name() + ";";
+            colorString = category->getColor().name() + ";";
         }
 
         int fontsize = 10 + (maxLength-(*it)->getName().size())*8.0/maxLength;
 
         stream.writeStartElement("span");
         stream.writeAttribute("id", "button");
-        stream.writeAttribute("style", QString("background-color:") + bgcolorString);
+        //stream.writeAttribute("style", QString("background-color:") + bgcolorString);
         stream.writeStartElement("a");
         stream.writeAttribute("id", "float");
         stream.writeAttribute("style", QString("color:") + colorString +
@@ -342,11 +342,12 @@ void HTMLWriter::writeMaterial(Material* material, const QString& filename)
 
     stream.writeStartElement("td");
     if (material->getCategory()) {
-         stream.writeAttribute("bgcolor", material->getCategory()->getColor().name());
+        stream.writeAttribute("bgcolor", material->getCategory()->getColor().name());
     } else {
-        stream.writeAttribute("bgcolor", noCategory->getColor().name());
+        stream.writeAttribute("bgcolor", "#000000;");
     }
-    stream.writeAttribute("width", "40");
+    stream.writeAttribute("width", "50");
+    stream.writeAttribute("height", "50");
     stream.writeEndElement(); // td
 
     stream.writeStartElement("td");
