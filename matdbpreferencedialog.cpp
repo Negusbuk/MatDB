@@ -44,7 +44,7 @@ MatDBPreferenceDialog::MatDBPreferenceDialog(QWidget *parent) :
 #else
     setFixedWidth(500);
 #endif
-    setFixedHeight(400);
+    setFixedHeight(300);
 
     contentsWidget_ = new QListWidget;
     contentsWidget_->setViewMode(QListView::IconMode);
@@ -66,27 +66,28 @@ MatDBPreferenceDialog::MatDBPreferenceDialog(QWidget *parent) :
     QPushButton *cancelButton = new QPushButton(tr("Cancel"));
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
 
-    QHBoxLayout *horizontalLayout = new QHBoxLayout;
-    horizontalLayout->addWidget(contentsWidget_);
-    horizontalLayout->addWidget(pagesWidget_, 1);
-
     QHBoxLayout *buttonsLayout = new QHBoxLayout;
     buttonsLayout->addStretch(1);
     buttonsLayout->addWidget(okButton);
     buttonsLayout->addWidget(cancelButton);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addLayout(horizontalLayout);
-    mainLayout->addStretch(1);
-    mainLayout->addSpacing(12);
-    mainLayout->addLayout(buttonsLayout);
+    QVBoxLayout *verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(pagesWidget_, 1);
+    verticalLayout->addStretch(1);
+    verticalLayout->addSpacing(12);
+    verticalLayout->addLayout(buttonsLayout);
+
+    QHBoxLayout *mainLayout = new QHBoxLayout;
+    mainLayout->addWidget(contentsWidget_);
+    mainLayout->addLayout(verticalLayout);
+
     setLayout(mainLayout);
 }
 
 void MatDBPreferenceDialog::createIcons()
 {
     QListWidgetItem *configButton = new QListWidgetItem(contentsWidget_);
-    configButton->setIcon(QIcon(":/images/config.png"));
+    configButton->setIcon(QIcon(":/icons/MatDBPrefLanguage.png"));
     configButton->setText(tr("Language"));
     configButton->setTextAlignment(Qt::AlignHCenter);
     configButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
