@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.1" language="en_US">
 <context>
     <name>HTMLWriter</name>
     <message>
@@ -9,44 +9,48 @@
         <translation>.: MatDB Materialien :.</translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="188"/>
-        <location filename="../htmlwriter.cpp" line="360"/>
+        <location filename="../htmlwriter.cpp" line="139"/>
+        <location filename="../htmlwriter.cpp" line="455"/>
         <source>Generated on</source>
         <translation>Generiert am</translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="192"/>
-        <location filename="../htmlwriter.cpp" line="364"/>
         <source>by MatDB</source>
-        <translation>von MatDB</translation>
+        <translation type="vanished">von MatDB</translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="219"/>
+        <location filename="../htmlwriter.cpp" line="143"/>
+        <location filename="../htmlwriter.cpp" line="459"/>
+        <source>by</source>
+        <translation>von</translation>
+    </message>
+    <message>
+        <location filename="../htmlwriter.cpp" line="311"/>
         <source>.: MatDB Material - </source>
         <translation>.: MatDB Material - </translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="269"/>
+        <location filename="../htmlwriter.cpp" line="363"/>
         <source>back</source>
         <translation>zurück</translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="284"/>
+        <location filename="../htmlwriter.cpp" line="378"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="292"/>
+        <location filename="../htmlwriter.cpp" line="386"/>
         <source>Category</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="304"/>
+        <location filename="../htmlwriter.cpp" line="398"/>
         <source>Tags</source>
         <translation>Etiketten</translation>
     </message>
     <message>
-        <location filename="../htmlwriter.cpp" line="322"/>
+        <location filename="../htmlwriter.cpp" line="416"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
@@ -67,7 +71,7 @@
 <context>
     <name>LicensePage</name>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="106"/>
+        <location filename="../matdbaboutdialog.cpp" line="116"/>
         <source>License</source>
         <translation>Lizenz</translation>
     </message>
@@ -81,107 +85,107 @@
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="78"/>
-        <location filename="../matdbmainwindow.cpp" line="460"/>
+        <location filename="../matdbmainwindow.cpp" line="458"/>
         <source>Import XML</source>
         <translation>XML Datei importieren</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="83"/>
-        <location filename="../matdbmainwindow.cpp" line="461"/>
+        <location filename="../matdbmainwindow.cpp" line="459"/>
         <source>Add Isotropic Material</source>
         <translation>isotropes Material hinzufügen</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="87"/>
-        <location filename="../matdbmainwindow.cpp" line="462"/>
+        <location filename="../matdbmainwindow.cpp" line="460"/>
         <source>Add Orthotropic Material</source>
         <translation>orthotropes Material hinzufügen</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="91"/>
-        <location filename="../matdbmainwindow.cpp" line="463"/>
+        <location filename="../matdbmainwindow.cpp" line="461"/>
         <source>Add Liquid Material</source>
         <translation>Flüssigkeit hinzufügen</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="95"/>
-        <location filename="../matdbmainwindow.cpp" line="464"/>
+        <location filename="../matdbmainwindow.cpp" line="462"/>
         <source>Add Gaseous Material</source>
         <translation>Gas hinzufügen</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="102"/>
-        <location filename="../matdbmainwindow.cpp" line="433"/>
-        <location filename="../matdbmainwindow.cpp" line="467"/>
+        <location filename="../matdbmainwindow.cpp" line="431"/>
+        <location filename="../matdbmainwindow.cpp" line="465"/>
         <source>Hide Toolbox</source>
         <translation>Werkzeugkasten verstecken</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="108"/>
-        <location filename="../matdbmainwindow.cpp" line="444"/>
-        <location filename="../matdbmainwindow.cpp" line="473"/>
+        <location filename="../matdbmainwindow.cpp" line="442"/>
+        <location filename="../matdbmainwindow.cpp" line="471"/>
         <source>Hide Categories</source>
         <translation>Kategorien verstecken</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="115"/>
-        <location filename="../matdbmainwindow.cpp" line="478"/>
+        <location filename="../matdbmainwindow.cpp" line="476"/>
         <source>Export XML</source>
         <translation>als XML Datei exportieren</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="119"/>
-        <location filename="../matdbmainwindow.cpp" line="479"/>
+        <location filename="../matdbmainwindow.cpp" line="477"/>
         <source>Export HTML</source>
         <translation>als HTML exportieren</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="147"/>
-        <location filename="../matdbmainwindow.cpp" line="455"/>
+        <location filename="../matdbmainwindow.cpp" line="145"/>
+        <location filename="../matdbmainwindow.cpp" line="453"/>
         <source>Property Collection</source>
         <translation>Eigenschaftenkatalog</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="155"/>
-        <location filename="../matdbmainwindow.cpp" line="456"/>
+        <location filename="../matdbmainwindow.cpp" line="153"/>
+        <location filename="../matdbmainwindow.cpp" line="454"/>
         <source>Categories</source>
         <translation>Kategorien</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="163"/>
-        <location filename="../matdbmainwindow.cpp" line="457"/>
+        <location filename="../matdbmainwindow.cpp" line="161"/>
+        <location filename="../matdbmainwindow.cpp" line="455"/>
         <source>Properties</source>
         <translation>Eigenschaften</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="176"/>
-        <location filename="../matdbmainwindow.cpp" line="458"/>
+        <location filename="../matdbmainwindow.cpp" line="174"/>
+        <location filename="../matdbmainwindow.cpp" line="456"/>
         <source>Parameter</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="263"/>
-        <location filename="../matdbmainwindow.cpp" line="268"/>
-        <location filename="../matdbmainwindow.cpp" line="309"/>
-        <location filename="../matdbmainwindow.cpp" line="314"/>
+        <location filename="../matdbmainwindow.cpp" line="261"/>
+        <location filename="../matdbmainwindow.cpp" line="266"/>
+        <location filename="../matdbmainwindow.cpp" line="307"/>
+        <location filename="../matdbmainwindow.cpp" line="312"/>
         <source>Export Materials</source>
         <translation>Materialien exportieren</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="344"/>
-        <location filename="../matdbmainwindow.cpp" line="350"/>
+        <location filename="../matdbmainwindow.cpp" line="342"/>
+        <location filename="../matdbmainwindow.cpp" line="348"/>
         <source>Import Materials</source>
         <translation>Materialien importieren</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="436"/>
-        <location filename="../matdbmainwindow.cpp" line="469"/>
+        <location filename="../matdbmainwindow.cpp" line="434"/>
+        <location filename="../matdbmainwindow.cpp" line="467"/>
         <source>Show Toolbox</source>
         <translation>Werkzeugkasten zeigen</translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="447"/>
-        <location filename="../matdbmainwindow.cpp" line="475"/>
+        <location filename="../matdbmainwindow.cpp" line="445"/>
+        <location filename="../matdbmainwindow.cpp" line="473"/>
         <source>Show Categories</source>
         <translation>Kategorien zeigen</translation>
     </message>
@@ -212,12 +216,12 @@
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../materialcategoryeditdialog.cpp" line="54"/>
+        <location filename="../materialcategoryeditdialog.cpp" line="55"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../materialcategoryeditdialog.cpp" line="59"/>
+        <location filename="../materialcategoryeditdialog.cpp" line="60"/>
         <source>Cancel</source>
         <translation>Abbruch</translation>
     </message>
@@ -226,37 +230,37 @@
     <name>MaterialCategoryModel</name>
     <message>
         <location filename="../materialcategorymodel.cpp" line="34"/>
-        <location filename="../materialcategorymodel.cpp" line="324"/>
+        <location filename="../materialcategorymodel.cpp" line="326"/>
         <source>No Category</source>
         <translation>keine Kategorie</translation>
     </message>
     <message>
         <location filename="../materialcategorymodel.cpp" line="35"/>
-        <location filename="../materialcategorymodel.cpp" line="327"/>
+        <location filename="../materialcategorymodel.cpp" line="329"/>
         <source>Structural</source>
         <translation>Struktur</translation>
     </message>
     <message>
         <location filename="../materialcategorymodel.cpp" line="36"/>
-        <location filename="../materialcategorymodel.cpp" line="330"/>
+        <location filename="../materialcategorymodel.cpp" line="332"/>
         <source>Structural Core</source>
         <translation>Strukturkern</translation>
     </message>
     <message>
         <location filename="../materialcategorymodel.cpp" line="37"/>
-        <location filename="../materialcategorymodel.cpp" line="333"/>
+        <location filename="../materialcategorymodel.cpp" line="335"/>
         <source>Thermal Management</source>
         <translation>thermisches Management</translation>
     </message>
     <message>
         <location filename="../materialcategorymodel.cpp" line="38"/>
-        <location filename="../materialcategorymodel.cpp" line="336"/>
+        <location filename="../materialcategorymodel.cpp" line="338"/>
         <source>Glue</source>
         <translation>Kleber</translation>
     </message>
     <message>
         <location filename="../materialcategorymodel.cpp" line="39"/>
-        <location filename="../materialcategorymodel.cpp" line="339"/>
+        <location filename="../materialcategorymodel.cpp" line="341"/>
         <source>Elementary</source>
         <translation>Elementar</translation>
     </message>
@@ -413,12 +417,12 @@
         <translation>Material</translation>
     </message>
     <message>
-        <location filename="../materialtableview.cpp" line="79"/>
+        <location filename="../materialtableview.cpp" line="80"/>
         <source>Delete</source>
         <translation>löschen</translation>
     </message>
     <message>
-        <location filename="../materialtableview.cpp" line="81"/>
+        <location filename="../materialtableview.cpp" line="83"/>
         <source>Duplicate</source>
         <translation>duplizieren</translation>
     </message>
@@ -626,122 +630,122 @@
     <message>
         <location filename="../parametermodel.cpp" line="258"/>
         <source>Tensile Stress</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="264"/>
         <source>Tensile Stress X direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung X-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="270"/>
         <source>Tensile Stress Y direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung Y-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="276"/>
         <source>Tensile Stress Z direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung Z-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="282"/>
         <source>Compressive Stress</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="288"/>
         <source>Compressive Stress X direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung X-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="294"/>
         <source>Compressive Stress Y direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung Y-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="300"/>
         <source>Compressive Stress Z direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung Z-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="306"/>
         <source>Shear Stress</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubspannung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="312"/>
         <source>Shear Stress XY</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubspannung XY</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="318"/>
         <source>Shear Stress YZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubspannung YZ</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="324"/>
         <source>Shear Stress XZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Schubspannung XZ</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="330"/>
         <source>Tensile Strain</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="336"/>
         <source>Tensile Strain X direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung X-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="342"/>
         <source>Tensile Strain Y direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung Y-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="348"/>
         <source>Tensile Strain Z direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugspannung Z-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="354"/>
         <source>Compressive Strain</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="360"/>
         <source>Compressive Strain X direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung X-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="366"/>
         <source>Compressive Strain Y direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung Y-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="372"/>
         <source>Compressive Strain Z direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Druckspannung Z-Richtung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="378"/>
         <source>Shear Strain</source>
-        <translation type="unfinished"></translation>
+        <translation>Scherdehnung</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="384"/>
         <source>Shear Strain XY</source>
-        <translation type="unfinished"></translation>
+        <translation>Scherdehnung XY</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="390"/>
         <source>Shear Strain YZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Scherdehnung YZ</translation>
     </message>
     <message>
         <location filename="../parametermodel.cpp" line="396"/>
         <source>Shear Strain XZ</source>
-        <translation type="unfinished"></translation>
+        <translation>Scherdehnung XZ</translation>
     </message>
 </context>
 <context>
@@ -801,8 +805,8 @@
         <translation type="obsolete">Eigenschaften von Flüssigkeiten und Gasen</translation>
     </message>
     <message>
-        <location filename="../properties/densityproperty.cpp" line="37"/>
-        <location filename="../properties/densityproperty.cpp" line="49"/>
+        <location filename="../properties/densityproperty.cpp" line="38"/>
+        <location filename="../properties/densityproperty.cpp" line="50"/>
         <source>Density</source>
         <translation>Dichte</translation>
     </message>
@@ -873,8 +877,8 @@
         <translation>orthotrope Wärmeleitfähigkeit</translation>
     </message>
     <message>
-        <location filename="../properties/viscosityproperty.cpp" line="37"/>
-        <location filename="../properties/viscosityproperty.cpp" line="49"/>
+        <location filename="../properties/viscosityproperty.cpp" line="38"/>
+        <location filename="../properties/viscosityproperty.cpp" line="50"/>
         <source>Viscosity</source>
         <translation>Viskosität</translation>
     </message>
@@ -906,31 +910,31 @@
         <location filename="../properties/plytypeproperty.cpp" line="37"/>
         <location filename="../properties/plytypeproperty.cpp" line="50"/>
         <source>Ply Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagenart</translation>
     </message>
     <message>
         <location filename="../properties/strainlimitsproperty.cpp" line="37"/>
         <location filename="../properties/strainlimitsproperty.cpp" line="54"/>
         <source>Isotropic Strain Limits</source>
-        <translation type="unfinished"></translation>
+        <translation>isotrope Dehngrenze</translation>
     </message>
     <message>
         <location filename="../properties/strainlimitsproperty.cpp" line="286"/>
         <location filename="../properties/strainlimitsproperty.cpp" line="315"/>
         <source>Orthotropic Strain Limits</source>
-        <translation type="unfinished"></translation>
+        <translation>orthotrope Dehngrenze</translation>
     </message>
     <message>
         <location filename="../properties/stresslimitsproperty.cpp" line="37"/>
         <location filename="../properties/stresslimitsproperty.cpp" line="54"/>
         <source>Isotropic Stress Limits</source>
-        <translation type="unfinished"></translation>
+        <translation>isotrope Belastbarkeitsgrenze</translation>
     </message>
     <message>
         <location filename="../properties/stresslimitsproperty.cpp" line="286"/>
         <location filename="../properties/stresslimitsproperty.cpp" line="315"/>
         <source>Orthotropic Stress Limits</source>
-        <translation type="unfinished"></translation>
+        <translation>orthotrope Belastbarkeitsgrenze</translation>
     </message>
 </context>
 <context>
@@ -947,6 +951,16 @@
     </message>
     <message>
         <location filename="../matdbaboutdialog.cpp" line="83"/>
+        <source>tag</source>
+        <translation>Etikett</translation>
+    </message>
+    <message>
+        <location filename="../matdbaboutdialog.cpp" line="88"/>
+        <source>git version</source>
+        <translation>git Version</translation>
+    </message>
+    <message>
+        <location filename="../matdbaboutdialog.cpp" line="93"/>
         <source>Qt Version</source>
         <translation>Qt Version</translation>
     </message>
