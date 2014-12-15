@@ -7,7 +7,7 @@ qmake
 make clean
 rm -r MatDB.app
 make
-iconutil --convert icns MatDB.iconset
+iconutil --convert icns artwork/MatDB.iconset
 macdeployqt MatDB.app
 
 rm -rf MatDB
@@ -17,9 +17,9 @@ rm -f temp.dmg
 mkdir MatDB
 cp -r MatDB.app MatDB
 mkdir MatDB/.background
-cp MatDBBG.png MatDB/.background/MatDBBG.png
+cp artwork/MatDBBG.png MatDB/.background/MatDBBG.png
 
-hdiutil create -srcfolder "${source}" -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" -format UDRW -size 50M temp.dmg
+hdiutil create -srcfolder "${source}" -volname "${title}" -fs HFS+ -fsargs "-c c=64,a=16,e=16" -format UDRW -size 75M temp.dmg
 device=$(hdiutil attach -readwrite -noverify -noautoopen "temp.dmg" | egrep '^/dev/' | sed 1q | awk '{print $1}')
 
 echo '
@@ -51,4 +51,3 @@ hdiutil detach ${device}
 hdiutil convert "temp.dmg" -format UDZO -imagekey zlib-level=9 -o "${title}.dmg"
 rm -f temp.dmg
 rm -rf MatDB
-
