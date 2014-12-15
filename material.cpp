@@ -307,10 +307,7 @@ void Material::writeXML(QXmlStreamWriter& stream)
          it!=PropertiesSorted_.end();
          ++it) {
         Property *property = *it;
-
-        NQLog("Material", NQLog::Message) << "blah";
         property->writeXMLData(stream);
-        NQLog("Material", NQLog::Message) << "blah";
     }
 
     stream.writeEndElement();
