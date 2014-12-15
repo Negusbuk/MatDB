@@ -466,10 +466,8 @@ void Parameter::writeHTML(QXmlStreamWriter& stream)
             QString ts = "";
             if (pvalue.isTemperatureValid() && pvalue.isValueValid()) {
                 ts += pvalue.prettyTemperature();
-                if (idx==0) {
-                    ts += " ";
-                    ts += getTemperatureUnit()->currentUnitAsString();
-                }
+                ts += " ";
+                ts += getTemperatureUnit()->currentUnitAsString();
             }
             stream.writeStartElement("td");
             stream.writeAttribute("class", "MatDBValue");
@@ -481,7 +479,7 @@ void Parameter::writeHTML(QXmlStreamWriter& stream)
             QString vs = "";
             if (pvalue.isValueValid()) {
                 vs += pvalue.prettyValue();
-                if (idx==0 && getValueUnit()->currentUnitAsString()!="1") {
+                if (getValueUnit()->currentUnitAsString()!="1") {
                     vs += " ";
                     vs += getValueUnit()->currentUnitAsString();
                 }
@@ -497,6 +495,8 @@ void Parameter::writeHTML(QXmlStreamWriter& stream)
             stream.writeEndElement(); // td
 
             stream.writeEndElement(); // tr
+
+            ++idx;
         }
     }
 

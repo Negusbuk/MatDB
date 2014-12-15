@@ -42,6 +42,7 @@ MaterialCategoryEditDialog::MaterialCategoryEditDialog(QWidget *parent) :
     formLayout->addRow(tr("Name:"), nameEdit_);
 
     colorPicker_ = new NQColorWheel(widget);
+    colorPicker_->setMinimumS(0.5);
     layout->addWidget(colorPicker_);
 
     widget = new QWidget(this);

@@ -53,6 +53,11 @@ public slots:
 
 protected:
 
+    typedef std::map<MaterialCategory*,std::vector<Material*> > map_t;
+
+    void writeMaterialTable(QXmlStreamWriter& stream, map_t& map, const QDir& destination);
+    void writeMaterialCloud(QXmlStreamWriter& stream, map_t& map, const QDir& destination);
+
     void writeMaterial(Material*material, const QString& filename);
 
     const std::vector<Material*>& materials_;

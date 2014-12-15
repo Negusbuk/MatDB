@@ -84,14 +84,14 @@ MaterialImportDialog::MaterialImportDialog(MaterialListModel* model,
     buttons->setLayout(buttonLayout);
 
     QPushButton *button = new QPushButton(tr("Import"), buttons);
-    button->setFlat(true);
+    //button->setFlat(true);
     button->setDefault(false);
     connect(button, SIGNAL(clicked()),
             this, SLOT(buildSelectedMaterials()));
     buttonLayout->addWidget(button);
 
     button = new QPushButton(tr("Cancel"), buttons);
-    button->setFlat(true);
+    //button->setFlat(true);
     button->setDefault(false);
     connect(button, SIGNAL(clicked()),
             this, SLOT(reject()));
