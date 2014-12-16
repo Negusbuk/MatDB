@@ -256,7 +256,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     }
 
     if (settings.value("fullscreen", false).toBool()) {
-        toggleFullScreen();
+        QTimer::singleShot(500, this, SLOT(showFullScreen()));
     }
 }
 
@@ -462,12 +462,12 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
     saveData();
 
     QSettings settings;
-    settings.setValue("geometry", saveGeometry());
     settings.setValue("toolbox/hidden", (bool)propertyToolBoxDockWidget_->isHidden());
     settings.setValue("toolbox/size", propertyToolBoxDockWidget_->size());
     settings.setValue("categories/hidden", (bool)categoryDockWidget_->isHidden());
     settings.setValue("categories/size", categoryDockWidget_->size());
     settings.setValue("fullscreen", (bool)isFullScreen());
+    if (!isFullScreen()) settings.setValue("geometry", saveGeometry());
 
     NQLog("MatDBMainWindow", NQLog::Spam) << settings.fileName();
  }
@@ -598,7 +598,7 @@ void MatDBMainWindow::changeEvent(QEvent *event)
 
     } else if (event->type() == QEvent::WindowStateChange) {
 
-        QTimer::singleShot(500, this, SLOT(checkWindowState()));
+        QTimer::singleShot(250, this, SLOT(checkWindowState()));
 
     } else {
         QWidget::changeEvent(event);
