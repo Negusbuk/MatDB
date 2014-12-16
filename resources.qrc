@@ -19,7 +19,7 @@
         <file>html/header.html</file>
         <file>html/footer.html</file>
         <file>artwork/MatDBSplashScreen.png</file>
-        <file>artwork/MatDBBG.png</file>
+        <file>artwork/MatDBAbout.png</file>
         <file>LICENSE.html</file>
         <file>COPYRIGHT.html</file>
     </qresource>
