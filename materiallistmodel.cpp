@@ -70,11 +70,13 @@ void MaterialListModel::addMaterial(Material* material)
 
     emit materialListChanged(MaterialList_.size());
 
-    if (isFiltered_) {
-        filterChanged(currentFilters_, currentFilterLogic_);
-    } else {
-        emit materialCountChanged(getMaterialCount());
+    if (currentFilters_.size()>0) {
+        MaterialIndexer_->filter(currentFilters_, currentFilterLogic_, FilteredMaterialList_);
+        sortFiltered();
+        isFiltered_ = (currentFilters_.size()!=0);
     }
+
+    emit materialCountChanged(getMaterialCount());
 }
 
 void MaterialListModel::addMaterials(const std::vector<Material*>& materials)
@@ -102,11 +104,13 @@ void MaterialListModel::addMaterials(const std::vector<Material*>& materials)
 
     emit materialListChanged(MaterialList_.size());
 
-    if (isFiltered_) {
-        filterChanged(currentFilters_, currentFilterLogic_);
-    } else {
-        emit materialCountChanged(getMaterialCount());
+    if (currentFilters_.size()>0) {
+        MaterialIndexer_->filter(currentFilters_, currentFilterLogic_, FilteredMaterialList_);
+        sortFiltered();
+        isFiltered_ = (currentFilters_.size()!=0);
     }
+
+    emit materialCountChanged(getMaterialCount());
 }
 
 const std::vector<Material*>& MaterialListModel::getMaterials() const
@@ -126,6 +130,14 @@ Material* MaterialListModel::getMaterial(size_t idx)
         if (idx>=MaterialList_.size()) return 0;
         return MaterialList_[idx];
     }
+}
+
+Material* MaterialListModel::getUnfilteredMaterial(size_t idx)
+{
+    // NQLog("MaterialListModel", NQLog::Spam) << "void getMaterial(size_t idx) " << idx;
+
+    if (idx>=MaterialList_.size()) return 0;
+    return MaterialList_[idx];
 }
 
 void MaterialListModel::read(const QDir& dbDir,
@@ -249,13 +261,11 @@ void MaterialListModel::sort()
 
 void MaterialListModel::sortFiltered()
 {
-    if (isFiltered_) {
-        std::sort(FilteredMaterialList_.begin(), FilteredMaterialList_.end(),
-                  [](Material*lhs, Material*rhs) {
-            int result = QString::localeAwareCompare(lhs->getName(), rhs->getName());
-            return (result<0);
-        });
-    }
+    std::sort(FilteredMaterialList_.begin(), FilteredMaterialList_.end(),
+              [](Material*lhs, Material*rhs) {
+        int result = QString::localeAwareCompare(lhs->getName(), rhs->getName());
+        return (result<0);
+    });
 }
 
 Material* MaterialListModel::findMaterial(const QString& name)
@@ -323,12 +333,19 @@ void MaterialListModel::deleteMaterial(Material* material)
 
             modified_ = true;
 
-            emit materialListChanged(MaterialList_.size());
-            materialCountChanged(MaterialList_.size());
-
             break;
         }
     }
+
+    emit materialListChanged(MaterialList_.size());
+
+    if (currentFilters_.size()>0) {
+        MaterialIndexer_->filter(currentFilters_, currentFilterLogic_, FilteredMaterialList_);
+        sortFiltered();
+        isFiltered_ = (currentFilters_.size()!=0);
+    }
+
+    emit materialCountChanged(getMaterialCount());
 }
 
 void MaterialListModel::categoriesChanged()

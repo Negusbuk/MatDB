@@ -43,6 +43,7 @@ public:
     const std::vector<Material*>& getAllMaterials() const { return MaterialList_; }
     const std::vector<Material*>& getMaterials() const;
     Material* getMaterial(size_t idx);
+    Material* getUnfilteredMaterial(size_t idx);
     Material* findMaterial(const QString& name);
     void removeMaterial(Material* material);
 

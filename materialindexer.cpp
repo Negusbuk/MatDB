@@ -147,8 +147,6 @@ void MaterialIndexer::filter(const QStringList& filters, bool logic, std::vector
 
 void MaterialIndexer::materialCountChanged(int count)
 {
-    NQLog("MaterialIndexer", NQLog::Spam) << "void materialCountChanged(int count) " << count;
-
     if (count<materialMap_.size()) {
         materialMap_.clear();
         keyMap_.clear();
@@ -157,13 +155,16 @@ void MaterialIndexer::materialCountChanged(int count)
     std::string key;
     Material * material;
     for (int i=0;i<count;++i) {
-        material = ListModel_->getMaterial(i);
+
+        material = ListModel_->getUnfilteredMaterial(i);
 
         auto empMaterial = materialMap_.emplace(material, std::unordered_set<std::string>());
+
         auto itMaterial = empMaterial.first;
         std::unordered_set<std::string>& materialKeys = itMaterial->second;
 
         key = material->getName().toStdString();
+
         materialKeys.emplace(key);
         processKey(key, material);
 
