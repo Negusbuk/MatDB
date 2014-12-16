@@ -30,7 +30,8 @@ MaterialCategoryWidget::MaterialCategoryWidget(MaterialCategoryModel* categoryMo
     QWidget(parent),
     categoryModel_(categoryModel)
 {
-    setMinimumWidth(200);
+    setMinimumWidth(350);
+    setMaximumWidth(500);
     setMinimumHeight(200);
 
     QBoxLayout * layout = new QVBoxLayout();
