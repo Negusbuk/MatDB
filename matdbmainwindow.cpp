@@ -59,7 +59,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     menu->addAction(tr("about.*"), this, SLOT(aboutDialog()));
     menu->addAction(tr("preferences"), this, SLOT(preferenceDialog()));
 
-    menu = menuBar()->addMenu(tr("&File"));
+    menu = menuBar()->addMenu(tr("File"));
     importXMLMenuAction_ = menu->addAction(tr("Import XML File"), this, SLOT(importMaterials()));
     menu->addSeparator();
     addIsotropicMatMenuAction_ = menu->addAction(tr("Add Isotropic Material"), this, SLOT(addDefaultIsotropicMaterial()));
@@ -70,7 +70,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     exportXMLMenuAction_ = menu->addAction(tr("Export XML"), this, SLOT(exportMaterialsXML()));
     exportHTMLMenuAction_ = menu->addAction(tr("Export HTML"), this, SLOT(exportMaterialsHTML()));
 
-    menu = menuBar()->addMenu(tr("&Window"));
+    menu = menuBar()->addMenu(tr("Window"));
     togglePropertyToolBoxDockWidgetMenuAction_ = menu->addAction(tr("Toolbox"),
                                                                  this,
                                                                  SLOT(togglePropertyToolBoxDockWidgetMenu()));
