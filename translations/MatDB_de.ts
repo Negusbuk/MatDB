@@ -58,12 +58,12 @@
 <context>
     <name>LanguagePage</name>
     <message>
-        <location filename="../matdbpreferencedialog.cpp" line="130"/>
+        <location filename="../matdbpreferencedialog.cpp" line="131"/>
         <source>Language:</source>
         <translation>Sprache:</translation>
     </message>
     <message>
-        <location filename="../matdbpreferencedialog.cpp" line="132"/>
+        <location filename="../matdbpreferencedialog.cpp" line="133"/>
         <source>System default</source>
         <translation>Systemsprache</translation>
     </message>
@@ -82,6 +82,16 @@
         <location filename="../matdbmainwindow.cpp" line="57"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="58"/>
+        <source>about.*</source>
+        <translation>über</translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="59"/>
+        <source>preferences</source>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../matdbmainwindow.cpp" line="78"/>
@@ -203,7 +213,7 @@
         <translation>Abbruch</translation>
     </message>
     <message>
-        <location filename="../matdbpreferencedialog.cpp" line="90"/>
+        <location filename="../matdbpreferencedialog.cpp" line="91"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>

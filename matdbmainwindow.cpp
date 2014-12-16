@@ -55,8 +55,8 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QMenuBar *menubar = new QMenuBar(0);
     setMenuBar(menubar);
     QMenu * menu = menuBar()->addMenu(tr("&File"));
-    menu->addAction("about.*", this, SLOT(aboutDialog()));
-    menu->addAction("config", this, SLOT(preferenceDialog()));
+    menu->addAction(tr("about.*"), this, SLOT(aboutDialog()));
+    menu->addAction(tr("preferences"), this, SLOT(preferenceDialog()));
 
     MaterialCategoryModel_ = new MaterialCategoryModel(this);
     ParameterModel_ = new ParameterModel(this);
