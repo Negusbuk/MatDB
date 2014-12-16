@@ -67,7 +67,7 @@
 <context>
     <name>LicensePage</name>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="116"/>
+        <location filename="../matdbaboutdialog.cpp" line="113"/>
         <source>License</source>
         <translation></translation>
     </message>
@@ -75,123 +75,173 @@
 <context>
     <name>MatDBMainWindow</name>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="57"/>
-        <source>&amp;File</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../matdbmainwindow.cpp" line="58"/>
+        <location filename="../matdbmainwindow.cpp" line="59"/>
         <source>about.*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="59"/>
+        <location filename="../matdbmainwindow.cpp" line="60"/>
         <source>preferences</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="78"/>
-        <location filename="../matdbmainwindow.cpp" line="458"/>
+        <location filename="../matdbmainwindow.cpp" line="550"/>
+        <location filename="../matdbmainwindow.cpp" line="613"/>
+        <source>Exit Full Screen</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="563"/>
+        <location filename="../matdbmainwindow.cpp" line="569"/>
         <source>Import XML</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="83"/>
-        <location filename="../matdbmainwindow.cpp" line="459"/>
+        <location filename="../matdbmainwindow.cpp" line="65"/>
+        <location filename="../matdbmainwindow.cpp" line="111"/>
+        <location filename="../matdbmainwindow.cpp" line="564"/>
+        <location filename="../matdbmainwindow.cpp" line="570"/>
         <source>Add Isotropic Material</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="87"/>
-        <location filename="../matdbmainwindow.cpp" line="460"/>
+        <location filename="../matdbmainwindow.cpp" line="62"/>
+        <source>File</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="63"/>
+        <location filename="../matdbmainwindow.cpp" line="106"/>
+        <source>Import XML File</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="66"/>
+        <location filename="../matdbmainwindow.cpp" line="115"/>
+        <location filename="../matdbmainwindow.cpp" line="565"/>
+        <location filename="../matdbmainwindow.cpp" line="571"/>
         <source>Add Orthotropic Material</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="91"/>
-        <location filename="../matdbmainwindow.cpp" line="461"/>
+        <location filename="../matdbmainwindow.cpp" line="67"/>
+        <location filename="../matdbmainwindow.cpp" line="119"/>
+        <location filename="../matdbmainwindow.cpp" line="566"/>
+        <location filename="../matdbmainwindow.cpp" line="572"/>
         <source>Add Liquid Material</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="95"/>
-        <location filename="../matdbmainwindow.cpp" line="462"/>
+        <location filename="../matdbmainwindow.cpp" line="68"/>
+        <location filename="../matdbmainwindow.cpp" line="123"/>
+        <location filename="../matdbmainwindow.cpp" line="567"/>
+        <location filename="../matdbmainwindow.cpp" line="573"/>
         <source>Add Gaseous Material</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="102"/>
-        <location filename="../matdbmainwindow.cpp" line="431"/>
-        <location filename="../matdbmainwindow.cpp" line="465"/>
+        <location filename="../matdbmainwindow.cpp" line="74"/>
+        <location filename="../matdbmainwindow.cpp" line="580"/>
+        <source>Toolbox</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="85"/>
+        <location filename="../matdbmainwindow.cpp" line="547"/>
+        <location filename="../matdbmainwindow.cpp" line="611"/>
+        <source>Enter Full Screen</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="130"/>
+        <location filename="../matdbmainwindow.cpp" line="495"/>
+        <location filename="../matdbmainwindow.cpp" line="508"/>
+        <location filename="../matdbmainwindow.cpp" line="576"/>
         <source>Hide Toolbox</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="108"/>
-        <location filename="../matdbmainwindow.cpp" line="442"/>
-        <location filename="../matdbmainwindow.cpp" line="471"/>
+        <location filename="../matdbmainwindow.cpp" line="136"/>
+        <location filename="../matdbmainwindow.cpp" line="521"/>
+        <location filename="../matdbmainwindow.cpp" line="534"/>
+        <location filename="../matdbmainwindow.cpp" line="583"/>
         <source>Hide Categories</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="115"/>
-        <location filename="../matdbmainwindow.cpp" line="476"/>
+        <location filename="../matdbmainwindow.cpp" line="70"/>
+        <location filename="../matdbmainwindow.cpp" line="143"/>
+        <location filename="../matdbmainwindow.cpp" line="589"/>
+        <location filename="../matdbmainwindow.cpp" line="592"/>
         <source>Export XML</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="119"/>
-        <location filename="../matdbmainwindow.cpp" line="477"/>
+        <location filename="../matdbmainwindow.cpp" line="71"/>
+        <location filename="../matdbmainwindow.cpp" line="147"/>
+        <location filename="../matdbmainwindow.cpp" line="590"/>
+        <location filename="../matdbmainwindow.cpp" line="593"/>
         <source>Export HTML</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="145"/>
-        <location filename="../matdbmainwindow.cpp" line="453"/>
+        <location filename="../matdbmainwindow.cpp" line="173"/>
+        <location filename="../matdbmainwindow.cpp" line="558"/>
         <source>Property Collection</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="153"/>
-        <location filename="../matdbmainwindow.cpp" line="454"/>
+        <location filename="../matdbmainwindow.cpp" line="79"/>
+        <location filename="../matdbmainwindow.cpp" line="181"/>
+        <location filename="../matdbmainwindow.cpp" line="559"/>
+        <location filename="../matdbmainwindow.cpp" line="587"/>
         <source>Categories</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="161"/>
-        <location filename="../matdbmainwindow.cpp" line="455"/>
+        <location filename="../matdbmainwindow.cpp" line="73"/>
+        <source>Window</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../matdbmainwindow.cpp" line="189"/>
+        <location filename="../matdbmainwindow.cpp" line="560"/>
         <source>Properties</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="174"/>
-        <location filename="../matdbmainwindow.cpp" line="456"/>
+        <location filename="../matdbmainwindow.cpp" line="202"/>
+        <location filename="../matdbmainwindow.cpp" line="561"/>
         <source>Parameter</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="261"/>
-        <location filename="../matdbmainwindow.cpp" line="266"/>
-        <location filename="../matdbmainwindow.cpp" line="307"/>
-        <location filename="../matdbmainwindow.cpp" line="312"/>
+        <location filename="../matdbmainwindow.cpp" line="315"/>
+        <location filename="../matdbmainwindow.cpp" line="320"/>
+        <location filename="../matdbmainwindow.cpp" line="361"/>
+        <location filename="../matdbmainwindow.cpp" line="366"/>
         <source>Export Materials</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="342"/>
-        <location filename="../matdbmainwindow.cpp" line="348"/>
+        <location filename="../matdbmainwindow.cpp" line="396"/>
+        <location filename="../matdbmainwindow.cpp" line="402"/>
         <source>Import Materials</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="434"/>
-        <location filename="../matdbmainwindow.cpp" line="467"/>
+        <location filename="../matdbmainwindow.cpp" line="243"/>
+        <location filename="../matdbmainwindow.cpp" line="499"/>
+        <location filename="../matdbmainwindow.cpp" line="512"/>
+        <location filename="../matdbmainwindow.cpp" line="578"/>
         <source>Show Toolbox</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbmainwindow.cpp" line="445"/>
-        <location filename="../matdbmainwindow.cpp" line="473"/>
+        <location filename="../matdbmainwindow.cpp" line="253"/>
+        <location filename="../matdbmainwindow.cpp" line="525"/>
+        <location filename="../matdbmainwindow.cpp" line="538"/>
+        <location filename="../matdbmainwindow.cpp" line="585"/>
         <source>Show Categories</source>
         <translation></translation>
     </message>
@@ -274,8 +324,8 @@
 <context>
     <name>MaterialCategoryWidget</name>
     <message>
-        <location filename="../materialcategorywidget.cpp" line="84"/>
         <location filename="../materialcategorywidget.cpp" line="85"/>
+        <location filename="../materialcategorywidget.cpp" line="86"/>
         <source>New Category</source>
         <translation></translation>
     </message>
@@ -903,27 +953,27 @@
 <context>
     <name>VersionPage</name>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="66"/>
+        <location filename="../matdbaboutdialog.cpp" line="63"/>
         <source>Version</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="78"/>
+        <location filename="../matdbaboutdialog.cpp" line="75"/>
         <source>MatDB Version</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="83"/>
+        <location filename="../matdbaboutdialog.cpp" line="80"/>
         <source>tag</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="88"/>
+        <location filename="../matdbaboutdialog.cpp" line="85"/>
         <source>git version</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../matdbaboutdialog.cpp" line="93"/>
+        <location filename="../matdbaboutdialog.cpp" line="90"/>
         <source>Qt Version</source>
         <translation></translation>
     </message>
