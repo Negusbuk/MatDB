@@ -56,8 +56,11 @@ public slots:
     void importMaterials();
     void exportMaterialsXML();
     void exportMaterialsHTML();
-    void togglePropertyToolBoxDockWidget();
-    void toggleCategoryDockWidget();
+    void togglePropertyToolBoxDockWidgetButton();
+    void togglePropertyToolBoxDockWidgetMenu();
+    void toggleCategoryDockWidgetButton();
+    void toggleCategoryDockWidgetMenu();
+    void toggleFullScreen();
     void aboutDialog();
     void preferenceDialog();
 
@@ -67,6 +70,10 @@ public slots:
     void addDefaultGaseousMaterial();
 
     void saveData();
+
+protected slots:
+
+    void checkWindowState();
 
 protected:
 
@@ -85,20 +92,30 @@ protected:
     PropertyToolBox* PropertyToolBox_;
 
     QAction* importXMLAction_;
+    QAction* importXMLMenuAction_;
     QAction* addIsotropicMatAction_;
+    QAction* addIsotropicMatMenuAction_;
     QAction* addOrthotropicMatAction_;
+    QAction* addOrthotropicMatMenuAction_;
     QAction* addLiquidMatAction_;
+    QAction* addLiquidMatMenuAction_;
     QAction* addGaseousMatAction_;
+    QAction* addGaseousMatMenuAction_;
 
-    QAction* togglePropertyToolBoxDockWidgetAction_;
+    QAction* togglePropertyToolBoxDockWidgetButtonAction_;
+    QAction* togglePropertyToolBoxDockWidgetMenuAction_;
     QDockWidget* propertyToolBoxDockWidget_;
-    QAction* toggleCategoryDockWidgetAction_;
+    QAction* toggleCategoryDockWidgetButtonAction_;
+    QAction* toggleCategoryDockWidgetMenuAction_;
+    QAction* toggleFullScreenAction_;
     QDockWidget* categoryDockWidget_;
     QDockWidget* propertiesDockWidget_;
     QDockWidget* parameterDockWidget_;
 
     QAction* exportXMLAction_;
+    QAction* exportXMLMenuAction_;
     QAction* exportHTMLAction_;
+    QAction* exportHTMLMenuAction_;
 
     MaterialListModel* MaterialListModel_;
     MaterialCategoryModel* MaterialCategoryModel_;

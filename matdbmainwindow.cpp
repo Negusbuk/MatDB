@@ -55,9 +55,36 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
 {
     QMenuBar *menubar = new QMenuBar(0);
     setMenuBar(menubar);
-    QMenu * menu = menuBar()->addMenu(tr("&File"));
+    QMenu * menu = menuBar()->addMenu("MatDB");
     menu->addAction(tr("about.*"), this, SLOT(aboutDialog()));
     menu->addAction(tr("preferences"), this, SLOT(preferenceDialog()));
+
+    menu = menuBar()->addMenu(tr("&File"));
+    importXMLMenuAction_ = menu->addAction(tr("Import XML File"), this, SLOT(importMaterials()));
+    menu->addSeparator();
+    addIsotropicMatMenuAction_ = menu->addAction(tr("Add Isotropic Material"), this, SLOT(addDefaultIsotropicMaterial()));
+    addOrthotropicMatAction_ = menu->addAction(tr("Add Orthotropic Material"), this, SLOT(addDefaultOrthotropicMaterial()));
+    addLiquidMatMenuAction_ = menu->addAction(tr("Add Liquid Material"), this, SLOT(addDefaultLiquidMaterial()));
+    addGaseousMatMenuAction_ = menu->addAction(tr("Add Gaseous Material"), this, SLOT(addDefaultGaseousMaterial()));
+    menu->addSeparator();
+    exportXMLMenuAction_ = menu->addAction(tr("Export XML"), this, SLOT(exportMaterialsXML()));
+    exportHTMLMenuAction_ = menu->addAction(tr("Export HTML"), this, SLOT(exportMaterialsHTML()));
+
+    menu = menuBar()->addMenu(tr("&Window"));
+    togglePropertyToolBoxDockWidgetMenuAction_ = menu->addAction(tr("Toolbox"),
+                                                                 this,
+                                                                 SLOT(togglePropertyToolBoxDockWidgetMenu()));
+    togglePropertyToolBoxDockWidgetMenuAction_->setCheckable(true);
+    togglePropertyToolBoxDockWidgetMenuAction_->setChecked(true);
+    toggleCategoryDockWidgetMenuAction_ = menu->addAction(tr("Categories"),
+                                                          this,
+                                                          SLOT(toggleCategoryDockWidgetMenu()));
+    toggleCategoryDockWidgetMenuAction_->setCheckable(true);
+    toggleCategoryDockWidgetMenuAction_->setChecked(true);
+    menu->addSeparator();
+    toggleFullScreenAction_ = menu->addAction(tr("Enter Full Screen"),
+                                              this,
+                                              SLOT(toggleFullScreen()));
 
     MaterialCategoryModel_ = new MaterialCategoryModel(this);
     ParameterModel_ = new ParameterModel(this);
@@ -76,7 +103,7 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
 
     ToolBar_ = addToolBar("ToolBar");
     importXMLAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBImportXML.png"),
-                                           tr("Import XML"),
+                                           tr("Import XML File"),
                                            this,
                                            SLOT(importMaterials()));
     ToolBar_->addSeparator();
@@ -99,18 +126,18 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     QWidget* stretch = new QWidget(ToolBar_);
     stretch->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     ToolBar_->addWidget(stretch);
-    togglePropertyToolBoxDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBPropertyToolBox.png"),
-                                                                 tr("Hide Toolbox"),
-                                                                 this,
-                                                                 SLOT(togglePropertyToolBoxDockWidget()));
-    togglePropertyToolBoxDockWidgetAction_->setCheckable(true);
-    togglePropertyToolBoxDockWidgetAction_->setChecked(true);
-    toggleCategoryDockWidgetAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBCategories.png"),
-                                                          tr("Hide Categories"),
-                                                          this,
-                                                          SLOT(toggleCategoryDockWidget()));
-    toggleCategoryDockWidgetAction_->setCheckable(true);
-    toggleCategoryDockWidgetAction_->setChecked(true);
+    togglePropertyToolBoxDockWidgetButtonAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBPropertyToolBox.png"),
+                                                                       tr("Hide Toolbox"),
+                                                                       this,
+                                                                       SLOT(togglePropertyToolBoxDockWidgetButton()));
+    togglePropertyToolBoxDockWidgetButtonAction_->setCheckable(true);
+    togglePropertyToolBoxDockWidgetButtonAction_->setChecked(true);
+    toggleCategoryDockWidgetButtonAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBCategories.png"),
+                                                                tr("Hide Categories"),
+                                                                this,
+                                                                SLOT(toggleCategoryDockWidgetButton()));
+    toggleCategoryDockWidgetButtonAction_->setCheckable(true);
+    toggleCategoryDockWidgetButtonAction_->setChecked(true);
     ToolBar_->addSeparator();
     exportXMLAction_ = ToolBar_->addAction(QIcon(":/icons/MatDBExportXML.png"),
                                            tr("Export XML"),
@@ -207,6 +234,30 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     restoreGeometry(settings.value("geometry").toByteArray());
 
     updateGeometry();
+
+    QSize size = settings.value("toolbox/size", propertyToolBoxDockWidget_->minimumSize()).toSize();
+    propertyToolBoxDockWidget_->resize(size);
+    bool toolboxHidden = settings.value("toolbox/hidden", false).toBool();
+    if (toolboxHidden) {
+        propertyToolBoxDockWidget_->hide();
+        togglePropertyToolBoxDockWidgetButtonAction_->setText(tr("Show Toolbox"));
+        togglePropertyToolBoxDockWidgetButtonAction_->setChecked(false);
+        togglePropertyToolBoxDockWidgetMenuAction_->setChecked(false);
+    }
+
+    size = settings.value("categories/size", categoryDockWidget_->minimumSize()).toSize();
+    categoryDockWidget_->resize(size);
+    bool categoriesHidden = settings.value("categories/hidden", false).toBool();
+    if (categoriesHidden) {
+        categoryDockWidget_->hide();
+        toggleCategoryDockWidgetButtonAction_->setText(tr("Show Categories"));
+        toggleCategoryDockWidgetButtonAction_->setChecked(false);
+        toggleCategoryDockWidgetMenuAction_->setChecked(false);
+    }
+
+    if (settings.value("fullscreen", false).toBool()) {
+        toggleFullScreen();
+    }
 }
 
 MatDBMainWindow::~MatDBMainWindow()
@@ -412,7 +463,11 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
 
     QSettings settings;
     settings.setValue("geometry", saveGeometry());
-    // settings.setValue("windowState", saveState());
+    settings.setValue("toolbox/hidden", (bool)propertyToolBoxDockWidget_->isHidden());
+    settings.setValue("toolbox/size", propertyToolBoxDockWidget_->size());
+    settings.setValue("categories/hidden", (bool)categoryDockWidget_->isHidden());
+    settings.setValue("categories/size", categoryDockWidget_->size());
+    settings.setValue("fullscreen", (bool)isFullScreen());
 
     NQLog("MatDBMainWindow", NQLog::Spam) << settings.fileName();
  }
@@ -433,25 +488,66 @@ void MatDBMainWindow::preferenceDialog()
     dialog.exec();
 }
 
-void MatDBMainWindow::togglePropertyToolBoxDockWidget()
+void MatDBMainWindow::togglePropertyToolBoxDockWidgetButton()
 {
-    if (togglePropertyToolBoxDockWidgetAction_->isChecked()) {
+    if (togglePropertyToolBoxDockWidgetButtonAction_->isChecked()) {
         propertyToolBoxDockWidget_->show();
-        togglePropertyToolBoxDockWidgetAction_->setText(tr("Hide Toolbox"));
+        togglePropertyToolBoxDockWidgetButtonAction_->setText(tr("Hide Toolbox"));
+        togglePropertyToolBoxDockWidgetMenuAction_->setChecked(true);
     } else {
         propertyToolBoxDockWidget_->hide();
-        togglePropertyToolBoxDockWidgetAction_->setText(tr("Show Toolbox"));
+        togglePropertyToolBoxDockWidgetButtonAction_->setText(tr("Show Toolbox"));
+        togglePropertyToolBoxDockWidgetMenuAction_->setChecked(false);
     }
 }
 
-void MatDBMainWindow::toggleCategoryDockWidget()
+void MatDBMainWindow::togglePropertyToolBoxDockWidgetMenu()
 {
-    if (toggleCategoryDockWidgetAction_->isChecked()) {
+    if (togglePropertyToolBoxDockWidgetMenuAction_->isChecked()) {
+        propertyToolBoxDockWidget_->show();
+        togglePropertyToolBoxDockWidgetButtonAction_->setText(tr("Hide Toolbox"));
+        togglePropertyToolBoxDockWidgetButtonAction_->setChecked(true);
+    } else {
+        propertyToolBoxDockWidget_->hide();
+        togglePropertyToolBoxDockWidgetButtonAction_->setText(tr("Show Toolbox"));
+        togglePropertyToolBoxDockWidgetButtonAction_->setChecked(false);
+    }
+}
+
+void MatDBMainWindow::toggleCategoryDockWidgetButton()
+{
+    if (toggleCategoryDockWidgetButtonAction_->isChecked()) {
         categoryDockWidget_->show();
-        toggleCategoryDockWidgetAction_->setText(tr("Hide Categories"));
+        toggleCategoryDockWidgetButtonAction_->setText(tr("Hide Categories"));
+        toggleCategoryDockWidgetMenuAction_->setChecked(true);
     } else {
         categoryDockWidget_->hide();
-        toggleCategoryDockWidgetAction_->setText(tr("Show Categories"));
+        toggleCategoryDockWidgetButtonAction_->setText(tr("Show Categories"));
+        toggleCategoryDockWidgetMenuAction_->setChecked(false);
+    }
+}
+
+void MatDBMainWindow::toggleCategoryDockWidgetMenu()
+{
+    if (toggleCategoryDockWidgetMenuAction_->isChecked()) {
+        categoryDockWidget_->show();
+        toggleCategoryDockWidgetButtonAction_->setText(tr("Hide Categories"));
+        toggleCategoryDockWidgetButtonAction_->setChecked(true);
+    } else {
+        categoryDockWidget_->hide();
+        toggleCategoryDockWidgetButtonAction_->setText(tr("Show Categories"));
+        toggleCategoryDockWidgetButtonAction_->setChecked(false);
+    }
+}
+
+void MatDBMainWindow::toggleFullScreen()
+{
+    if (isFullScreen()) {
+        showNormal();
+        toggleFullScreenAction_->setText(tr("Enter Full Screen"));
+    } else {
+        showFullScreen();
+        toggleFullScreenAction_->setText(tr("Exit Full Screen"));
     }
 }
 
@@ -464,30 +560,56 @@ void MatDBMainWindow::changeEvent(QEvent *event)
         propertiesDockWidget_->setWindowTitle(tr("Properties"));
         parameterDockWidget_->setWindowTitle(tr("Parameter"));
 
+        importXMLMenuAction_->setText(tr("Import XML"));
+        addIsotropicMatMenuAction_->setText(tr("Add Isotropic Material"));
+        addOrthotropicMatMenuAction_->setText(tr("Add Orthotropic Material"));
+        addLiquidMatMenuAction_->setText(tr("Add Liquid Material"));
+        addGaseousMatMenuAction_->setText(tr("Add Gaseous Material"));
+
         importXMLAction_->setText(tr("Import XML"));
         addIsotropicMatAction_->setText(tr("Add Isotropic Material"));
         addOrthotropicMatAction_->setText(tr("Add Orthotropic Material"));
         addLiquidMatAction_->setText(tr("Add Liquid Material"));
         addGaseousMatAction_->setText(tr("Add Gaseous Material"));
 
-        if (togglePropertyToolBoxDockWidgetAction_->isChecked()) {
-            togglePropertyToolBoxDockWidgetAction_->setText(tr("Hide Toolbox"));
+        if (togglePropertyToolBoxDockWidgetButtonAction_->isChecked()) {
+            togglePropertyToolBoxDockWidgetButtonAction_->setText(tr("Hide Toolbox"));
         } else {
-            togglePropertyToolBoxDockWidgetAction_->setText(tr("Show Toolbox"));
+            togglePropertyToolBoxDockWidgetButtonAction_->setText(tr("Show Toolbox"));
         }
+        togglePropertyToolBoxDockWidgetMenuAction_->setText(tr("Toolbox"));
 
-        if (toggleCategoryDockWidgetAction_->isChecked()) {
-            toggleCategoryDockWidgetAction_->setText(tr("Hide Categories"));
+        if (toggleCategoryDockWidgetButtonAction_->isChecked()) {
+            toggleCategoryDockWidgetButtonAction_->setText(tr("Hide Categories"));
         } else {
-            toggleCategoryDockWidgetAction_->setText(tr("Show Categories"));
+            toggleCategoryDockWidgetButtonAction_->setText(tr("Show Categories"));
         }
+        toggleCategoryDockWidgetMenuAction_->setText(tr("Categories"));
+
+        exportXMLMenuAction_->setText(tr("Export XML"));
+        exportHTMLMenuAction_->setText(tr("Export HTML"));
 
         exportXMLAction_->setText(tr("Export XML"));
         exportHTMLAction_->setText(tr("Export HTML"));
 
+        checkWindowState();
+
         MaterialCategoryModel_->changeEvent(event);
+
+    } else if (event->type() == QEvent::WindowStateChange) {
+
+        QTimer::singleShot(500, this, SLOT(checkWindowState()));
 
     } else {
         QWidget::changeEvent(event);
+    }
+}
+
+void MatDBMainWindow::checkWindowState()
+{
+    if (!isFullScreen()) {
+        toggleFullScreenAction_->setText(tr("Enter Full Screen"));
+    } else {
+        toggleFullScreenAction_->setText(tr("Exit Full Screen"));
     }
 }
