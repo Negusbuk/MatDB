@@ -476,12 +476,44 @@ ThermalConductivity::ThermalConductivity() :
                return 1.e-3*value;
             });
 
+    addUnit("kW m^-1 K^-1", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return 1.e3*value;
+            },
+            [&] (double value) {
+               return 1.e-3*value;
+            });
+
+    addUnit("kW m^-1 C^-1", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return 1.e3*value;
+            },
+            [&] (double value) {
+               return 1.e-3*value;
+            });
+
     addUnit("Btu h^-1 ft^-1 F^-1", 0, std::numeric_limits<double>::max(),
             [&] (double value) {
                return 1.730734666*value;
             },
             [&] (double value) {
                return value/1.730734666;
+            });
+
+    addUnit("cal s^-1 cm^-1 C^-1", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return 418.680000001*value;
+            },
+            [&] (double value) {
+               return value/418.680000001;
+            });
+
+    addUnit("kcal h^-1 m^-1 C^-1", 0, std::numeric_limits<double>::max(),
+            [&] (double value) {
+               return 1.163*value;
+            },
+            [&] (double value) {
+               return value/1.163;
             });
 }
 
