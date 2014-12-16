@@ -15,6 +15,7 @@
         <file>icons/MatDBAddCategory.png</file>
         <file>icons/MatDBRemoveCategory.png</file>
         <file>icons/MatDBResetFilter.png</file>
+        <file>icons/MatDBPrefLanguage.png</file>
         <file>html/header.html</file>
         <file>html/footer.html</file>
         <file>artwork/MatDBSplashScreen.png</file>
