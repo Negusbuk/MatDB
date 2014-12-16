@@ -35,11 +35,9 @@ MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
     this->setWindowModality(Qt::WindowModal);
     this->setWindowFlags(Qt::Sheet);
     setWizardStyle(ModernStyle);
-    setFixedWidth(700);
-#else
-    setFixedWidth(500);
 #endif
-    setFixedHeight(400);
+    setFixedWidth(900);
+    setFixedHeight(450);
 
     setSizeGripEnabled(false);
 
@@ -52,8 +50,7 @@ MatDBAboutDialog::MatDBAboutDialog(QWidget *parent) :
     layout << QWizard::Stretch << QWizard::FinishButton << QWizard::NextButton;
     setButtonLayout(layout);
 
-    QPixmap pix(":/artwork/MatDBBG.png");
-    pix = pix.scaled(pix.width()/1.5, pix.height()/1.5, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap pix(":/artwork/MatDBAbout.png");
     setPixmap(QWizard::WatermarkPixmap, pix);
     setPixmap(QWizard::LogoPixmap, pix);
     setPixmap(QWizard::BannerPixmap, pix);
