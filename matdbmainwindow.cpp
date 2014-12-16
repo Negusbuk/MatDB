@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <QHeaderView>
 #include <QLayout>
+#include <QSettings>
 
 #include <nqlogger.h>
 
@@ -202,6 +203,8 @@ MatDBMainWindow::MatDBMainWindow(QWidget *parent) :
     connect(autoSaveTimer_, SIGNAL(timeout()),
             this, SLOT(saveData()));
     autoSaveTimer_->start(1000*30);
+
+    restoreGeometry(settings.value("geometry").toByteArray());
 
     updateGeometry();
 }
@@ -406,7 +409,13 @@ void MatDBMainWindow::closeEvent(QCloseEvent * /* event */)
     NQLog("MatDBMainWindow", NQLog::Spam) << "void closeEvent(QCloseEvent *event)";
 
     saveData();
-}
+
+    QSettings settings;
+    settings.setValue("geometry", saveGeometry());
+    // settings.setValue("windowState", saveState());
+
+    NQLog("MatDBMainWindow", NQLog::Spam) << settings.fileName();
+ }
 
 void MatDBMainWindow::aboutDialog()
 {
