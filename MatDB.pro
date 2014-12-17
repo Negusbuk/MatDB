@@ -29,7 +29,7 @@ win32-g++ {
 
 QT       += core gui xml
 
-INCLUDEPATH += ./properties ./external
+INCLUDEPATH += ./src ./src/properties ./src/external
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
