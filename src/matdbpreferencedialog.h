@@ -53,6 +53,7 @@ private:
 
 class LanguagePage : public QWidget
 {
+    Q_OBJECT
 public:
     LanguagePage(QWidget *parent = 0);
 
