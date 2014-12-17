@@ -96,7 +96,7 @@ VersionPage::VersionPage(QWidget *parent)
     layout->addWidget(copyright);
     copyright->setReadOnly(true);
 
-    QFile file(":/COPYRIGHT.html");
+    QFile file(":/html/COPYRIGHT.html");
     file.open(QFile::ReadOnly);
     copyright->setHtml(file.readAll());
     file.close();
@@ -119,7 +119,7 @@ LicensePage::LicensePage(QWidget *parent)
     layout->addWidget(licenseView);
     licenseView->setReadOnly(true);
 
-    QFile file(":/LICENSE.html");
+    QFile file(":/html/LICENSE.html");
     file.open(QFile::ReadOnly);
     licenseView->setHtml(file.readAll());
     file.close();

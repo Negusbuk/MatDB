@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         settings.setValue("dbpath", defaultDBPath);
     }
 
-    QFile file(":/qss/stylesheet.qss");
+    QFile file(":/qss/style/stylesheet.qss");
     file.open(QFile::ReadOnly);
     QString stylesheet(file.readAll());
     file.close();

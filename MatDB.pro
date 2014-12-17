@@ -167,7 +167,7 @@ FORMS    +=
 
 RESOURCES += resources.qrc
 
-OTHER_FILES += stylesheet.qss \
+OTHER_FILES += style/stylesheet.qss \
                icons/MatDBImportXML.png \
                icons/MatDBExportXML.png \
                icons/MatDBExportHTML.png \
@@ -182,10 +182,11 @@ OTHER_FILES += stylesheet.qss \
                icons/MatDBResetFilter.png \
                artwork/MatDBSplashScreen.png \
                artwork/MatDBBG.png \
+               artwork/MatDBAbout.png \
                html/header.html \
                html/footer.html \
-               LICENSE.html \
-               COPYRIGHT.html
+               html/LICENSE.html \
+               html/COPYRIGHT.html
 
 TRANSLATIONS = translations/MatDB_en.ts \
                translations/MatDB_de.ts
