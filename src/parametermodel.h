@@ -26,7 +26,7 @@
 #include <QObject>
 #include <QString>
 
-#include "Parameter.h"
+#include "parameter.h"
 
 class ParameterModel : public QObject
 {
