@@ -1,7 +1,6 @@
 # Other Stuff
 .qmake.*
-Makefile
-.svn
+Makefile*
 MatDB.app
 MatDB.dmg
 MatDB.pbproj
@@ -24,3 +23,6 @@ qrc_*
 *.lai
 *.la
 *.a
+
+release
+object_script.*
