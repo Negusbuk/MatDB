@@ -57,8 +57,6 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
     connect(this, SIGNAL(itemChanged(QTableWidgetItem*)),
             this, SLOT(itemEdited(QTableWidgetItem*)));
 
-    fillTable(ListModel_->getMaterialCount());
-
     setHorizontalHeaderItem(0, new QTableWidgetItem(tr("Material")));
 
     setSelectionBehavior(QAbstractItemView::SelectItems);
@@ -70,10 +68,21 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
 
     setAlternatingRowColors(true);
 
-    horizontalHeader()->setStretchLastSection(true);
-
     setMinimumWidth(400);
     setMinimumHeight(500);
+
+    horizontalHeader()->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
+    horizontalHeader()->setStretchLastSection(true);
+    horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+    verticalHeader()->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::MinimumExpanding);
+    verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    QFontMetrics fontMetrix(verticalHeader()->font());
+    int digits = std::log10(ListModel_->getMaterialCount()) + 1;
+    int width = fontMetrix.width("9999", digits) + 2;
+    verticalHeader()->setFixedWidth(width);
+
+    fillTable(ListModel_->getMaterialCount());
 
     ContextMenu_ = new QMenu();
     ContextMenu_->setMinimumWidth(150);
@@ -82,6 +91,8 @@ MaterialTableView::MaterialTableView(MaterialListModel *listmodel,
     ContextMenu_->addSeparator();
     ContextMenu_->addAction(tr("Duplicate"), selectionmodel, SLOT(duplicateMaterial()),
                             QKeySequence(Qt::Key_Plus | Qt::CTRL));
+
+    updateGeometry();
 }
 
 void MaterialTableView::fillTable(int count)
@@ -105,7 +116,9 @@ void MaterialTableView::fillTable(int count)
         }
 
         setItem(i, 0, item);
-        setVerticalHeaderItem(i, new QTableWidgetItem(QString().setNum(i+1)));
+
+        QTableWidgetItem * headerItem = new QTableWidgetItem(QString().setNum(i+1));
+        setVerticalHeaderItem(i, headerItem);
 
         indexMap_[mat] = item;
     }
