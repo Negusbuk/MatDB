@@ -30,19 +30,19 @@ TokenEditItem {
 }
 
 QHeaderView::section {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 QTableView {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 QTableView::item {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 QTreeView {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 QToolBox {
